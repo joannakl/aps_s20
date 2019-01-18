@@ -12,8 +12,8 @@ title:
 (attendance is mandatory).</p>
 
 
-<p class="hang" markdown="1"><span class="emph">Recitation:</span> <br>
-{{ site.recitation_section1 }}: {{ site.recitation_time1 }}, {{ site.recitation_instructor1_full }} <br>
+<p class="hang" markdown="1"><span class="emph">Recitation:</span>
+ {{ site.recitation_time1 }} <br>
 (__attendance is mandatory__)</p>
 
 <p class="hang" markdown="1"><span class="emph">Recitation leader:</span>   {{ site.recitation_instructor1_full }} </p>
@@ -66,7 +66,7 @@ Many of the top firms in the technological and financial sectors are using algor
 <p class="hang" markdown="1"> **Final Exam:**
 (date and time subject to change by CAS, check the dates posted by the department
 [here]( {{site.final_exams_link}} ) ) <br>
-{{ site.final_exam_date }}
+__{{ site.final_exam_date }}__
 
 
 <br>
