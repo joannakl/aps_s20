@@ -1,0 +1,38 @@
+---
+layout: default
+days:
+    - "l01"
+
+
+---
+
+<div class="titles">
+    <div class="column_date">
+        Date
+    </div>
+
+    <div class="column_materials">
+        Material Covered, Notes, Handouts and Links
+    </div>
+
+    <div class="column_assign">
+        Readings, Assignments, Homework
+    </div>
+</div>
+
+{% comment %}
+
+{% endcomment %}
+
+
+
+{% for i in page.days reversed %}
+    {% assign file_name = "daily/" | append:  i  | append: ".markdown" %}
+    {% capture my_include %}{% include {{ file_name }} %}{% endcapture %}
+    {{ my_include | markdownify }}
+
+{% endfor %}
+
+
+<br>
+<br>
