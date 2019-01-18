@@ -12,6 +12,7 @@ layout: default
 -->
 
 |<img src="{{site.book_opt_1_image}}" name="Book" border="0px" width="120px">| **[{{ site.book_opt_1 }}]( {{ site.book_opt_1_link }})** {{ site.book_opt_1_edition }}<br> {{ site.book_opt_1_author }} <br> {{ site.book_opt_1_note }}  |
+
 <!--
 |<img src="{{site.book_opt_2_image}}" name="Book" border="0px" width="120px">| **[{{ site.book_opt_2 }}]( {{ site.book_opt_2_link }})** {{ site.book_opt_2_edition }}<br> {{ site.book_opt_2_author }} <br> {{ site.book_opt_2_note }}  |
 |<img src="{{site.book_opt_3_image}}" name="Book" border="0px" width="120px">| **[{{ site.book_opt_3 }}]( {{ site.book_opt_3_link }})** {{ site.book_opt_3_edition }}<br> {{ site.book_opt_3_author }} <br> {{ site.book_opt_3_note }}  |
@@ -25,6 +26,10 @@ layout: default
 - [Java API 10 documentation](https://docs.oracle.com/javase/10/docs/api/)
 - [CPP Reference](https://en.cppreference.com/w/)
 - [CPlusPlus](http://www.cplusplus.com/reference/)
+- [Source code examples for the book](https://sites.google.com/site/stevenhalim/home/material) - collection of
+zip files for the third edition of the book
+- [GitHub Repository with the code for the book](https://github.com/stevenhalim/cpbook-code),
+updated for the next edition of the book
 -
 
 
