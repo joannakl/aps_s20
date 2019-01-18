@@ -30,7 +30,7 @@ layout: default
 zip files for the third edition of the book
 - [GitHub Repository with the code for the book](https://github.com/stevenhalim/cpbook-code),
 updated for the next edition of the book
--
+
 
 
 
@@ -66,10 +66,11 @@ For detailed schedule, see the [Daily](daily.html) tab of this page.
 
 Your grade will be based on:
 
-* exams (50%): a midterm exam (20%) and a final (30%),  
-* homework (40%): each homework will consist of a set of problems to be solved on your own and
-  an in-class quiz the following week (the quiz will count as 50% of the homework grade)  
-* recitations (10%): the participation and completion of work during the recitation session
+* exams (50%): a midterm exam (20%) and a final exam (30%),  
+* homework (40%): most homework assignments will consist of a set of problems to be solved on your own and
+  an in-class quiz the following week (the quiz will count as 50% of the homework grade)  - three lowest grades
+  will be dropped to accommodate any excused or unexcused absences
+* recitations (10%): the participation and completion of work during the recitation sessions  - three lowest grades will be dropped to accommodate any excused or unexcused absences
 
 Grades will be determined using the following scale:
 
