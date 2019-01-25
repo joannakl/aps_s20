@@ -38,7 +38,10 @@ updated for the next edition of the book
 ---
 
 - __Passing CSCI.UA.0201 with a grade of C or better.__
-You are expected to know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.
+You are expected to also know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.
+- Strong familiarity with either Java or C++ or both.
+
+
 
 
 # Topics Covered (exact list of topics will depend on how quickly or slowly we will go through the material)
@@ -101,10 +104,40 @@ __Missing an exam:__ There will be no make-up exams. Failure to take an exam cou
 I follow the department's
 [academic integrity rules](http://cs.nyu.edu/webapps/content/academic/undergrad/academic_integrity).
 
-The nature of open source is based on collaborative work. But that work is still performed by individuals.
-Your name should not be associated with a contribution that is not your own or that you have not put significant amount
-of work into.
 
+I follow the department's
+[academic integrity rules](http://cs.nyu.edu/webapps/content/academic/undergrad/academic_integrity).
+
+In short, it is fine to talk to other students about your ideas and your
+programs, but it is not fine to work together on
+assignments or copy someone else's assignment. You cannot copy other people's
+work without giving them a proper credit (and
+part of your grade).<br>
+Any sharing or copying of assignments will be considered cheating.
+By the rules of the College of Arts and Science, I am required to report any incidents of cheating to the department. <br>
+If you have any doubt if something that you are doing qualifies as academic dishonesty, talk to me!
+<br>
+
+*So what is cheating?*
+
+* Sharing code/solutions: by copying, retyping, looking at, or supplying a file (this includes posting partial or
+complete solutions on the course discussion board, a public repository - think GitHub, or any place where others can access it)
+* Coaching: helping your friend to write their code line by line (send
+them to the tutors or office hours, if you want to help them)
+* Copying code from previous course or from elsewhere on WWW.
+    You are only allowed to use code from the textbook and what we supply on the course website.
+* Hiring someone to complete your assignments for you.
+
+
+*What is NOT cheating?*
+
+* Explaining how to use systems or tools
+* Helping others with high-level design issue
+
+
+
+__You are responsible for thoroughly understanding every piece of code or algorithm that
+you submit.__
 
 
 # Academic Email Etiquette
