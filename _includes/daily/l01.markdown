@@ -16,12 +16,19 @@ Tue, 1/29
 
 Intro to the class.
 
+[Verdict information for UVa judge](https://uva.onlinejudge.org/index.php?option=com_content&task=view&id=16&Itemid=31)
+
 </p>
 </div>
 
 <div class="column_assign">
 <p markdown="block">
 
+Due immediately:
+
+- complete this [consent form](https://goo.gl/forms/VkjzkgH9LUSoNJno1)
+- register on the [VJudge](https://vjudge.net/) website
+- complete the [class survey](https://goo.gl/forms/j5KAcZQLllvYjd083)
 
 
 
