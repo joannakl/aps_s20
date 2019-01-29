@@ -16,6 +16,8 @@ Tue, 1/29
 
 Intro to the class.
 
+<br>
+
 [Verdict information for UVa judge](https://uva.onlinejudge.org/index.php?option=com_content&task=view&id=16&Itemid=31)
 
 </p>
