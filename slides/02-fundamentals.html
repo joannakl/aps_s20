@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fundamentals</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Fundamentals
+### (or how fast is your code)
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+# This Course
+
+- Course website: https://cs.nyu.edu/~joannakl/aps_s19/
+
+    This page contains the syllabus and daily summaries as well as loads
+    of links to all other resources and services you will need for this class.
+
+- Recitations (required):
+  - Fridays 5:10 - 7:00pm
+  - plan to bring your laptop
+
+- Course message board / discussion: Piazza
+  - you can self-sign up at https://piazza.com/nyu/spring2019/aps
+
+- Online judge: [Vjudge](https://vjudge.net/)
+
+- Grades posted on NYU Classes
+
+- (Possibly Gradescope - not certain yet)
+
+
+
+---
+
+# Operations Count
+
+- How fast your program runs depends on how many things it does
+
+  _things_ == operations that the CPU performs on behalf of the program
+
+- How many things the computer does depends on how you (the programmer) write
+the code, what algorithm you chose, etc
+
+--
+
+So, how many operations does this program perform:
+.left-column2[
+```C++
+#include <iostream>
+using namespace std;
+
+int main() {
+  for (int i = 1; i <= 10; i++ ) {
+    for (int j = 1; j <= 10; j++ ) {
+      printf("%3d\t", i*j);
+    }
+    printf("\n");
+  }
+  return 0;
+}
+```
+]
+
+--
+
+.right-column2[
+  .huge[.center[???]]
+]
+
+---
+# Counting operations and not easy (possible)
+
+- hard to figure out what to count, some operations in the high level
+programming language may be actualy multiple operations on the CPU
+
+- some CPU operations are faster then others
+
+- some operations require I/O and that slows them down
+
+
+.big [we need a simplified way of deciding how fast the program runs]
+
+---
+# Asymptotic Analysis: Big O
+
+.center[
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Big-O-notation.png" width=50%>
+]
+
+Example of Big O notation:
+
+f(x) ∈ O(g(x)) as there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5) such that f(x) ≤ cg(x) whenever x ≥ x0.
+
+.footnote[Image and descriptions in Public Domain. Retrieved from Wikipedia:
+https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
+
+---
+# Asymptotic Analysis
+
+
+__O(g(n)) = f(n)__
+
+There exists a positive constants _c_ and _n0_ such that
+_0 <= f(n) <= cg(n)_ for all _n >= n0_.
+
+--
+
+__O(g(n)) = f(n)__
+
+There exists a positive constants _c_ and _n0_ such that
+_0 <= f(n) <= cg(n)_ for all _n >= n0_.
+
+
+---
+# From Big O to Actual Execution Time
+
+- a typical machine executes approximately 10^9 operations per second
+ (on average, since some are slower than others)
+
+--
+
+- to determine how long it might take the program to execute on the largest
+possible input size (this is specified as part of the constrains for the problem)
+  - determine the the Big O term for the maximum N
+  - divide the result by 10^9
+
+  (this will give you the number of seconds it should take your program
+  to solve the problem - again, this is an approximation, but
+  it gives us the sense of what might happen)
+
+---
+# From Big O to Actual Execution Time
+
+
+__Example__: check all pairs of value in the input set
+
+- Big O is O(N^2)
+
+--
+
+- when N = 10, N^2 = 100, time = 100 / 10^9   => program finishes immediately
+
+--
+
+- when N = 1000, N^2 = 1,000,000, time = 10^6 / 10^9  => program finishes in 0.001s (practically instantly)
+
+--
+
+- when N = 10^5, N^2 = 10^10, time = 10^10 / 10^9  => program finishes in 10s
+(too long for the types of problem that we will be looking at)
+
+
+---
+# What's the performance of ...
+
+```C++
+int ans = 0;
+for (int i = 0; i < n; i++ ) {
+  for (int j = 0; j < n; j++ ) {
+    for (int k = 0; k < n; k++ ) {
+      ans += i*j + j*k + k*i;
+    }
+  }
+}
+```
+--
+
+.big[O(N^3)]
+
+---
+# What's the performance of ...
+
+```C++
+int ans = 0;
+for (int i = 0; i < n; i++ ) {
+  for (int j = i+1; j < n; j++ ) {
+    for (int k = j+1; k < n; k++ ) {
+      ans += i*j + j*k + k*i;
+    }
+  }
+}
+```
+--
+
+.big[O(N^3)]
+
+---
+# Challenge
+
+Write a function that checks if a sting Y is a substring of another
+string X. The function should return `true` or `false`.
+
+Ex.
+
+Y = 'abcdaaaabbbbcddd'
+
+- X = 'ab'  => function returns `true`
+- X = 'abab'  => function returns `false`
+
+
+---
+
+
+# What's the performance of ...
+
+check if a string Y is a substring of another string X
+
+```Java
+boolean substringMatch ( String X, String Y ) {
+  for (int i = 0; i < X.length; i++ ) {
+    boolean matched = true;
+    for (int j = 0; j < Y.length; j++) {
+      if (i+j >= X.length)
+        matched = false;
+      if ( X[i] != Y[j] )
+        matched = false;
+    }
+    if (matched) return true;
+  }
+  return false;
+}
+```
+--
+
+.big[O(X.length * Y.length)]
+
+--
+
+Can we reduce the time further? - constant factor optimization
+
+--
+
+add
+
+```Java
+if (!matched) break;
+```
+
+as the last statement in the inner for loop
+
+---
+# Constant factor optimization
+
+- good in practice
+
+- will not be important for most problems you encounter in this class
+
+# Challenge
+
+
+given a sorted array of values, create a new sorted array that contains
+only the unique elements
+
+ex.
+
+given array: [1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]
+
+new array: [1, 4, 5, 6, 7, 9]
+
+
+---
+# What's the performance of ...
+
+given a sorted array of values, create a new sorted array that contains
+only the unique elements
+
+
+```C++
+for (int i = 0; i < n; i++ ) {
+  int j = i;
+  while (j < n && oldArray[j] == oldArray[i] ) j++;
+  newArray.push(oldArray[i]);
+  i = j - 1;
+}
+```
+--
+
+.big[O(length of oldArray)]
+
+---
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+  </body>
+</html>
