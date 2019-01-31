@@ -107,6 +107,40 @@ programming language may be actualy multiple operations on the CPU
 .big[we need a simplified way of deciding how fast the program runs]
 
 ---
+
+class: center, middle
+
+# Asymptotic Analysis
+
+---
+
+# Asymptotic Analysis
+
+
+__$O(g(n)) = f(n)$__
+
+There exist positive constants _c_ and _$n_0$_ such that
+$0 <= f(n) <= cg(n)$ for all $n >= n_0$
+
+--
+
+<hr>
+
+__ $\Omega(g(n)) = f(n)$__
+
+There exist positive constants _$c$_ and _$n_0$_ such that
+$0 <= cg(n)<= f(n) $ for all $n >= n_0$
+
+--
+
+<hr>
+
+__ $\Theta(g(n)) = f(n)$__
+
+There exist positive constants _$c_1$_, _$c_2$_ and _$n_0$_ such that
+$0 <= c_1g(n) <= f(n) <= c_2g(n) $ for all $n >= n_0$
+
+---
 # Asymptotic Analysis: Big O
 
 .center[
@@ -121,28 +155,42 @@ f(x) ∈ O(g(x)) as there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5) such 
 https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
 
 ---
-# Asymptotic Analysis
+
+# Challenge
+
+For each of the following functions state if it is $O(N^2)$:
+
+- $3 N^2 + 25 N - 20000$
+
+- $0.00001 N^3 + 5 N + 2$
+
+- $3N!$
+
+- $2^N$
+
+- $\log N$
+
+- $1$
 
 
-__O(g(n)) = f(n)__
+---
+# "Abuse" of Big O
 
-There exist positive constants _c_ and _n0_ such that
-_0 <= f(n) <= cg(n)_ for all _n >= n0_.
+People often say "The algorithm is $O(N^3)$ - this is slow".
 
---
-$$\Omega$$
+An algorithm that performs in constant time is $O(N^3)$ so the above
+does not make much sense.
+
+But this is a common abuse of the terminology. We really mean that
+the algorithm is $\Theta(N^3)$, even though we use the Big O description.
 
 
-__O(g(n)) = f(n)__
-
-There exist positive constants _c_ and _n0_ such that
-_0 <= f(n) <= cg(n)_ for all _n >= n0_.
 
 
 ---
 # From Big O to Actual Execution Time
 
-- a typical machine executes approximately 10^9 operations per second
+- a typical machine executes approximately $10^9$ operations per second
  (on average, since some are slower than others)
 
 --
@@ -150,7 +198,7 @@ _0 <= f(n) <= cg(n)_ for all _n >= n0_.
 - to determine how long it might take the program to execute on the largest
 possible input size (this is specified as part of the constrains for the problem)
   - determine the the Big O term for the maximum N
-  - divide the result by 10^9
+  - divide the result by $10^9$
 
   (this will give you the number of seconds it should take your program
   to solve the problem - again, this is an approximation, but
@@ -162,19 +210,19 @@ possible input size (this is specified as part of the constrains for the problem
 
 __Example__: check all pairs of value in the input set
 
-- Big O is O(N^2)
+- Pwerformance is $O(N^2)$
 
 --
 
-- when N = 10, N^2 = 100, time = 100 / 10^9   => program finishes immediately
+- when $N = 10$, $N^2 = 100$, time = $100 / 10^9$   => program finishes immediately
 
 --
 
-- when N = 1000, N^2 = 1,000,000, time = 10^6 / 10^9  => program finishes in 0.001s (practically instantly)
+- when $N = 1000$, $N^2 = 1,000,000$, time = $10^6 / 10^9$  => program finishes in 0.001s (practically instantly)
 
 --
 
-- when N = 10^5, N^2 = 10^10, time = 10^10 / 10^9  => program finishes in 10s
+- when $N = 10^5$, $N^2 = 10^10$, time = $10^10 / 10^9$  => program finishes in 10s
 (too long for the types of problem that we will be looking at)
 
 
@@ -193,7 +241,7 @@ for (int i = 0; i < n; i++ ) {
 ```
 --
 
-.big[O(N^3)]
+.big[$O(N^3)$]
 
 ---
 # What's the performance of ...
@@ -210,7 +258,7 @@ for (int i = 0; i < n; i++ ) {
 ```
 --
 
-.big[O(N^3)]
+.big[$O(N^3)$]
 
 ---
 # Challenge
@@ -271,7 +319,7 @@ as the last statement in the inner for loop
 
 - good in practice
 
-- will not be important for most problems you encounter in this class
+- will not make significant improvments for most problems you encounter in this class
 
 ---
 # Challenge
@@ -306,8 +354,7 @@ for (int i = 0; i < n; i++ ) {
 
 .big[O(length of oldArray)]
 
----
-
+(even though we have nested loops in the code)
 
 
 ---
@@ -315,21 +362,126 @@ for (int i = 0; i < n; i++ ) {
 
 | N | worst algorithm to pass on OJ |
 |:---|:---|
-| <= 10 | O(n!), O(n^6) |
-| <=[15 .. 18 ] | O(2^n * n^2) |
-| <=[18 .. 22 ] | O(2^n * n) |
-| <= 100 | O(n^4) !!! |
-| <= 400 | O(n^3) |
-| <= 2K | O(n^2 log n) |
-| < 10K | O(n^2)  !!! |
-| <= 1M | O(n log n) |
-| <= 100M | O(n)   !!! , O(log n), O(1) |
+| <= 10 | $O(n!)$, $O(n^6)$ |
+| <=[15 .. 18 ] | $O(2^n * n^2)$ |
+| <=[18 .. 22 ] | $O(2^n * n)$ |
+| <= 100 | $O(n^4)$ !!! |
+| <= 400 | $O(n^3)$ |
+| <= 2K | $O(n^2 log n)$ |
+| < 10K | $O(n^2)$  !!! |
+| <= 1M | $O(n log n)$ |
+| <= 100M | $O(n)$   !!! , $O(log n)$, $O(1)$ |
 
 !!! but getting close to 10^8 may be dangerous
 
 
 For examples of algorithms that perform with those complexities, see Table 1.4
 in the book. (But do not worry if you are not familiar with all of those algorithms.)
+
+
+---
+
+class: center, middle
+
+# Data Types and Their Representation
+
+---
+
+# Data Types
+
+All data represented as binary in hardware.
+
+Primitive types:
+
+|type| size|
+|---|---|
+|`boolean` (in C), `char` (in C/C++)| 1 byte |
+|`short`, `char` (in Java) | 2 bytes |
+|`int`, `float` | 4 bytes|
+|`long`, `double` | 8 bytes |
+
+--
+
+String
+
+- not a primitive type
+- stored as an array of characters
+- WARNING: comparing two strings for equality is NOT constant time
+
+---
+
+# Binary Representation of Integers
+
+- use of base-2
+
+- binary to decimal
+  - $(101)_2 = 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 5$
+  - $(11010)_2 = 1 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 = 26$
+
+- decimal to binary: mod by 2, record the remainder, divide by 2, and finally reverse the resulting string
+  - `26 % 2 = 0 ` &nbsp; ` 26 / 2 = 13 `
+  - `13 % 2 = 1 ` &nbsp; ` 13 / 2 = 6 `
+  - ` 6 % 2 = 0 ` &nbsp; `  6 / 2 =  3 `
+  - ` 3 % 2 = 1 ` &nbsp; `  3 / 2 =  1 `
+  - ` 1 % 2 = 1 ` &nbsp; `  1 / 2 =  0 `
+
+---
+
+# Use of other bases
+
+__Base 3__
+
+  - $(201)_3 = 2 \times 3^2 + 0 \times 3^1 + 1 \times 3^0 = 19$
+
+__Base 9__
+
+  - $(480)_9 = 4 \times 9^2 + 8 \times 9^1 + 0 \times 9^0 = 396$
+
+__Base 16__
+
+  - ...
+
+---
+# Largest/Smallest  value with N bits
+
+- A type using 4-bits can represent integers $(0000)_2$ to $(1111)_2$
+
+
+- __Non-negative numbers__: a type using N-bits can represent values in the
+range $[0, 2^N)$ <br>
+  - upperbound is NOT included
+  - this assumes that we represent only non-negative values
+
+
+- __Non-negative numbers__: a type using N-bits can represent values in
+the range $[-2^{n-1}, 2^{N-1})$ <br>
+  - upperbound is NOT included
+  - the leading bit is associated with a negative multiplier
+
+
+__For signed numbers the limit on the `int` is $2^{31}-1 = 2,147,483,647$ <br>(or approximately
+$2\times 10^9)$.__
+
+---
+# ASCII/UTF-8 and `char` type
+
+- characters are just numbers that use fewer bits (8 bits or 16 bits)
+
+- each character has a corresponding numerical value
+  - 'a' = 97
+  - 'A' = 65
+  - '2' = 50
+  - '!' = 33
+
+- this comes in handy when comparing strings or processing characters for other
+purposes
+
+- but be careful about lexicographical ordering
+  - "aaa" < "ab"
+  - "AAA" < "aaa"
+  - "ZZZ" < "aaa"
+  - "10" < "100"
+  - "2000" < "30"
 
 
 </optgroup>

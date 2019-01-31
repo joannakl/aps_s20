@@ -14,7 +14,7 @@ Tue, 1/29
 <div class="column_materials">
 <p markdown="block">
 
-Intro to the class.
+[Intro to the class](slides/01-course_intro.html).
 
 <br>
 
