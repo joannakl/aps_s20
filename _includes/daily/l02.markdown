@@ -15,6 +15,11 @@ Thu, 1/31
 <p markdown="block">
 
 
+Fundamentals: algorithmic analysis, data types/sizes.
+
+<!--
+[Fundamentals](slides/02-fundamentals.html): algorithmic analysis, data types/sizes.
+-->
 
 </p>
 </div>
@@ -22,6 +27,7 @@ Thu, 1/31
 <div class="column_assign">
 <p markdown="block">
 
+read chapters 1 and 2.1-2.3 in the textbook
 
 
 
