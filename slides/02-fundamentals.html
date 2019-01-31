@@ -17,7 +17,6 @@ class: center, top
 ## Algorithmic Problem Solving
 <br>
 ## Fundamentals
-### (or how fast is your code)
 
 
 .author[
@@ -103,8 +102,9 @@ programming language may be actualy multiple operations on the CPU
 
 - some operations require I/O and that slows them down
 
+--
 
-.big [we need a simplified way of deciding how fast the program runs]
+.big[we need a simplified way of deciding how fast the program runs]
 
 ---
 # Asymptotic Analysis: Big O
@@ -126,14 +126,16 @@ https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
 
 __O(g(n)) = f(n)__
 
-There exists a positive constants _c_ and _n0_ such that
+There exist positive constants _c_ and _n0_ such that
 _0 <= f(n) <= cg(n)_ for all _n >= n0_.
 
 --
+$$\Omega$$
+
 
 __O(g(n)) = f(n)__
 
-There exists a positive constants _c_ and _n0_ such that
+There exist positive constants _c_ and _n0_ such that
 _0 <= f(n) <= cg(n)_ for all _n >= n0_.
 
 
@@ -271,6 +273,7 @@ as the last statement in the inner for loop
 
 - will not be important for most problems you encounter in this class
 
+---
 # Challenge
 
 
@@ -306,6 +309,29 @@ for (int i = 0; i < n; i++ ) {
 ---
 
 
+
+---
+# Rule of Thumb About Complexity
+
+| N | worst algorithm to pass on OJ |
+|:---|:---|
+| <= 10 | O(n!), O(n^6) |
+| <=[15 .. 18 ] | O(2^n * n^2) |
+| <=[18 .. 22 ] | O(2^n * n) |
+| <= 100 | O(n^4) !!! |
+| <= 400 | O(n^3) |
+| <= 2K | O(n^2 log n) |
+| < 10K | O(n^2)  !!! |
+| <= 1M | O(n log n) |
+| <= 100M | O(n)   !!! , O(log n), O(1) |
+
+!!! but getting close to 10^8 may be dangerous
+
+
+For examples of algorithms that perform with those complexities, see Table 1.4
+in the book. (But do not worry if you are not familiar with all of those algorithms.)
+
+
 </optgroup>
 
 
@@ -314,6 +340,20 @@ for (int i = 0; i < n; i++ ) {
      <script src="js/remark.js" type="text/javascript">
     </script>
     <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
     </script>
 
   </body>
