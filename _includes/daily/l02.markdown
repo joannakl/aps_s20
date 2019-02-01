@@ -17,9 +17,9 @@ Thu, 1/31
 
 Fundamentals: algorithmic analysis, data types/sizes.
 
-<!--
+
 [Fundamentals](slides/02-fundamentals.html): algorithmic analysis, data types/sizes.
--->
+
 
 </p>
 </div>
