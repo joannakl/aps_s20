@@ -3,8 +3,8 @@
 <div class="column_date">
 <p markdown="block">
 
-Rec # 1 <br>
-Fri, 2/1
+Rec # 2 <br>
+Fri, 2/8
 
 </p>          
 </div>
@@ -13,10 +13,7 @@ Fri, 2/1
 <p markdown="block">
 
 
-Review of standard input and standard output for C/C++ and Java.
 
-Working on simple problems. <br>
-(Solutions sent out after the recitation.)
 
 </p>        
 </div>
