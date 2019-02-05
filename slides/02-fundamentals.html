@@ -268,10 +268,10 @@ string X. The function should return `true` or `false`.
 
 Ex.
 
-Y = 'abcdaaaabbbbcddd'
+X = 'abcdaaaabbbbcddd'
 
-- X = 'ab'  => function returns `true`
-- X = 'abab'  => function returns `false`
+- Y = 'ab'  => function returns `true`
+- Y = 'abab'  => function returns `false`
 
 
 ---
@@ -282,13 +282,15 @@ Y = 'abcdaaaabbbbcddd'
 check if a string Y is a substring of another string X
 
 ```Java
-boolean substringMatch ( String X, String Y ) {
-  for (int i = 0; i < X.length; i++ ) {
+public static boolean substringMatch ( String X, String Y ) {
+  for (int i = 0; i < X.length(); i++ ) {
     boolean matched = true;
-    for (int j = 0; j < Y.length; j++) {
-      if (i+j >= X.length)
+    for (int j = 0; j < Y.length(); j++) {
+      if (i+j >= X.length()) {
         matched = false;
-      if ( X[i] != Y[j] )
+        break;
+      }
+      if ( X.charAt(i+j) != Y.charAt(j) )
         matched = false;
     }
     if (matched) return true;
@@ -300,6 +302,7 @@ boolean substringMatch ( String X, String Y ) {
 
 .big[O(X.length * Y.length)]
 
+(Note: there exists a more efficient solution. )
 --
 
 Can we reduce the time further? - constant factor optimization
@@ -493,7 +496,7 @@ In pairs,
 
 - create two new test cases (input and output pairs), restriction: they need to
 be values > 1000
- 
+
 
 </optgroup>
 
