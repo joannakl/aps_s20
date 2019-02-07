@@ -15,12 +15,11 @@ Tue, 2/5
 <p markdown="block">
 
 Homework problems discussion.
-
-Review of linear data structures, part 1.
-
 <!--
-[Review of linear data structures](slides/03-linear-ds.html).
+Review of linear data structures, part 1.
 -->
+
+[Review of linear data structures, part1](slides/03-linear-ds_1.html).
 
 <br>
 
