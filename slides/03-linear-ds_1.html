@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linear Data Structures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Linear Data Structures
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+# Questions
+
+- homework 1 questions ?
+
+
+
+---
+# Basic Linear Data Structures
+
+- list
+  - array
+  - linked
+- stack
+- queue
+
+--
+
+Operations that determine performance of a data structure:
+
+- insertion
+- deletion
+- query / find
+- update / modify
+
+--
+
+__Data structures are separate from their implementations.__ For most there are many
+different ways to implement them.
+
+--
+
+Most of the linear data structures are implemented in built-in libraries.
+
+---
+
+class: middle, center
+
+#Lists
+
+
+---
+# List as a Static Array
+
+_static array_ = fixed size, no need to resize it
+
+- natively supported by both C/C++ and Java
+
+- can be declared with appropriate size up-front if the problem specifies
+the maximum input size (HINT: use extra buffer for safety to avoid
+going out of bounds)
+
+- can be multi-dimensional: 1D, 2D, 3D, ...
+
+--
+
+- allocated in memory as consecutive memory locations (important for fast accesses)
+
+- assume that indexes in use are all in the front (starting at low indexes) and
+there are no gaps
+
+```
+      -------------------------------------
+      | 3 | 7 | -1| 0 | 15| -5|   |   |   |
+      -------------------------------------
+```
+
+--
+
+- performance of operations
+  - insert/delete in the back O(1)
+  - insert/delete in the front or _middle_ O(N)
+  - update/modify O(???)
+  - find O(???)
+
+
+---
+# List as a Static Array
+
+_static array_ = fixed size, no need to resize it
+
+- natively supported by both C/C++ and Java
+
+- can be declared with appropriate size up-front if the problem specifies
+the maximum input size (HINT: use extra buffer for safety to avoid
+going out of bounds)
+
+- can be multi-dimensional: 1D, 2D, 3D, ...
+
+
+
+- allocated in memory as consecutive memory locations (important for fast accesses)
+
+- assume that indexes in use are all in the front (starting at low indexes) and
+there are no gaps
+
+```
+      -------------------------------------
+      | 3 | 7 | -1| 0 | 15| -5|   |   |   |
+      -------------------------------------
+```
+
+
+
+- performance of operations
+  - insert/delete in the back O(1)
+  - insert/delete in the front or _middle_ O(N)
+  - update/modify: using index O(1), if need to find, then see below
+  - find O(N) if not sorted, O(logN) if sorted
+
+
+---
+# List as a Static Array
+
+__Java 1D and 2D static array__
+
+```Java
+int[] a;                       // declare the array
+a = new int[n];                // create the array
+for (int i = 0; i < n; i++)    // elements are indexed from 0 to n-1
+   a[i] = 1;                   // initialize all elements to 1
+```
+```Java
+double[][] a;                   // declare a 2D array
+a = new double[m][n];           // create a 2D array with m rows and n columns
+for (int i = 0; i < m; i++)     // initialize all values to 0
+   for (int j = 0; j < n; j++)
+      a[i][j] = 0;
+```
+
+__C/C++__
+
+```C++
+int a[n];                      // declare/create the array
+for (int i = 0; i < n; i++)    // elements are indexed from 0 to n-1
+   a[i] = 1;                   // initialize all elements to 1
+```
+
+```C++
+double a[m][n];                 // declare/create a 2D array with m rows and n columns
+for (int i = 0; i < m; i++)     // initialize all values to 0
+   for (int j = 0; j < n; j++)
+      a[i][j] = 0;
+```
+
+---
+# List as a Dynamic/Resizable Array
+
+- implementation provided by buil-in classes:
+  - `vector` in C++ STL
+  - `ArrayList` or `Vector` in Java (`ArrayList` is faster because it
+  is unsynchronized)
+
+- used when required size is not known at compile time
+
+--
+
+__performance of operations__
+
+use __amortized analysis__: average/amortized performance of a sequence of operations
+rather than each single operation <br>
+reason ???
+
+
+
+---
+# List as a Dynamic/Resizable Array
+
+- implementation provided by buil-in classes:
+  - `vector` in C++ STL
+  - `ArrayList` or `Vector` in Java (`ArrayList` is faster because it
+  is unsynchronized)
+
+- used when required size is not known at compile time
+
+
+
+__performance of operations__
+
+use __amortized analysis__: average/amortized performance of a sequence of operations
+rather than each single operation <br>
+reason: because this way the cost of a resize and copy of data is averaged
+out <br>
+(works only if resizing is done by multiplicative factor)
+
+--
+
+  - insert/delete in the back O(1)
+  - insert/delete in the front or _middle_ O(N)
+  - update/modify: using index O(1), if need to find, then see below
+  - find O(N) if not sorted, O(logN) if sorted
+
+---
+# List as a Linked Structure
+## (a Linked List)
+
+
+- implementation provided by buil-in classes:
+  - `list` in C++ STL
+  - `LinkedList`  in Java
+
+- rarely used due to poor performance of accessing elements
+
+- (good exercise: implement your own in both Java and C++ to
+practice reference/pointer operations)
+
+- performance of operations
+  - insert/delete in the back/front O(1) (assume a doubly linked)
+  - insert/delete in the _middle_ O(N)
+  - update/modify: O(N) (except for in the front/back)
+  - find O(N)
+
+
+---
+
+# List _Hybrids_
+
+- dynamically allocated list that consists of short fixed sized arrays that
+are connected into a linked list
+
+.center[<img src="img/linked_arrays.png" alt="linked array" width = "60%"/>]
+
+--
+
+- linked list in which the "links" are provided by indexes in a separate
+array
+
+
+.center[<img src="img/linked_by_index.png" alt="linked by index" width = "60%"/>]
+
+
+
+
+---
+
+# Challenge
+
+.left-column2[
+Given a `head` pointer/reference to a singly linked list, determine if it has a loop.
+
+Determine the length of the loop if it exists.
+
+Restrictions:
+- Elements in the list are not unique.
+- Do not use extra storage.
+
+]
+.right-column2[<br/><br/><br/><br/>
+<img src="img/loop_tester.png" alt="list with a loop?" width = "100%"/>]
+
+
+--
+
+.below-column2[
+
+__Solution__ Rabbit and Turtle (two pointers)
+- start two pointers at head
+- advance rabbit two steps per iteration
+- advance turtle one step per iteration
+- if they meet (i.e., rabbit does not find the end of the list)
+then there is a loop and a note at which they meet is somewhere on the loop
+- trace through the loop with one of them to determine the number of nodes in
+the loop
+]
+
+---
+
+# Challenge
+
+
+- Can a singly linked list be circular?
+
+- Can a doubly linked list be circular?
+
+- Can a doubly linked list have a loop?
+
+
+
+---
+
+class: middle, center
+
+# Stacks
+
+---
+# Stack (first in last out, FILO)
+
+
+- implementation provided by buil-in classes:
+  - `stack` in C++ STL
+  - `Stack`  in Java
+
+--
+
+- operations performed
+    - add/push O(1) - adds to the top
+    - remove/pop O(1) - removes from the top
+    - top O(1) - access the element on the top (optional)
+    - empty O(1) - determine if the stack is empty (optional)
+
+--
+
+- used in many algorithms for solving problems
+  - postfix, prefix calculations and conversions
+  - graph algorithms
+
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d\n", x);
+  fun(x-1);
+}
+```
+
+--
+
+Output
+```
+4
+3
+2
+1
+```
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  printf ("%d\n", x);
+}
+```
+
+--
+
+Output
+```
+1
+2
+3
+4
+```
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+
+--
+
+Output `1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
+
+--
+
+How about these functions? (Try it on your own after the class. )
+.left-column2[
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d ", x);
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+]
+.right-column2[
+```C++
+void fun (int x, int y ) {
+  if ( abs(x) >= 3 || abs(y) >= 2)
+    return;
+  printf ("%d %d\n", x, y);
+  fun(x-1, y+1);
+  fun(x  , y-1);
+  fun(x+1, y-1);
+  printf ("%d %d\n", x, y);
+}
+```
+]
+--
+
+.below-column2[
+__For more complicated recursive functions, draw a call stack tree.__
+]
+---
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

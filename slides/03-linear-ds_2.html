@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linear Data Structures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Linear Data Structures
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+# Questions
+
+- homework 1 questions ?
+
+
+
+---
+# Basic Linear Data Structures, Continuted
+
+- list
+  - array
+  - linked
+- stack
+- queue
+
+
+---
+
+class: middle, center
+
+# Stacks
+
+---
+# Stack (first in last out, FILO)
+
+
+- implementation provided by buil-in classes:
+  - `stack` in C++ STL
+  - `Stack`  in Java
+
+--
+
+- operations performed
+    - add/push O(1) - adds to the top
+    - remove/pop O(1) - removes from the top
+    - top O(1) - access the element on the top (optional)
+    - empty O(1) - determine if the stack is empty (optional)
+
+--
+
+- used in many algorithms for solving problems
+  - postfix, prefix calculations and conversions
+  - graph algorithms
+
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d\n", x);
+  fun(x-1);
+}
+```
+
+--
+
+Output
+```
+4
+3
+2
+1
+```
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  printf ("%d\n", x);
+}
+```
+
+--
+
+Output
+```
+1
+2
+3
+4
+```
+---
+
+# Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+
+--
+
+Output `1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
+
+--
+
+How about these functions? (Try it on your own after the class. )
+.left-column2[
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d ", x);
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+]
+.right-column2[
+```C++
+void fun (int x, int y ) {
+  if ( abs(x) >= 3 || abs(y) >= 2)
+    return;
+  printf ("%d %d\n", x, y);
+  fun(x-1, y+1);
+  fun(x  , y-1);
+  fun(x+1, y-1);
+  printf ("%d %d\n", x, y);
+}
+```
+]
+--
+
+.below-column2[
+__For more complicated recursive functions, draw a call stack tree.__
+]
+---
+
+# Challenge: Brackets Matching
+
+Given a mathematical expression containing parentheses, i.e., `(` and `)`, determine if the
+expression is valid.
+
+Example:
+
+`()(())` => valid
+
+`)()(())(` => invalid
+
+`()()(` => invalid
+
+
+--
+
+------
+
+- Can you solve it without using any data structures (i.e., no stack)?
+
+--
+
+- Can you solve it for different types of brackets in a single expression?
+
+  `{()()}[(())]` => valid
+
+  `{)()(]` => invalid
+
+  `(){(})` => invalid
+
+---
+
+# Challenge: Brackets Matching
+
+__Solution with one kind of brackets__:
+
+- keep an integer that starts at zero
+- for each opening bracket increment it
+- for closed bracket decrement it (if less than zero, INVALID)
+
+if the value at the end is zero, then VALID, otherwise INVALID
+
+--
+
+__Solution for mixed brackets__:
+
+- keep a stack of characters
+- for each opening brackets, push it on the stack
+- for each closing bracket,
+  - if matches top of the stack, then pop the stack
+  - otherwise, INVALID  (this covers empty stack as well)
+
+if the stack is empty, then VALID, otherwise INVALID
+
+
+--
+
+__What is the time complexity of these algorithms?__
+
+--
+
+- Linear in the length of the input string expression.
+
+---
+# Exercise
+
+Can we use dynamic/resizable array (`vector` in C++ or `Vector` in Java)
+to provide efficient implementation of a stack?
+
+- If so, figure out how to do it (i.e., determine which functions
+in those classes give provide the functionality that is
+required by the stack).
+
+
+---
+
+# Evaluating Mathematical Expressions
+
+Evaluate an arithmetic expression with only operators and numbers:
+
+- `1 + 2 + 3    =>  6`
+- `1 + 2 * 3    =>  7`
+- `1 * 2 * 3    =>  6`
+- `1 * 2 + 3    =>  5`
+
+--
+
+Do the same with added parenthesis:
+
+- `1 + 2 * 3    =>  7`
+- `(1 + 2) * 3    =>  9`
+- `1 * 2 + 3    =>  5`
+- `1 * (2 + 3)    =>  6`
+
+--
+
+The code that can evaluate such expressions has to:
+- find and evaluate all subexpressions
+- for each operator figure out what its operands are
+
+It is easier if we can ignore the parenthesis and not have to
+worry about the operator precedence.
+
+---
+
+# Prefix  and Postfix Notations
+### (a.k.a. Polish and Reverse Polish Notation)
+
+__Infix notation__ is a notation for writing human readable arithmetic
+expressions in which the operator appears _in-between_ its operands.
+
+[__Prefix notation__](http://en.wikipedia.org/wiki/Polish_notation)
+is a notation for writing arithmetic expressions in
+which the operator comes _before_ its operands.
+
+[__Postfix notation__](http://en.wikipedia.org/wiki/Reverse_Polish_notation)
+is a notation for writing arithmetic expressions in
+which the operator comes _after_ its operands.
+
+| infix          | prefix           | postfix      |
+| :--------------| :--------------- | :----------- |
+| `2 + 5`        |  `+ 2 5`         | ` 2 5 + `    |
+| `(2 + 4) * 5`  | `* + 2 4 5`      | ` 2 4 + 5 *` |
+| `2 + 4 * 5`    |  `+ 2 * 4 5`     | ` 2 4 5 * +` |
+
+---
+
+# Evaluate Prefix Expressions
+
+
+- scan the given prefix expression from right to left
+- for each token in the input prefix expression
+  - if the token is an operand then
+      - push onto a stack
+  - else if the token is an operator then
+      - operand1 = pop stack
+      - operand2 = pop stack
+      - compute operand1 operator operand2
+      - push result onto stack
+- return top of stack as result
+
+---
+
+# Evaluate Postfix Expressions
+
+
+- scan the given postfix expression from left to right
+- for each token in the input postfix expression
+  - if the token is an operand
+      - push it (its value) onto a stack
+  - else if the token is an operator
+      - operand2 = pop stack       (!!!)
+      - operand1 = pop stack
+      - compute operand1 operator operand2
+      - push result onto stack
+- return top of the stack as result
+
+---
+# Convert Infix to Postfix
+
+- for each character in the input infix string expression
+  - if the character is an operand
+      - append to postfix string expression
+  - else if the character is a left brace
+      - push it onto the operator stack
+  - else if the character is an operator
+      - if the stack is not empty
+          - while top element on the stack has higher precedence
+              - pop the stack and append to postfix string expression
+      - push it (the current operator) onto the operator stack
+  - else if the character is a right brace
+      - while the operator stack is not empty
+          - if the top of the operator stack is not a matching left brace
+              - pop the operator stack and append to postfix string expression
+          - else
+              - pop the left brace and discard
+              - break
+- while the operator stack is not empty
+  - pop the operator stack and append to postfix string expression
+
+---
+# Exercise
+
+Apply the infix to postfix conversion to the following expression:
+$$4 + (5 * 6) / (1 + 2 + 3) $$
+
+Show the content of the operator stack and the postfix expression after each
+iteration of the outermost for loop.
+
+--
+
+You should end up with `4 5 6 * 1 2 + 3 + / +`.
+
+---
+
+class: middle, center
+
+# Queues
+
+---
+# Queues (first in first out, FIFO)
+
+
+- implementation provided by buil-in classes:
+  - `queue` in C++ STL
+  - `Queue`  in Java (note that this is an interface that
+  is implemented by several different classes in Java)
+
+--
+
+- operations performed
+    - add/enqueu/push O(1) - adds to the back of the queue
+    - remove/dequeue/pop O(1) - removes from the front of the queue
+    - empty O(1) - determine if the stack is empty (optional)
+
+
+
+---
+
+# Array as an Efficient Queue
+
+--
+
+- keep track of front (first element) and back (last element)
+
+
+.center[<img src="img/queue_array_1.PNG" alt="queue array" width = "50%"/>]
+
+
+--
+
+- what do we do if the back reaches the end of the array?
+
+
+.center[<img src="img/queue_array_2.PNG" alt="queue array back at end" width = "50%"/>]
+
+--
+
+  use circular array (and modular arithmetic) to rotate and move back
+  to the beginning of the array (low indexes)
+
+  .center[<img src="img/queue_array_3.PNG" alt="queue array back at end" width = "50%"/>]
+
+---
+
+# Array as an Efficient Queue
+
+
+
+- how do we distinguish between an empty and full queue? (what should
+be the values of front and back _pointers_ for an empty queue?)
+
+
+.left-column2[<img src="img/queue_array_4.PNG" alt="queue array back at end" width = "80%"/>
+
+When the last element is removed, the front moves in front of the back. But this is also the
+case for the full array.
+
+]
+
+--
+
+.right-column2[<img src="img/queue_array_5.PNG" alt="queue array back at end" width = "80%"/>]
+
+--
+
+.below-column2[
+- Keep track of the number of elements in the queue.
+
+- Allocate large enough array that full never happens.
+]
+
+
+---
+
+class: middle, center
+
+# Deque
+## (= double ended queue)
+
+---
+# Deque
+
+
+- implementation provided by buil-in classes:
+  - `deque` in C++ STL
+  - `Deque`  in Java (note that this is an interface that
+  is implemented by several different classes in Java)
+
+--
+
+- operations performed
+    - push front, push back O(1) - add to either end of the deque
+    - pop front, pop back O(1) - remove from either end of the deque
+    - empty O(1) - determine if the deque is empty (optional)
+
+---
+
+class: middle, center
+
+# More Problems
+
+---
+# Challenge
+
+Given a list of N positive integers (1 <= N <= 10^6), compute for each
+element A[i], what is the smallest element to its left (excluding itself).
+
+Sample:
+
+
+```
+       -----------------------------
+array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
+       -----------------------------
+```
+```
+       -----------------------------
+array: | --| 5 | 4 | 4 | 3 | 3 | 2 |
+       -----------------------------
+```
+
+
+
+
+---
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
