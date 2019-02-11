@@ -336,17 +336,17 @@ which the operator comes _after_ its operands.
 ---
 # Convert Infix to Postfix
 
-- for each character in the input infix string expression
-  - if the character is an operand
+- for each tokn in the input infix string expression
+  - if the token is an operand
       - append to postfix string expression
-  - else if the character is a left brace
+  - else if the token is a left brace
       - push it onto the operator stack
-  - else if the character is an operator
+  - else if the token is an operator
       - if the stack is not empty
-          - while top element on the stack has higher precedence
+          - while top element on the stack is not a left brace AND has higher or equal precedence
               - pop the stack and append to postfix string expression
       - push it (the current operator) onto the operator stack
-  - else if the character is a right brace
+  - else if the token is a right brace
       - while the operator stack is not empty
           - if the top of the operator stack is not a matching left brace
               - pop the operator stack and append to postfix string expression
@@ -369,139 +369,34 @@ iteration of the outermost for loop.
 
 You should end up with `4 5 6 * 1 2 + 3 + / +`.
 
----
-
-class: middle, center
-
-# Queues
-
----
-# Queues (first in first out, FIFO)
-
-
-- implementation provided by buil-in classes:
-  - `queue` in C++ STL
-  - `Queue`  in Java (note that this is an interface that
-  is implemented by several different classes in Java)
-
---
-
-- operations performed
-    - add/enqueu/push O(1) - adds to the back of the queue
-    - remove/dequeue/pop O(1) - removes from the front of the queue
-    - empty O(1) - determine if the stack is empty (optional)
-
-
+(full solution on the next slide)
 
 ---
 
-# Array as an Efficient Queue
+|Infix| Stack| Postfix | Comments|
+|:---|:---|:---|:---|
+| __4__ + (5 * 6) / (1 + 2 + 3)   |    | 4   |    |
+| 4 __+__ (5 * 6) / (1 + 2 + 3)   | +   | 4   |    |
+| 4 + **(**5 * 6) / (1 + 2 + 3)   | +(   | 4   |    |
+| 4 + (**5** * 6) / (1 + 2 + 3)   | +(   | 4 5   |    |
+| 4 + (5 __*__ 6) / (1 + 2 + 3)   | +(*   | 4 5   |    |
+| 4 + (5 * __6__) / (1 + 2 + 3)   | +(*   | 4 5 6   |    |
+| 4 + (5 * 6__)__ / (1 + 2 + 3)   | +   | 4 5 6 *   | A |
+| 4 + (5 * 6) __/__ (1 + 2 + 3)   | /   | 4 5 6 * +   | B  |
+| 4 + (5 * 6) / __(__1 + 2 + 3)   | /(   | 4 5 6 * +    |    |
+| 4 + (5 * 6) / (__1__ + 2 + 3)   | /(   | 4 5 6 * + 1   |    |
+| 4 + (5 * 6) / (1 __+.tiny[A]__ 2 + 3)   | /(+.tiny[A]   | 4 5 6 * + 1    | C |
+| 4 + (5 * 6) / (1 + __2__ + 3)   | /(+.tiny[A]   |  4 5 6 * + 1 2   |    |
+| 4 + (5 * 6) / (1 + 2 __+.tiny[B]__ 3)   | /(+.tiny[B]  .tiny[]  | 4 5 6 * + 1 2 +.tiny[A] |    |
+| 4 + (5 * 6) / (1 + 2 + __3__)   | /(+.tiny[B]   | 4 5 6 * + 1 2 +.tiny[A] 3   |    |
+| 4 + (5 * 6) / (1 + 2 + 3__)__   | /   |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B]    | D |
+| 4 + (5 * 6) / (1 + 2 + 3)   |    |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B] /   | E |
 
---
-
-- keep track of front (first element) and back (last element)
-
-
-.center[<img src="img/queue_array_1.PNG" alt="queue array" width = "50%"/>]
-
-
---
-
-- what do we do if the back reaches the end of the array?
-
-
-.center[<img src="img/queue_array_2.PNG" alt="queue array back at end" width = "50%"/>]
-
---
-
-  use circular array (and modular arithmetic) to rotate and move back
-  to the beginning of the array (low indexes)
-
-  .center[<img src="img/queue_array_3.PNG" alt="queue array back at end" width = "50%"/>]
-
----
-
-# Array as an Efficient Queue
-
-
-
-- how do we distinguish between an empty and full queue? (what should
-be the values of front and back _pointers_ for an empty queue?)
-
-
-.left-column2[<img src="img/queue_array_4.PNG" alt="queue array back at end" width = "80%"/>
-
-When the last element is removed, the front moves in front of the back. But this is also the
-case for the full array.
-
-]
-
---
-
-.right-column2[<img src="img/queue_array_5.PNG" alt="queue array back at end" width = "80%"/>]
-
---
-
-.below-column2[
-- Keep track of the number of elements in the queue.
-
-- Allocate large enough array that full never happens.
-]
-
-
----
-
-class: middle, center
-
-# Deque
-## (= double ended queue)
-
----
-# Deque
-
-
-- implementation provided by buil-in classes:
-  - `deque` in C++ STL
-  - `Deque`  in Java (note that this is an interface that
-  is implemented by several different classes in Java)
-
---
-
-- operations performed
-    - push front, push back O(1) - add to either end of the deque
-    - pop front, pop back O(1) - remove from either end of the deque
-    - empty O(1) - determine if the deque is empty (optional)
-
----
-
-class: middle, center
-
-# More Problems
-
----
-# Challenge
-
-Given a list of N positive integers (1 <= N <= 10^6), compute for each
-element A[i], what is the smallest element to its left (excluding itself).
-
-Sample:
-
-
-```
-       -----------------------------
-array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
-       -----------------------------
-```
-```
-       -----------------------------
-array: | --| 5 | 4 | 4 | 3 | 3 | 2 |
-       -----------------------------
-```
-
-
-
-
----
+.small[A: pop operators down to `(` and then remove the bracket ] <br>
+.small[B: `/` has higher precedence than `+`] <br>
+.small[C: `+` operator marked with `A` to distinguish from the next one] <br>
+.small[D: pop everything up to and including the left bracket] <br>
+.small[E: end of the expression, pop operator and append them to the postfix  ] <br>
 
 
 </optgroup>
