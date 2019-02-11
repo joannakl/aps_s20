@@ -13,13 +13,13 @@ Thu, 2/7
 
 <div class="column_materials">
 <p markdown="block">
-
+<!--
 Review of linear data structures, part 2.
 
-
-<!--
-[Review of linear data structures, part 2](slides/03-linear-ds_2.html).
 -->
+
+[Review of linear data structures, part 2](slides/03-linear-ds_2.html).
+
 
 <br>
 
