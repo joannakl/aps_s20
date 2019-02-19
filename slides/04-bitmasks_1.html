@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bitmasks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Bitmasks
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+# Questions
+
+- homework 2 questions?
+
+- any other questions?
+
+---
+
+class: middle, center
+
+# Bits, bit operations, bit masks
+
+---
+# Bit operations
+
+
+
+```
+0101    0101    0101
+0011    0011    0011     0101
+   &       |       ^        ~
+----    ----    ----     ----
+0001    0111    0110     1110
+
+```
+
+--
+
+left shift <<
+
+```
+00101
+  <<2
+10100
+```
+--
+
+right shift >>
+
+```
+001010
+   >>2
+000010
+```
+
+--
+
+- shifting is equivalent to multiplying by powers of two (but faster)
+- WARNING: avoid shifting out of the type range
+
+---
+# Bit-mask
+
+A __bit mask__ of the form `1 << k` has one bit on (i.e., equal to 1)
+in the `k`th position and all other bits off (i.e., equal to 0).
+
+- to determine if a bit at the `k`th position in a particular value
+is on or off, we can this bit mask and the bitwise and operator: `x & (1 << k)`
+
+  example:
+
+  ```
+  for (int k = 31; k >=0; k--) {
+      if (x & (1 << k) ) cout << "1";
+      else cout "0";
+  }
+  ```
+  What does this code do?
+
+--
+
+  It prints the binary represetnation of `x`.
+
+---
+# Bit-mask continued
+
+Modifying bits within a value:
+
+- set the `k`th bit to be on (regardless of what it was before):
+  ???
+
+- set the `k`th bit to be off (regardless of what it was before):
+  ???
+
+- set the `k`th bit to be on if it is currently off, and to be off if it is
+currently on (just flip that bit to the opposite): ???
+
+--
+
+- invert all bits after the last one bit: ???
+
+- set the last one bit in x to 0: ???
+
+- test if x is a power of two: ???
+
+
+
+
+---
+# Bit-mask continued
+
+Modifying bits within a value:
+
+- set the `k`th bit to be on (regardless of what it was before):
+  `x = x| (1 << k)`
+
+- set the `k`th bit to be off (regardless of what it was before):
+  `x = x & (1 << k)`
+
+- set the `k`th bit to be on if it is currently off, and to be off if it is
+currently on (just flip that bit to the opposite): `x = x ^ (1 << k)`
+
+
+
+- invert all bits after  the last one bit: `x = x | (x-1)`
+
+- set the last one bit in x to 0: `x & (x - 1)`
+
+- test if x is a power of two: `x & (x - 1) == 0`
+
+--
+<br><br>
+
+`(1 << k)`  is a 32-bit mast (1 is an int)
+
+to use a 64-bit bit mast: use (1__L__ << k)
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

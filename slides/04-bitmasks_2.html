@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bitmasks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Bitmasks
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+# Useful library functions, C/C++
+
+
+- `__builtin_clz(x)`: the number of zeros at the beginning of the bit representation
+
+- `__builtin_ctz(x)`: the number of zeros at the end of the bit representation
+
+- `__builtin_popcount(x)`: the number of ones in the bit representation
+
+- `__builtin_parity(x)`: the parity (even or odd) of the number of ones in the
+bit representation
+
+--
+
+example
+
+```
+int x = 5328; // 00000000000000000001010011010000
+cout <<  __builtin_clz(x) << "\n"; // 19
+cout <<  __builtin_ctz(x) << "\n"; // 4
+cout <<  __builtin_popcount(x) << "\n"; // 5
+cout <<  __builtin_parity(x) << "\n"; // 1
+
+```
+
+--
+
+Add `l`  suffix to the above functions to use the `long` versions instead of `int`.
+
+
+---
+
+# Useful library functions, Java
+
+ in `Integer` class :
+
+- `int 	bitCount(int i)`<br>
+Returns the number of one-bits in the two's complement binary representation of the specified int value.
+
+- `int 	highestOneBit(int i)`<br>
+Returns an int value with at most a single one-bit, in the position of the highest-order ("leftmost") one-bit in the specified int value.
+
+- `int 	lowestOneBit(int i)`<br>
+Returns an int value with at most a single one-bit, in the position of the lowest-order ("rightmost") one-bit in the specified int value.
+
+- `int 	numberOfLeadingZeros(int i)`<br>
+Returns the number of zero bits preceding the highest-order ("leftmost") one-bit in the two's complement binary representation of the specified int value.
+
+...
+
+
+
+---
+
+# Exercises
+
+- Write a code fragment that sets (turns on) every  bit in an even position in
+ an integer mask. (Can you define such a mask in one _step_?)
+
+- Compute the _distance_ between two bitmasks, i.e., how many positions in
+the two values are different? (this is known as
+the [hamming distance](https://en.wikipedia.org/wiki/Hamming_distance))
+
+
+---
+
+# Exercises
+
+- Write a code fragment that sets (turns on) every  bit in an even position in
+ an integer mask.
+
+    ```C++
+    x = 0;
+    for (int i=0; i < 31; i=i+2) {
+      x = x | (1 << i);
+    }
+    ```
+
+    ```C
+    x = 0x55555555;
+    ```
+
+
+- Compute the _distance_ between two bitmasks, i.e., how many positions in
+the two values are different? (this is known as hamming distance)
+
+    `Integer.bitCount ( x ^ y )`
+
+
+---
+
+class: middle, center
+
+# Sets
+
+---
+
+# Representing sets
+
+Any subset of a set
+$${0, 1, 2, 3, ..., n-1 }$$
+can be represented by an `n` bit integer. The bits of a number indicate
+if the element is present in the set or not.
+
+__Example__
+
+`0000000000000000000100100001011`
+
+represents the subset {0, 1, 3, 8, 11}
+
+To create such a subset representation use code as follows:
+
+```C++
+int x = 0;
+x |= (1 << 0);
+x |= (1 << 1);
+x |= (1 << 3);
+x |= (1 << 8);
+x |= (1 << 11);
+```
+
+and to print the size of such a subset, use
+
+```C++
+cout << __builtin_popcount(x) <<"\n";
+```
+
+---
+
+
+# Set operations
+
+How can the following operations be performed on the sets
+represented by integers:
+
+- set intersection $A\cap B$ (what do the two sets have in common)
+- set union $A\cup B$ (all elements in either one, or both sets)
+- set difference $A \ B$ (all elements in A that are not in B)
+
+--
+
+Assume that two integers `a` and `b` represent two sets (max number of elements in each
+set is 32).
+
+- `a & b` is the intersection
+- `a | b` is the union
+- `a & (~b)` is the difference
+
+---
+
+# Exercises
+
+- Create two sets $a={1, 3, 8, 11, 23, 27 }$ and $b={1, 2, 4, 11, 15, 27}$. Compute their
+union, intersection and difference. For each print the content of the set and its size.
+- List all possible subsets of a set ${0,1,2,...,31}$.
+- List all possible subsets of a set ${0,1,2,...,31}$ that have exactly 7 elements.
+
+---
+
+class: middle, center
+
+# Library Classes
+---
+
+# Library Classes, C++
+
+.left-column2-small[
+[`bitset`](http://www.cplusplus.com/reference/bitset/bitset/) in C++
+
+.small[
+Bit access
+
+- `operator[]`
+    Access bit
+
+- `count`
+    Count bits set
+
+- `size`
+    Return size
+
+- `test`
+    Return bit value
+
+- `any`
+    Test if any bit is set
+
+- `none`
+    Test if no bit is set
+
+Bit operations
+
+- `set`
+    Set bits
+
+- `reset`
+    Reset bits
+
+- `flip`
+    Flip bits
+
+- overloaded operators
+  (see code example from
+[Cplusplus.com](http://www.cplusplus.com/reference/bitset/bitset/operators/)
+  on the side )
+
+- ...
+
+]
+
+]
+.right-column2-large[
+
+```C++
+#include <iostream>       // cout
+#include <string>         // string
+#include <bitset>         // bitset
+using namespace std;
+
+int main ()
+{
+  bitset<4> foo (string("1001"));
+  bitset<4> bar (string("0011"));
+
+  cout << (foo ^= bar) << '\n';       // 1010 (XOR,assign)
+  cout << (foo &= bar) << '\n';       // 0010 (AND,assign)
+  cout << (foo |= bar) << '\n';       // 0011 (OR,assign)
+
+  cout << (foo <<= 2) << '\n';        // 1100 (SHL,assign)
+  cout << (foo >>= 1) << '\n';        // 0110 (SHR,assign)
+
+  cout << (~bar) << '\n';           // 1100 (NOT)
+  cout << (bar << 1) << '\n';         // 0110 (SHL)
+  cout << (bar >> 1) << '\n';         // 0001 (SHR)
+
+  cout << (foo == bar) << '\n';       // false (0110==0011)
+  cout << (foo != bar) << '\n';       // true  (0110!=0011)
+
+  cout << (foo & bar) << '\n';        // 0010
+  cout << (foo | bar) << '\n';        // 0111
+  cout << (foo ^ bar) << '\n';        // 0101
+
+  return 0;
+}
+```
+]
+---
+
+
+# Library Classes, Java
+
+
+[`BitSet`](https://docs.oracle.com/javase/8/docs/api/java/util/BitSet.html) in Java
+
+- `clear()`
+Sets all of the bits in this BitSet to false.
+
+- `flip(int bitIndex)`
+Sets the bit at the specified index to the complement of its current value.
+
+- `get(int bitIndex)`
+Returns the value of the bit with the specified index.
+
+- `intersects(BitSet set)`
+Returns true if the specified BitSet has any bits set to true that are also set to true in this BitSet.
+
+- `nextSetBit(int fromIndex)`
+Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
+
+- `set(int fromIndex, int toIndex, boolean value)`
+Sets the bits from the specified fromIndex (inclusive) to the specified toIndex (exclusive) to the specified value.
+
+
+- ...
+---
+
+class: middle, center
+
+# Example Application:
+## Prime Numbers
+---
+
+# Prime numbers
+
+__Task:__ Generate all prime numbers in the range from 0 to N
+
+--
+
+Very naive algorithm: $O(N^2)$
+
+Less naive algorithm: $O(N\sqrt(N))$
+
+--
+
+
+__Sieve of Eratosthenes__
+
+- $O(N \log\log N)$
+
+
+- Algorithm:
+  - set all values in the range to _probably prime_
+  - set 0 and 1 to be ~~not prime~~
+  - for p in 2:N
+      - if p is _probably prime_
+          - set p to __definitely prime__
+          - set all multiples of p (except for p itself) to ~~not prime~~
+
+
+
+---
+
+# Sieve of Eratosthenes
+
+
+- Example: N = 20
+  - ~~0~~ ~~1~~ _2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20_
+
+  - ~~0~~ ~~1~~ __2__ _3_ ~~4~~ _5_ ~~6~~ _7_ ~~8~~ _9_ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ _15_ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+  - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ _5_ ~~6~~ _7_ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+  - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ _7_ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+  - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+  - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ __11__ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+  - past the halfway point, all the remaining probably primes are definitely prime <br>
+  ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ __11__ ~~12~~ __13__ ~~14~~ ~~15~~ ~~16~~ __17__ ~~18~~ __19__ ~~20~~
+
+
+---
+# Sieve of Sundaram (1934)
+
+.left-column2[
+- Finds all the primes in the list of integers from 1 to 2N+2.
+
+- Algirthm:
+    - add $2$ to the set of primes
+    - mark all values of the form: $$i + j + 2\times i \times j$$
+      (where $i, j \in \mathbb{N}$, $ 1 \le i \le j$, $i + j + 2\times i\times j \le N$ )
+      as ~~not prime~~
+    - for each remaining unmark value, double it and add 1, and add it to the
+      set of primes (these are all odd primes between 3 and 2N+2)
+]
+
+--
+
+.right-column2[
+- Example: N = 10
+
+    - 1 2 3 4 5 6 7 8 9 10
+
+    - i = 1, j = 1 <br>
+      1 2 3 ~~4~~ 5 6 7 8 9 10
+
+    - i = 1, j = 2 <br>
+      1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 10
+
+    - i = 1, j = 3 <br>
+      1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 ~~10~~
+
+    - primes:
+        - $2$
+        - $3 = 1\times 2 + 1$
+        - $5 = 2\times 2 + 1$
+        - $7 = 3\times 2 + 1$
+        - $11 = 5\times 2 + 1$
+        - $13 = 6\times 2 + 1$
+        - $17 = 8\times 2 + 1$
+        - $19 = 9\times 2 + 1$
+]
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

@@ -3,8 +3,8 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 3 <br>
-Tue, 2/5
+Class # 5 <br>
+Tue, 2/12
 
 
 
@@ -13,14 +13,16 @@ Tue, 2/5
 
 <div class="column_materials">
 <p markdown="block">
+
 Homework 1 quiz.
 
 Homework problems discussion.
-
-Review of linear data structures, part 3.
 <!--
-[Review of linear data structures, part1](slides/03-linear-ds_3.html).
+Review of linear data structures, part 3.
 -->
+
+[Review of linear data structures, part1](slides/03-linear-ds_3.html).
+
 Working on problems.
 <br>
 
