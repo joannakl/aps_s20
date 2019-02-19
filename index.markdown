@@ -18,6 +18,8 @@ title:
 
 <p class="hang" markdown="1"><span class="emph">Recitation leader:</span>   {{ site.recitation_instructor1_full }} </p>
 
+<p class="hang" markdown="1"><span class="emph">Tutor:</span>   {{ site.tutor_full }} </p>
+
 
 <p class="hang" markdown="1"><span class="emph">Office hours:</span> <br>
 <span class="name">Joanna:</span>
@@ -27,6 +29,14 @@ title:
 
 <span class="name">{{site.recitation_instructor1_name}}:</span> {{site.recitation1_office_hours}} ({{site.recitation1_office_hours_location }})
 <br>
+
+
+<span class="name">{{site.tutor_name}}:</span> {{site.tutor_hours}} ({{site.tutor_hours_location }})
+<br>
+
+
+
+
 </p>
 
 
