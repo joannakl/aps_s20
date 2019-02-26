@@ -16,13 +16,8 @@ Tue, 2/26
 
 Homework 3 quiz.
 
+More on non-linear data structures. 
 
-Bitmask,  part 2: `bitset`/`BitSet`, prime number testing.
-
-<!--
-[Bitmask,  part 2](slides/04-bitmasks_2.html): `bitset`/`BitSet`, prime number testing.
-
--->
 <br>
 
 
