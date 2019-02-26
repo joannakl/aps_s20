@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Non-Linear Data Structures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Non-Linear Data Structures
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+
+# Building a Binary Heap in O(N)
+
+Visualizations:
+
+- [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/Heap.html)
+    - illustrates it with the worst case when the array is reverse sorted
+
+- [VisuAlgo](https://visualgo.net/bn/heap)
+    - allows you to customize the elements
+    - has both $O(n \log n)$ and $O(N)$ processes illustrated
+
+
+
+---
+class: middle, center
+
+# k-largest values
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 1__:
+
+- sort the array
+- extract k largest values from one of the ends
+
+__Performance__:
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 1__:
+
+- sort the array
+- extract k largest values from one of the ends
+
+__Performance__: $O(n \log n)$
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 2__:
+
+- repeat `findMax` algorithm `k` times
+
+__Performance__:
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 2__:
+
+- repeat `findMax` algorithm `k` times
+
+__Performance__: $O(k n)$
+
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 3__:
+
+- build a max-heap from the array elements
+- repeat `removeMax` `k` times
+
+__Performance__:
+
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 3__:
+
+- build a max-heap from the array elements
+- repeat `removeMax` `k` times
+
+__Performance__: $O(n + k \log n)$
+
+
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 4__:
+
+- for i: 1 to k
+  - add the i'th element to a min-heap
+
+- for i: k+1 to n
+  - add the i'th element to a min-heap
+  - remove the smallest element from the min-heap
+
+- the values in the min-heap are the largest ones from the data set
+
+
+__Performance__:
+
+
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 4__:
+
+- for i: 1 to k
+  - add the i'th element to a min-heap
+
+- for i: k+1 to n
+  - add the i'th element to a min-heap
+  - remove the smallest element from the min-heap
+
+- the values in the min-heap are the largest ones from the data set
+
+
+__Performance__: $O(n \log k)$
+
+
+
+
+---
+# k-largest values
+
+
+__Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
+
+__Solution 5__:
+
+- use a modification of quicksort to obtain partition that contains the `k`
+elements we are interested in (related to selection rank algorithm)
+
+
+__Performance__: average $O(n)$, worst case $O(n^2)$
+
+--
+
+<br/><br/><br/>
+We'll come back to this solution later.
+
+---
+
+class: middle, center
+
+# median
+
+---
+
+# median
+
+__Problem__: Given $n$ integers in arbitrary order find their median.
+
+
+
+
+
+
+
+
+
+
+
+
+---
+# Challenge
+
+For each o the following problems 1) come up with tests that could be used
+for the implementation, 2) come up with an algorithm(s) that can be used to solve
+the problem, 3) what is the performance of your algorithms?
+
+- Given `N` integers in arbitrary order find `k` largest ones.
+
+- Given a root to a binary tree containing `N` nodes, determine
+if it is a binary search tree?
+
+- Given a binary search tree containing `N` nodes,
+output the elements with values in the range [a..b] in ascending
+order.
+
+- Given a binary search tree containing `N` nodes, output
+the values in the leaves in ascending order.
+
+- A basic max-heap does only supports additions and removal of the max
+element. How would you implement the following two operations:
+  - `update(index, new_value)` - modify the value at a specified index to the new_value
+  - `delete(index)` - deletes the value at a specified index
+
+---
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

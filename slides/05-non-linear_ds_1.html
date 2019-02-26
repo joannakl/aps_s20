@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Non-Linear Data Structures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Non-Linear Data Structures
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+
+---
+
+class: middle, center
+
+# Binary Trees
+
+---
+# Balanced Binary Search Tree
+
+- binary tree
+- for each node
+  - all the values in the left subtree are smaller than the value in that node
+  - all the values in the right subtree are greater than the value in that node
+  - (equal values should be stored in one of the subtrees, if allowed)
+
+--
+
+- `map`/`set`/`multiset` in C++ and  `TreeMap` / `TreeSet` in Java
+
+  - the _map_ versions of the classes store `(key, value)` pairs
+  - the _set_ versions of the classes store only keys
+  - the `multiset` (only in C++) allows duplicate keys
+
+--
+
+- $O(log N)$ on
+  - add key,
+  - remove key,
+  - find key ,
+  - find min/max,
+  - successor/predecessor key
+
+--
+
+- AVL tree, Red-Black tree
+
+
+---
+# Binary Heap / Priority Queue
+
+- a complete binary tree (all levels are filled except for the lowest one, the
+lowest one is filled from left to right)
+
+- for each node the values of its children are
+    - smaller than or equal to the one in the node (max-heap)
+    - larger than or equal to the one in the node (min-heap)
+
+--
+
+- `priority_queue` in C++, `PriorityQueue` in Java
+
+- usually implemented using compact arrays
+
+--
+
+- $O(log N)$ operations :
+  - add
+  - remove
+
+  because they require traversal along a single path from root to leaf
+
+- _top_ should be $O(1)$
+
+--
+
+- building a heap from a collection of values is $O(N)$ !!!
+
+  Why?
+
+---
+
+# Hash Table
+
+- mapping from _keys_ to _values_ not sorted in any particular/predictable way
+
+- lookups by key can be done in $O(1)$ (assuming a good hash function, but $O(N)$ worst case)
+
+- addition / removal done in $O(1)$ (but $O(N)$ worst case)
+
+--
+
+- [`unordered_map`](http://www.cplusplus.com/reference/unordered_map/unordered_map/?kw=unordered_map)
+in C++ () - starting in C++11 standard
+
+- `HashMap`, `HashSet`, `HashTable` in Java
+
+--
+
+- challenge: depends on a well designed hash function
+(and that is often tricky)
+
+--
+
+- Direct Addressing Table (DAT) is the simplest form of a hash
+table in which _keys_ are the indexes - it is simply an array
+
+
+---
+# Challenge
+
+For each o the following problems 1) come up with tests that could be used
+for the implementation, 2) come up with an algorithm(s) that can be used to solve
+the problem, 3) what is the performance of your algorithms? 
+
+- Given `N` integers in arbitrary order find `k` largest ones.
+
+- Given a root to a binary tree containing `N` nodes, determine
+if it is a binary search tree?
+
+- Given a binary search tree containing `N` nodes,
+output the elements with values in the range [a..b] in ascending
+order.
+
+- Given a binary search tree containing `N` nodes, output
+the values in the leaves in ascending order.
+
+- A basic max-heap does only supports additions and removal of the max
+element. How would you implement the following two operations:
+  - `update(index, new_value)` - modify the value at a specified index to the new_value
+  - `delete(index)` - deletes the value at a specified index
+
+---
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

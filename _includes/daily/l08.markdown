@@ -1,0 +1,37 @@
+<div class="lecture2">
+
+<div class="column_date">
+<p markdown="block">
+
+Class # 8 <br>
+Thu, 2/21
+
+
+
+</p>
+</div>
+
+<div class="column_materials">
+<p markdown="block">
+
+
+Going over some homework problems.
+
+
+[Non-linear data structures, part 1](slides/05-non-linear_ds_1.html).
+
+
+<br>
+
+</p>
+</div>
+
+<div class="column_assign">
+<p markdown="block">
+
+
+
+</p>
+</div>
+
+</div>
