@@ -216,10 +216,19 @@ class: middle, center
 __Problem__: Given $n$ integers in arbitrary order find their median.
 
 
+---
 
+# median - solutions
 
+- use any of the k-largest values approach, but set k = n/2 (or adjust accordingly
+for the even n) and only use the k'th value
 
+- use two heaps: min-heap (stores values larger than the median) and max-heap
+(stores values smaller than the median) -> median is always at the top of one
+of the heaps (or the average of the two tops)
 
+- use the median of median's algorithm (see [Wikipedia](https://en.wikipedia.org/wiki/Median_of_medians) or
+an algorithms textbook)
 
 
 
@@ -227,30 +236,7 @@ __Problem__: Given $n$ integers in arbitrary order find their median.
 
 
 ---
-# Challenge
 
-For each o the following problems 1) come up with tests that could be used
-for the implementation, 2) come up with an algorithm(s) that can be used to solve
-the problem, 3) what is the performance of your algorithms?
-
-- Given `N` integers in arbitrary order find `k` largest ones.
-
-- Given a root to a binary tree containing `N` nodes, determine
-if it is a binary search tree?
-
-- Given a binary search tree containing `N` nodes,
-output the elements with values in the range [a..b] in ascending
-order.
-
-- Given a binary search tree containing `N` nodes, output
-the values in the leaves in ascending order.
-
-- A basic max-heap does only supports additions and removal of the max
-element. How would you implement the following two operations:
-  - `update(index, new_value)` - modify the value at a specified index to the new_value
-  - `delete(index)` - deletes the value at a specified index
-
----
 
 
 
