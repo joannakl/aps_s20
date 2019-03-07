@@ -16,7 +16,10 @@ Tue, 2/26
 
 Homework 3 quiz.
 
-More on non-linear data structures. 
+More on non-linear data structures.
+
+
+[Non-linear data structures, part 1](slides/05-non-linear_ds_2.html).
 
 <br>
 
