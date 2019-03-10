@@ -14,8 +14,7 @@ Thu, 3/7
 <div class="column_materials">
 <p markdown="block">
 
-
-
+Solving problems using disjoint set data structure.
 
 <br>
 
