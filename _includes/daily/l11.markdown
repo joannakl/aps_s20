@@ -16,7 +16,7 @@ Tue, 3/5
 
 Homework 4 quiz.
 
-[Disjoint set / Union-find ](slides/05-disjoint_set_union_find.html).
+[Disjoint set / Union-find ](slides/06-disjoint_set_union_find.html).
 
 <br>
 
