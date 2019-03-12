@@ -4,7 +4,7 @@
 <p markdown="block">
 
 Class # 11 <br>
-Tue, 3/5
+Tue , 3/5
 
 
 
