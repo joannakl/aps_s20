@@ -276,14 +276,135 @@ from every other cell)
 
 There NxM grid of integers gives terrain elevation. Given a water level L, every
 cell with the height (=elevation) <= L is below the water. The islands are the cells
-above the water.
+above the water. An island is a group of 4-connected cells (connected by the
+sides, not corners).
 
 Determine the number of islands.
 
+.center[
+<img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
+<img src="img/islands2.PNG" alt="elevation map" width="375px"/>
+
+L = 2,  there are 2 islands]
 
 
+---
+# Challenge: Counting Islands
 
+There NxM grid of integers gives terrain elevation. Given a water level L, every
+cell with the height (=elevation) <= L is below the water. The islands are the cells
+above the water. An island is a group of 4-connected cells (connected by the
+sides, not corners).
 
+Determine the number of islands.
+
+.center[
+<img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
+<img src="img/islands3.PNG" alt="elevation map" width="375px"/>
+
+L = 4,  there are 4 islands]
+
+---
+# Challenge: Counting Islands
+
+There NxM grid of integers gives terrain elevation. Given a water level L, every
+cell with the height (=elevation) <= L is below the water. The islands are the cells
+above the water. An island is a group of 4-connected cells (connected by the
+sides, not corners).
+
+Determine the number of islands.
+
+.center[
+<img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
+<img src="img/islands4.PNG" alt="elevation map" width="375px"/>
+
+L = 6,  there is 1 island]
+
+---
+# Counting Islands
+
+__Solution 1__ Use O(N*M) algorithm that visits all the cells one by one.
+For each cell that is above the level of water find all the cells adjacent
+to it (DFS type search) and mark them as visited. For each discovered island
+increment the count of islands.
+
+----
+--
+
+__Solution 2__ Use disjoint sets data structure.
+
+--
+
+For each cell, look at the four adjacent neighbors. If they are above L
+union the two cells. The number of sets is the number of islands.
+
+--
+
+Or is it? What about the "sets" associated with the cells with values <= L?
+
+----
+--
+
+__Problem variation__
+
+But, what if we need to provide the answer for "continuous" levels:
+- global warming -> waters are rising
+- after floding -> waters are slowly dropping
+
+---
+
+# Counting Islands Continuous
+
+This approach counts the islands  for levels from largest (everything
+is under water) to smallest (everything is above water)
+
+- each cell is in its own set
+- for processing sort the cells from largest (highest elevation) to lowest
+- for level L0 (the highest level), go through all cells with values > L0 and union each
+of them with its four neighbors if that neighbor is also above L0; keep track
+of the number of islands
+- for level L1 (the next highest level), through through all the cells with
+values > L1 and <=L0, union each with its four neighbors if that neighbor is
+between L1 and L0; keep track of the number of islands
+- ...
+
+---
+
+## Challange: Weighted N-ary Tree
+
+Each node in a tree has a non-negative integer weight assigned to it.
+
+__Task__: Find the size of a maximum subtree in which __all__ weights are
+even.
+
+__Example__:
+
+.left-column2[
+Number of nodes = 7
+
+Weights of nodes
+
+| node index | node weight |
+|:---:|:---:|
+| 1 | 1 |
+| 2 | 2 |
+| 3 | 6 |
+| 4 | 4 |
+| 5 | 2 |
+| 6 | 0 |
+| 7 | 3 |
+
+Connectivity (based on node indexes):
+ (1, 2), (1, 3), (2, 4), (2, 5), (4, 6), (6, 7)
+
+]
+
+<!-- https://www.geeksforgeeks.org/disjoint-set-union-trees-set-1/ -->
+
+---
+# Calvin's Stars
+
+<img src="06/p11966.png" alt="Calvin's start problem", width=800px />
 
 
 
