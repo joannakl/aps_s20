@@ -4,7 +4,7 @@
 <p markdown="block">
 
 Class # 13 <br>
-Tue, 3/12
+Tue, 3/26
 
 
 
@@ -14,8 +14,7 @@ Tue, 3/12
 <div class="column_materials">
 <p markdown="block">
 
-Q&A before the exam. 
-
+[Sorting and searching](slides/07-sorting_and_searching.html) problems.
 <br>
 
 

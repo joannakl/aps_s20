@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complete Search</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Complete Search or Brute Force
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+# Complete Search
+
+<br><br><br>
+- a.k.a., __brute force__
+<br><br>
+- solving problems by traversing the entire (or a large part of) search space
+in order to find the desired solution
+
+- recursive backtracking solutions fall under this category
+
+
+---
+# Challenge: Digit Quotient
+
+__Task__
+
+Find all pairs of 5-digit numbers that collectively use all 10 digits 0 - 9 once each,
+such that the first number divided by the second number is equal to a given integer N,
+where $2 <= N <= 79$.
+
+$$ abcde / fghij = N $$
+
+(The first digit of one of the numbers could be zero.)
+
+__Example__:
+
+N = 62
+
+79546 / 01283
+
+94736 / 01528
+
+---
+# Challenge: Digit Quotient
+
+__Observation__
+
+- `fghij` can range from `01234` to `98765` <br>
+   or, even better from  `01234` to `(98765/N)`
+
+- given `fghij` we can compute `abcde` as `fghij*N`
+
+__Questions__
+
+- given two values `tmp1` and `tmp2`, how can be decide if they use all ten digits
+
+__Solution__
+
+input: N
+
+```
+for fghij in 1234 to 98765/N :
+    abcde = fghij * N
+    check if abcde and fghij collectively use 10 digits
+    if they do
+        print the values of the two numbers
+```
+---
+
+# Challenge: Solving Equations
+
+Given three integers A, B, C ($1 <= A,B,C <= 10000$) find three other distict values
+X, Y, Z such that:
+
+$$X + Y + Z = A$$
+$$X \times Y \times Z = B$$
+$$X^2 + Y^2 + Z^2 = C$$
+
+--
+
+__Observation__
+
+the possible values of x, y and z are in $[-100, 100]$
+
+- how do we know that?
+
+--
+
+- since in $X^2 + Y^2 + Z^2 = C$, $C$ can be at most 10,000, none of the values
+can exceed 100 in absolute value
+
+
+---
+# Challenge: Solving Equations
+
+__Algorithm__
+
+Give: values of A, B, C
+
+```
+for x in -100 .. 100
+  for y in -100 .. 100
+    for z in -100 .. 100
+       if x, y and x are all different
+          AND x + y + z = A
+          AND x * y * z = B
+          AND x*x + y*y + z*z = C
+              we have a solution
+
+```
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

@@ -1,10 +1,10 @@
-<div class="lecture1">
+<div class="lecture2">
 
 <div class="column_date">
 <p markdown="block">
 
-Class # 13 <br>
-Tue, 3/12
+Class # 16 <br>
+Thu, 3/28
 
 
 
@@ -13,18 +13,21 @@ Tue, 3/12
 
 <div class="column_materials">
 <p markdown="block">
+<br/>
 
-Q&A before the exam. 
+Continue with sorting and searching problems.
+
+[Complete search](slides/08-brute_force_01.html) paradigm of problem solving, part 1.
+
+
 
 <br>
-
 
 </p>
 </div>
 
 <div class="column_assign">
 <p markdown="block">
-
 
 
 
