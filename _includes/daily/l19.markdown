@@ -16,8 +16,8 @@ Tue, 4/9
 
 [Divide and conquer]() paradigm of problem solving.
 <!--
-[Divide and conquer](slides/09-divide_and_conquer.html) paradigm of problem solving. 
---
+[Divide and conquer](slides/09-divide_and_conquer.html) paradigm of problem solving.
+-->
 
 
 
