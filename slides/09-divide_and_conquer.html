@@ -1,0 +1,184 @@
+\t<!DOCTYPE html>
+<html>
+  <head>
+    <title>Divide and Conquer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Divide and Conquer
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+# Divide and Conquer
+
+
+- solving problems by _dividing_ them into smaller/simpler problems and then
+_conquering_ the subproblems
+
+- general approach:
+    - divide the given problem into sub-problems (often using halves)
+    - find solutions to the sub-problems (often by following the same
+      divide and conquer approach)
+    - combine the solutions of sub-problems into a solution for the given problem
+
+- examples
+    - quicksort, mergesort
+    - binary search
+
+- decrease and conquer - a version of divide and conquer algorithms in which
+only one sub-problem needs to be solved (as in binary search)
+
+---
+# Challenge: Paying Off a Loan
+
+__Task__
+
+You use a bank loan to buy a car. You need to pay off the loan by paying
+$d$ dollars for $m$ months.  The original value of the car is $v$ and the bank
+charges the interest rate of $i%$ for any unpaid amount at the end of
+each month.
+
+Given the values for $v$, $i$ and $m$ figure out what $d$ needs to be.
+Determine $d$ with two digits after the decimal point.
+
+--
+
+__Solution using a bisection method__
+
+- we want $d$ in a particular given range [a,b] = [0.0, $v\times(1+i/100)$]
+
+- we start with an estimate for $d$ as $\dfrac{a+b}{2}$
+
+- if the result is that we overpay, then try to decrease $d$,
+otherwise, increase $d$
+
+---
+
+<br><br>
+
+a | b | d | estimate | action
+---|---|---|---|---
+0.010000|1000.000000|500.005000|underpaid|increase d
+500.005000|1000.000000|750.002500|overpaid|decrease d
+500.005000|750.002500|625.003750|overpaid|decrease d
+500.005000|625.003750|562.504375|overpaid|decrease d
+500.005000|562.504375|531.254688|overpaid|decrease d
+500.005000|531.254688|515.629844|underpaid|increase d
+515.629844|531.254688|523.442266|underpaid|increase d
+523.442266|531.254688|527.348477|overpaid|decrease d
+523.442266|527.348477|525.395371|overpaid|decrease d
+523.442266|525.395371|524.418818|overpaid|decrease d
+523.442266|524.418818|523.930542|overpaid|decrease d
+523.442266|523.930542|523.686404|underpaid|increase d
+523.686404|523.930542|523.808473|underpaid|increase d
+523.808473|523.930542|523.869507|overpaid|decrease d
+523.808473|523.869507|523.838990|overpaid|decrease d
+523.808473|523.838990|523.823732|overpaid|decrease d
+523.808473|523.823732|523.816102|overpaid|decrease d
+523.808473|523.816102|523.812288|overpaid|decrease d
+523.808473|523.812288|523.810380|overpaid|decrease d
+523.808473|523.810380|523.809427|done
+
+---
+
+```C++
+int m, x;  double value, i;
+
+scanf ("%lf %lf %d", &value, &i, &m);
+
+double a = 0.01, b = (1+1/100)*value;
+double d = (a+b)/2;
+double paid , owed ;
+
+do {
+    paid = 0.0, owed = value;
+    for (int month = 1; month <= m; month++) {
+        paid += d;
+        owed -= d;
+        owed *= (1+i/100);
+
+    }
+    printf("%f\t%f\t%f", a, b, d);
+
+    if (fabs(0.0 - owed) < 0.001){
+        printf("\tdone\n");
+    }
+    else if ( owed < 0) {
+        b = d;
+        printf ("\toverpaid\tdecrease d\n");
+    }
+    else {// ( owed > 0)
+        a = d;
+        printf ("\tunderpaid\tincrease d\n");
+    }
+    d = (a+b)/2;
+
+}
+while (fabs(0.0 - owed) >= 0.001 ) ;
+
+```
+---
+
+
+
+---
+---
+---
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

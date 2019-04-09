@@ -79,7 +79,10 @@ __Questions__
 
 - given two values `tmp1` and `tmp2`, how can be decide if they use all ten digits
 
+--
+
 __Solution__
+
 
 input: N
 
@@ -90,6 +93,26 @@ for fghij in 1234 to 98765/N :
     if they do
         print the values of the two numbers
 ```
+
+---
+# Challenge: Digit Quotient
+
+to check if `abcde` and `fghij` use all 10 digits
+
+- set `used_digits` to (`fghij` < 1000) - this will set the last bit of `used_digits`
+to 1 if the `f` digit is zero
+- set tmp to `abcde`
+- while tmp > 0
+    - `used_digits` |= 1 << (tmp%10)
+    - tmp /= 10
+- set tmp to `fghij`
+- while tmp > 0
+    - `used_digits` |= 1 << (tmp%10)
+    - tmp /= 10
+- if (used_digits == (1<<10) - 1)
+    - all digits are used
+
+
 ---
 
 # Challenge: Solving Equations
@@ -133,6 +156,147 @@ for x in -100 .. 100
               we have a solution
 
 ```
+
+__Can we eliminate some of the steps?__
+
+---
+# Challenge: Solving Equations
+
+
+Can we eliminate some of the steps?
+- because of the second equation, we know that at least of of the above loops
+has a range of -22 to 22 only (since if all values were x=y=z=22, we would have 22^3>10,000 and 21^3 < 10,000)
+- in each loop we can check if the value is not equal to already used value
+- for each loop we can check if the current variables (ignoring the contributions from the next one) are able
+to satisfy the conditions of the three equations
+
+
+```
+for x in -22 .. 22
+  if x * x <= C
+    for y in -100 .. 100
+      if y != x AND x * x + y * y <= C
+        for z in -100 .. 100
+           if x, y and x are all different
+              AND x + y + z = A
+              AND x * y * z = B
+              AND x*x + y*y + z*z = C
+                  we have a solution
+
+```
+---
+
+# Queens on a Chess Board
+
+__Task__ Place 8 queens on an 8x8 chess board so that no two
+queens attack one another.
+
+--
+
+__Solution 1__ (most naive) <br>
+- enumarate all combinations of 8 different cells out of the
+64 possibilities and see which of them provide a solution  <br>
+performance: $~_{64}C_8 \approx 4 \text{billion}$
+
+--
+
+__Solution 2__ (still naive, but a bit faster) <br>
+- observation: each queen has to be in its own column
+- for each column, pick a single row position <br>
+performance: $8^8 \approx 17 \text{million}$
+
+--
+
+__Solution 3__ (a bit faster than the previous one) <br>
+- observation: each queen has to be in its own column and its own row
+- for each column, pick a single row position that is not
+equal to any previously chosen row<br>
+performance: $8! \approx 40 \text{thousand}$
+
+---
+
+# Queens on a Chess Board
+## Backtracking
+
+__Solution 4__ (getting there)
+
+- observation 1: each queen has to be in its own
+    - column
+    - row
+    - diagonal
+- observation 2: no point in continuing to generate solutions that violate
+one of the above conditions (this gives us backtracking: prune
+the paths that do not lead to a valid solution)
+
+performance: $\text{sub} O(n!)$ where $n$ is the size of the chessboard
+(= number of queens)
+
+
+_See [handout](08/queens_1.pdf) for the implementation._
+
+---
+
+# Queens on a Chess Board
+## Backtracking
+
+- With 8 queens on an 8x8 chessboard
+we have under $8! \approx 40 \text{thousand}$ operations.
+
+- If each operation takes $\approx 10^{-8}$ seconds, than this
+algorithm completes in under a second for 8 queens.
+
+--
+
+- What happens if you use a larger chessboard (i.e. larger number of queens)?
+for example $n=14$
+
+---
+
+# Other problems to looke at
+
+- [15-puzzle Game](08/15-puzzle.pdf)
+
+- [Bishops on a Chessboard](08/bishops.pdf)
+
+- [Tug of War](08/tug.pdf)
+
+- [CD to Tape](08/CD.pdf)
+
+- [Squares](08/squares.pdf)
+
+---
+
+## Making the _complete search_ work
+
+- filter vs. generate  <br>
+generate all possible solutions rather than starting with a set of all options
+and removing the impossible one
+
+- prune infeasible search space areas as soon as possible
+
+- pre-calculate and store results that may need to be used again (trade
+memory for time)
+
+- optimize your source code:
+    - code in C++, not Java ☹
+    - use efficient i/o routines (`scanf/printf` over `cin/cout` in C++
+      `BufferedReader/BufferedWriter` over `Scanner/System.out` in Java)
+    - use cache friendly algorithms: consecutive memory accesses in an array
+      rather than jumping around
+    - access 2D arrays in a row major order
+    - use `int/long` or `bitset/Bitset` for manipulating boolean data, not
+    arrays or vectors of boolean variables
+    - use an array over `Vector/ArrayList`
+    - declare large data structures and objects once and reuse them
+    - use iterative implementation over recursive implementations (assuming
+    same level of difficulty in coding)
+    - use c-string instead of C++ `string` class; use `StringBuffer` instead
+      of `String` class in Java
+
+
+
+
+
 
 
 </optgroup>

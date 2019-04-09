@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Greedy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Greedy Algorithms
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+# Greedy
+
+
+- solving problems by making locally (at each step) optimal choices with
+the hope of obtaining optimal solution overall
+
+- when does it work
+    - problem has optimal sub-structure: optimal solution for the problem
+      contains optimal solutions for sub-problems
+    - problem has a greedy property: optimal choices made at the moment
+      lead to otpimal overall solution (no need to go back and explore
+      an alternative)
+
+- examples
+
+
+---
+# Challenge: Making Change
+
+__Task__
+
+Given an amount V (in cents) and a list of denominations of n coins find
+the way to make the change with the minimum number of coins.
+Assume that you have unlimited supply of each coin (for each given denomination).
+
+---
+# Challenge: Making Change
+
+__Example__
+
+- n = 4
+- denominations = {25, 10, 5, 1} cents
+- desired amount V = 47 cents
+
+solution:
+- start with the largest denomination and use as many coins as possible<br>
+  47 - 25 = 22
+- use the next highest denomination <br>
+  22 - 10 = 12 <br>
+  12 - 10 = 2 <br>
+- the remaining amount is too small for the denomination of 5, so skip it
+- use the last denomination <br>
+  2 - 1 = 1 <br>
+  2 - 1 = 0 <br>
+
+so we need 5 coins: 25, 10, 10, 1, 1
+
+
+
+---
+# Challenge: Making Change
+
+This problem posses both characteristics that make the greedy solution
+applicable here:
+
+- the solutions to its subproblems are optimal, for example
+    - for 22 cents, the otpimal solution would be 4 coins: {10, 10, 1, 1}
+    - for 12 cents, the optimal solution would be 3 coins: {10, 1, 1}
+
+- the solution has a greedy property: we use the largest possible
+coin first, if we used a smaller one instead, we would have to replace that
+coin with more than one coin in the alternative solution.
+
+---
+
+# Problems to work on
+
+- [Station Balance](slides/Station.pdf) <!-- UVA 410 -->
+
+- [Watering Grass](slides/Watering.pdf) <!-- UVA 10382 -->
+
+- [Dragon of Loowater](slides/Watering.pdf) <!-- UVA 11292 -->
+
+
+---
+# [Station Balance](slides/Station.pdf)
+
+__Task__
+
+Given a number of chambers $1 \leq C \leq 5$ and a number of specimens $1 \leq S \leq 2C$
+and a list of $M$ masses for each specimen, determine how to distribute the
+specimens between the chambers so that their _imbalance_ is as small as possible.
+
+Restriction: each chamber can store 0, 1, or 2 specimens.
+
+The _imbalance_ is calculated as
+
+$$ \text{Imbalance}= \sum_{i=1}^{C}{|X_i - A|} $$
+
+where $A$ is the average weight that each chamber needs to carry $A = (\sum_{i=M}^{S}{M_j})/C$
+and $X_i$ is the total weight of the specimens at chamber $i$.
+
+
+---
+## Station Balance
+
+__Example__
+
+C = 3<br>
+S = 4<br>
+M = {5, 1, 2, 7}
+
+
+The average weight A = (5+1+2+7)/3 = 5
+
+A possible assignment (not optimal):
+
+C1 = 7, 5 <br>
+C2 = 2 <br>
+C3 = 1 <br>
+
+Imbalance = | 7+5 - 5| + |2 - 5| + | 1- 5| = 14
+
+--
+
+__Observation 1__: If there is an empty chamber in the final solution, than it is always
+beneficial (in the sense that the new solution is not worse than the original) to move
+one specimen from a chamber with two specimens to the empty one. Otherwise, the empty
+chamber contributes more to the imbalance than the alternative assignment.
+
+__Observation 2__: If S > C, then S - C specimens must be placed into chambers that
+already contain other specimens.
+
+
+
+---
+## Station Balance
+
+__Solution__
+
+- If S <= C, then place each specimen in its own chamber. Some chambers might be empty.
+
+- If S > C, then
+    - create 2C - S dummy specimens with weight zero
+    - sort 2C specimens (including the dummy ones)
+    - pair the specimens from the beginning and end of the sorted list (i.e., smallest
+    with largest, second smallest with second largest, ... until all are used) and
+    place each pair in a chamber
+
+--
+.small[
+
+__Example__
+
+C = 3, S = 4, M = {5, 1, 2, 7}
+
+The average weight A = (5+1+2+7)/3 = 5
+
+M with dummy specimens = { 5, 1, 2, 7, 0, 0}
+
+sorted M with dummy specimens = {0, 0, 1, 2, 5, 7}
+
+Optimal specimens to chamber assignment:
+
+C1 = 7 <br>
+C2 = 5 <br>
+C3 = 1, 2 <br>
+
+Imbalance = | 7 - 5| + |5 - 5| + | 3 - 5| = 4
+]
+
+---
+---
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>

@@ -17,7 +17,7 @@ Thu, 3/28
 
 Continue with sorting and searching problems.
 
-[Complete search](slides/08-brute_force_01.html) paradigm of problem solving, part 1.
+[Complete search](slides/08-brute_force_01.html) paradigm of problem solving.
 
 
 
