@@ -1,10 +1,7 @@
-<div class="lecture2">
+<div class="important">
 
 <div class="column_date">
 <p markdown="block">
-
-Class # 20 <br>
-Thu, 4/11
 
 
 
@@ -13,20 +10,9 @@ Thu, 4/11
 
 <div class="column_materials">
 <p markdown="block">
-<br/>
-
-Homework 7 quiz.
-
-<!--
-[Greedy]() approach to problem solving.
--->
-[Greedy](slides/10-greedy.html) approach to problem solving.
-
-
-
-
-
-<br>
+<br><br>
+May 20, __8:00-9:50am__, __109 CIWW__, Final Exam
+<br><br>
 
 </p>
 </div>

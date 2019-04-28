@@ -13,11 +13,12 @@ Tue, 4/9
 
 <div class="column_materials">
 <p markdown="block">
+<!--
 
 [Divide and conquer]() paradigm of problem solving.
-<!--
-[Divide and conquer](slides/09-divide_and_conquer.html) paradigm of problem solving.
 -->
+
+[Divide and conquer](slides/09-divide_and_conquer.html) paradigm of problem solving.
 
 
 

@@ -3,8 +3,8 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 20 <br>
-Thu, 4/11
+Class # 24 <br>
+Thu, 4/25
 
 
 
@@ -15,13 +15,7 @@ Thu, 4/11
 <p markdown="block">
 <br/>
 
-Homework 7 quiz.
-
-<!--
-[Greedy]() approach to problem solving.
--->
-[Greedy](slides/10-greedy.html) approach to problem solving.
-
+Homework 9 quiz.
 
 
 
