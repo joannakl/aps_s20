@@ -15,6 +15,13 @@ Tue, 4/23
 <p markdown="block">
 
 
+Discussion about problem B in the problem set.
+
+Wedding shopping, [bottom up approach](slides/11/Wedding_bu.pdf) - this is code
+from the textbook.
+
+Finding the [best path through a 2D grid](slides/11-dynamic_programming.html#26).
+
 
 </p>
 </div>

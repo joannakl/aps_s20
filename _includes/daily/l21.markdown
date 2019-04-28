@@ -14,6 +14,9 @@ Tue, 4/16
 <div class="column_materials">
 <p markdown="block">
 
+[Dynamic Programming](slides/11-dynamic_programming.html) approach to problem solving.
+
+[Wedding shopping](slides/11/WeddingShopping.pdf)
 
 
 </p>

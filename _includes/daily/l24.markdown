@@ -17,7 +17,12 @@ Thu, 4/25
 
 Homework 9 quiz.
 
+Solution to finding path in a grid problem (see the slides).
 
+Working on problems: 
+
+- [Ryan and Larry](slides/11/RyanAndLarry.pdf)
+- [Cutting Sticks](slides/11/CuttingSticks.pdf)
 
 
 <br>

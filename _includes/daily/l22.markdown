@@ -17,9 +17,9 @@ Thu, 4/18
 
 Homework 8 quiz.
 
+[Top down solution](slides/11-dynamic_programming.html#11) to the wedding shopping problem.
 
-
-
+[Jill Rides Again](slides/11/Jill.pdf)
 <br>
 
 </p>
