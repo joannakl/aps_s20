@@ -32,80 +32,496 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 ]
 
 ---
+## Dynamic Programming
 
-# Dynamic Programming
+__Dynamic programming__ is a technique of solving problems by means of breaking a larger
+problem into smaller/simpler sub-problems.
+
+Dynamic programming solutions gain their speed over the complete-search types of problem solving
+techniques by making sure that each sub-problem is solved only once and the result
+is stored for reuse later one.
+
+---
+
+class:middle, center
+
+# Making Change
+---
+
+## Making change - revisited
+
+.small[
+__Task__: Given a set of coin denominations constructe a given value using as
+few coins as possible.
+
+- `C = {c1, c2, c3, ..., cK}`  set of coin denomination (assume we have unlimited number of each)
+
+- `N` amount of money that we need to come up with
+]
+--
+.small[
+
+__Solution__
+
+- Recall that greedy strategy does not always work.
+
+- We need to perform a complete search (with backtracking) to find the solution to this problem.
+
+    - consider a function `coins` that given the amount of money and a set of
+    denominations returns the mininum number of coins that one could use to make the change
+    - calling `coins(N)` will solve our problem
+
+        ```
+        coins( n )
+            if  n < 0   return INF   // solution is not possible
+            if  n == 0  return 0     // all money used, we found a solution
+
+            best = INF
+            for all c in C
+                best = min ( best ,  coins(n-c) + 1)
+
+            return best
+        ```
+
+    - this function may make a lot of repeated calls with the same parameter
+]
+
+---
 
 
-- solving problems by making locally (at each step) optimal choices with
-the hope of obtaining optimal solution overall
+## Making change with Dynamic Programming
 
-- when does it work
-    - problem has optimal sub-structure: optimal solution for the problem
-      contains optimal solutions for sub-problems
-    - problem has a greedy property: optimal choices made at the moment
-      lead to otpimal overall solution (no need to go back and explore
-      an alternative)
+- in dynamic programming we will save the results of each of the recursive calls in a table
+to avoid making repeated computation
+    ```
+    answer = a 1D array of (N+1) elements intialized to -1
 
-- examples
+    coins( n )
+        if  n < 0   return INF   // solution is not possible
+        if  n == 0              // all money used, we found a solution
+            answer[0] = 0
+            return 0
+
+        if answer[n] >= 0  return answer[n]
+
+        //otherwise, compute it ...
+        best = INF
+        for all c in C
+            best = min ( best ,  coins(n-c) + 1)
+
+        //... and store it in the answer table
+        answer[n] = best
+
+        return best
+    ```
+
+- this guarantees that the function is called recursively at most N times (each
+call fills in one of the values in the `answer` array)
+
+
 
 
 ---
-# Challenge: Making Change
+## Making Change Iteratively
+
+- the recursive DP solution that we have so far is a top-down approach
+    ```
+    answer = a 1D array of (N+1) elements intialized to -1
+
+    coins( n )
+        if  n < 0   return INF   // solution is not possible
+        if  n == 0              // all money used, we found a solution
+            answer[0] = 0
+            return 0
+        if answer[n] >= 0  return answer[n]
+
+        best = INF
+        for all c in C
+            best = min ( best ,  coins(n-c) + 1)
+
+        answer[n] = best
+
+        return best
+    ```
+
+- we can compute the same using an iterative approach
+that constructs the solution from the bottom (bottom-up approach)
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    for n in 1 .. N
+        answer[n] = INF
+        for all c in C
+            if n-c >= 0
+                answer[n] = min ( answer[n] ,  answer[n-c] + 1)
+    ```
+
+---
+
+## Making Change: which coins to use
+
+- in the previous solutions we only determined how many coins we can use
+
+- what if we need to know which ones to use as well?
+
+    - this means that we need to keep track of the information about
+    the denominations of coins that went into the optimal solution
+
+--
+        ```
+        answer = a 1D array of (N+1) elements
+        answer[0] = 0
+
+        first_coin = a 1D array of (N+1) elements, it indicates for each
+                    element the first coin used in the solution for that
+                    amount of money
+        first_coint[0] = -1
+
+        for n in 1 .. N
+            answer[n] = INF
+            for all c in C
+                if n-c >= 0  AND  answer[n-c]+1 < answer[n]
+                    answer[n] = answer[n-c] + 1
+                    first_coin[n] = c
+        ```
+
+    - and then based on the `first_coin` array we can calculate an optimal solution
+        ```
+        while n > 0
+            print first_coin[n]
+            n = n - first_coin[n]   //decrement the amount of money by the used coin
+        ```
+
+---
+
+## Making change: in how many ways
+
+- another version of this problem is not to minimize the number of coins,
+but rather calculate the total number of possible ways in which we can make the requested amount
+
+- recall that the original solution picked the smallest value returned by the recursive calls
+
+    - in this new case, we actually want to calculate the sum of all the possibilities
+
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    for n in 1 .. N
+        answer[n] = 0
+        for all c in C
+            if x-c >= 0
+                answer[n] = answer[n] +  answer[n-c] + 1
+    ```
+
+
+
+---
+class:middle, center
+
+# Wedding Shopping
+
+---
+## Challenge: Wedding Shopping
+
+
+- [Wdding Shopping](slides/11/WeddingShopping.pdf) <!--UVA 11450-->
+
+
+Given different options for each garment (e.g. 3 shirt models, 2 belt models,
+4 shoe models, . . . ) and a certain limited budget,
+our task is to buy one model of each garment.
+
+We cannot spend more money than
+the given budget, but we want to spend the maximum possible amount.
+
+The __input__ consists of two integers 1 ≤ M ≤ 200 and 1 ≤ C ≤ 20, where M is the budget
+and C is the number of garments that you have to buy, followed by some information about
+the C garments.
+For the garment g ∈ [0..C-1], we will receive an integer 1 ≤ K ≤ 20
+which indicates the number of different models there are for that garment g, followed by K
+integers indicating the price of each model ∈ [1..K] of that garment g.
+
+The __output__ is one integer that indicates the maximum amount of money we can spend
+purchasing one of each garment without exceeding the budget. If there is no solution due to
+the small budget given to us, then simply print “no solution”.
+
+
+---
+## Challenge: Wedding Shopping
+
+__Example 1__<br>
+
+M = 20, C = 3:
+
+```
+3:   6 4 8
+2:   5 10
+4:   1 5 3 5
+```
+
+Solution: 19
+
+.left-column2[
+3:  6 4 __8__ <br>
+2:  5 __10__ <br>
+4:  __1__ 5 3 5 <br>
+]
+.right-column2[
+3:  __6__ 4 8 <br>
+2:  5 __10__ <br>
+4:  1 5 __3__ 5 <br>
+]
+
+
+---
+## Challenge: Wedding Shopping
+
+### Greedy Attempt Fails
+
+__Idea__: Go through each garment and pick the most expensive item within the remaining budget.
+
+__Problem__: The each decision influences the possible future decisions, making some of them impossible.
+In many cases, this approach will lead to wrong answers (sub-optimal solution or no solution).
+
+
+__Example__:
+
+M = 12, C = 3:
+
+```
+3:   6 4 8
+2:   5 10
+4:   1 5 3 5
+```
+
+Greedy approach picks 8 for the first garment, and returns no solution since
+the remaining budget of 4 does not allow us to pick anything else.
+
+Optimal solution picks 6, 5, 1 and uses the entire budget.
+
+
+__BUT__ greedy approach works for the original example when the budget was 20.
+
+
+---
+## Challenge: Wedding Shopping
+
+### Divide and Conquer
+
+Subproblems (selecting of each type of the garment) are not independent - the
+solution depends on the choices made for other subproblems.
+
+The divide and conquer approach is not suitable here.
+
+
+
+---
+## Challenge: Wedding Shopping
+
+### Complete Search / Recursive Backtracking
+
+Algorithm:
+
+
+```
+- start with money M and garment category i (assume indexing starting at zero),
+call this function shop( M, i )
+
+- if i == C (number of categories)
+    record the total price if it is larger than the largest price calculated so far
+
+- for each garment g in this category
+    if price of g is <= M
+        use this item and make a rerusive call to select a garment from catergory
+        i+1 and the budget of (M - price of g), shop(M-p[g], i+1)
+    else
+        selecting g exceeds the budget, so do not continue on this path
+
+```
+
+--
+
+Produces correct answer, but slow.
+
+- in the largest case, each garment category has 20 different items and
+there are 20 garment categories
+
+- this gives $20^{20}$ recursive calls to solve the sub-problems
+in the worst case - too many
+
+
+
+---
+## Challenge: Wedding Shopping
+
+
+
+But, the good news is that some of those $20^{20}$ subproblems are overlapping and
+we really have many fewer unique subproblems to solve.
+
+--
+
+- if any garment category has more than one item with the same price, then the two
+subproblems (selecting one or the other of the garments) are the same, example:
+
+    C = 3:
+
+    ```
+    3:   6 1 8
+    3:   5 10 5
+    4:   1 5 3 5
+    ```
+
+    selecting either of the 5's in the second row, will lead to the same solutions
+
+--
+
+-  at the time that we look at garment cagory i, we might be starting with the same
+amount of money even though we made different choices in the previous categories,  example:
+
+    C = 3:
+
+    ```
+    3:   6 1 8
+    3:   5 10 5
+    4:   1 5 3 5
+    ```
+
+    selecting either 6 and 5, or 1 and 10 will lead to the same _best_ option for
+    the last row (in both cases, we already spend 11 out of the budget)
+
+
+---
+## Challenge: Wedding Shopping
+
+consider the following functions and quantities
+- `shop(m, i)`, `0 <= m <= M` and `0 <= i <= C` <br>
+returns the amount of money we can spend using `m` dollars for the
+garments in categories `i, i+1, ..., C-1`
+
+- `p[i][g]` is the price of garment g in garment category i
+
+- count[i] is the number of garments in garment category i
+
+--
+
+then the following are true
+
+- if `m < 0`, then `shop(m, i) = negative infinity`
+
+- if `i = C` (an item in last garment category has been purchased), then
+`shop(m,i) = M-m`
+
+- for all other cases, <br>
+`shop(m, i) = max( shop(m - p[i][g]), i+1) )` for all values of `0 <= g <= count[i]`
+
+--
+
+In this problem, there are
+- 201 options for M (since `0 <= M <= 200`)
+- 20 options for item category (since `1 <= C <= 20`)
+
+so there are 201*20 = 4020 possible subproblems (in the worst case).
+
+---
+## Challenge: Wedding Shopping
+### DP - take 1 (top-down)
+
+
+```
+answer = an M+1 by C 2D array initialized to -1
+
+shop( m, i )
+
+    if m < 0  return -INF          //run out of money
+    if i == C return (M - m)       //finished and spent M-m
+
+    // !!! without this line below, we are simply doing backtracking
+    if answer[m][i] != -1   return answer[m][i]
+
+    best = -1
+    for g in  0 .. count[i]
+        best  =  max ( best,  shop(m - price[i][g], i+1) )
+
+    answer[m][i] = best
+
+    return best
+
+```
+
+---
+## Challenge: Wedding Shopping
+### DP - take 2 (bottom-up)
+
+- for a bottom-up approach to solving this problem
+see the actual [code in C++ and Java](11/WeddingShopping.pdf) from the textbook
+
+---
+
+class: center, middle
+
+# Best Path in a Grid
+
+---
+
+# Challenge: Best Path in a Grid
 
 __Task__
 
----
-# Challenge: Making Change
+Given an NxN grid find the best path from the upper
+left corner to the lower right corner.
+
+Best = the one whose values add up to the highest number
+
+Restrictions: you can only move down or right
+
+--
 
 __Example__
 
-- n = 4
-- denominations = {25, 10, 5, 1} cents
-- desired amount V = 47 cents
+.left-column2[
 
-solution:
-- start with the largest denomination and use as many coins as possible<br>
-  47 - 25 = 22
-- use the next highest denomination <br>
-  22 - 10 = 12 <br>
-  12 - 10 = 2 <br>
-- the remaining amount is too small for the denomination of 5, so skip it
-- use the last denomination <br>
-  2 - 1 = 1 <br>
-  2 - 1 = 0 <br>
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|3 |7 |9 |2 | 7|
+|9 |8 |3 |5 |5 |
+|1 |7 |9 |8 |5 |
+|3 |8 |6 |4 |10 |
+|6 |3 |9 |7 |8 |
 
-so we need 5 coins: 25, 10, 10, 1, 1
+]
+--
+.right-column2[
 
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|__3__ |7 |9 |2 | 7|
+|__9__ |__8__ |3 |5 |5 |
+|1 |__7__ |__9__ |__8__ |__5__ |
+|3 |8 |6 |4 |__10__ |
+|6 |3 |9 |7 |__8__ |
 
-
----
-# Challenge: Making Change
-
-This problem posses both characteristics that make the greedy solution
-applicable here:
-
-- the solutions to its subproblems are optimal, for example
-    - for 22 cents, the otpimal solution would be 4 coins: {10, 10, 1, 1}
-    - for 12 cents, the optimal solution would be 3 coins: {10, 1, 1}
-
-- the solution has a greedy property: we use the largest possible
-coin first, if we used a smaller one instead, we would have to replace that
-coin with more than one coin in the alternative solution.
-
----
-
-# Problems to work on
-
-- [Station Balance](slides/Station.pdf) <!-- UVA 410 -->
-
-- [Watering Grass](slides/Watering.pdf) <!-- UVA 10382 -->
-
-- [Dragon of Loowater](slides/Watering.pdf) <!-- UVA 11292 -->
+]
 
 
 ---
----
----
+
+# Challenge: Best Path in a Grid
+
+__Solution__
+
+- assume that rows and columns are numbered using indexes `1..n`,
+so the value of the upper left corner is `value[1][1]` and the
+value of the lower right corner is `value[n][n]`
+
+- we have the following relationship
+
+  $$sum(x,y) = max( sum(y,x-1), sum(y-1,x) ) + value[y][x] $$
+  $$sum(x,y) = 0 \text{ when } x=0 \text{ or } y=0$$
+
+- we store the `sum[y][x]` as a two dimensional matrix equal in size to the given grid
 
 
 
