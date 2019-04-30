@@ -16,15 +16,15 @@ Tue, 4/2
 
 Working on problems:
 
-- [15-puzzle Game](08/15-puzzle.pdf)
+- [15-puzzle Game](slides/08/15-puzzle.pdf)
 
-- [Bishops on a Chessboard](08/bishops.pdf)
+- [Bishops on a Chessboard](slides/08/bishops.pdf)
 
-- [Tug of War](08/tug.pdf)
+- [Tug of War](slides/08/tug.pdf)
 
-- [CD to Tape](08/CD.pdf)
+- [CD to Tape](slides/08/CD.pdf)
 
-- [Squares](08/squares.pdf)
+- [Squares](slides/08/squares.pdf)
 
 
 </p>
