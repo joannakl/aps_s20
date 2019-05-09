@@ -15,6 +15,7 @@ Thu, 5/2
 <p markdown="block">
 <br/>
 
+Algorithms for homework problems D and E.
 
 
 <br>

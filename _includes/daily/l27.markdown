@@ -14,7 +14,11 @@ Tue, 5/7
 <div class="column_materials">
 <p markdown="block">
 
+Homework 10 quiz.
 
+Some string algorithms.
+
+[slides](slides/12-string-algorithms.html)
 
 </p>
 </div>

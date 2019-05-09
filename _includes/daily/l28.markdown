@@ -15,6 +15,7 @@ Thu, 5/9
 <p markdown="block">
 <br/>
 
+Finish with string algorithms.
 
 
 <br>

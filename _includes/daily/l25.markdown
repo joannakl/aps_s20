@@ -14,6 +14,7 @@ Tue, 4/30
 <div class="column_materials">
 <p markdown="block">
 
+Algorithms for homework problems A-C.
 
 
 </p>
