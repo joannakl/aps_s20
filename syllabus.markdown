@@ -26,7 +26,7 @@ layout: default
 - [Java API 10 documentation](https://docs.oracle.com/javase/10/docs/api/)
 - [CPP Reference](https://en.cppreference.com/w/)
 - [CPlusPlus](http://www.cplusplus.com/reference/)
-- [Source code examples for the book](https://sites.google.com/site/stevenhalim/home/material) - collection of
+- [Source code examples for the CP3 book](https://sites.google.com/site/stevenhalim/home/material) - collection of
 zip files for the third edition of the book
 - [GitHub Repository with the code for the book](https://github.com/stevenhalim/cpbook-code),
 updated for the next edition of the book
@@ -38,8 +38,9 @@ updated for the next edition of the book
 ---
 
 - __Passing CSCI.UA.0201 with a grade of C or better.__
-You are expected to also know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.
-- Strong familiarity with either Java or C++ or both.
+- __Passing CSCI.UA.0310 with a grade of C or better.__
+- Strong familiarity with either Java or C++ or both. (__You will not be able to program in Python.__)
+- (You are expected to also know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.)
 
 
 
@@ -69,10 +70,9 @@ For detailed schedule, see the [Daily](daily.html) tab of this page.
 
 Your grade will be based on:
 
-* exams (50%): a midterm exam (20%) and a final exam (30%),  
-* homework (40%): most homework assignments will consist of a set of problems to be solved on your own and
-  an in-class quiz the following week (the quiz will count as 50% of the homework grade)  - three lowest grades
-  will be dropped to accommodate any excused or unexcused absences
+* exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
+* in-class/in-recitation quizzes (20%) - short paper-based and computer-based assessments
+* homework (20%): most homework assignments will consist of a set of problems to be solved on your own
 * recitations (10%): the participation and completion of work during the recitation sessions  - three lowest grades will be dropped to accommodate any excused or unexcused absences
 
 Grades will be determined using the following scale:
