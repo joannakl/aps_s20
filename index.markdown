@@ -66,8 +66,13 @@ CSCI-UA 480 Prerequisite: Computer Systems Organization (CSCI-UA 201). <br>
 Many of the top firms in the technological and financial sectors are using algorithmic problems as interview questions for assessing candidate skill. In this course we take this idea one step further and use algorithmic problem solving as way to hone programming skills. Students will use the material covered in the data structures and algorithms courses and learn new algorithmic techniques to solve challenging problems quickly. Each week will be devoted to a particular type of algorithm. Weekly problem sets will reinforce the lecture, and require students to implement their solutions in Java or C++.
 
 In this course students are expected to do a lot of hands on programming. The implementations are evaluated based on their
-correctness and speed. 
+correctness and speed.
 
+__Sample problems__:
+- [Minstack](https://www.spoj.com/problems/MINSTACK/en/)
+- [Sliding Window](http://poj.org/problem?id=2823)
+- [Exact Change](https://vjudge.net/problem/UVA-11517)
+- [Jugs](https://vjudge.net/problem/UVA-571)
 
 
 # Important Dates
