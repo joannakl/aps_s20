@@ -12,6 +12,8 @@ Thu, 1/30
 <p markdown="block">
 
 
+[Fundamentals](slides/02-fundamentals.html): algorithmic analysis, data types/sizes.
+
 
 </p>
 </div>
@@ -25,4 +27,3 @@ Thu, 1/30
 </div>
 
 </div>
-
