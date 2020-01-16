@@ -1,24 +1,19 @@
-<div class="recitation">
 
+<div class="change">
 <div class="column_date">
 <p markdown="block">
 
-Rec # 2 <br>
-Fri, 2/8
-
-</p>          
+Mon, 2/17
+</p>
 </div>
 
 <div class="column_recitation">
 <p markdown="block">
 
-Working on practice problems.
+President's Day. <br>
+No classes scheduled.
 
-Problems dis
-
-
-
-</p>        
+</p>
 </div>
 
 </div>

@@ -3,20 +3,15 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 12 <br>
-Thu, 3/7
-
-
+Class #12 <br>
+Thu, 3/05
 
 </p>
 </div>
-
 <div class="column_materials">
 <p markdown="block">
 
-Solving problems using disjoint set data structure.
 
-<br>
 
 </p>
 </div>
@@ -30,3 +25,4 @@ Solving problems using disjoint set data structure.
 </div>
 
 </div>
+

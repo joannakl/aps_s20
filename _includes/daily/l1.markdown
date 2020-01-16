@@ -1,0 +1,43 @@
+<div class="lecture1">
+
+<div class="column_date">
+<p markdown="block">
+
+Class #1 <br>
+Tue, 1/28
+
+</p>
+</div>
+<div class="column_materials">
+<p markdown="block">
+
+
+
+[Intro to the class](slides/01-course_intro.html).
+
+</p>
+</div>
+
+<div class="column_assign">
+<p markdown="block">
+
+Due immediately:
+
+- complete the [consent form](https://forms.gle/d7VmK5Er8qGwrry48)
+- complete the [class survey](https://forms.gle/n5EV5SPkf8DA4K7T6)
+- sign up for [Piazza](https://piazza.com/nyu/spring2020/aps) for this course  
+- ??? register on the [VJudge](https://vjudge.net/) website
+
+Homework 1, due Jan 31:
+
+- [add](problems/add.pdf) (practice problem, not for credit)
+- [add, 2](problems/add_2.pdf)
+- [fib numbers](problems/fib_numbers.pdf)
+- [fib numbers, 2](problems/fib_numbers_2.pdf)
+- [car value](problems/car_value.pdf)
+- [rod sculpture](problems/rod_sculpture.pdf)
+
+</p>
+</div>
+
+</div>

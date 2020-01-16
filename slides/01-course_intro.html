@@ -34,24 +34,23 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 # This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_s19/
+- Course website: https://cs.nyu.edu/~joannakl/aps_s20/
 
     This page contains the syllabus and daily summaries as well as loads
     of links to all other resources and services you will need for this class.
 
 - Recitations (required):
-  - Fridays 5:10 - 7:00pm
-  - plan to bring your laptop
+  - Wednesdays 8:00 - 9:15am
+  - plan to bring your laptop (there are outlets available)
 
 - Course message board / discussion: Piazza
-  - you can self-sign up at https://piazza.com/nyu/spring2019/aps
+  - you can self-sign up at https://piazza.com/nyu/spring2020/aps
 
-- Online judge: [Vjudge](https://vjudge.net/)
+- Online judge:
+    - Gradescope (for homework assignments and exams)
+    - [Vjudge](https://vjudge.net/) ???
 
 - Grades posted on NYU Classes
-
-- (Possibly Gradescope - not certain yet)
-
 
 
 ---
@@ -86,8 +85,8 @@ _Cracking the Code Interview_, ...)
 # Challenge
 
 Write a program that reads two integers from standard
-input, calculates their sum and prints the result
-to standard output.
+input (i.e., the user types it on the keyboard), calculates their sum and prints the result
+to standard output (i.e., it appears in the terminal).
 - use either Java or C/C++
 - write the entire program
 - write legibly
@@ -112,11 +111,11 @@ do not know C++ do not take code that was written in C++).
 
 --
 
-Working with your partner's code, decide
+Working with your partner's code (not the partner!), decide
 
 1. would it compile, if it was typed exactly the way it is written
 
-2. would it produce the correct result if the  input values were :
+2. would it produce the correct result if the input values were :
 
     - `35 -17`
     - `1000000000 -1000000000`
@@ -124,7 +123,7 @@ Working with your partner's code, decide
     - `-2000000000 -2000000000`
     - `2147483648 5`
 
-4. is there something interesting, noteworthy, strange, ... in the code
+4. is there something interesting, new-to-you, noteworthy, strange, ... in the code
 that you are reading?
 
 
@@ -144,14 +143,21 @@ Three parts for the problem solution:
 - calculate results
 - output the results (to standard output)
 
---
+---
+# Online Judge .large[&#x2696]
+## black-box testing
 
-Online Judge (black-box testing) .large[&#x2696]
-- most of the problems will be graded by an online judge
+- most of the problems will be graded by an online judge (this is just a program that determines if your program
+produces correct output given the input from a test)
+
 - contains many hidden tests (correctness of results and format matter!)
+
 - produces instant result (the solution either passed or failed the test)
+
 - objective
-- readability of the code does not matter .large[&#x1F622;] (well, at least note for an OJ)
+- readability of the code does not matter .large[&#x1F622;] (well, at least note for an OJ, but
+writing readable code may help you in debugging the code and later on in reviewing your own solutions; it
+may also make it possible to show off your solutions)
 
 ---
 # Workflow
@@ -194,10 +200,26 @@ create inputs for which you know the correct output)
 failure
 
 ---
+# Reasons for failure
+
+- __Compilation errors__ - hopefully this does not happen
+
+- __Wrong answer__ - the program completed the calculation in the given time and produced output, but the output is incorrect
+
+- __Presentation error__ - the program completed the calculation in the given time and produced output, but the output is incorrect
+(it differs from the correct output by whitespace)
+
+- __Runtime error__ - the program did not terminate normally (crashed with an exception or segfault)
+
+- __Time limit exceeded error__ - the program run for too long and was terminated
+
+
+
+---
 
 class: center, middle
 
-# [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s19/)
+# [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s20/)
 
 
 

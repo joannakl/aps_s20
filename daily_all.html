@@ -1,0 +1,64 @@
+---
+layout: default
+days:
+    - "l1"
+    - "l2"
+    - "l3"
+    - "l4"
+    - "l5"
+    - "l6"
+    - "l7"
+    - "l8"
+    - "l9"
+    - "l10"
+    - "l11"
+    - "l12"
+    - "l13"
+    - "l14"
+    - "l15"
+    - "l16"
+    - "l17"
+    - "l18"
+    - "l19"
+    - "l20"
+    - "l21"
+    - "l22"
+    - "l23"
+    - "l24"
+    - "l25"
+    - "l26"
+    - "l27"
+    - "l28"
+    - "final"
+---
+
+<div class="titles">
+    <div class="column_date">
+        Date
+    </div>
+
+    <div class="column_materials">
+        Material Covered, Notes, Handouts and Links
+    </div>
+
+    <div class="column_assign">
+        Readings, Assignments, Homework
+    </div>
+</div>
+
+{% comment %}
+
+{% endcomment %}
+
+
+
+{% for i in page.days reversed %}
+    {% assign file_name = "daily/" | append:  i  | append: ".markdown" %}
+    {% capture my_include %}{% include {{ file_name }} %}{% endcapture %}
+    {{ my_include | markdownify }}
+
+{% endfor %}
+
+
+<br>
+<br>

@@ -3,22 +3,15 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 27 <br>
-Tue, 5/7
-
-
+Class #27 <br>
+Tue, 5/05
 
 </p>
 </div>
-
 <div class="column_materials">
 <p markdown="block">
 
-Homework 10 quiz.
 
-Some string algorithms.
-
-[slides](slides/12-string-algorithms.html)
 
 </p>
 </div>
@@ -28,8 +21,8 @@ Some string algorithms.
 
 
 
-
 </p>
 </div>
 
 </div>
+

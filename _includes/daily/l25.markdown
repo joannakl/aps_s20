@@ -3,18 +3,14 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 25 <br>
-Tue, 4/30
-
-
+Class #25 <br>
+Tue, 4/28
 
 </p>
 </div>
-
 <div class="column_materials">
 <p markdown="block">
 
-Algorithms for homework problems A-C.
 
 
 </p>
@@ -25,8 +21,8 @@ Algorithms for homework problems A-C.
 
 
 
-
 </p>
 </div>
 
 </div>
+

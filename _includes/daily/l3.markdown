@@ -3,25 +3,14 @@
 <div class="column_date">
 <p markdown="block">
 
-Class # 9 <br>
-Tue, 2/26
-
-
+Class #3 <br>
+Tue, 2/04
 
 </p>
 </div>
-
 <div class="column_materials">
 <p markdown="block">
 
-Homework 3 quiz.
-
-More on non-linear data structures.
-
-
-[Non-linear data structures, part 1](slides/05-non-linear_ds_2.html).
-
-<br>
 
 
 </p>
@@ -31,12 +20,9 @@ More on non-linear data structures.
 <p markdown="block">
 
 
-- finish working on homework 4 (due 2/28 at 11:59pm)
-
-
-
 
 </p>
 </div>
 
 </div>
+

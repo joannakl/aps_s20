@@ -41,19 +41,11 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
     of links to all other resources and services you will need for this class.
 
 - Recitations (required):
-  - Fridays 5:10 - 7:00pm
-  - plan to bring your laptop
+  - Wednesdays 8:00 - 9:15am
+  - plan to bring your laptop (there are outlets available)
 
 - Course message board / discussion: Piazza
   - you can self-sign up at https://piazza.com/nyu/spring2019/aps
-
-- Online judge: [Vjudge](https://vjudge.net/)
-
-- Grades posted on NYU Classes
-
-- (Possibly Gradescope - not certain yet)
-
-
 
 ---
 
@@ -210,7 +202,7 @@ possible input size (this is specified as part of the constrains for the problem
 
 __Example__: check all pairs of value in the input set
 
-- Pwerformance is $O(N^2)$
+- Performance is $O(N^2)$
 
 --
 
@@ -222,8 +214,8 @@ __Example__: check all pairs of value in the input set
 
 --
 
-- when $N = 10^5$, $N^2 = 10^10$, time = $10^10 / 10^9$  => program finishes in 10s
-(too long for the types of problem that we will be looking at)
+- when $N = 10^5$, $N^2 = 10^10$, time = $10^{10} / 10^9$  => program finishes in 10s
+(too long for most of the kinds of problems that we will be looking at)
 
 
 ---
@@ -263,7 +255,7 @@ for (int i = 0; i < n; i++ ) {
 ---
 # Challenge
 
-Write a function that checks if a sting Y is a substring of another
+Write a function that checks if a string Y is a substring of another
 string X. The function should return `true` or `false`.
 
 Ex.
@@ -302,7 +294,31 @@ public static boolean substringMatch ( String X, String Y ) {
 
 .big[O(X.length * Y.length)]
 
-(Note: there exists a more efficient solution. )
+(Note: there are more efficient solutions.
+We will discuss them later in the semester. )
+
+---
+# What's the performance of ...
+
+check if a string Y is a substring of another string X
+
+```Java
+public static boolean substringMatch ( String X, String Y ) {
+  for (int i = 0; i < X.length(); i++ ) {
+    boolean matched = true;
+    for (int j = 0; j < Y.length(); j++) {
+      if (i+j >= X.length()) {
+        matched = false;
+        break;
+      }
+      if ( X.charAt(i+j) != Y.charAt(j) )
+        matched = false;
+    }
+    if (matched) return true;
+  }
+  return false;
+}
+```
 --
 
 Can we reduce the time further? - constant factor optimization
@@ -322,7 +338,8 @@ as the last statement in the inner for loop
 
 - good in practice
 
-- will not make significant improvments for most problems you encounter in this class
+- may not make significant improvments for most problems you encounter in this class
+
 
 ---
 # Challenge
@@ -348,7 +365,8 @@ only the unique elements
 ```C++
 for (int i = 0; i < n; i++ ) {
   int j = i;
-  while (j < n && oldArray[j] == oldArray[i] ) j++;
+  while (j < n && oldArray[j] == oldArray[i] )
+    j++;
   newArray.push(oldArray[i]);
   i = j - 1;
 }
@@ -361,7 +379,9 @@ for (int i = 0; i < n; i++ ) {
 
 
 ---
-# Rule of Thumb About Complexity
+# Rule of Thumb:
+## Complexity and Actual Time
+<br>
 
 | N | worst algorithm to pass on OJ |
 |:---|:---|
@@ -376,10 +396,6 @@ for (int i = 0; i < n; i++ ) {
 | <= 100M | $O(n)$   !!! , $O(log n)$, $O(1)$ |
 
 !!! but getting close to 10^8 may be dangerous
-
-
-For examples of algorithms that perform with those complexities, see Table 1.4
-in the book. (But do not worry if you are not familiar with all of those algorithms.)
 
 
 ---
@@ -456,7 +472,7 @@ range $[0, 2^N)$ <br>
   - this assumes that we represent only non-negative values
 
 
-- __Non-negative numbers__: a type using N-bits can represent values in
+- __Negative numbers__: a type using N-bits can represent values in
 the range $[-2^{n-1}, 2^{N-1})$ <br>
   - upperbound is NOT included
   - the leading bit is associated with a negative multiplier
@@ -490,12 +506,16 @@ purposes
 
 # Challenge: Split the number
 
+The problem statement: [Splitting Numbers](https://onlinejudge.org/external/119/11933.pdf)
+
 In pairs,
 
-- make sure you understand how the output values are obtained from the input
+- work together to try to come up with a solution (an algorithm) for the problem
+
+- make sure that __you understand how the output values are obtained from the input__
 
 - create two new test cases (input and output pairs), restriction: they need to
-be values > 1000
+be values > 2000
 
 
 </optgroup>
