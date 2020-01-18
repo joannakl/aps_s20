@@ -82,6 +82,8 @@ _Cracking the Code Interview_, ...)
 
 
 ---
+class: challenge
+
 # Challenge
 
 Write a program that reads two integers from standard
@@ -103,6 +105,8 @@ Example output:
 ]
 
 ---
+class: challenge
+
 # Challenge continued
 
 Exchange your code with someone sitting next to you. The code that you get
@@ -115,7 +119,7 @@ Working with your partner's code (not the partner!), decide
 
 1. would it compile, if it was typed exactly the way it is written
 
-2. would it produce the correct result if the input values were :
+2. (assume that it compiles) would it produce the correct result if the input values were :
 
     - `35 -17`
     - `1000000000 -1000000000`
@@ -220,6 +224,53 @@ failure
 class: center, middle
 
 # [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s20/)
+
+---
+# Java slow I/O
+
+.left-column2[
+- Classes/objects used for reading standard input:
+    - `Scanner`
+    - `BufferedReader` and `InputStreamReader`
+
+- Classes/objects used for writing standard output (and more):
+    - `PrintStream` (this is the type of `System.out`)
+    - `BufferedWriter` and `OutputStreamWriter`
+
+In both cases, the first option is slower than the second
+(with `BufferedWriter` being significantly faster than the alternative).
+
+See the code examples: [InputOutput0.java](01/InputOutput0.java),
+[InputOutput1.java](01/InputOutput1.java), [InputOutput2.java](01/InputOutput2.java).
+
+]
+--
+.right-column2[
+Example Executions:
+
+```
+$ time java InputOutput0 < in2.in >out
+
+real	0m7.371s
+user	0m3.751s
+sys	0m4.256s
+
+$ time java InputOutput1 < in2.in >out
+
+real	0m6.311s
+user	0m2.631s
+sys	0m4.051s
+
+$ time java InputOutput2 < in2.in >out
+
+real	0m1.426s
+user	0m1.780s
+sys	0m0.320s
+```
+]
+
+
+
 
 
 

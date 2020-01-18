@@ -16,7 +16,7 @@ class: center, top
 # CSCI-UA 480.4: APS
 ## Algorithmic Problem Solving
 <br>
-## Linear Data Structures
+## Linear Data Structures, Part 2
 
 
 .author[
@@ -35,9 +35,9 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 ---
 # Questions
 
-- homework 1 questions ?
+- homework questions?
 
-
+- any other questions?
 
 ---
 # Basic Linear Data Structures, Continuted
@@ -51,353 +51,340 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
+
 class: middle, center
 
-# Stacks
+# Queues
 
 ---
-# Stack (first in last out, FILO)
+# Queues (first in first out, FIFO)
 
 
 - implementation provided by buil-in classes:
-  - `stack` in C++ STL
-  - `Stack`  in Java
+  - `queue` in C++ STL
+  - `Queue`  in Java (note that this is an interface that
+  is implemented by several different classes in Java)
 
 --
 
 - operations performed
-    - add/push O(1) - adds to the top
-    - remove/pop O(1) - removes from the top
-    - top O(1) - access the element on the top (optional)
+    - add/enqueu/push O(1) - adds to the back of the queue
+    - remove/dequeue/pop O(1) - removes from the front of the queue
     - empty O(1) - determine if the stack is empty (optional)
 
---
 
-- used in many algorithms for solving problems
-  - postfix, prefix calculations and conversions
-  - graph algorithms
 
 ---
 
-# Challenge: Function Call Stack
-
-What is the output of `fun(4)` ?
-
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  printf ("%d\n", x);
-  fun(x-1);
-}
-```
+# Array as an Efficient Queue
 
 --
 
-Output
-```
-4
-3
-2
-1
-```
+- keep track of front (first element) and back (last element)
+.center[<img src="img/queue_array_1.PNG" alt="queue array" width = "50%"/>]
+
+
+--
+
+- what do we do if the back reaches the end of the array?
+.center[<img src="img/queue_array_2.PNG" alt="queue array back at end" width = "50%"/>]
+--
+
+use a circular array (and modular arithmetic) to rotate and move back
+to the beginning of the array (low indexes)
+.center[<img src="img/queue_array_3.PNG" alt="queue array back at end" width = "50%"/>]
+
 ---
 
-# Challenge: Function Call Stack
+# Array as an Efficient Queue
 
-What is the output of `fun(4)` ?
 
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  fun(x-1);
-  printf ("%d\n", x);
-}
-```
 
---
+- how do we distinguish between an empty and full queue? (what should
+be the values of front and back _pointers_ for an empty queue?)
 
-Output
-```
-1
-2
-3
-4
-```
----
 
-# Challenge: Function Call Stack
+.left-column2[<img src="img/queue_array_4.PNG" alt="queue array back at end" width = "80%"/>
 
-What is the output of `fun(4)` ?
+When the last element is removed, the front moves in front of the back. But this is also the
+case for the full array.
 
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  fun(x-1);
-  fun(x-1);
-  printf ("%d ", x);
-}
-```
-
---
-
-Output `1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
-
---
-
-How about these functions? (Try it on your own after the class. )
-.left-column2[
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  printf ("%d ", x);
-  fun(x-1);
-  fun(x-1);
-  printf ("%d ", x);
-}
-```
 ]
-.right-column2[
-```C++
-void fun (int x, int y ) {
-  if ( abs(x) >= 3 || abs(y) >= 2)
-    return;
-  printf ("%d %d\n", x, y);
-  fun(x-1, y+1);
-  fun(x  , y-1);
-  fun(x+1, y-1);
-  printf ("%d %d\n", x, y);
-}
-```
-]
+
+--
+
+.right-column2[<img src="img/queue_array_5.PNG" alt="queue array back at end" width = "80%"/>]
+
 --
 
 .below-column2[
-__For more complicated recursive functions, draw a call stack tree.__
+- Keep track of the number of elements in the queue.
+
+- Allocate large enough array that full never happens.
 ]
+
+
 ---
 
-# Challenge: Brackets Matching
+class: middle, center
 
-Given a mathematical expression containing parentheses, i.e., `(` and `)`, determine if the
-expression is valid.
+# Deque
+## (= double ended queue)
 
-Example:
+---
+# Deque
 
-`()(())` => valid
 
-`)()(())(` => invalid
-
-`()()(` => invalid
-
+- implementation provided by buil-in classes:
+  - `deque` in C++ STL
+  - `Deque`  in Java (note that this is an interface that
+  is implemented by several different classes in Java)
 
 --
+
+- operations performed
+    - push front, push back O(1) - add to either end of the deque
+    - pop front, pop back O(1) - remove from either end of the deque
+    - empty O(1) - determine if the deque is empty (optional)
+
+---
+
+class: middle, center
+
+# More Problems
+
+---
+class: challenge
+
+# Challenge: Smallest So Far
+
+Given a list of N positive integers (1 <= N <= $10^6$), compute for each
+element A[i], what is the smallest element to its left (excluding itself).
+
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
+         -----------------------------
+```
+
+Smallest to the Left Array:
+
+```
+         -----------------------------
+  array: | --| 5 | 4 | 4 | 3 | 3 | 2 |
+         -----------------------------
+```
+
+---
+class: challenge
+
+## Possible solutions
+
+__First Attempt__
+
+- for every element A[i] check all the elements to its left
+  - brute force  $\rightarrow$ time $O(N^2)$
 
 ------
 
-- Can you solve it without using any data structures (i.e., no stack)?
+--
+
+
+__Second Attempt__
+
+__Obeservation__: the sequence of the "smallest to the left" is monotonically
+decreasing
+
+Assume
+  - $A$ is the given array
+  - $STL$ is the array of smallest to the left that we are generating
+
+Calculate STL as follows:
+- $STL[0]$ is undefined (since there is nothing to the left of $A[0]$)
+- $STL[1] = A[0]$ (since that is the only value to the left)
+- $STL[i] = min( A[i-1], STL[i-1] )$, for $i > 1$
+
+This is $O(N)$
+
+---
+class: challenge
+
+# Challenge: Smaller than Current
+
+Given a list of N positive integers (1 <= N <= $10^6$), compute for each
+element A[i], what is the __rightmost__ element to its left that is
+strictly smaller than A[i].
+
+
+.left-column2[
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
+         -----------------------------
+```
+Rightmost Smaller Solution Array:
+
+```
+         -----------------------------
+  array: | --| --| 4 | --| 3 | --| 2 |
+         -----------------------------
+```
+]
+.right-column2[
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 1 | 4 | 6 | 13| 6 | 19| 10|
+         -----------------------------
+```
+Rightmost Smaller Solution Array:
+
+```
+         -----------------------------
+  array: | --| 1 | 4 | 6 | 4 | 6 | 6 |
+         -----------------------------
+```
+]
+
+---
+class: challenge
+
+.left-column2[
+## First Attempt
+
+- for every element A[i] check all the elements to its left
+(preferably starting from A[i] and scanning towards low indexes)
+  - brute force  $\rightarrow$ time $O(N^2)$
+
+
+But what is the actual algorithm for doing this?
+
+------
+
+]
+--
+.right-column2[
+
+Assume
+  - $A$ is the given array
+  - $RST$ is the array of rightmost smaller than values
+
+
+__Question__: How far down the array do we need to go to find an answer for A[i]?
+
+  - j: from i-1 down to 0
+    - if $A[j] > A[i]$, continue
+    - if $A[j] == A[i]$, then $RST[i] = RST[j]$ is the answer
+    - if $A[j] < A[i]$, then  $RST[i] = A[j]$ is the answer (and we break from the loop)
+  - if $RST[i]$ is still not set, then it is undefined
+
+This has to be repeated for each A[i]
+
+
+]
 
 --
 
-- Can you solve it for different types of brackets in a single expression?
+What happens with this array?
 
-  `{()()}[(())]` => valid
+```
+         -----------------------------
+         | 1 | 10| 9 | 8 | 7 | 6 | 5 |
+         -----------------------------
+```
 
-  `{)()(]` => invalid
+and this?
 
-  `(){(})` => invalid
-
----
-
-# Challenge: Brackets Matching
-
-__Solution with one kind of brackets__:
-
-- keep an integer that starts at zero
-- for each opening bracket increment it
-- for closed bracket decrement it (if less than zero, INVALID)
-
-if the value at the end is zero, then VALID, otherwise INVALID
+```
+         -----------------------------
+         | 1 | 10| 9 | 2 | 7 | 6 | 5 |
+         -----------------------------
+```
 
 --
 
-__Solution for mixed brackets__:
+__Observation__ spans of monotonically decreasing values larger
+than a current value, cannot contain the answer.
 
-- keep a stack of characters
-- for each opening brackets, push it on the stack
-- for each closing bracket,
-  - if matches top of the stack, then pop the stack
-  - otherwise, INVALID  (this covers empty stack as well)
+---
+class: challenge
 
-if the stack is empty, then VALID, otherwise INVALID
+## Second Attempt
+
+- RST[0] = undefined
+- stack.push(A[i])
+- i: 1 to N-1
+  - while stack not empty and top of the stack >= A[i]
+      - pop the stack
+  - if stack is empty, set RST[i] to undefined
+  - else set RST[i] to the top of the stack (do not pop it)
+  - push A[i] onto the stack
 
 
 --
 
-__What is the time complexity of these algorithms?__
+.left-column2[
+Let's apply it to
+
+
+```
+  -----------------------------
+  | 1 | 4 | 6 | 13| 6 | 19| 10|
+  -----------------------------
+```
+]
 
 --
 
-- Linear in the length of the input string expression.
+.right-column2[
 
----
-# Exercise
+| A[i] | stack before | RST[i] | stack after |
+|:---:|:---|:---:|:---|
+| 1  | | -- |1  |
+| 4 | 1 | 1 | 1 4 |
+| 6 | 1 4 | 4| 1 4 6 |
+| 13 | 1 4 6 | 6 | 1 4 6 13 |
+|6 | 1 4 ~~6 13~~| 4 | 1 4 6|
+| 19 | 1 4 6 | 6 | 1 4 6 19 |
+| 10 | 1 4 6 ~~19~~ | 6 | 1 4 6 |
 
-Can we use dynamic/resizable array (`vector` in C++ or `Vector` in Java)
-to provide efficient implementation of a stack?
-
-- If so, figure out how to do it (i.e., determine which functions
-in those classes give provide the functionality that is
-required by the stack).
-
-
----
-
-# Evaluating Mathematical Expressions
-
-Evaluate an arithmetic expression with only operators and numbers:
-
-- `1 + 2 + 3    =>  6`
-- `1 + 2 * 3    =>  7`
-- `1 * 2 * 3    =>  6`
-- `1 * 2 + 3    =>  5`
+]
 
 --
 
-Do the same with added parenthesis:
-
-- `1 + 2 * 3    =>  7`
-- `(1 + 2) * 3    =>  9`
-- `1 * 2 + 3    =>  5`
-- `1 * (2 + 3)    =>  6`
+What is the performance of this algorithm?
 
 --
 
-The code that can evaluate such expressions has to:
-- find and evaluate all subexpressions
-- for each operator figure out what its operands are
-
-It is easier if we can ignore the parenthesis and not have to
-worry about the operator precedence.
-
----
-
-# Prefix  and Postfix Notations
-### (a.k.a. Polish and Reverse Polish Notation)
-
-__Infix notation__ is a notation for writing human readable arithmetic
-expressions in which the operator appears _in-between_ its operands.
-
-[__Prefix notation__](http://en.wikipedia.org/wiki/Polish_notation)
-is a notation for writing arithmetic expressions in
-which the operator comes _before_ its operands.
-
-[__Postfix notation__](http://en.wikipedia.org/wiki/Reverse_Polish_notation)
-is a notation for writing arithmetic expressions in
-which the operator comes _after_ its operands.
-
-| infix          | prefix           | postfix      |
-| :--------------| :--------------- | :----------- |
-| `2 + 5`        |  `+ 2 5`         | ` 2 5 + `    |
-| `(2 + 4) * 5`  | `* + 2 4 5`      | ` 2 4 + 5 *` |
-| `2 + 4 * 5`    |  `+ 2 * 4 5`     | ` 2 4 5 * +` |
-
----
-
-# Evaluate Prefix Expressions
-
-
-- scan the given prefix expression from right to left
-- for each token in the input prefix expression
-  - if the token is an operand then
-      - push onto a stack
-  - else if the token is an operator then
-      - operand1 = pop stack
-      - operand2 = pop stack
-      - compute operand1 operator operand2
-      - push result onto stack
-- return top of stack as result
-
----
-
-# Evaluate Postfix Expressions
-
-
-- scan the given postfix expression from left to right
-- for each token in the input postfix expression
-  - if the token is an operand
-      - push it (its value) onto a stack
-  - else if the token is an operator
-      - operand2 = pop stack       (!!!)
-      - operand1 = pop stack
-      - compute operand1 operator operand2
-      - push result onto stack
-- return top of the stack as result
-
----
-# Convert Infix to Postfix
-
-- for each tokn in the input infix string expression
-  - if the token is an operand
-      - append to postfix string expression
-  - else if the token is a left brace
-      - push it onto the operator stack
-  - else if the token is an operator
-      - if the stack is not empty
-          - while top element on the stack is not a left brace AND has higher or equal precedence
-              - pop the stack and append to postfix string expression
-      - push it (the current operator) onto the operator stack
-  - else if the token is a right brace
-      - while the operator stack is not empty
-          - if the top of the operator stack is not a matching left brace
-              - pop the operator stack and append to postfix string expression
-          - else
-              - pop the left brace and discard
-              - break
-- while the operator stack is not empty
-  - pop the operator stack and append to postfix string expression
-
----
-# Exercise
-
-Apply the infix to postfix conversion to the following expression:
-$$4 + (5 * 6) / (1 + 2 + 3) $$
-
-Show the content of the operator stack and the postfix expression after each
-iteration of the outermost for loop.
+$O(N)$
 
 --
 
-You should end up with `4 5 6 * 1 2 + 3 + / +`.
-
-(full solution on the next slide)
+What are good test cases for this problem?
 
 ---
+class:on_your_own
 
-|Infix| Stack| Postfix | Comments|
-|:---|:---|:---|:---|
-| __4__ + (5 * 6) / (1 + 2 + 3)   |    | 4   |    |
-| 4 __+__ (5 * 6) / (1 + 2 + 3)   | +   | 4   |    |
-| 4 + **(**5 * 6) / (1 + 2 + 3)   | +(   | 4   |    |
-| 4 + (**5** * 6) / (1 + 2 + 3)   | +(   | 4 5   |    |
-| 4 + (5 __*__ 6) / (1 + 2 + 3)   | +(*   | 4 5   |    |
-| 4 + (5 * __6__) / (1 + 2 + 3)   | +(*   | 4 5 6   |    |
-| 4 + (5 * 6__)__ / (1 + 2 + 3)   | +   | 4 5 6 *   | A |
-| 4 + (5 * 6) __/__ (1 + 2 + 3)   | /   | 4 5 6 * +   | B  |
-| 4 + (5 * 6) / __(__1 + 2 + 3)   | /(   | 4 5 6 * +    |    |
-| 4 + (5 * 6) / (__1__ + 2 + 3)   | /(   | 4 5 6 * + 1   |    |
-| 4 + (5 * 6) / (1 __+.tiny[A]__ 2 + 3)   | /(+.tiny[A]   | 4 5 6 * + 1    | C |
-| 4 + (5 * 6) / (1 + __2__ + 3)   | /(+.tiny[A]   |  4 5 6 * + 1 2   |    |
-| 4 + (5 * 6) / (1 + 2 __+.tiny[B]__ 3)   | /(+.tiny[B]  .tiny[]  | 4 5 6 * + 1 2 +.tiny[A] |    |
-| 4 + (5 * 6) / (1 + 2 + __3__)   | /(+.tiny[B]   | 4 5 6 * + 1 2 +.tiny[A] 3   |    |
-| 4 + (5 * 6) / (1 + 2 + 3__)__   | /   |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B]    | D |
-| 4 + (5 * 6) / (1 + 2 + 3)   |    |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B] /   | E |
+# OnYourOwn: Modified Stack
 
-.small[A: pop operators down to `(` and then remove the bracket ] <br>
-.small[B: `/` has higher precedence than `+`] <br>
-.small[C: `+` operator marked with `A` to distinguish from the next one] <br>
-.small[D: pop everything up to and including the left bracket] <br>
-.small[E: end of the expression, pop operator and append them to the postfix  ] <br>
+__Task:__ Implement a stack that supports $O(1)$ operations for push, pop, top,
+__AND__ getMin (finds the smallest value in the current stack).
 
+--
+
+Hint 1: use a stack to keep track of the smallest element(s).
+
+--
+
+Hint 2: does your algorithm work if we allow duplicate values in the stack?
 
 </optgroup>
 

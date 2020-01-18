@@ -16,7 +16,7 @@ class: center, top
 # CSCI-UA 480.4: APS
 ## Algorithmic Problem Solving
 <br>
-## Linear Data Structures
+## Linear Data Structures, Part 1
 
 
 .author[
@@ -35,9 +35,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 ---
 # Questions
 
-- homework 1 questions ?
-
-
+- homework questions ?
 
 ---
 # Basic Linear Data Structures
@@ -47,6 +45,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
   - linked
 - stack
 - queue
+- deque
 
 --
 
@@ -65,6 +64,8 @@ different ways to implement them.
 --
 
 Most of the linear data structures are implemented in built-in libraries.
+When you use those libraries, you need to understand the performance of the operations
+(usually specified in the documentation).
 
 ---
 
@@ -76,20 +77,16 @@ class: middle, center
 ---
 # List as a Static Array
 
-_static array_ = fixed size, no need to resize it
+_static array_ = fixed size, no need to resize it (could be allocated on the stack or heap)
 
 - natively supported by both C/C++ and Java
-
 - can be declared with appropriate size up-front if the problem specifies
 the maximum input size (HINT: use extra buffer for safety to avoid
 going out of bounds)
-
 - can be multi-dimensional: 1D, 2D, 3D, ...
 
 --
-
 - allocated in memory as consecutive memory locations (important for fast accesses)
-
 - assume that indexes in use are all in the front (starting at low indexes) and
 there are no gaps
 
@@ -98,9 +95,7 @@ there are no gaps
       | 3 | 7 | -1| 0 | 15| -5|   |   |   |
       -------------------------------------
 ```
-
 --
-
 - performance of operations
   - insert/delete in the back O(1)
   - insert/delete in the front or _middle_ O(N)
@@ -111,20 +106,15 @@ there are no gaps
 ---
 # List as a Static Array
 
-_static array_ = fixed size, no need to resize it
+
+_static array_ = fixed size, no need to resize it (could be allocated on the stack or heap)
 
 - natively supported by both C/C++ and Java
-
 - can be declared with appropriate size up-front if the problem specifies
 the maximum input size (HINT: use extra buffer for safety to avoid
 going out of bounds)
-
 - can be multi-dimensional: 1D, 2D, 3D, ...
-
-
-
 - allocated in memory as consecutive memory locations (important for fast accesses)
-
 - assume that indexes in use are all in the front (starting at low indexes) and
 there are no gaps
 
@@ -133,15 +123,17 @@ there are no gaps
       | 3 | 7 | -1| 0 | 15| -5|   |   |   |
       -------------------------------------
 ```
-
-
-
 - performance of operations
   - insert/delete in the back O(1)
   - insert/delete in the front or _middle_ O(N)
   - update/modify: using index O(1), if need to find, then see below
   - find O(N) if not sorted, O(logN) if sorted
+--
 
+- solutions to problems often allocate a static array that is too large to
+  guarnatee that it never needs to be resized
+--
+(and to avoid out of bounds access problems)
 
 ---
 # List as a Static Array
@@ -201,8 +193,10 @@ reason ???
 # List as a Dynamic/Resizable Array
 
 - implementation provided by buil-in classes:
-  - `vector` in C++ STL
-  - `ArrayList` or `Vector` in Java (`ArrayList` is faster because it
+  - [`vector`](http://www.cplusplus.com/reference/vector/vector/) in C++ STL
+  - [`ArrayList`](https://docs.oracle.com/javase/10/docs/api/java/util/ArrayList.html)
+  or [`Vector`](https://docs.oracle.com/javase/10/docs/api/java/util/Vector.html)
+  in Java (`ArrayList` is faster because it
   is unsynchronized)
 
 - used when required size is not known at compile time
@@ -214,8 +208,7 @@ __performance of operations__
 use __amortized analysis__: average/amortized performance of a sequence of operations
 rather than each single operation <br>
 reason: because this way the cost of a resize and copy of data is averaged
-out <br>
-(works only if resizing is done by multiplicative factor)
+out (works only if resizing is done by multiplicative factor)
 
 --
 
@@ -239,7 +232,7 @@ out <br>
 practice reference/pointer operations)
 
 - performance of operations
-  - insert/delete in the back/front O(1) (assume a doubly linked)
+  - insert/delete in the back/front O(1) (assume a doubly linked list)
   - insert/delete in the _middle_ O(N)
   - update/modify: O(N) (except for in the front/back)
   - find O(N)
@@ -266,6 +259,7 @@ array
 
 
 ---
+class: challenge
 
 # Challenge
 
@@ -277,10 +271,16 @@ Determine the length of the loop if it exists.
 Restrictions:
 - Elements in the list are not unique.
 - Do not use extra storage.
-
 ]
-.right-column2[<br/><br/><br/><br/>
+.right-column2[<br/><br/>
 <img src="img/loop_tester.png" alt="list with a loop?" width = "100%"/>]
+
+.below-column2[
+.smaller[
+(If you are familiar with this problem, let other people try to figure it out. DO NOT just
+yell out the solution!)
+]
+]
 
 
 --
@@ -292,12 +292,14 @@ __Solution__ Rabbit and Turtle (two pointers)
 - advance rabbit two steps per iteration
 - advance turtle one step per iteration
 - if they meet (i.e., rabbit does not find the end of the list)
-then there is a loop and a note at which they meet is somewhere on the loop
+then there is a loop and a node at which they meet is somewhere on the loop
 - trace through the loop with one of them to determine the number of nodes in
 the loop
 ]
 
 ---
+
+class:challenge
 
 # Challenge
 
@@ -339,6 +341,7 @@ class: middle, center
   - graph algorithms
 
 ---
+class:challenge
 
 # Challenge: Function Call Stack
 
@@ -362,6 +365,7 @@ Output
 1
 ```
 ---
+class:challenge
 
 # Challenge: Function Call Stack
 
@@ -385,6 +389,7 @@ Output
 4
 ```
 ---
+class:challenge
 
 # Challenge: Function Call Stack
 
@@ -403,7 +408,35 @@ void fun (int x ) {
 
 Output `1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
 
+
 --
+
+.below-column2[
+__For more complicated recursive functions, draw a function call tree.__
+]
+.left-column2[
+.center[
+<img src="img/function_call_tree.png" width="80%" alt="function call tree">
+]]
+.right-column2[
+.small[
+Since the print statement happens __after__ the function call, the output can
+be generated using __postorder traversal__ of the function call tree.
+- f(0) prints nothing
+- f(1) prints just 1
+- f(2) prints 2, after the previous two 1's from the calls to f(1), so each of
+the calls to f(2) results in 1 1 2 output
+- f(3) prints its 3 after the output for the two calls to f(2), so each of the
+calls to f(3) results in 1 1 2 1 1 2 3
+- f(4) prints its 4 after the output for the two calls to f(4), for the final
+result shown above
+]
+]
+
+---
+class:on_your_own
+
+# OnYourOwn: Function Call Stack
 
 How about these functions? (Try it on your own after the class. )
 .left-column2[
@@ -430,12 +463,242 @@ void fun (int x, int y ) {
 }
 ```
 ]
+---
+
+class: challenge
+
+# Challenge: Brackets Matching
+
+Given a mathematical expression containing parentheses, i.e., `(` and `)`, determine if the
+expression is valid.
+
+Example:
+
+`()(())` => valid
+
+`)()(())(` => invalid
+
+`()()(` => invalid
+
+
 --
 
-.below-column2[
-__For more complicated recursive functions, draw a call stack tree.__
-]
+------
+
+- Can you solve it without using any data structures (i.e., no stack)?
+
+--
+
+- Can you solve it for different types of brackets in a single expression?
+
+  `{()()}[(())]` => valid
+
+  `{)()(]` => invalid
+
+  `(){(})` => invalid
+
 ---
+class: challenge
+
+# Challenge: Brackets Matching
+
+__Solution with one kind of brackets__:
+
+- keep an integer that starts at zero
+- for each opening bracket increment it
+- for closed bracket decrement it (if less than zero, INVALID)
+
+if the value at the end is zero, then VALID, otherwise INVALID
+
+--
+
+__Solution for mixed brackets__:
+
+- keep a stack of characters
+- for each opening brackets, push it on the stack
+- for each closing bracket,
+  - if matches top of the stack, then pop the stack
+  - otherwise, INVALID  (this covers empty stack as well)
+
+if the stack is empty, then VALID, otherwise INVALID
+
+
+--
+
+__What is the time complexity of these algorithms?__
+
+--
+
+- Linear in the length of the input string expression.
+
+---
+class:on_your_own
+
+# On Your Own: Library Classes as Stack
+
+Can we use dynamic/resizable array (`vector` in C++ or `Vector` in Java)
+to provide efficient implementation of a stack? This implementation should provide
+O(1) performance for push and pop operations.
+
+- If so, figure out how to do it (i.e., determine which functions
+in those classes give provide the functionality that is
+required by the stack).
+
+
+---
+
+# Evaluating Mathematical Expressions
+
+Evaluate an arithmetic expression with only operators and numbers:
+
+- `1 + 2 + 3    =>  6`
+- `1 + 2 * 3    =>  7`
+- `1 * 2 * 3    =>  6`
+- `1 * 2 + 3    =>  5`
+
+--
+
+Do the same with added parenthesis:
+
+- `1 + 2 * 3    =>  7`
+- `(1 + 2) * 3    =>  9`
+- `1 * 2 + 3    =>  5`
+- `1 * (2 + 3)    =>  6`
+
+--
+
+The code that can evaluate such expressions has to:
+- find and evaluate all subexpressions
+- for each operator figure out what its operands are
+
+It is easier if we can ignore the parenthesis and not have to
+worry about the operator precedence.
+
+---
+
+# Prefix  and Postfix Notations
+### (a.k.a. Polish and Reverse Polish Notation)
+
+__Infix notation__ is a notation for writing human readable arithmetic
+expressions in which the operator appears _in-between_ its operands.
+
+[__Prefix notation__](http://en.wikipedia.org/wiki/Polish_notation)
+is a notation for writing arithmetic expressions in
+which the operator comes _before_ its operands.
+
+[__Postfix notation__](http://en.wikipedia.org/wiki/Reverse_Polish_notation)
+is a notation for writing arithmetic expressions in
+which the operator comes _after_ its operands.
+
+| infix          | prefix           | postfix      |
+| :--------------| :--------------- | :----------- |
+| `2 + 5`        |  `+ 2 5`         | ` 2 5 + `    |
+| `(2 + 4) * 5`  | `* + 2 4 5`      | ` 2 4 + 5 *` |
+| `2 + 4 * 5`    |  `+ 2 * 4 5`     | ` 2 4 5 * +` |
+
+---
+
+# Evaluate Prefix Expressions
+
+
+- scan the given prefix expression from right to left
+- for each token in the input prefix expression
+  - if the token is an operand then
+      - push it (its value) onto a stack
+  - else if the token is an operator then
+      - operand1 = pop stack
+      - operand2 = pop stack
+      - compute operand1 operator operand2
+      - push result onto stack
+- return top of stack as result
+
+---
+
+# Evaluate Postfix Expressions
+
+
+- scan the given postfix expression from left to right
+- for each token in the input postfix expression
+  - if the token is an operand
+      - push it (its value) onto a stack
+  - else if the token is an operator
+      - operand2 = pop stack       (!!!)
+      - operand1 = pop stack
+      - compute operand1 operator operand2
+      - push result onto stack
+- return top of the stack as result
+
+---
+# Convert Infix to Postfix
+
+- for each token in the input infix string expression
+  - if the token is an operand
+      - append to postfix string expression
+  - else if the token is a left brace
+      - push it onto the operator stack
+  - else if the token is an operator
+      - if the stack is not empty
+          - while (top element on the stack is not a left brace) AND
+                  (this operator has higher or equal precedence to the one at the top of the stack)
+              - pop the stack and append to postfix string expression
+      - push it (the current operator) onto the operator stack
+  - else if the token is a right brace
+      - while the operator stack is not empty
+          - if the top of the operator stack is not a matching left brace
+              - pop the operator stack and append to postfix string expression
+          - else
+              - pop the left brace and discard
+              - break
+- while the operator stack is not empty
+  - pop the operator stack and append to postfix string expression
+
+---
+class: challenge
+
+# Challenge: Infix to Postfix
+
+Apply the infix to postfix conversion to the following expression:
+$$4 + (5 * 6) / (1 + 2 + 3) $$
+
+Show the content of the operator stack and the postfix expression after each
+iteration of the outermost for loop.
+
+--
+
+You should end up with `4 5 6 * 1 2 + 3 + / +`.
+
+(full solution on the next slide)
+
+---
+class:challenge
+
+.smaller[
+|Infix| Stack| Postfix | Comments|
+|:---|:---|:---|:---|
+| __4__ + (5 * 6) / (1 + 2 + 3)   |    | 4   |    |
+| 4 __+__ (5 * 6) / (1 + 2 + 3)   | +   | 4   |    |
+| 4 + **(**5 * 6) / (1 + 2 + 3)   | +(   | 4   |    |
+| 4 + (**5** * 6) / (1 + 2 + 3)   | +(   | 4 5   |    |
+| 4 + (5 __*__ 6) / (1 + 2 + 3)   | +(*   | 4 5   |    |
+| 4 + (5 * __6__) / (1 + 2 + 3)   | +(*   | 4 5 6   |    |
+| 4 + (5 * 6__)__ / (1 + 2 + 3)   | +   | 4 5 6 *   | A |
+| 4 + (5 * 6) __/__ (1 + 2 + 3)   | /   | 4 5 6 * +   | B  |
+| 4 + (5 * 6) / __(__1 + 2 + 3)   | /(   | 4 5 6 * +    |    |
+| 4 + (5 * 6) / (__1__ + 2 + 3)   | /(   | 4 5 6 * + 1   |    |
+| 4 + (5 * 6) / (1 __+.tiny[A]__ 2 + 3)   | /(+.tiny[A]   | 4 5 6 * + 1    | C |
+| 4 + (5 * 6) / (1 + __2__ + 3)   | /(+.tiny[A]   |  4 5 6 * + 1 2   |    |
+| 4 + (5 * 6) / (1 + 2 __+.tiny[B]__ 3)   | /(+.tiny[B]  .tiny[]  | 4 5 6 * + 1 2 +.tiny[A] |    |
+| 4 + (5 * 6) / (1 + 2 + __3__)   | /(+.tiny[B]   | 4 5 6 * + 1 2 +.tiny[A] 3   |    |
+| 4 + (5 * 6) / (1 + 2 + 3__)__   | /   |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B]    | D |
+| 4 + (5 * 6) / (1 + 2 + 3)   |    |  4 5 6 * + 1 2 +.tiny[A] 3 +.tiny[B] /   | E |
+]
+
+.small[A: pop operators down to `(` and then remove the bracket ] <br>
+.small[B: `/` has higher precedence than `+`] <br>
+.small[C: `+` operator marked with `A` to distinguish from the next one] <br>
+.small[D: pop everything up to and including the left bracket] <br>
+.small[E: end of the expression, pop remaining operators and append them to the postfix  ] <br>
+
 
 
 

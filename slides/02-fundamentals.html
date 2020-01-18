@@ -319,18 +319,11 @@ public static boolean substringMatch ( String X, String Y ) {
   return false;
 }
 ```
+
+Can we reduce the time further? ( constant factor optimization )
 --
-
-Can we reduce the time further? - constant factor optimization
-
---
-
-add
-
-```Java
-if (!matched) break;
-```
-
+<br>Yes, add
+<br>`    if (!matched) break;       `<br>
 as the last statement in the inner for loop
 
 ---
@@ -504,18 +497,68 @@ purposes
 
 ---
 
-# Challenge: Split the number
+class: challenge
 
-The problem statement: [Splitting Numbers](https://onlinejudge.org/external/119/11933.pdf)
+# Challenge: Split a Number
+
+We define the operation of splitting a binary number `n` into two numbers `a(n)`
+and  `b(n)` as follows.
+Let $0 \leq i_1 < i_2 < ... < i_k$  be the indices of the bits (with the least
+significant bit having index 0) in `n` that are 1. Then the indices of the bits
+of `a(n)` that are 1 are $i_1$, $i_3$, $i_5$, ... and the indices of the bits of
+ `b(n)` that are 1 are $i_2$, $i_4$, $i_6$, ...
+
+For example, if `n` is `110110101` in binary then, again in binary, `a = 010010001` and `b= 100100100`.
+
+.left-column2-large[
+__Input__
+
+The input consists of a single integer `n` between `1` and $2^{31} - 1$ written in standard decimal (base 10) format on a single line.
+
+__Output__
+
+The output consists of a single line, containing the integers `a(n)` and `b(n)` separated
+by a single space. Both `a(n)` and `b(n)` should be written in decimal format.
+]
+.right-column2-small[
+__Example 1__
+
+```
+Input:
+6
+Output:
+2 4
+
+```
+
+__Example 2__
+
+```
+Input:
+7
+Output:
+5 2
+
+```
+]
+---
+
+class: challenge
+
+# Challenge: Split a Number
 
 In pairs,
 
+- make sure that __you understand how the output values are obtained from the input__
+  (try both examples by hand)
+- create two new test cases (input and output pairs) that are for some reason interesting,
+    - restriction: they need to be values > 2000
+    - try to come up with a test case that is likely to be different than those of
+    other students around you
+
+
 - work together to try to come up with a solution (an algorithm) for the problem
 
-- make sure that __you understand how the output values are obtained from the input__
-
-- create two new test cases (input and output pairs), restriction: they need to
-be values > 2000
 
 
 </optgroup>
