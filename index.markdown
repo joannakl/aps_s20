@@ -31,9 +31,10 @@ title:
 <span class="name">{{site.recitation_instructor1_name}}:</span> {{site.recitation1_office_hours}} ({{site.recitation1_office_hours_location }})
 <br>
 
+<!--
 <span class="name">{{site.tutor_name}}:</span> {{site.tutor_hours}} ({{site.tutor_hours_location }})
 <br>
-
+-->
 
 
 
