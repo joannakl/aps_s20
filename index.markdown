@@ -83,8 +83,7 @@ __Sample problems__:
 </p>
 <p class="hang" markdown="1"> **Final Exam:**
 (date and time subject to change by CAS, check the dates posted by the department
-[here]( {{site.final_exams_link}} ) ) <br>
-__{{ site.final_exam_date }}__
+[here]( {{site.final_exams_link}} ) ) <br>__{{site.final_exam_date}}__
 
 
 <br>
