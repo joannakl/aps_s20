@@ -1,1 +1,4 @@
-aps:$apr1$iWrOo1Gs$xDGnhqKdJGH23AwXdYnHG/
+AuthType Basic
+AuthUserFile /home/joannakl/htaccess/.htpasswd_aps_s20
+AuthName "Members ONLY"
+require valid-user
