@@ -12,8 +12,12 @@ Tue, 1/28
 <p markdown="block">
 
 
-
 [Intro to the class](slides/01-course_intro.html).
+
+<br>
+
+[Verdict information for UVa judge](https://uva.onlinejudge.org/index.php?option=com_content&task=view&id=16&Itemid=31)
+
 
 </p>
 </div>
@@ -24,11 +28,11 @@ Tue, 1/28
 Due immediately:
 
 - complete the [consent form](https://forms.gle/d7VmK5Er8qGwrry48)
+- register on the [VJudge](https://vjudge.net/) website
 - complete the [class survey](https://forms.gle/n5EV5SPkf8DA4K7T6)
-- sign up for [Piazza](https://piazza.com/nyu/spring2020/aps) for this course  
-- ??? register on the [VJudge](https://vjudge.net/) website
+- sign up for [Piazza](https://piazza.com/nyu/spring2020/aps) for this course
 
-Homework 1, due Jan 31:
+Homework 1 (warm-up), due Jan 31:
 
 - [add](problems/add.pdf) (practice problem, not for credit)
 - [add, 2](problems/add_2.pdf)
