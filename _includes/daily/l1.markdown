@@ -16,6 +16,8 @@ Tue, 1/28
 
 <br>
 
+[Gradescope verdicts](problem_grading.html)
+
 [Verdict information for UVa judge](https://uva.onlinejudge.org/index.php?option=com_content&task=view&id=16&Itemid=31)
 
 
@@ -32,7 +34,7 @@ Due immediately:
 - complete the [class survey](https://forms.gle/n5EV5SPkf8DA4K7T6)
 - sign up for [Piazza](https://piazza.com/nyu/spring2020/aps) for this course
 
-Homework 1 (warm-up), due Jan 31:
+Homework 1 (warm-up), due Thursday, Jan 31:
 
 - [add](problems/add.pdf) (practice problem, not for credit)
 - [add, 2](problems/add_2.pdf)
