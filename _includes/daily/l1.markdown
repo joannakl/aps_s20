@@ -43,6 +43,8 @@ Homework 1 (warm-up), due Thursday, Jan 30:
 - [car value](problems/car_value.pdf)
 - [rod sculpture](problems/rod_sculpture.pdf)
 
+(if you cannot access these file because of an authentication problem, you can find them on Piazza)
+
 </p>
 </div>
 
