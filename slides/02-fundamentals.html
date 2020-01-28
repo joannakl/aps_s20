@@ -85,7 +85,7 @@ int main() {
 ]
 
 ---
-# Counting operations and not easy (possible)
+# Counting operations is not easy (possible)
 
 - hard to figure out what to count, some operations in the high level
 programming language may be actualy multiple operations on the CPU
@@ -141,12 +141,13 @@ $0 <= c_1g(n) <= f(n) <= c_2g(n) $ for all $n >= n_0$
 
 Example of Big O notation:
 
-f(x) ∈ O(g(x)) as there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5) such that f(x) ≤ cg(x) whenever x ≥ x0.
+f(x) ∈ O(g(x)) says that there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5) such that f(x) ≤ cg(x) whenever x ≥ x0.
 
 .footnote[Image and descriptions in Public Domain. Retrieved from Wikipedia:
 https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
 
 ---
+class: challenge
 
 # Challenge
 
@@ -214,7 +215,7 @@ __Example__: check all pairs of value in the input set
 
 --
 
-- when $N = 10^5$, $N^2 = 10^10$, time = $10^{10} / 10^9$  => program finishes in 10s
+- when $N = 10^5$, $N^2 = 10^{10}$, time = $10^{10} / 10^9$  => program finishes in 10s
 (too long for most of the kinds of problems that we will be looking at)
 
 
@@ -253,6 +254,7 @@ for (int i = 0; i < n; i++ ) {
 .big[$O(N^3)$]
 
 ---
+class: challenge
 # Challenge
 
 Write a function that checks if a string Y is a substring of another
@@ -267,7 +269,7 @@ X = 'abcdaaaabbbbcddd'
 
 
 ---
-
+class: challenge
 
 # What's the performance of ...
 
@@ -298,6 +300,7 @@ public static boolean substringMatch ( String X, String Y ) {
 We will discuss them later in the semester. )
 
 ---
+class: challenge
 # What's the performance of ...
 
 check if a string Y is a substring of another string X
@@ -335,6 +338,7 @@ as the last statement in the inner for loop
 
 
 ---
+class: challenge
 # Challenge
 
 
@@ -349,6 +353,7 @@ new array: [1, 4, 5, 6, 7, 9]
 
 
 ---
+class: challenge
 # What's the performance of ...
 
 given a sorted array of values, create a new sorted array that contains
@@ -466,7 +471,7 @@ range $[0, 2^N)$ <br>
 
 
 - __Negative numbers__: a type using N-bits can represent values in
-the range $[-2^{n-1}, 2^{N-1})$ <br>
+the range $[-2^{N-1}, 2^{N-1})$ <br>
   - upperbound is NOT included
   - the leading bit is associated with a negative multiplier
 
