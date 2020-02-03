@@ -33,6 +33,149 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 
 ---
+# Questions
+
+- homework 2 questions?
+
+- comments about homework 1?
+
+- any other questions?
+
+--
+
+-----
+
+- please, do not remove posts from Piazza
+
+- starting in hwk 3, you will not be able to see _your output__ vs __expected output__ for wrong answers and presentation errors
+
+- use tools that help you figure out where your program might be having issues, ex. `valgrind`
+
+- read warnings produced by your compiler (and ask the compiler for as many warnings as possible)
+
+---
+
+class: middle, center
+
+# Bits, bit operations, bit masks
+
+---
+# Bit operations
+
+
+
+```
+0101    0101    0101
+0011    0011    0011     0101
+   &       |       ^        ~
+----    ----    ----     ----
+0001    0111    0110     1010
+
+```
+
+--
+
+left shift <<
+
+```
+00101
+  <<2
+10100
+```
+--
+
+right shift >>
+
+```
+001010
+   >>2
+000010
+```
+
+--
+
+- shifting is equivalent to multiplying by powers of two (but faster)
+- WARNING: avoid shifting out of the type range
+
+---
+# Bit-mask
+
+A __bit mask__ of the form `1 << k` has one bit on (i.e., equal to 1)
+in the `k`<sup>th</sup> position and all other bits off (i.e., equal to 0).
+
+- to determine if a bit at the `k`<sup>th</sup> position in a particular value
+is on or off, we can use this bit mask and the bitwise and operator: `x & (1 << k)`
+
+  example:
+
+  ```
+  for (int k = 31; k >=0; k--) {
+      if (x & (1 << k) )
+        cout << "1";
+      else
+        cout << "0";
+  }
+  ```
+  What does this code do?
+
+--
+
+  It prints the binary represetnation of `x` (assuming that `x` is a 32-bit variable).
+
+---
+# Bit-mask continued
+
+Modifying bits within a value:
+
+- set the `k`<sup>th</sup> bit to be on (regardless of what it was before):
+  ???
+
+- set the `k`<sup>th</sup> bit to be off (regardless of what it was before):
+  ???
+
+- set the `k`<sup>th</sup> bit to be on if it is currently off, and to be off if it is
+currently on (just flip that bit to the opposite): ???
+
+
+- invert all bits after the last (least significant) one bit: ???
+
+- set the last (least significant) one bit in x to 0: ???
+
+- test if x is a power of two: ???
+
+
+
+
+---
+# Bit-mask continued
+
+Modifying bits within a value:
+
+- set the `k`<sup>th</sup> bit to be on (regardless of what it was before):
+  `x = x| (1 << k)`
+
+- set the `k`<sup>th</sup> bit to be off (regardless of what it was before):
+  `x = x & (1 << k)`
+
+- set the `k`<sup>th</sup> bit to be on if it is currently off, and to be off if it is
+currently on (just flip that bit to the opposite): `x = x ^ (1 << k)`
+
+
+- invert all bits after  the last (least significant) one bit: `x = x | (x-1)`
+
+- set the last (least significant) one bit in x to 0: `x & (x - 1)`
+
+- test if x is a power of two: `x & (x - 1) == 0`
+
+--
+<br><br>
+
+`(1 << k)`  is a 32-bit mask (1 is an `int`)
+
+to use a 64-bit bit mask: use (`1L << k`)
+
+---
+
 # Useful library functions, C/C++
 
 
@@ -86,6 +229,7 @@ Returns the number of zero bits preceding the highest-order ("leftmost") one-bit
 
 
 ---
+class: challenge
 
 # Exercises
 
@@ -98,6 +242,7 @@ the [hamming distance](https://en.wikipedia.org/wiki/Hamming_distance))
 
 
 ---
+class: challenge
 
 # Exercises
 
@@ -134,7 +279,7 @@ class: middle, center
 
 Any subset of a set
 $${0, 1, 2, 3, ..., n-1 }$$
-can be represented by an `n` bit integer. The bits of a number indicate
+can be represented by an `n`-bit integer. The bits of a number indicate
 if the element is present in the set or not.
 
 __Example__
@@ -153,13 +298,13 @@ x |= (1 << 3);
 x |= (1 << 8);
 x |= (1 << 11);
 ```
-
+<!--
 and to print the size of such a subset, use
 
 ```C++
 cout << __builtin_popcount(x) <<"\n";
 ```
-
+-->
 ---
 
 
@@ -170,7 +315,7 @@ represented by integers:
 
 - set intersection $A\cap B$ (what do the two sets have in common)
 - set union $A\cup B$ (all elements in either one, or both sets)
-- set difference $A \ B$ (all elements in A that are not in B)
+- set difference $A \setminus B$ (all elements in A that are not in B)
 
 --
 
@@ -182,6 +327,7 @@ set is 32).
 - `a & (~b)` is the difference
 
 ---
+class: challenge
 
 # Exercises
 
@@ -207,19 +353,14 @@ Bit access
 
 - `operator[]`
     Access bit
-
 - `count`
     Count bits set
-
 - `size`
     Return size
-
 - `test`
     Return bit value
-
 - `any`
     Test if any bit is set
-
 - `none`
     Test if no bit is set
 
@@ -386,16 +527,12 @@ __Sieve of Eratosthenes__
 - Example: N = 10
 
     - 1 2 3 4 5 6 7 8 9 10
-
     - i = 1, j = 1 <br>
       1 2 3 ~~4~~ 5 6 7 8 9 10
-
     - i = 1, j = 2 <br>
       1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 10
-
     - i = 1, j = 3 <br>
       1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 ~~10~~
-
     - primes:
         - $2$
         - $3 = 1\times 2 + 1$
@@ -406,6 +543,11 @@ __Sieve of Eratosthenes__
         - $17 = 8\times 2 + 1$
         - $19 = 9\times 2 + 1$
 ]
+
+
+
+
+
 </optgroup>
 
 
