@@ -47,7 +47,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 - please, do not remove posts from Piazza
 
-- starting in hwk 3, you will not be able to see _your output__ vs __expected output__ for wrong answers and presentation errors
+- starting in hwk 3, you will not be able to see _your output_ vs _expected output_ for wrong answers and presentation errors
 
 - use tools that help you figure out where your program might be having issues, ex. `valgrind`
 
@@ -84,7 +84,7 @@ left shift <<
 ```
 --
 
-right shift >>
+right shift >>  <sup>*</sup>
 
 ```
 001010
@@ -96,6 +96,12 @@ right shift >>
 
 - shifting is equivalent to multiplying by powers of two (but faster)
 - WARNING: avoid shifting out of the type range
+
+.footnote[
+<sup>*</sup> in C/C++, the right shift operator is performing logical or arithmetic
+shift depending on the context; in Java, there are two right shift operators: `>>`
+performs the arithmetic shift, `>>>` performs the logical shift
+]
 
 ---
 # Bit-mask
@@ -454,6 +460,27 @@ class: middle, center
 
 # Example Application:
 ## Prime Numbers
+
+---
+
+class: challenge
+
+# Primality Test
+
+__Task__: given a number N determine if it is prime or not
+
+--
+
+
+
+Very naive algorithm: $O(N)$ (check if any of the numbers from 1 to N is a divisor)
+
+Better algorithm: $O(\sqrt(N))$ (check if any of the numbers from 1 to $\sqrt(N)$ is a divisor)
+
+Even better algorithm: $O(\sqrt(N))$ (check if any of the numbers from 1 to $\sqrt(N)$
+is a divisor, but only test the odd values  after testing 2)
+
+
 ---
 
 # Prime numbers
@@ -490,60 +517,35 @@ __Sieve of Eratosthenes__
 
 
 - Example: N = 20
+
   - ~~0~~ ~~1~~ _2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20_
+
+--
 
   - ~~0~~ ~~1~~ __2__ _3_ ~~4~~ _5_ ~~6~~ _7_ ~~8~~ _9_ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ _15_ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
 
+--
+
   - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ _5_ ~~6~~ _7_ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+--
 
   - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ _7_ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
 
+--
+
   - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ _11_ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
 
+--
+
   - ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ __11__ ~~12~~ _13_ ~~14~~ ~~15~~ ~~16~~ _17_ ~~18~~ _19_ ~~20~~
+
+--
 
   - past the halfway point, all the remaining probably primes are definitely prime <br>
   ~~0~~ ~~1~~ __2__ __3__ ~~4~~ __5__ ~~6~~ __7__ ~~8~~ ~~9~~ ~~10~~ __11__ ~~12~~ __13__ ~~14~~ ~~15~~ ~~16~~ __17__ ~~18~~ __19__ ~~20~~
 
-
----
-# Sieve of Sundaram (1934)
-
-.left-column2[
-- Finds all the primes in the list of integers from 1 to 2N+2.
-
-- Algirthm:
-    - add $2$ to the set of primes
-    - mark all values of the form: $$i + j + 2\times i \times j$$
-      (where $i, j \in \mathbb{N}$, $ 1 \le i \le j$, $i + j + 2\times i\times j \le N$ )
-      as ~~not prime~~
-    - for each remaining unmark value, double it and add 1, and add it to the
-      set of primes (these are all odd primes between 3 and 2N+2)
-]
-
 --
-
-.right-column2[
-- Example: N = 10
-
-    - 1 2 3 4 5 6 7 8 9 10
-    - i = 1, j = 1 <br>
-      1 2 3 ~~4~~ 5 6 7 8 9 10
-    - i = 1, j = 2 <br>
-      1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 10
-    - i = 1, j = 3 <br>
-      1 2 3 ~~4~~ 5 6 ~~7~~ 8 9 ~~10~~
-    - primes:
-        - $2$
-        - $3 = 1\times 2 + 1$
-        - $5 = 2\times 2 + 1$
-        - $7 = 3\times 2 + 1$
-        - $11 = 5\times 2 + 1$
-        - $13 = 6\times 2 + 1$
-        - $17 = 8\times 2 + 1$
-        - $19 = 9\times 2 + 1$
-]
-
 
 
 
