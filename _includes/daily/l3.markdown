@@ -13,6 +13,9 @@ Tue, 2/04
 
 
 
+[Bitmasks](slides/03-bitmask.html): algorithmic analysis, data types/sizes.
+
+
 </p>
 </div>
 
@@ -25,4 +28,3 @@ Tue, 2/04
 </div>
 
 </div>
-
