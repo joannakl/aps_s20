@@ -11,6 +11,8 @@ Tue, 2/11
 <div class="column_materials">
 <p markdown="block">
 
+Problems involving linear data structures.
+
 
 
 </p>
@@ -25,4 +27,3 @@ Tue, 2/11
 </div>
 
 </div>
-

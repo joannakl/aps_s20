@@ -13,6 +13,10 @@ Thu, 2/06
 
 
 
+[Linear Data Structures](slides/04-linear-ds.html): lists, stacks, queues, deques.
+
+
+
 </p>
 </div>
 
@@ -25,4 +29,3 @@ Thu, 2/06
 </div>
 
 </div>
-
