@@ -11,7 +11,9 @@ Thu, 2/13
 <div class="column_materials">
 <p markdown="block">
 
+Homework discussion for hwk3.
 
+More on priority queues: building the heap (two ways), problems involving binary heaps.
 
 </p>
 </div>
@@ -25,4 +27,3 @@ Thu, 2/13
 </div>
 
 </div>
-

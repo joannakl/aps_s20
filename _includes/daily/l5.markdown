@@ -13,7 +13,7 @@ Tue, 2/11
 
 Problems involving linear data structures.
 
-
+[Priority queues](slides/05-priority-queue.html)
 
 </p>
 </div>
