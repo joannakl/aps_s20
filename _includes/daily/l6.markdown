@@ -14,7 +14,7 @@ Thu, 2/13
 Homework discussion for hwk3.
 
 Reading input from the input stream as long as there is some:
-[ReadInput.java](slides/05/ReadInput.java), [read_input.cpp](slides/05/read_input.cpp) 
+[ReadInput.java](slides/05/ReadInput.java), [read_input.cpp](slides/05/read_input.cpp)
 
 More on priority queues: building the heap (two ways), problems involving binary heaps.
 

@@ -11,6 +11,11 @@ Tue, 2/18
 <div class="column_materials">
 <p markdown="block">
 
+Working on problems. 
+
+Disjoint sets / union find data structure.
+
+[slides](slides/06-disjoint_set_union_find.html)
 
 
 </p>
@@ -25,4 +30,3 @@ Tue, 2/18
 </div>
 
 </div>
-

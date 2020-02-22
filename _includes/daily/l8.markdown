@@ -4,14 +4,15 @@
 <p markdown="block">
 
 Class #8 <br>
-Thu, 2/20
+~~Thu, 2/20~~
+Wed, 2/19
 
 </p>
 </div>
 <div class="column_materials">
 <p markdown="block">
 
-
+Continue with disjoint sets and more problems. 
 
 </p>
 </div>
@@ -25,4 +26,3 @@ Thu, 2/20
 </div>
 
 </div>
-
