@@ -270,7 +270,8 @@ Determine the length of the loop if it exists.
 
 Restrictions:
 - Elements in the list are not unique.
-- Do not use extra storage.
+- Do not use extra storage proportional in size to the size of the list.
+- Do not change/destroy the initial list.
 ]
 .right-column2[<br/><br/>
 <img src="img/loop_tester.png" alt="list with a loop?" width = "100%"/>]
@@ -801,6 +802,246 @@ class: middle, center
     - empty O(1) - determine if the deque is empty (optional)
 
 ---
+
+
+class: middle, center
+
+# More Problems
+
+---
+class: challenge
+
+# Challenge: Smallest So Far
+
+Given a list of N positive integers (1 <= N <= $10^6$), compute for each
+element A[i], what is the smallest element to its left (excluding itself).
+
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
+         -----------------------------
+```
+
+Smallest to the Left Array:
+
+```
+         -----------------------------
+  array: | --| 5 | 4 | 4 | 3 | 3 | 2 |
+         -----------------------------
+```
+
+---
+class: challenge
+
+## Possible solutions
+
+__First Attempt__
+
+- for every element A[i] check all the elements to its left
+  - brute force  $\rightarrow$ time $O(N^2)$
+
+------
+
+--
+
+
+__Second Attempt__
+
+__Obeservation__: the sequence of the "smallest to the left" is monotonically
+decreasing
+
+Assume
+  - $A$ is the given array
+  - $STL$ is the array of smallest to the left that we are generating
+
+Calculate STL as follows:
+- $STL[0]$ is undefined (since there is nothing to the left of $A[0]$)
+- $STL[1] = A[0]$ (since that is the only value to the left)
+- $STL[i] = min( A[i-1], STL[i-1] )$, for $i > 1$
+
+This is $O(N)$
+
+---
+class: challenge
+
+# Challenge: Smaller than Current
+
+Given a list of N positive integers (1 <= N <= $10^6$), compute for each
+element A[i], what is the __rightmost__ element to its left that is
+strictly smaller than A[i].
+
+
+.left-column2[
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 5 | 4 | 8 | 3 | 9 | 2 | 10|
+         -----------------------------
+```
+Rightmost Smaller Solution Array:
+
+```
+         -----------------------------
+  array: | --| --| 4 | --| 3 | --| 2 |
+         -----------------------------
+```
+]
+.right-column2[
+Sample Input Array:
+
+
+```
+         -----------------------------
+  array: | 1 | 4 | 6 | 13| 6 | 19| 10|
+         -----------------------------
+```
+Rightmost Smaller Solution Array:
+
+```
+         -----------------------------
+  array: | --| 1 | 4 | 6 | 4 | 6 | 6 |
+         -----------------------------
+```
+]
+
+---
+class: challenge
+
+.left-column2[
+## First Attempt
+
+- for every element A[i] check all the elements to its left
+(preferably starting from A[i] and scanning towards low indexes)
+  - brute force  $\rightarrow$ time $O(N^2)$
+
+
+But what is the actual algorithm for doing this?
+
+------
+
+]
+--
+.right-column2[
+
+Assume
+  - $A$ is the given array
+  - $RST$ is the array of rightmost smaller than values
+
+
+__Question__: How far down the array do we need to go to find an answer for A[i]?
+
+  - j: from i-1 down to 0
+    - if $A[j] > A[i]$, continue
+    - if $A[j] == A[i]$, then $RST[i] = RST[j]$ is the answer  (and we break from the loop)
+    - if $A[j] < A[i]$, then  $RST[i] = A[j]$ is the answer (and we break from the loop)
+  - if $RST[i]$ is still not set, then it is undefined
+
+This has to be repeated for each A[i]
+
+
+]
+
+--
+
+What happens with this array?
+
+```
+         -----------------------------
+         | 1 | 10| 9 | 8 | 7 | 6 | 5 |
+         -----------------------------
+```
+
+and this?
+
+```
+         -----------------------------
+         | 1 | 10| 9 | 2 | 7 | 6 | 5 |
+         -----------------------------
+```
+
+--
+
+__Observation__ spans of monotonically decreasing values larger
+than a current value, cannot contain the answer.
+
+---
+class: challenge
+
+## Second Attempt
+
+- RST[0] = undefined
+- stack.push(A[i])
+- i: 1 to N-1
+  - while stack not empty and top of the stack >= A[i]
+      - pop the stack
+  - if stack is empty, set RST[i] to undefined
+  - else set RST[i] to the top of the stack (do not pop it)
+  - push A[i] onto the stack
+
+
+--
+
+.left-column2[
+Let's apply it to
+
+
+```
+  -----------------------------
+  | 1 | 4 | 6 | 13| 6 | 19| 10|
+  -----------------------------
+```
+]
+
+--
+
+.right-column2[
+
+| A[i] | stack before | RST[i] | stack after |
+|:---:|:---|:---:|:---|
+| 1  | | -- |1  |
+| 4 | 1 | 1 | 1 4 |
+| 6 | 1 4 | 4| 1 4 6 |
+| 13 | 1 4 6 | 6 | 1 4 6 13 |
+|6 | 1 4 ~~6 13~~| 4 | 1 4 6|
+| 19 | 1 4 6 | 6 | 1 4 6 19 |
+| 10 | 1 4 6 ~~19~~ | 6 | 1 4 6 |
+
+]
+
+--
+
+What is the performance of this algorithm?
+
+--
+
+$O(N)$
+
+--
+
+What are good test cases for this problem?
+
+---
+class:on_your_own
+
+# OnYourOwn: Modified Stack
+
+__Task:__ Implement a stack that supports $O(1)$ operations for push, pop, top,
+__AND__ getMin (finds the smallest value in the current stack).
+
+--
+
+Hint 1: use a stack to keep track of the smallest element(s).
+
+--
+
+Hint 2: does your algorithm work if we allow duplicate values in the stack?
+
+
 
 </optgroup>
 

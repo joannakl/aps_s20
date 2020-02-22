@@ -33,12 +33,6 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 
 ---
-
-class: middle, center
-
-# Binary Trees
-
----
 # Balanced Binary Search Tree
 
 - binary tree
@@ -68,38 +62,25 @@ class: middle, center
 
 - AVL tree, Red-Black tree
 
-
 ---
-# Binary Heap / Priority Queue
+class: challenge
 
-- a complete binary tree (all levels are filled except for the lowest one, the
-lowest one is filled from left to right)
+# Challenge
 
-- for each node the values of its children are
-    - smaller than or equal to the one in the node (max-heap)
-    - larger than or equal to the one in the node (min-heap)
+For each o the following problems 1) come up with tests that could be used
+for the implementation, 2) come up with an algorithm(s) that can be used to solve
+the problem, 3) what is the performance of your algorithms?
 
---
+- Given a root to a binary tree containing `N` nodes, determine
+if it is a binary search tree?
 
-- `priority_queue` in C++, `PriorityQueue` in Java
+- Given a binary search tree containing `N` nodes,
+output the elements with values in the range [a..b] in ascending
+order.
 
-- usually implemented using compact arrays
+- Given a binary search tree containing `N` nodes, output
+the values in the leaves in ascending/descending order.
 
---
-
-- $O(log N)$ operations :
-  - add
-  - remove
-
-  because they require traversal along a single path from root to leaf
-
-- _top_ should be $O(1)$
-
---
-
-- building a heap from a collection of values is $O(N)$ !!!
-
-  Why?
 
 ---
 
@@ -128,30 +109,6 @@ in C++ () - starting in C++11 standard
 - Direct Addressing Table (DAT) is the simplest form of a hash
 table in which _keys_ are the indexes - it is simply an array
 
-
----
-# Challenge
-
-For each o the following problems 1) come up with tests that could be used
-for the implementation, 2) come up with an algorithm(s) that can be used to solve
-the problem, 3) what is the performance of your algorithms? 
-
-- Given `N` integers in arbitrary order find `k` largest ones.
-
-- Given a root to a binary tree containing `N` nodes, determine
-if it is a binary search tree?
-
-- Given a binary search tree containing `N` nodes,
-output the elements with values in the range [a..b] in ascending
-order.
-
-- Given a binary search tree containing `N` nodes, output
-the values in the leaves in ascending order.
-
-- A basic max-heap does only supports additions and removal of the max
-element. How would you implement the following two operations:
-  - `update(index, new_value)` - modify the value at a specified index to the new_value
-  - `delete(index)` - deletes the value at a specified index
 
 ---
 

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Non-Linear Data Structures</title>
+    <title>Priority Queue</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="css/slides.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <textarea id="source">
+
+
+class: challenge
+
+# Challenge
+
+Given `N` integers in an arbitrary order find `k` largest ones.
+
+
+---
 
 class: center, top
 
@@ -16,14 +26,10 @@ class: center, top
 # CSCI-UA 480.4: APS
 ## Algorithmic Problem Solving
 <br>
-## Non-Linear Data Structures
-
+## Priority Queue
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
 
 ]
 
@@ -31,6 +37,48 @@ materials shared by the authors of the textbook  Steven and Felix Halim
 Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 ]
 
+---
+
+# Priority Queue
+
+A __priority queue__ is a data structure that supports
+- element insertion
+- retrieval/access and removal of either minimum or maximum element
+(depending on the type of the queue)
+
+
+Functionally, it is similar to an ordinary queue in which the priorities
+are determined based on the time of arrival of an element (first in first out).
+
+In a priority queue, priorities associated with the elements determine the
+next minimum or maximum element.
+
+Multiple elements in a priority queue can have the same priority associated with them.
+
+Priority queues are typically implemented using a _binary heap_ structure.
+
+---
+# Binary Heap / Priority Queue
+
+A _binary heap_ is binary tree with two additional properties:
+
+- shape property: it is a complete tree  (i.e., all levels are filled except for the lowest one, the
+lowest one is filled from left to right)
+
+- order property:  for each node the values of its children are
+    - smaller than or equal to the one in the node (max-heap)
+    - larger than or equal to the one in the node (min-heap)
+
+--
+
+Performance of the operations:
+  - add $O(log N)$
+  - remove $O(log N)$
+  - top  $O(1)$
+
+--
+
+Building a heap from a collection of values is $O(N)$ !!!  Why?
 
 ---
 
@@ -46,11 +94,78 @@ Visualizations:
     - has both $O(n \log n)$ and $O(N)$ processes illustrated
 
 
-
 ---
-class: middle, center
+# Examples:
 
-# k-largest values
+.left-column2-smaller[
+in C++'s' `priority_queue` the defaul order of elements is "decreasing" (max-heap)
+
+```C++
+priority_queue<int> q;
+
+q.push(3);
+q.push(5);
+q.push(7);
+q.push(2);
+cout << q.top() << "\n"; // 7
+q.pop();
+cout << q.top() << "\n"; // 5
+```
+To reverse the ordering of elements, instantiate `q` as
+
+```C++
+priority_queue<int,
+        vector<int>,
+        greater<int> >   q;
+```
+
+]
+.right-column2-larger[
+in Java's `PriorityQueue<>` the defaul order of elements is "increasing" (min-heap)
+
+```Java
+PriorityQueue<Integer> q =
+  new PriorityQueue<Integer>();
+q.add(3);
+q.add(5);
+q.add(7);
+q.add(2);
+System.out.println( q.peek() ); // 2
+q.remove();
+System.out.println( q.peek() );  // 3
+```
+.small[
+To reverse the order of elements in `q`, define a `Comparator`
+
+```java
+class Comp implements Comparator<Integer>{
+  public int compare (Integer a, Integer b) {
+    return b-a;
+  }
+}
+```
+
+and then instantiate `q` as
+
+```java
+PriorityQueue<Integer> q =
+  new PriorityQueue<Integer>(new Comp());
+```
+]
+]
+---
+
+class: challenge
+
+# Challenge
+
+- Given `n` integers in arbitrary order find `k` largest ones.
+
+- A basic max-heap  only supports element addition and removal of the max
+element. How would you implement the following two operations:
+  - `update(index, new_value)` - modify the value at a specified index to the new_value
+  - `delete(index)` - deletes the value at a specified index
+
 
 ---
 # k-largest values
@@ -88,7 +203,7 @@ __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
 
 __Solution 2__:
 
-- repeat `findMax` algorithm `k` times
+- repeat `findMax` algorithm on an unsorted array `k` times
 
 __Performance__:
 
@@ -101,7 +216,7 @@ __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
 
 __Solution 2__:
 
-- repeat `findMax` algorithm `k` times
+- repeat `findMax` algorithm on an unsorted array `k` times
 
 __Performance__: $O(k n)$
 
@@ -204,21 +319,22 @@ __Performance__: average $O(n)$, worst case $O(n^2)$
 We'll come back to this solution later.
 
 ---
+class: challenge
 
-class: middle, center
+# Median
 
-# median
+__Problem 1__: Find the median
+
+Given $n$ integers in arbitrary order find their median.
+
+__Problem 2__: Find the running median
+
+You are given a total of $n$ integers in arbitrary order. As you are reading
+the values one by one, we want to know the value of the median for the values read in so far.
 
 ---
 
-# median
-
-__Problem__: Given $n$ integers in arbitrary order find their median.
-
-
----
-
-# median - solutions
+# Median - solutions
 
 - use any of the k-largest values approach, but set k = n/2 (or adjust accordingly
 for the even n) and only use the k'th value
@@ -231,11 +347,23 @@ of the heaps (or the average of the two tops)
 an algorithms textbook)
 
 
-
-
-
-
 ---
+
+class: challenge
+
+# Challenge
+
+- Is the structure represented by a 1-based compact array (ignoring
+index 0) sorted in descending order a Max Heap?
+
+- Given a max-heap represented by a 1-based compact array (ignoring index 0)
+what are the possible indexes at which the second largest element is located?
+
+- Given a max-heap represented by a 1-based compact array (ignoring index 0)
+what are the possible indexes at which the third largest element is located?
+
+- Given a max-heap represented by a 1-based compact array (ignoring index 0)
+what are the possible indexes at which the smallest element is located?
 
 
 

@@ -167,6 +167,23 @@ float: right;
 padding:1% 1% 1% 5%;
 }
 
+
+
+
+/* Two-column layout */
+.left-column2-smaller {
+width: 36%;
+float: left;
+padding:1% 5% 1% 1%;
+}
+
+.right-column2-larger {
+width: 52%;
+float: right;
+padding:1% 1% 1% 5%;
+}
+
+
 /* Two-column layout */
 .left-column2-large {
 width: 64%;

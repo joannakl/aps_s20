@@ -66,7 +66,7 @@ class: center, middle
 
 __Example__
 
-Data to sort: A = [1, 3, 6, 9, 9, 3, 5, 9]
+Data to sort: A = [1, 3, 6, 9, 9, 3, 5, 9], the max possible value is `c = 9`
 
 --
 
@@ -109,6 +109,8 @@ be given to those sorts to decide/alter the sorting order of objects
 
 ---
 
+class: challenge
+
 # Challenge: Unique or Not
 
 
@@ -143,6 +145,7 @@ __Better, using sorting__, $O(N \log N)$
 - elements are UNIQUE
 
 ---
+class: challenge
 
 # Challenge: Restaurant Problem
 
@@ -164,12 +167,14 @@ The information that you have access to is as follows:
 | ... | $a_{...}$ | $d_{...}$ |
 
 ---
+class: challenge
+
 
 # Challenge: Restaurant Problem
 
 __Solution__
 
-- sort the times $a_i$ and $b_i$ (as a single array)
+- sort the times $a_i$ and $d_i$ (as a single array based on time)
 - start a counter at zero
 - set max_counter to zero
 - for each element in the array of arrival/departure times
@@ -184,6 +189,8 @@ __Solution__
 This is algorithm in the family of __sweep line__ algorithms.
 
 ---
+
+class: challenge
 
 # Challenge: Springbreak
 
@@ -214,6 +221,7 @@ as possible.
 
 
 ---
+class: challenge
 
 # Challenge: Springbreak
 
@@ -248,6 +256,7 @@ __Which of these solutions would result in the largest number of events?__
 
 
 ---
+class: challenge
 
 # Challenge: Springbreak
 
@@ -255,19 +264,19 @@ Consider these scenarios
 
 | scenario | sol 1 | sol 2| sol 3| optimal |
 |:---:|---|---|---|---|
-| <img src="img/events_3.PNG" alt="four events" width = "350px"/> | 2 | 2 | 2 | 2 |
-| <img src="img/events_2.PNG" alt="three events" width = "350px"/> | 1 | 2 | 2 | 2 |
-| <img src="img/events_1.PNG" alt="four events" width = "350px"/> | 3 | 1 | 3 | 3 |
+| <img src="img/events_3.PNG" alt="four events" width = "350px"/> | 3 | 3 | 3 | 3: e1, e3, e4 |
+| <img src="img/events_2.PNG" alt="three events" width = "350px"/> | 1 | 2 | 2 | 2: e1, e3 |
+| <img src="img/events_1.PNG" alt="four events" width = "350px"/> | 3 | 1 | 3 | 3: e2, e3, e4 |
 
 ---
 # Challenge: Springbreak
 
-The solutions #3 is the optimal one. 
+The solutions #3 is the optimal one.
 
 __Justification for optimality__: <br/>
 consider what happens when we pick an event that ends later than the one we picked
 - it will either conflict with another event that is in the set of events for solution 3, or not
-- if it does not conflict, than we have an equvalent optimal solution (i.e., same number of events)
+- if it does not conflict, than we have an equivalent optimal solution (i.e., same number of events)
 - if it does conflict, we have to give up another event, and the new solution has fewer events (not optimal)
 
 Picking an event that ends sooner, always gives a better or equivalent solution than picking an event that ends
@@ -298,6 +307,8 @@ class: center, middle
     - visits small fraction of elements, $O(\log N)$
     - data has to be sorted
 ---
+class: challenge
+
 # Challenge: Count A's and B's
 
 __Taks__<br/>
@@ -316,6 +327,8 @@ _Example:_<br/>
 
 
 ---
+class: challenge
+
 # Challenge: Count A's and B's
 
 <br><br>
