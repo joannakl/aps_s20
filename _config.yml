@@ -2,7 +2,7 @@
 title: CSCI-UA 480 (Algorithmic Problem Solving)
 description: "Course website for CSCI-UA 480 (Algorithmic Problem Solving) course."
 
-baseurl: "/aps_s20" # the subpath of your site, e.g. /blog
+baseurl: "/aps_s20/" # the subpath of your site, e.g. /blog
 url: "https://joannakl.github.io/aps_s20" # the base hostname & protocol for your site, e.g. http://example.com
 
 markdown: kramdown
