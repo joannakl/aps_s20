@@ -56,13 +56,23 @@ class: center, middle
     in time better than $O(N\log N)$
 
 ---
-# Sorting Algorithms
+# Sorting Algorithms: Counting Sort
 
-- counting sort
 
-  - works in $O(N)$
-  - assumes that elements to be sorted are in a fixed range of 0 to $c$
+- assumes that elements to be sorted are in a fixed range of 0 to $c$
 
+- works in $O(N + c)$
+    - which is $O(N)$ for $c < N$,
+    - but may be much worse if $c > N$ (for example, if $c=N^2$, then
+      using counting sort gives $O(N^2)$ time)
+
+- algorithm:
+  - linear pass through the data to count how many of each elements 0 to $c$
+    there are (counter for each possible element)
+  - linear pass through the counters to produce data in order
+
+---
+# Sorting Algorithms: Counting Sort
 
 __Example__
 
@@ -88,9 +98,58 @@ B is the sorted version of A
 (of course, this could be done _in place_ without using a B array, but we do
 need to use a C array)
 
+---
+# Sorting Algorithms: Radix Sort
+
+- another _fast_ sort for integer data (or data that can be easily mapped to integers)
+
+- useful when counting sort is too slow, i.e., the range is significantly larger than the number of elements
+
+- idea: sort the numbers by digits from least significant to most significant
+
+- can be applied to representations in different basis
+
+
+---
+# Sorting Algorithms: Radix Sort
+
+__Example__
+
+Data to sort: A = [100182, 21203, 611341, 909090, 9897, 323109, 5, 9781], the range of values is [0, 1000000].
 
 
 
+--
+
+10018__2__, 2120__3__, 61134__1__, 90909__0__, 989__7__, 32310__9__, __5__, 978__1__ <br>
+--
+90909__0__, 61134__1__, 978__1__, 10018__2__, 2120__3__, __5__,  989__7__, 32310__9__ <br>
+--
+9090__9__0, 6113__4__1, 97__8__1, 1001__8__2, 212__0__3, __?__5,  98__9__7, 3231__0__9 <br>
+--
+__?__5,  212__0__3, 3231__0__9, 6113__4__1, 97__8__1, 1001__8__2, 9090__9__0, 98__9__7<br>
+--
+5,  21__2__03, 323__1__09, 611__3__41, 9__7__81, 100__1__82, 909__0__90, 9__8__97<br>
+--
+5, 909__0__90,  323__1__09, 100__1__82, 21__2__03, 611__3__41, 9__7__81, 9__8__97<br>
+--
+5, 90__9__090,  32__3__109, 10__0__182, 2__1__203, 61__1__341, __9__781, __9__897<br>
+--
+5, 10__0__182, 2__1__203, 61__1__341, 32__3__109, 90__9__090,  __9__781, __9__897<br>
+--
+5, 1__0__0182, __2__1203, 6__1__1341, 3__2__3109, 9__0__9090,  __?__9781, __?__9897<br>
+--
+5,  __?__9781, __?__9897, 1__0__0182, 9__0__9090, 6__1__1341, __2__1203, 3__2__3109<br>
+--
+5,  9781, 9897, __1__00182, __9__09090, __6__11341, __?__21203, __3__23109<br>
+--
+5,  9781, 9897, __?__21203, __1__00182, __3__23109, __6__11341, __9__09090<br>
+
+--
+
+How should each _digit_ be sorted to guarantee the final sorted order?
+
+What is the performance of this sort?
 
 
 ---
@@ -359,8 +418,41 @@ countB = n - mid - 1
 
 
 ---
+class: challenge
+
+# Challenge: Separate A's and B's
+
+__Taks__<br/>
+
+Given an array of `N` elements each of which is an A or a B, rearrange the array so that
+it contains a continuous run of all A's followed by all B's.
+
+<br>
+
+_Example:_<br/>
+
+- input  array `data = [B, A, A, B, B, B, A, B, B, B]`
+
+- output: `data = [A, A, A, B, B, B, B, B, B, B]`
 
 ---
+
+class: challenge
+
+# Challenge: Separate A's, B's, C's,  D's and F's
+
+__Taks__<br/>
+
+Given an array of `N` elements each of which is an A - F, rearrange the array so that
+it contains a continuous run of all A's followed by all B's, all C's, ... .
+
+<br>
+
+_Example:_<br/>
+
+- input  array `data = [B, F, A, B, C, B, A, C, B, D]`
+
+- output: `data = [A, A, B, B, B, B, C, C, D, F]`
 
 ---
 
