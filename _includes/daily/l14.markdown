@@ -11,7 +11,7 @@ Thu, 3/12
 <div class="column_materials">
 <p markdown="block">
 
-Practice midterm exam - online.
+[Practice midterm exam](practice_midterm.pdf) - online.
 
 
 
