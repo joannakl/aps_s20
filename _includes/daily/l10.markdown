@@ -11,6 +11,10 @@ Thu, 2/27
 <div class="column_materials">
 <p markdown="block">
 
+Sorting and searching algorithms. 
+
+[slides](slides/07-sorting_and_searching.html)
+
 
 
 </p>
@@ -25,4 +29,3 @@ Thu, 2/27
 </div>
 
 </div>
-

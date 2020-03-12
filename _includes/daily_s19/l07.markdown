@@ -1,0 +1,44 @@
+<div class="lecture1">
+
+<div class="column_date">
+<p markdown="block">
+
+Class # 7 <br>
+Tue, 2/19
+
+
+
+</p>
+</div>
+
+<div class="column_materials">
+<p markdown="block">
+
+Homework 2 quiz.
+
+<!--
+Bitmask,  part 2: `bitset`/`BitSet`, prime number testing.
+-->
+
+[Bitmask,  part 2](slides/04-bitmasks_2.html): `bitset`/`BitSet`, prime number testing.
+
+
+<br>
+
+
+</p>
+</div>
+
+<div class="column_assign">
+<p markdown="block">
+
+
+- finish working on homework 3 (due 2/21 at 11:59pm)
+
+
+
+
+</p>
+</div>
+
+</div>

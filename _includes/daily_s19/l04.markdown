@@ -3,17 +3,25 @@
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+Class # 4 <br>
+Thu, 2/7
+
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
+<!--
+Review of linear data structures, part 2.
 
-Practice midterm exam - online.
+-->
+
+[Review of linear data structures, part 2](slides/03-linear-ds_2.html).
 
 
+<br>
 
 </p>
 </div>

@@ -1,0 +1,24 @@
+<div class="recitation">
+
+<div class="column_date">
+<p markdown="block">
+
+Rec # 3 <br>
+Fri, 2/15
+
+</p>          
+</div>
+
+<div class="column_recitation">
+<p markdown="block">
+
+Working on practice problems.
+
+Problems distributed during recitation.
+
+
+
+</p>        
+</div>
+
+</div>

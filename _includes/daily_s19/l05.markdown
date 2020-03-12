@@ -1,0 +1,45 @@
+<div class="lecture1">
+
+<div class="column_date">
+<p markdown="block">
+
+Class # 5 <br>
+Tue, 2/12
+
+
+
+</p>
+</div>
+
+<div class="column_materials">
+<p markdown="block">
+
+Homework 1 quiz.
+
+Homework problems discussion.
+<!--
+Review of linear data structures, part 3.
+-->
+
+[Review of linear data structures, part1](slides/03-linear-ds_3.html).
+
+Working on problems.
+<br>
+
+
+</p>
+</div>
+
+<div class="column_assign">
+<p markdown="block">
+
+
+- finish working on homework 2 (due 2/14 at 11:59pm)
+
+
+
+
+</p>
+</div>
+
+</div>

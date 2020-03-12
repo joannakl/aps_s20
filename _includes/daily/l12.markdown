@@ -11,6 +11,9 @@ Thu, 3/05
 <div class="column_materials">
 <p markdown="block">
 
+Starting with brute force algorithms.
+
+[slides](slides/08-brute_force.html)
 
 
 </p>
@@ -25,4 +28,3 @@ Thu, 3/05
 </div>
 
 </div>
-

@@ -1,19 +1,18 @@
-<div class="lecture2">
+<div class="important">
 
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
-
-Practice midterm exam - online.
-
-
+<br><br>
+May 20, __12:00-1:50pm__, 520 Silver__, Final Exam
+<br><br>
 
 </p>
 </div>

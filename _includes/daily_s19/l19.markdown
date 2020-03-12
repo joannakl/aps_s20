@@ -1,17 +1,24 @@
-<div class="lecture2">
+<div class="lecture1">
 
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+Class # 19 <br>
+Tue, 4/9
+
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
+<!--
 
-Practice midterm exam - online.
+[Divide and conquer]() paradigm of problem solving.
+-->
+
+[Divide and conquer](slides/09-divide_and_conquer.html) paradigm of problem solving.
 
 
 
@@ -20,6 +27,7 @@ Practice midterm exam - online.
 
 <div class="column_assign">
 <p markdown="block">
+
 
 
 

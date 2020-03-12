@@ -3,17 +3,25 @@
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+Class # 16 <br>
+Thu, 3/28
+
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
+<br/>
 
-Practice midterm exam - online.
+Continue with sorting and searching problems.
+
+[Complete search](slides/08-brute_force_01.html) paradigm of problem solving.
 
 
+
+<br>
 
 </p>
 </div>

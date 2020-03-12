@@ -1,18 +1,24 @@
-<div class="lecture2">
+<div class="lecture1">
 
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+Class # 11 <br>
+Tue , 3/5
+
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
 
-Practice midterm exam - online.
+Homework 4 quiz.
 
+[Disjoint set / Union-find ](slides/06-disjoint_set_union_find.html).
+
+<br>
 
 
 </p>
@@ -20,6 +26,10 @@ Practice midterm exam - online.
 
 <div class="column_assign">
 <p markdown="block">
+
+
+- finish working on homework 5 (due 3/7 at 11:59pm)
+
 
 
 

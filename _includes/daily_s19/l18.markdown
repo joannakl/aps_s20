@@ -3,17 +3,27 @@
 <div class="column_date">
 <p markdown="block">
 
-Class #14 <br>
-Thu, 3/12
+Class # 18 <br>
+Thu, 4/4
+
+
 
 </p>
 </div>
+
 <div class="column_materials">
 <p markdown="block">
+<br/>
 
-Practice midterm exam - online.
+Homework 6 quiz.
+
+More discussion of problems from last class.
 
 
+
+
+
+<br>
 
 </p>
 </div>
