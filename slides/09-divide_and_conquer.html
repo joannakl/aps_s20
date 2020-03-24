@@ -1,4 +1,4 @@
-\t<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Divide and Conquer</title>
@@ -53,9 +53,10 @@ _conquering_ the subproblems
 only one sub-problem needs to be solved (as in binary search)
 
 ---
-# Challenge: Paying Off a Loan
 
-__Task__
+class: challenge
+
+# Challenge: Paying Off a Loan
 
 You use a bank loan to buy a car. You need to pay off the loan by paying
 $d$ dollars for $m$ months.  The original value of the car is $v$ and the bank
@@ -142,7 +143,65 @@ while (fabs(0.0 - owed) >= 0.001 ) ;
 
 ```
 ---
+## Spending ALL the Money
 
+<!-- UVA 11057, Exact Sum -->
+
+Jeff likes to read books. He also does not like to have any money.
+Every week he receives a check from his parents and he is determined to spend it all on books
+that he can read that week. He also knows that he does not have time to read more than two books
+in a given week.
+
+With these strange idead, Jeff needs to figure out each week which two books he should buy so
+that he spend exactly all the money that he has that week.
+
+__Input__: <br>
+Each test case starts with 2 <= N <= 1000 which is the number of books he can chose from.
+Next line has the N book prices. The cost of a book is no more than 1,000,001.
+The third line has an integer M representing the amount of money that Jeff's parents sent him that week.
+
+__Output__: <br>
+For each test case you must print a message: "Jeff should buy books whose prices are i and j.", where i
+and j are the prices of the books whose sum is equal to M (exactly) and i <= j.  <br>
+It is always possible to pick two different books whose prices add up to M. <br>
+If tehre are more than one such options, you should report on the pair for which the difference between
+j and i is the smallest.
+
+---
+
+## Spending ALL the Money
+
+
+Jeff likes to read books. He also does not like to have any money.
+Every week he receives a check from his parents and he is determined to spend it all on books
+that he can read that week. He also knows that he does not have time to read more than two books
+in a given week.
+
+With these strange idead, Jeff needs to figure out each week which two books he should buy so
+that he spend exactly all the money that he has that week.
+
+__Example 1__: <br>
+
+```
+Input:
+2
+40 40
+80
+
+Output:
+Jeff should byu books whose prices are 40 and 40.
+```
+__Example 2__: <br>
+
+```
+Input:
+5
+10 2 6 8 4
+10
+
+Output:
+Jeff should buy books whose prices are 4 and 6.
+```
 
 
 ---

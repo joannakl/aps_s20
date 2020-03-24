@@ -11,7 +11,7 @@ Tue, 3/31
 <div class="column_materials">
 <p markdown="block">
 
-
+__Midterm exam.__
 
 </p>
 </div>
@@ -25,4 +25,3 @@ Tue, 3/31
 </div>
 
 </div>
-

@@ -101,60 +101,96 @@ coin with more than one coin in the alternative solution.
 _Note_<br>
 
 This approach does not work for all denominations. It does work for
-American coins of {25, 10, 5, 1} cents. 
+American coins of {25, 10, 5, 1} cents.
 
 
 ---
 
-# Problems to work on
+## Computing Center Load Balancing
 
-- [Station Balance](slides/10/Station.pdf) <!-- UVA 410 -->
+You are an operator of a super computing center and in control of M nodes.
+One day, a research institute from Light Kingdom submitted N computational
+tasks. Given the computational power needed for each task, you are to distribute the tasks among
+the available nodes. Restriction: every node can process up to two tasks.
+You also want to distribute the
+workload as evenly as possible, i.e. minimize the following imbalance value
 
-- [Watering Grass](slides/10/Dragon.pdf) <!-- UVA 10382 -->
+$$Imbalance = \sum_{i=0}^{M-1}{|Avg-Load_i|} $$
 
-- [Dragon of Loowater](slides/10/Watering.pdf) <!-- UVA 11292 -->
+where $Avg$ is average load per node and $Load_i$ is the load of the
+i-th node.
 
+__Input__:
+The first line of the input contains two integers M (1 <= M <= 5) and N (1 <= N
+<= 2M), indicating the number of nodes you control and the number of tasks,
+respectively.
+The second line contains N integers, each of which represents the computational
+power required for a task. Numbers on this line are between 1 and 1000.
 
----
-# [Station Balance](slides/Station.pdf)
-
-__Task__
-
-Given a number of chambers $1 \leq C \leq 5$ and a number of specimens $1 \leq S \leq 2C$
-and a list of $M$ masses for each specimen, determine how to distribute the
-specimens between the chambers so that their _imbalance_ is as small as possible.
-
-Restriction: each chamber can store 0, 1, or 2 specimens.
-
-The _imbalance_ is calculated as
-
-$$ \text{Imbalance}= \sum_{i=1}^{C}{|X_i - A|} $$
-
-where $A$ is the average weight that each chamber needs to carry $A = (\sum_{i=M}^{S}{M_j})/C$
-and $X_i$ is the total weight of the specimens at chamber $i$.
+__Output__:
+Print one line `IMBALANCE = I` where `I` is the minimum imbalance value rounded
+to 5 decimal places.
 
 
 ---
-## Station Balance
 
-__Example__
+## Computing Center Load Balancing
 
-C = 3<br>
-S = 4<br>
-M = {5, 1, 2, 7}
+You are an operator of a super computing center and in control of M nodes.
+One day, a research institute from Light Kingdom submitted N computational
+tasks. Given the computational power needed for each task, you are to distribute the tasks among
+the available nodes. Restriction: every node can process up to two tasks.
+You also want to distribute the
+workload as evenly as possible, i.e. minimize the following imbalance value
+
+$$Imbalance = \sum_{i=0}^{M-1}{|Avg-Load_i|} $$
+
+where $Avg$ is average load per node and $Load_i$ is the load of the
+i-th node.
+
+__Example 1__
+
+```
+Input:
+2 3
+6 3 8
+
+Output:
+IMBALANCE = 1.00000
+```
+
+__Example 2__
+
+```
+Input:
+3 5
+51 19 27 14 33
+
+Output:
+IMBALANCE = 6.00000
+```
+
+__Example 3__
+
+```
+Input:
+5 9
+1 2 3 5 7 11 13 17 19
+
+Output:
+IMBALANCE = 11.60000
+```
 
 
-The average weight A = (5+1+2+7)/3 = 5
 
-A possible assignment (not optimal):
 
-C1 = 7, 5 <br>
-C2 = 2 <br>
-C3 = 1 <br>
 
-Imbalance = | 7+5 - 5| + |2 - 5| + | 1- 5| = 14
 
---
+
+
+---
+
+<!--
 
 __Observation 1__: If there is an empty chamber in the final solution, than it is always
 beneficial (in the sense that the new solution is not worse than the original) to move
@@ -166,8 +202,10 @@ already contain other specimens.
 
 
 
----
-## Station Balance
+
+
+
+Station Balance
 
 __Solution__
 
@@ -180,7 +218,7 @@ __Solution__
     with largest, second smallest with second largest, ... until all are used) and
     place each pair in a chamber
 
---
+
 .small[
 
 __Example__
@@ -201,11 +239,7 @@ C3 = 1, 2 <br>
 
 Imbalance = | 7 - 5| + |5 - 5| + | 3 - 5| = 4
 ]
-
----
----
-
-
+-->
 
 </optgroup>
 

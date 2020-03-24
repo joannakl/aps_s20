@@ -11,6 +11,9 @@ Tue, 3/24
 <div class="column_materials">
 <p markdown="block">
 
+Divide and conquer algorithms.
+
+[slides](slides/09-divide_and_conquer.html)
 
 
 </p>
@@ -25,4 +28,3 @@ Tue, 3/24
 </div>
 
 </div>
-
