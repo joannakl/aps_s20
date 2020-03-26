@@ -11,11 +11,11 @@ Thu, 3/26
 <div class="column_materials">
 <p markdown="block">
 
-<!--
+
 Greedy algorithms.
 
 [slides](slides/10-greedy.html)
---> 
+
 
 </p>
 </div>

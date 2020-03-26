@@ -50,6 +50,8 @@ the hope of obtaining optimal solution overall
 
 
 ---
+class:challenge
+
 # Challenge: Making Change
 
 __Task__
@@ -59,6 +61,8 @@ the way to make the change with the minimum number of coins.
 Assume that you have unlimited supply of each coin (for each given denomination).
 
 ---
+class:challenge
+
 # Challenge: Making Change
 
 __Example__
@@ -105,6 +109,7 @@ American coins of {25, 10, 5, 1} cents.
 
 
 ---
+class:challenge
 
 ## Computing Center Load Balancing
 
@@ -190,20 +195,20 @@ IMBALANCE = 11.60000
 
 ---
 
-<!--
 
-__Observation 1__: If there is an empty chamber in the final solution, than it is always
+__Observation 1__: If there is an empty computing node in the final solution, than it is always
 beneficial (in the sense that the new solution is not worse than the original) to move
-one specimen from a chamber with two specimens to the empty one. Otherwise, the empty
-chamber contributes more to the imbalance than the alternative assignment.
+one task from a computing node with two tasks to the empty one. Otherwise, the empty
+computing node contributes more to the imbalance than the alternative assignment.
 
-__Observation 2__: If S > C, then S - C specimens must be placed into chambers that
-already contain other specimens.
-
-
+__Observation 2__: If N > M, then N-M tasks must be scheduled on computing nodes that
+already contain other tasks.
 
 
 
+
+
+<!--
 
 Station Balance
 
