@@ -11,6 +11,9 @@ Thu, 4/02
 <div class="column_materials">
 <p markdown="block">
 
+Dynamic programming - continued.
+
+[slides](slides/11-dynamic_programming_1.html)
 
 
 </p>
@@ -25,4 +28,3 @@ Thu, 4/02
 </div>
 
 </div>
-

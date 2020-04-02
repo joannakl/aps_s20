@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Programming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+
+
+    <style>
+    .hidden{
+      background-color: linen;
+      color:linen;
+    }
+    </style>
+
+
+  </head>
+
+
+
+
+
+
+
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Dynamic Programming
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+## Dynamic Programming
+
+__Dynamic programming__ is a technique of solving problems by means of breaking a larger
+problem into smaller/simpler sub-problems.
+
+Dynamic programming solutions gain their speed over the complete-search types of problem solving
+techniques by making sure that each sub-problem is solved only once and the result
+is stored for reuse later one.
+
+---
+
+## Fibonacci Numbers - A Familiar Classic
+
+Here is one way to compute Fibonacci Numbers:
+
+```
+int fib ( int N ) {
+  if N <= 1
+    return N
+  return fib (N-1) + fib(N+2)
+}
+```
+--
+
+So what is wrong with that implementation? <br>
+(afterall we learned this in cs101/cs102)
+
+--
+
+It computes the value of each Fibonacci number multiple times!
+
+---
+
+## Fibonacci Numbers with Memoization
+
+Let's use a memo table to _remember_ the values that were previously computed
+
+
+```
+  int memo[MAX_N];
+  for i in 0 ... MAX_N:
+    memo [i] = -1;
+
+  int fib ( int N ) {
+    if memo[N] != -1
+        return memo[N]
+    if N <= 1
+        return N
+    memo[N] = fib (N-1) + fib(N+2)
+    return memo[N]
+  }
+```
+
+--
+
+This is a top-down approach that parallels the recursive approach from the previous
+slide, but its efficiency is MUCH MUCH better since it never computes
+the same value again.
+
+---
+## Fibonacci Numbers - Bottom-Up
+
+Calculate all Fibonacci numbers from 0 to N, O(n) memory
+
+```
+int fib[MAX_N]
+
+void fib_all ( int N ) {
+  fib[0] = 0
+  fib[1] = 1
+  for i in 2 ... N:
+    fib[i] = fib[i-1] + fib[i-2]
+}
+```
+--
+
+Calculate the N'th Fibonacci number, O(1) memory
+
+
+```
+int fib ( int N ) {
+  if N <= 1
+      return N
+  int prev1 = 0
+  int prev2 = 1
+  for i in 2 ... N:
+    int next = prev1 + prev2
+    prev2 = prev1
+    prev1 = next
+  return prev1
+}
+```
+---
+## Fibonacci Numbers
+
+- behind all of these aproaches there is the same recurrence relation:
+    $$ fib(i) = fib(i-1) + fib(i-2) $$
+
+- two approaches to solution:
+
+    - __top-down__
+        - start from the desired value, fib(N)
+        - follows its dependencies based on the recurrence ration
+        - use memoization to avoid recomputation
+
+    - __bottom-up__
+        - start from the _bottom level_ of dependencies (the base cases, the boundaries)
+        - follow the recurrence relation till the desired value is calculated, fib(N)
+        - (no need for memoization table, unless all values along the way are required)
+
+---
+## Generalization to <br>Dynamic Programming
+
+1. Figure out the recurrence raltion
+
+1. Use top-down with memoization or bottom-up computation to avoid recomputation of values.
+
+---
+
+class:middle, center
+
+# Making Change
+---
+
+## Making change - revisited
+
+__Task__: Given a set of coin denominations construct a given value using as
+few coins as possible.
+
+- `C = {c1, c2, c3, ..., cK}`  set of coin denomination (assume we have unlimited number of each)
+
+- `N` amount of money that we need to come up with
+
+
+- (Recall that greedy strategy does not always work.)
+
+--
+
+What is the __recurrence relation__ for this problem?
+
+--
+
+- relation:
+
+  $ coins(N) = \min_{k=0}^{K}{ coins(N-c_k)} + 1$
+
+- base case(s):
+
+  $ coins(0) = 0 $
+
+  $ coins(c_k) = 1 $
+
+---
+## Making change with backtracking
+
+- We need to perform a complete search (with backtracking) to find the solution to this problem.
+
+    - consider a function `coins` that given the amount of money and a set of
+    denominations returns the mininum number of coins that one could use to make the change
+    - calling `coins(N)` will solve our problem
+
+        ```
+        coins( n )
+            if  n < 0   return INF   // solution is not possible
+            if  n == 0  return 0     // all money used, we found a solution
+
+            best = INF
+            for all c in C
+                best = min ( best ,  coins(n-c) + 1)
+
+            return best
+        ```
+
+    - this function may make a lot of repeated calls with the same parameter
+]
+
+---
+
+
+## Making change with DP (top-down)
+
+- in dynamic programming we will save the results of each of the recursive calls in a table
+to avoid making repeated computation
+    ```
+    answer = a 1D array of (N+1) elements intialized to -1
+
+    coins( n )
+        if  n < 0   return INF   // solution is not possible
+        if  n == 0              // all money used, we found a solution
+            answer[0] = 0
+            return 0
+
+        if answer[n] >= 0  return answer[n]
+
+        //otherwise, compute it ...
+        best = INF
+        for all c in C
+            best = min ( best ,  coins(n-c) + 1)
+
+        //... and store it in the answer table
+        answer[n] = best
+
+        return best
+    ```
+
+- this guarantees that the function is called recursively at most N times (each
+call fills in one of the values in the `answer` array)
+
+
+
+
+---
+class:challenge
+
+## Making change with DP (bottom-up)
+
+- we can compute the same using an iterative approach
+that constructs the solution from the bottom (bottom-up approach)
+
+- what will the algorith for this look like?
+
+.hidden[
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    for n in 1 .. N
+        answer[n] = INF
+        for all c in C
+            if n-c >= 0
+                answer[n] = min ( answer[n] ,  answer[n-c] + 1)
+    ```
+]
+
+---
+
+## Making change: which coins to use
+
+- in the previous solutions we only determined how many coins we can use,
+what if we need to know which ones to use as well?
+
+- this means that we need to keep track of the information about
+the denominations of coins that went into the optimal solution
+
+--
+
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    first_coin = a 1D array of (N+1) elements, it indicates for each element
+                 the first coin used in the solution for that amount of money
+    first_coint[0] = -1
+
+    for n in 1 .. N
+        answer[n] = INF
+        for all c in C
+            if n-c >= 0  AND  answer[n-c]+1 < answer[n]
+                answer[n] = answer[n-c] + 1
+                first_coin[n] = c
+    ```
+--
+
+- and then based on the `first_coin` array we can calculate an optimal solution
+
+    ```
+    while n > 0
+        print first_coin[n]
+        n = n - first_coin[n]   //decrement the amount of money by the used coin
+    ```
+
+---
+
+class: challenge
+
+## Making change: in how many ways
+
+- another version of this problem is not to minimize the number of coins,
+but rather calculate the total number of possible ways in which we can make the requested amount
+
+- what is the recurrence relation  in this case?
+.hidden[
+
+  - relation:
+    $ coins(N) = \sum_{k=0}^{K}{ coins(N-c_k)} + 1$
+]
+.hidden[
+  - base case(s):
+    $ coins(0) = 0 $
+
+]
+
+--
+
+- recall that the original solution picked the smallest value returned by the recursive calls,
+in this new case, we actually want to calculate the sum of all the possibilities
+
+.hidden[
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    for n in 1 .. N
+        answer[n] = 0
+        for all c in C
+            if x-c >= 0
+                answer[n] = answer[n] +  answer[n-c] + 1
+    ```
+]
+
+---
+
+class: center, middle
+
+# Best Path in a Grid
+
+---
+
+class: challenge
+
+## Challenge: Best Path in a Grid
+
+__Task__
+
+Given an NxN grid find the best path from the upper
+left corner to the lower right corner.
+
+Best = the one whose values add up to the highest number
+
+Restrictions: you can only move down or right
+
+--
+
+__Example__
+
+.left-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|3 |7 |9 |2 | 7|
+|9 |8 |3 |5 |5 |
+|1 |7 |9 |8 |5 |
+|3 |8 |6 |4 |10 |
+|6 |3 |9 |7 |8 |
+
+]
+--
+.right-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|__3__ |7 |9 |2 | 7|
+|__9__ |__8__ |3 |5 |5 |
+|1 |__7__ |__9__ |__8__ |__5__ |
+|3 |8 |6 |4 |__10__ |
+|6 |3 |9 |7 |__8__ |
+
+]
+
+
+
+
+---
+class:challenge
+
+## Challenge: Best Path in a Grid
+
+.hidden[
+
+__Solution__
+
+- assume that rows and columns are numbered using indexes `1..n`,
+so the value of the upper left corner is `value[1][1]` and the
+value of the lower right corner is `value[n][n]`
+
+- we have the following relationship
+
+  $$sum(x,y) = max( sum(y,x-1), sum(y-1,x) ) + value[y][x] $$
+  $$sum(x,y) = 0 \text{ when } x=0 \text{ or } y=0$$
+
+- we store the `sum[y][x]` as a two dimensional matrix equal in size to the given grid
+
+]
+
+---
+class:middle, center
+
+# Wedding Shopping
+
+---
+class: challenge
+
+## Challenge: Wedding Shopping
+
+
+Given different options for each garment (e.g. 3 shirt models, 2 belt models,
+4 shoe models, . . . ) and a certain limited budget,
+our task is to buy one model of each garment.
+
+We cannot spend more money than
+the given budget, but we want to spend the maximum possible amount.
+
+The __input__ consists of two integers 1 ≤ M ≤ 200 and 1 ≤ C ≤ 20, where M is the budget
+and C is the number of garments that you have to buy, followed by some information about
+the C garments.
+For the garment g ∈ [0..C-1], we will receive an integer 1 ≤ K ≤ 20
+which indicates the number of different models there are for that garment g, followed by K
+integers indicating the price of each model ∈ [1..K] of that garment g.
+
+The __output__ is one integer that indicates the maximum amount of money we can spend
+purchasing one of each garment without exceeding the budget. If there is no solution due to
+the small budget given to us, then simply print “no solution”.
+
+
+---
+class:challenge
+
+## Challenge: Wedding Shopping
+
+__Example 1__<br>
+
+M = 20, C = 3:
+
+```
+3:   6 4 8
+2:   5 10
+4:   1 5 3 5
+```
+
+Solution: 19
+
+.left-column2[
+3:  6 4 __8__ <br>
+2:  5 __10__ <br>
+4:  __1__ 5 3 5 <br>
+]
+.right-column2[
+3:  __6__ 4 8 <br>
+2:  5 __10__ <br>
+4:  1 5 __3__ 5 <br>
+]
+
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
