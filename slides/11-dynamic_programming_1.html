@@ -10,7 +10,7 @@
     <style>
     .hidden{
       background-color: linen;
-      color:linen;
+      color:black;
     }
     </style>
 
@@ -330,6 +330,9 @@ class: challenge
 but rather calculate the total number of possible ways in which we can make the requested amount
 
 - what is the recurrence relation  in this case?
+
+--
+
 .hidden[
 
   - relation:
@@ -408,8 +411,113 @@ __Example__
 
 ]
 
+--
+
+.below-column2[
+
+The above solution can be obtained following the greedy approach: at each step
+pick the move that moves to the larger of the two options.
+
+]
+
+---
+
+class: challenge
+
+## Challenge: Best Path in a Grid
+
+__Task__
+
+Given an NxN grid find the best path from the upper
+left corner to the lower right corner.
+
+Best = the one whose values add up to the highest number
+
+Restrictions: you can only move down or right
 
 
+__Example__
+
+.left-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|3 |7 |9 |8 | 7|
+|9 |8 |3 |5 |5 |
+|1 |7 |1 |8 |5 |
+|3 |2 |2 |4 |10 |
+|6 |3 |4 |2 |8 |
+
+]
+
+.right-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|__3__ |7 |9 |8 | 7|
+|__9__ |__8__ |3 |5 |5 |
+|1 |__7__ |1 |8 |5 |
+|3 |__2__ |2 |4 |10 |
+|6 |__3__ |__4__ |__2__ |__8__ |
+
+]
+
+
+.below-column2[
+__Greedy: 3+9+7+2+3+4+2+8 = 38__
+
+Optimal:3+7+9+8+7+5+5+10+8 = 62
+]
+
+---
+
+class: challenge
+
+## Challenge: Best Path in a Grid
+
+__Task__
+
+Given an NxN grid find the best path from the upper
+left corner to the lower right corner.
+
+Best = the one whose values add up to the highest number
+
+Restrictions: you can only move down or right
+
+
+
+__Example__
+
+.left-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|3 |7 |9 |8 | 7|
+|9 |8 |3 |5 |5 |
+|1 |7 |1 |8 |5 |
+|3 |2 |2 |4 |10 |
+|6 |3 |4 |2 |8 |
+
+]
+
+.right-column2[
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+|__3__ |__7__ |__9__ |__8__ | __7__|
+|9 |8 |3 |5 |__5__ |
+|1 |7 |1 |8 |__5__ |
+|3 |2 |2 |4 |__10__ |
+|6 |3 |4 |2 |__8__ |
+
+]
+
+
+.below-column2[
+Greedy: 3+9+7+2+3+4+2+8 = 38
+
+__Optimal:3+7+9+8+7+5+5+10+8 = 62__
+]
 
 ---
 class:challenge
@@ -424,12 +532,12 @@ __Solution__
 so the value of the upper left corner is `value[1][1]` and the
 value of the lower right corner is `value[n][n]`
 
-- we have the following relationship
+- we have the following recurrence relationship
 
-  $$sum(x,y) = max( sum(y,x-1), sum(y-1,x) ) + value[y][x] $$
+  $$sum(x,y) = max( sum(x-1, y), sum(x,y-1) ) + value[x][y] $$
   $$sum(x,y) = 0 \text{ when } x=0 \text{ or } y=0$$
 
-- we store the `sum[y][x]` as a two dimensional matrix equal in size to the given grid
+- we store the `sum[x][y]` as a two dimensional matrix equal in size to the given grid
 
 ]
 
