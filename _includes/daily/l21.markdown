@@ -12,6 +12,12 @@ Tue, 4/14
 <p markdown="block">
 
 
+Dynamic programming - continued.
+
+[problem1](slides/11/CuttingSticks.pdf)
+
+[problem2](slides/11/RyanAndLarry.pdf) 
+
 
 </p>
 </div>
@@ -25,4 +31,3 @@ Tue, 4/14
 </div>
 
 </div>
-

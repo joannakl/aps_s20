@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Programming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Dynamic Programming
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+## Knapsack
+
+__Task__: Given $n$ items, each with its own value $V_i$ and its own weight/size $W_i$,
+and a maximum knapsack size $S$, find the maximum value of the items that can be
+placed into the knapsack. (Each item can be either taken or left - we cannot
+take part of an item.)
+
+
+--
+
+__Example__
+
+n = 4
+
+V = {100, 70, 50, 10}
+
+W = {10, 4, 6, 12}
+
+S = 12
+
+Possible options:
+- item 0, total weight 10, total value 100
+- items 1 and 2, total weight 10, total value 120
+- item 3, total weight 12, total value 10
+
+---
+
+## Knapsack  - Algorithm
+
+
+
+`max_val ( item_number, remaining_weight)` - function that returns the maximum value
+of items given that we have the `remaining_weight` available and the current item we
+are considering is `item_number`
+
+__simple cases__ / __base_cases__
+
+`max_val ( id, 0 ) = 0  // we cannot take any more items`
+
+`max_val ( n, rem_W ) = 0  // went past the item with the highest id`
+
+__reucrrence ralation__
+
+```
+if W[id] < remW
+  max_val(id, remW) = max_val (id+1, remW )  //don't take the item since it is too heavy
+else
+  max_val(id, remW) = max (
+                        max_val (id+1, remW - W[id]),   //take the item
+                        max_val (id+1, remW )          //do NOT take the item
+                          )
+
+
+
+
+```
+
+---
+
+## Cutting Sticks
+
+__Task:__ Given a stick of length 1 <= l <= 1000, and 1<=n <= 50 cuts to be made to the stick
+(coordinates of the cuts are values in the range [0 .. l]) figure out the most _affordable__ way
+of cutting the stick. The cost of a cut is determined by the length of the stick to be
+cut.
+
+--
+
+__Example __
+
+l = 100
+
+n = 3
+
+The cut coordinates are A = {25, 50, 75}
+
+Possible sequences of cuts:
+
+- left to right at positions 25, 50, 75, cost = 100 + 75 + 50 = 225
+- right to left at positions 75, 50, 25, cost = 100 + 75 + 50 = 225
+- first cut in the middle, then each half-stick in the middle again at mostions 50, 25, 75,
+cost = 100 + 50 + 50 = 200
+
+
+
+
+---
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
