@@ -14,7 +14,7 @@ Thu, 4/16
 
 Dynamic programming - continued.
 
-[slides](slides/11-dynamic_programming_2.html)
+[slides](slides/11-dynamic_programming_3.html)
 
 
 </p>
