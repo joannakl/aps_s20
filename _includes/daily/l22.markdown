@@ -12,6 +12,10 @@ Thu, 4/16
 <p markdown="block">
 
 
+Dynamic programming - continued.
+
+[slides](slides/11-dynamic_programming_2.html)
+
 
 </p>
 </div>
@@ -25,4 +29,3 @@ Thu, 4/16
 </div>
 
 </div>
-

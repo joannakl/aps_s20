@@ -115,10 +115,265 @@ Possible sequences of cuts:
 - first cut in the middle, then each half-stick in the middle again at mostions 50, 25, 75,
 cost = 100 + 50 + 50 = 200
 
+---
+
+## Cutting Sticks
+### Algorithms From the Class  1
 
 
+Basically, at each possible cut, we want to decide to make the cut or not, take the min
+of the two options (and use memoization to cut down on repeated calculations?)
+
+
+```
+
+Let W(length) = answer (min cost of cutting rod of length, length)
+Let P(length) = price of rod of length, length
+
+```
+--
+```
+
+W(length) = min ( P(length),
+                  P(length -some num) + P(length -some num)
+                )
+
+if (i == j) return 0?
+    cuts(i,j) =
+else
+    min ( ((j - k) + (i - k)) + cuts(i, k) + cuts(k, j) )
+
+for k in cuts where i < k, k < j
+
+```
 
 ---
+
+## Cutting Sticks
+### Algorithms From the Class  2
+
+```
+
+len(start, end, cuts[]){
+    if(cuts.size <= 1) return end - start;
+    max = -INF
+    for i in cuts:
+        max = max( max,
+                   len(start, i, cuts without [i, cuts.size])
+                          + len(i, end, cuts without [0, start]) )
+    return max
+}
+
+```
+---
+
+## Cutting Sticks
+### Algorithms From the Class  3
+
+
+```
+dp(length, [cuts]) =
+            math.min(
+                   dp(curLenght-(curLength-cut), [cuts on that side]),
+                   dp(curLenght-(curLength-cut), [cuts on that side]),
+                   dp(curLenght-(curLength-cut), [cuts on that side])
+            ) ;
+```
+
+---
+
+## Cutting Sticks
+### Algorithms From the Class  4
+
+```
+
+
+cut(size) = min i to I(cut(size - ci) + (size or globa_size - size))
+
+
+```
+
+---
+
+
+## Cutting Sticks
+### Algorithms From the Class  5
+
+```
+
+dp[0, 0] = 0
+dp[i, j] = min(
+            dp[i, k] + dp[k, j] + (a[j] - a[i])
+          ) for k in i..j;
+
+
+```
+
+---
+## Cutting Sticks
+
+__Task:__ Given a stick of length 1 <= l <= 1000, and 1<=n <= 50 cuts to be made to the stick
+(coordinates of the cuts are values in the range [0 .. l]) figure out the most _affordable__ way
+of cutting the stick. The cost of a cut is determined by the length of the stick to be
+cut.
+
+--
+
+- `A = {0, a_1, a_2, ..., a_n, l}`  - an array of cuts that we need
+
+
+- `cut( a_i, a_j )` - the smallest cost of cutting the segment from coordinate `a_i` to `a_j` along __all__ the points `c` in between `a_i` and `a_j`,
+ `a_i < c <= a_j`
+
+- the cost of making a single cut between coordinates `a_i` and `a_j` is `(a_j - a_i)`
+
+recurrence relation:
+
+$cut(a_i, a_j)=$
+
+$    \quad \quad = min_{k = i+1}^{j} ( cut(a_i, a_k ) + cut (a_k, a_j) + a_j - a_i    )$
+
+
+$cut(a_i, a_j)=0$, when $a_i$ and $a_j$ are adjacent in `A`, since there is no cut needed
+
+---
+## Ryan And Larry
+
+__Task__ Given a number N, how many ways can K non-negative numbers less than N add up to N?
+
+--
+
+.left-column2[
+Example 1 :
+
+N = 20, K = 2
+
+Answer: 21
+
+0 + 20 <br>
+1 + 19 <br>
+2 + 18 <br>
+3 + 17 <br>
+... <br>
+17 + 3 <br>
+18 + 2 <br>
+19 + 1 <br>
+20 + 0 <br>
+]
+
+--
+.right-column2[
+Example 2:
+
+N = 5, K = 3
+
+Answer: 21
+
+0 + 0 + 5  <br>
+0 + 1 + 4 <br>
+0 + 2 + 3 <br>
+0 + 3 + 2 <br>
+0 + 4 + 1  <br>
+0 + 5 + 0 <br>
+1 + 0 + 4 <br>
+2 + 0 + 3 <br>
+3 + 0 + 2  <br>
+4 + 0 + 1 <br>
+5 + 0 + 0 <br>
+...
+
+]
+---
+
+## Ryan And Larry
+### Algorithms From the Class  1
+
+```
+start : math(N, K)
+        math(N-x, K-1)
+Returns 1 if k==0 and N==0
+Returns 0 if k==0 and N != 0
+X is an item to include in the sum of K elements
+
+```
+
+---
+
+## Ryan And Larry
+### Algorithms From the Class  2
+
+```
+S(N, K) = sum S(N - i, K - 1) from i = 0 to N
+Return 1 if K == 0
+Cache S(N, K) into a matrix of size N by K. If matrix[N][K] != 0, return matrix[N][K].
+
+```
+
+---
+
+## Ryan And Larry
+### Algorithms From the Class  3
+
+```
+Formula: (n + k - 1) choose k - 1
+
+C(n + k - 1, k - 1)
+
+where C(i, j) = [C(i - 1, j - 1) + C(i - 1, j)] % MOD
+      C(_, 0) = 1
+      C(0, r) | r > 0 = 0
+    MOD = 1e6
+
+```
+
+---
+
+## Ryan And Larry
+### Algorithms From the Class  4
+
+```
+public static void dp(int n , int k) {
+        if(k==1) {
+            sum++;
+            return;
+        }
+        for(int i=0;i<=n;i++) {
+            dp(n-i,k-1);
+        }
+    }
+
+
+```
+
+---
+## Ryan And Larry
+
+__Task__ Given a number N, how many ways can K non-negative numbers less than N add up to N?
+
+--
+
+
+
+- `ways(N, K)` - number of ways of adding K values that add up to N
+- when `K=1`, the answer is always 1 regardless of N
+- assume that the first number we pick for the sum is X, then there are `ways(N-X, K-1)` ways to pick the remaining numbers
+- in the above, X can be any number between 0 and N
+
+recurrence:
+
+
+$ ways(n,K) =  \sum_{X=0}^{N} ways(N-X, K-1 ) $
+
+$ ways(N,1) = 1 $
+
+
+
+<!--
+$ ways(N,K) =  ways (N-1, K-1 )$<br>
+$ \quad \quad \quad \quad \quad \quad + ways (N-1, K) $
+-->
+---
+
 
 
 </optgroup>
