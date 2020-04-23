@@ -11,7 +11,9 @@ Tue, 4/21
 <div class="column_materials">
 <p markdown="block">
 
+Graphs: graph definitions, traversals (DFS, BFS)
 
+[slides](slides/13-graphs_1.html)
 
 </p>
 </div>
@@ -25,4 +27,3 @@ Tue, 4/21
 </div>
 
 </div>
-

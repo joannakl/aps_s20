@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Graphs
+### Shortest Path
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+<!--
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+-->
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+## Shortest Path Problem
+
+Task: Given a starting node, find the shortest path from that node to every other node
+in the graph.
+
+--
+
+- If the graph is __unweighted__, then the shortest path between any two nodes is the one
+with fewest edges. The algortihm uses slightly modified BFS traversal.
+
+  algorithm using the adjacency list of a graph, O(n+m)
+
+  ```
+  visited[N] - boolean array with all values set initially to false
+  distance[N] - distance array initialized to infinity
+  queue      - to store nodes to be visited
+  bfs ( start )
+      visited [ start ] = true
+      queue.push( start )
+      current_distance = 0
+
+      while queue is not empty
+          node = queue.pop
+          distance[ node ] = current_distance
+          current_distance += 1
+          for n in adj( node )
+              if ! visited[n]
+                  visited [n] = true
+                  queue.push( n )
+  ```
+
+---
+
+## Shortest Path Problem
+
+Task: Given a starting node, find the shortest path from that node to every other node
+in the graph.
+
+
+
+- If the graph is __weighted__, then the shortest path between any two nodes is the one
+with smallest sum of weights along all possible paths between these two nodes. The algorithm depends
+on the characteristics of the wights:
+
+  - are there negative weights?
+  - are there negative cycles?
+
+---
+
+## Bellman-Ford Algorithm
+
+Algorithm using the edge list:
+
+```
+V = the set of all the nodes, |V|=n
+E = the edge list consisting of tripples {a, b, w}
+    (node a, b with the dge between them of wifth w)
+distance[1..n] = INF   //initialize the distance array to infinity
+x = starting vertex
+
+distance[x] = 0
+for v in V
+    for  e in E
+        distance[e.b] = min( distance[e.b],  distance[e.a] + e.w )
+```
+
+- O(nm)
+
+- works as long as the graph does not have negative cycles (negative edges are ok)
+
+- the performance can be improved by stopping as soon as there are no changes (instead
+of repeating the outer loop n times)
+
+
+---
+
+## Bellman-Ford Algorithm - Negative Cycles
+
+
+
+Algorithm for detecting negative cycles:
+
+```
+1. run Bellman-Ford algorithm n times
+2. if the n+1 round reduces any paths, then the graph has a negative cycle
+```
+
+- this uses the fact that with a negative cycle the shortest path can
+be reduced infinitely many times; the shortest path is no meaningful
+
+---
+## Dijkstra's Algorith
+
+
+Algorithm using adjacency list:
+
+`adj[a]` -  adjacency list containing pairs `{w,b}`: there is
+an edge between `a` and `b` with weight `w` <br>
+`distance[1..n] = INF`   - initialize the distance array to infinity<br>
+`visited[1..n] = false`  - initialize visited to false<br>
+`q`  a priority queue containing pairs `{-d, a}` indicating that the
+current distance of node `a` from `x` is `d` <br>
+`x` - starting vertex
+
+```
+
+distance[x] = 0
+q.push ( {0,x} )
+
+while q is not empty
+  {d,a} = q.pop()
+  if visited[a]   continue
+  visited[a] = true
+  for  u in  adj[a]
+    if distance[a]+u.w < distance[b]
+      distance[b] = distance[a]+w
+      q.push( { -distance[b], b} )
+
+```
+- O(n + m log m) - since the algorithm goes through all nodes and each node is
+added to the priority queue at most once
+
+- does not work if a graph contains negative edges
+
+---
+
+
+---
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
