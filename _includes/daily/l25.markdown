@@ -11,7 +11,16 @@ Tue, 4/28
 <div class="column_materials">
 <p markdown="block">
 
+No-change problem revisited.
+[slides](slides/11-dynamic_programming-no_change_problem.html)
 
+Shortest path algorithms.
+[slides](slides/13-graphs_2.html)
+
+[problem1](slides/13/3Dmaze.pdf)
+[problem2](slides/13/another_number_grid.pdf)
+[problem3](slides/13/trained_mice.pdf)
+[problem4](slides/13/words.pdf)
 
 </p>
 </div>
@@ -25,4 +34,3 @@ Tue, 4/28
 </div>
 
 </div>
-
