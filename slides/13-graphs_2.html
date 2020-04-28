@@ -91,7 +91,7 @@ Algorithm using the edge list:
 ```
 V = the set of all the nodes, |V|=n
 E = the edge list consisting of tripples {a, b, w}
-    (node a, b with the dge between them of wifth w)
+    (nodes a, b with the edge between them of wifth w)
 distance[1..n] = INF   //initialize the distance array to infinity
 x = starting vertex
 
@@ -107,6 +107,12 @@ for v in V
 
 - the performance can be improved by stopping as soon as there are no changes (instead
 of repeating the outer loop n times)
+
+---
+
+<img src="img/graph2.png" width=90%/>
+
+Apply the Bellman-Ford Algorith. Show the distance[] array as it changes through the iterations.
 
 
 ---
@@ -136,7 +142,7 @@ an edge between `a` and `b` with weight `w` <br>
 `distance[1..n] = INF`   - initialize the distance array to infinity<br>
 `visited[1..n] = false`  - initialize visited to false<br>
 `q`  a priority queue containing pairs `{-d, a}` indicating that the
-current distance of node `a` from `x` is `d` <br>
+current distance of node `a` from `x` is `d`  (assumes pq is implemented using a max heap)<br>
 `x` - starting vertex
 
 ```

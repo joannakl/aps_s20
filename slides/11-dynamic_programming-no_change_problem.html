@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Programming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+
+
+    <style>
+    .hidden{
+      background-color: linen;
+      color:black;
+    }
+    </style>
+
+
+  </head>
+
+
+
+
+
+
+
+  <body>
+    <textarea id="source">
+
+class: center, top
+
+<br><br>
+
+# CSCI-UA 480.4: APS
+## Algorithmic Problem Solving
+<br>
+## Dynamic Programming
+## - No Change Problem
+
+.author[
+Instructor: Joanna Klukowska <br>
+
+created based on materials for this class by Bowen Yu and
+materials shared by the authors of the textbook  Steven and Felix Halim
+
+]
+
+.license[
+Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+]
+
+---
+
+## Making change - revisited
+
+__Task__: Given a set of coin denominations construct a given value using as
+few coins as possible.
+
+- `C = {c1, c2, c3, ..., cK}`  set of coin denomination (assume we have unlimited number of each)
+
+- `N` amount of money that we need to come up with
+
+
+- (Recall that greedy strategy does not always work.)
+
+--
+
+What is the __recurrence relation__ for this problem?
+
+--
+
+- relation:
+
+  $ coins(N) = \min_{k=0}^{K}{ coins(N-c_k)} + 1$
+
+- base case(s):
+
+  $ coins(0) = 0 $
+
+  $ coins(c_k) = 1 $
+
+---
+## Making change with backtracking
+
+- We need to perform a complete search (with backtracking) to find the solution to this problem.
+
+    - consider a function `coins` that given the amount of money and a set of
+    denominations returns the mininum number of coins that one could use to make the change
+    - calling `coins(N)` will solve our problem
+
+        ```
+        coins( n )
+            if  n < 0   return INF   // solution is not possible
+            if  n == 0  return 0     // all money used, we found a solution
+
+            best = INF
+            for all c in C
+                best = min ( best ,  coins(n-c) + 1)
+
+            return best
+        ```
+
+    - this function may make a lot of repeated calls with the same parameter
+]
+
+---
+
+
+## Making change with DP (top-down)
+
+- in dynamic programming we will save the results of each of the recursive calls in a table
+to avoid making repeated computation
+    ```
+    answer = a 1D array of (N+1) elements intialized to -1
+
+    coins( n )
+        if  n < 0   return INF   // solution is not possible
+        if  n == 0              // all money used, we found a solution
+            answer[0] = 0
+            return 0
+
+        if answer[n] >= 0  return answer[n]
+
+        //otherwise, compute it ...
+        best = INF
+        for all c in C
+            best = min ( best ,  coins(n-c) + 1)
+
+        //... and store it in the answer table
+        answer[n] = best
+
+        return best
+    ```
+
+- this guarantees that the function is called recursively at most N times (each
+call fills in one of the values in the `answer` array)
+
+
+
+
+---
+class:challenge
+
+## Making change with DP (bottom-up)
+
+- we can compute the same using an iterative approach
+that constructs the solution from the bottom (bottom-up approach)
+
+- what will the algorith for this look like?
+
+.hidden[
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 0
+
+    for n in 1 .. N
+        answer[n] = INF
+        for all c in C
+            if n-c >= 0
+                answer[n] = min ( answer[n] ,  answer[n-c] + 1)
+    ```
+]
+
+---
+
+class:middle, center
+
+# No Change Problem
+
+---
+
+## No Change
+
+Given
+- N coins C={c0, c1, c2, ..., c(N-1)},  N < 100, ci <= 10,000,
+- M desired amount, M <= 10,000
+- sum of all coins >= M
+
+Task: Find the minimum amount >= M that can be created using as few coins as possible.
+
+
+---
+
+## No Change, Attempt 1
+
+We have two objectives:
+- minimize the amount
+- minimize the number of coins
+
+Can we solve this problem one objective at a time?
+--
+
+- ignore the number of coins, try to find the smallest amount A >= M that
+satisfies this problem
+- once we have the amount, find the smallest number of coins that can be used
+to construct A
+
+
+--
+
+__Part1__ minimize the amount A >= M that we need to spend, `min_amount(0,0)`
+```
+min_amount( index, val )  = min (
+                        min_amount(index+1, val + C[index]),  // use C[index]
+                        min_amount(index+1, val )             // do not use C[index]
+                    )
+
+
+min_amount(index, val >= M ) = val    // we have the amount, no use to add any more coins
+
+min_amount(index=N, val) = INF        // reached one coin after last and did not reach
+                                      // the amount, cannot be done given the choice we made to
+                                      // get to this point
+
+```
+
+--
+
+Practical question for implementation: so how large can `val` be?
+
+
+---
+
+## No Change, Attempt 1
+
+We have two objectives:
+- minimize the amount
+- minimize the number of coins
+
+Can we solve this problem one objective at a time?
+
+
+- ignore the number of coins, try to find the smallest amount A >= M that
+satisfies this problem
+- once we have the amount, find the smallest number of coins that can be used
+to construct A
+
+
+
+
+__Part2__ given the amount A what is the smallest number of coins that we need to use, `min_coins(0, A)`
+```
+min_coins( index, val )  = min (
+                        min_coins(index+1, val - C[index]) + 1,  // use C[index]
+                        min_coins(index+1, val )             // do not use C[index]
+                    )
+
+min_coins(index, val=0) = 0         //we got the desired amount
+
+min_coins(index, val < 0 ) = INF    //too little
+
+min_coins(index=N, val) = INF       //rejected too many coins on the way
+
+```
+
+---
+
+```
+
+int ansA[20100][110];  //initialized to -1
+int * denoms ;   //coin array
+
+int solveAmount(int* denoms, int n, int index, int total, int sum) {
+
+    if (sum >= total)  return sum;
+    if (index == n) return INT_MAX;
+
+
+    int a = ansA[sum+denoms[index]][index+1] != -1
+            ? ansA[sum+denoms[index]][index+1]
+            : solveAmount(denoms, n, index+1, total, sum+denoms[index]);
+
+    int b = ansA[sum][index+1] != -1
+            ? ansA[sum][index+1]
+            : solveAmount(denoms, n, index+1, total, sum);
+
+    ansA[sum][index] = (a < b) ? a : b;
+    //int c = (a < b) ? a : b;
+    return ansA[sum][index] ;
+}
+
+int solveCount(int* denoms, int n, int index, int total, int used) {
+    if (total == 0) return used;
+    if (total < 0 || index == n) return INT_MAX;
+    int a = solveCount(denoms, n, index+1, total-denoms[index], used+1);
+    int b = solveCount(denoms, n, index+1, total, used);
+    int c = (a < b) ? a : b;
+    return c;
+}
+```
+
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+---
+
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)
+  min_amount(1, 0)
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | ? |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  --- min_amount(2, 6)
+  min_amount(1, 0)      min_amount(2, 2)
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | ? |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   | ? |   |   |   | ? |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  --- min_amount(2, 6)   ---  6
+  min_amount(1, 0)      min_amount(2, 2)
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | ? |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   | ? |   |   |   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  --- min_amount(2, 6)
+  min_amount(1, 0)      min_amount(2, 2)  ---  min_amount(3, 9)
+                                          ---  min_amount(3, 2)
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | ? |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   | 9 |   |   |   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  --- min_amount(2, 6)
+  min_amount(1, 0)      min_amount(2, 2)  ---  min_amount(3, 9)  --- 9
+                                          ---  min_amount(3, 2)  --- INF
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   | 9 |   |   |   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  --- min_amount(2, 6)
+  min_amount(1, 0)      min_amount(2, 2)
+
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 | ? |   | 9 |   | ? |   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  ---
+  min_amount(1, 0)  --- min_amount(2, 4)  ---  min_amount(3, 11)
+                        min_amount(2, 0)       min_amount(3, 4 )
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 | ? |   | 9 |   | 11|   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  ---
+  min_amount(1, 0)  --- min_amount(2, 4)  ---  min_amount(3, 11)  --- 11
+                        min_amount(2, 0)       min_amount(3, 4 )  --- INF
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | ? |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 | 7 |   | 9 |   | 11|   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  ---
+  min_amount(1, 0)  --- min_amount(2, 4)
+                        min_amount(2, 0)  ---  min_amount(3, 7 )  --- 7
+                                               min_amount(3, 0 )  --- INF
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | ? |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | 7 |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 | 7 |   | 9 |   | 11|   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)
+  min_amount(1, 2)  ---
+  min_amount(1, 0)  --- 7
+
+
+
+```
+---
+
+## `min_amount` with an example
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 2 | 6 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 | 7 |   | 6 |   |   |   |   |   |   |   |    |    |    |
+| 7 | 7 |   | 9 |   | 11|   | 6 |   |   |   |    |    |    |
+
+
+```
+min_amount(0,0)  -- 6
+
+
+
+```
+---
+
+## No Change, Attempt 2
+
+In the previous example, after finding that 6 is the smallest amount, we have to run another
+algorithm that figures out the number of coins to be used.
+
+- could we store _different_ type of information in that table, so that we do not need the second
+run?
+
+---
+
+`answers[N+1][M2]` - for each amount 0-M2 stores the number of coins needed to obtain that
+amount or -1, if we do not need that value (M2 is the max possible value that we need to pay)
+
+assume the array of coins C is indexed starting at 1
+
+--
+
+```
+initialize `answers` array to all -1
+set answers[0][0] = 0   since we need zero coins to obtain the value of 0
+```
+--
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in 1 .. M2
+    if answers[i-1][m] > -1
+      answers[i][m] = answers[i-1][m]
+      answers[i][m+C[i]] =  answers[i-1][m] + 1
+```
+--
+```
+// find the first value >= M for which the column has positive entries
+A=-1
+for m in M .. M2
+    for i in 1 .. N
+        if answers[m][i] > -1
+          A = m   ;    break
+```
+--
+```
+//find the smallest number of coins for A
+min_coins = INF
+for i in 1 .. N
+    if answers[A][i] != -1 and answers[A][i] < min_coins
+      min_coins = answers[A][i]
+
+```
+--
+.small[the above algorithm makes accesses to out-of-bound indexes, this needs to be taken
+care of in the actual code]
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+---
+
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 4 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+- initialize `answers[0][0]` to 0
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in 1 .. M2
+    if answers[i-1][m] > -1
+      answers[i][m] = answers[i-1][m]
+      answers[i][m+C[i]] =  answers[i-1][m] + 1
+```
+i = 1
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 | 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |    |
+| 7 |   |   |   |   |   |   |   |   |   |   |    |    |    |
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in 1 .. M2
+    if answers[i-1][m] > -1
+      answers[i][m] = answers[i-1][m]
+      answers[i][m+C[i]] =  answers[i-1][m] + 1
+```
+i = 2
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 | 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |    |
+| 7 | 0 |   | 1 |   | 1 |   | 2 | 1 |   | 2 |    | 2  |    |
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in 1 .. M2
+    if answers[i-1][m] > -1
+      answers[i][m] = answers[i-1][m]
+      answers[i][m+C[i]] =  answers[i-1][m] + 1
+```
+i = 3
+
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 | 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |    |
+| 7 | 0 |   | 1 |   | 1 |   | 2 | 1 |   | 2 |    | 2  |    |
+
+```
+// find the first value >= M for which the column has positive entries
+A=-1
+for m in M .. M2
+    for i in 1 .. N
+        if answers[m][i] > -1
+          A = m   ;    break
+```
+A = 6
+
+
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 | 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |    |
+| 7 | 0 |   | 1 |   | 1 |   | 2 | 1 |   | 2 |    | 2  |    |
+
+
+A = 6
+
+```
+//find the smallest number of coins for A
+min_coins = INF
+for i in 1 .. N
+    if answers[A][i] != -1 and answers[A][i] < min_coins
+      min_coins = answers[A][i]
+
+```
+
+min_coins = 2
+
+
+
+---
+
+M = 5
+C = {2, 4, 7}
+
+`min_amount(0,0)`
+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| 0 | 0 |   |   |   |   |   |   |   |   |   |    |    |    |
+| 2 | 0 |   | 1 |   |   |   |   |   |   |   |    |    |    |
+| 4 | 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |    |
+| 7 | 0 |   | 1 |   | 1 |   | 2 | 1 |   | 2 |    | 2  |    |
+
+A = 6
+
+min_coins = 2
+
+---
+
+
+## No Change, Attempt 3
+
+In the previous attempt, it seems that all the relevant information is actually in the last
+row of the table.
+
+- can we use 1D array instead?
+
+--
+
+`answers[M2]` stores the smallest number of coints needed for each amount in the range 0...M2
+
+```
+set all values in answers to INF
+
+set answers[0] to 0
+
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in M2..i
+    if answers[m-i] < INF and answers[m-i]+1 < answers[m]
+      answers[m] = answers[m-i] + 1
+
+//find the first non INF entry >= M
+min_coins = INF
+A = INF
+for m in M .. M2
+  if answers[m] < INF
+    min_coins = answers[m]
+    A = m
+```
+--
+.small[the above algorithm makes accesses to out-of-bound indexes, this needs to be taken
+care of in the actual code]
+
+---
+
+
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+|   |   |   |   |   |   |   |   |   |   |    |    |
+
+
+
+---
+
+
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+| 0 |   |   |   |   |   |   |   |   |   |    |    |
+
+
+initialize answers[0] to 0
+
+---
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+| 0 |   | 1 |   |   |   |   |   |   |   |    |    |
+
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in M2..i
+    if answers[m-i] < INF and answers[m-i]+1 < answers[m]
+      answers[m] = answers[m-i] + 1
+```
+
+i = 1
+
+
+---
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+| 0 |   | 1 |   | 1 |   | 2 |   |   |   |    |    |
+
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in M2..i
+    if answers[m-i] < INF and answers[m-i]+1 < answers[m]
+      answers[m] = answers[m-i] + 1
+```
+
+i = 2
+
+---
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+| 0 |   | 1 |   | 1 |   | 1 | 2 |   |   | 2  |    |
+
+
+```
+//populate the table with possible coin counts for different values
+for i in 1..N
+  for m in M2..i
+    if answers[m-i] < INF and answers[m-i]+1 < answers[m]
+      answers[m] = answers[m-i] + 1
+```
+
+i = 3
+
+
+---
+
+M = 5
+C = {2, 4, 6}
+
+`min_amount(0,0)`
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|----|----|
+| 0 |   | 1 |   | 1 |   | 1 | 2 |   |   | 2  |    |
+
+
+min_coins = 1
+A = 6
+
+---
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
