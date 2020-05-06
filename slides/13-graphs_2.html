@@ -52,18 +52,16 @@ with fewest edges. The algortihm uses slightly modified BFS traversal.
   distance[N] - distance array initialized to infinity
   queue      - to store nodes to be visited
   bfs ( start )
-      visited [ start ] = true
-      queue.push( start )
-      current_distance = 0
-
-      while queue is not empty
-          node = queue.pop
-          distance[ node ] = current_distance
-          current_distance += 1
-          for n in adj( node )
-              if ! visited[n]
-                  visited [n] = true
-                  queue.push( n )
+    visited [ start ] = true
+    distance[ start ] = 0
+    queue.push( start )
+    while queue is not empty
+        node = queue.pop
+        for n in adj( node )
+            distance[ n ] = distance[node]+1
+            if ! visited[n]
+                visited [n] = true
+                queue.push( n )
   ```
 
 ---
