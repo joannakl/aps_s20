@@ -376,11 +376,204 @@ index   0  1  2  3  4  5  6  7  8  9 10
 
 ---
 
-## Problems
+# Knuth-Morris-Pratt’s (KMP) Algorithm
 
-- [Password](https://codeforces.com/problemset/problem/126/B)
+Another algorithm for pattern matching in strings.
 
-- [Periodic String][https://vjudge.net/problem/UVA-455]
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:  ABCDABD
+```
+
+
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:  ABCDABD
+          1110
+```
+
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:     ABCDABD
+
+```
+
+
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:      ABCDABD
+
+```
+
+
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:      ABCDABD
+              1111110
+```
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:          ABCDABD
+                  110
+```
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:            ABCDABD
+                    0
+```
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:             ABCDABD
+                     1111110
+```
+---
+
+# Knuth-Morris-Pratt’s (KMP) Algorithm
+
+Another algorithm for pattern matching in strings.
+
+It uses the observation that when a mismatch occurs,
+the pattern itself contains sufficient information to
+determine where the next match could begin. This allows to
+skip re-examination of previously matched characters.
+
+Example of the idea:
+
+```
+                    1         2
+index:    01234567890123456789012
+string:   ABC ABCDAB ABCDABCDABDE
+pattern:                 ABCDABD
+                         1111111   match found
+```
+
+--
+
+
+[Visualization of KMP](http://www.whocouldthat.be/visualizing-string-matching/)
+
+[another visualization of KMP](https://people.ok.ubc.ca/ylucet/DS/KnuthMorrisPratt.html)
+
+
+Souce code implementation: [cpp](slides/12/kmp.cpp), [java](slides/12/kmp.java)
+
+
+
+
 
 
 ---

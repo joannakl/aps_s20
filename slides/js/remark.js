@@ -1751,13 +1751,13 @@ module.exports = Keyboard;
 
 function Keyboard(events) {
   this._events = events;
-  
+
   this.activate();
 }
 
 Keyboard.prototype.activate = function () {
   this._gotoSlideNumber = '';
-  
+
   this.addKeyboardEventListeners();
 };
 
@@ -1768,7 +1768,7 @@ Keyboard.prototype.deactivate = function () {
 Keyboard.prototype.addKeyboardEventListeners = function () {
   var self = this;
   var events = this._events;
-  
+
   events.on('keydown', function (event) {
     if (event.metaKey || event.ctrlKey) {
       // Bail out if meta or ctrl key was pressed
@@ -1816,7 +1816,7 @@ Keyboard.prototype.addKeyboardEventListeners = function () {
       // Bail out if meta or ctrl key was pressed
       return;
     }
-    
+
     var key = String.fromCharCode(event.which).toLowerCase();
 
     switch (key) {
@@ -1844,15 +1844,15 @@ Keyboard.prototype.addKeyboardEventListeners = function () {
       case 't':
         events.emit('resetTimer');
         break;
-      case '1': 
-      case '2': 
-      case '3': 
-      case '4': 
+      case '1':
+      case '2':
+      case '3':
+      case '4':
       case '5':
-      case '6': 
-      case '7': 
-      case '8': 
-      case '9': 
+      case '6':
+      case '7':
+      case '8':
+      case '9':
       case '0':
         self._gotoSlideNumber += key;
         break;
@@ -1866,7 +1866,7 @@ Keyboard.prototype.addKeyboardEventListeners = function () {
 
 Keyboard.prototype.removeKeyboardEventListeners = function () {
   var events = this._events;
-  
+
   events.removeAllListeners("keydown");
   events.removeAllListeners("keypress");
 };
@@ -6072,7 +6072,7 @@ function(hljs) {
 }
 },{name:"csp",create:/*
 Language: CSP
-Description: Content Security Policy definition highlighting 
+Description: Content Security Policy definition highlighting
 Author: Taras <oxdef@oxdef.info>
 
 vim: ts=2 sw=2 st=2
@@ -6085,7 +6085,7 @@ function(hljs) {
     keywords: {
       keyword: 'base-uri child-src connect-src default-src font-src form-action' +
         ' frame-ancestors frame-src img-src media-src object-src plugin-types' +
-        ' report-uri sandbox script-src style-src', 
+        ' report-uri sandbox script-src style-src',
     },
     contains: [
     {
@@ -7590,7 +7590,7 @@ function(hljs) {
     },
     contains: [
       {
-        /* matches a beginning equal sign found in Excel formula examples */ 
+        /* matches a beginning equal sign found in Excel formula examples */
         begin: /^=/,
         end: /[^=]/, returnEnd: true, illegal: /=/, /* only allow single equal sign at front of line */
         relevance: 10
@@ -13475,7 +13475,7 @@ function(hljs) {
   var PS_HELPTAGS = {
     className: 'doctag',
     variants: [
-      /* no paramater help tags */ 
+      /* no paramater help tags */
       { begin: /\.(synopsis|description|example|inputs|outputs|notes|link|component|role|functionality)/ },
       /* one parameter help tags */
       { begin: /\.(parameter|forwardhelptargetname|forwardhelpcategory|remotehelprunspace|externalhelp)\s+\S+/ }
@@ -19780,11 +19780,11 @@ SlideView.prototype.scaleBackgroundImage = function (dimensions) {
 function createSlideElement(slide) {
   var element = document.createElement('div');
   element.className = 'remark-slide';
-  
+
   if (slide.properties.continued === 'true') {
     utils.addClass(element, 'remark-slide-incremental');
   }
-  
+
   return element;
 }
 
