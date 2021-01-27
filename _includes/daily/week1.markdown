@@ -26,7 +26,7 @@
 
 - Meet your section leader
 - Meet a few people from your section
-
+- Start solving problems 
 
 
 </div>
