@@ -119,6 +119,16 @@ aside h1 {
     display: none;
   }
 }
+
+
+.alert{
+    background-color: yellow;
+    font-weight:bold;
+    font-size:1.2em;
+    width: 60%;
+    padding:10px 10% 10px 10%;
+}
+
 /******************************************/
 main {
   background: #ffffff;
@@ -156,6 +166,25 @@ td {
   vertical-align: top;
 }
 /**************/
+.week {
+  clear: left;
+  padding-bottom: 10px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+.week_heading {
+  clear: left;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid black;
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+.other_heading {
+  clear: left;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid black;
+  overflow: hidden;
+}
 .lecture1 {
   clear: left;
   padding-bottom: 15px;
@@ -237,6 +266,9 @@ td {
   }
 }
 @media (min-width: 700px) {
+  .week {
+    width: 79%;
+  }
   .lecture1 {
     width: 79%;
   }

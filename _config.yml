@@ -1,9 +1,13 @@
 
 title: CSCI-UA 480 (Algorithmic Problem Solving)
+short_title: APS
 description: "Course website for CSCI-UA 480 (Algorithmic Problem Solving) course."
 
-baseurl: "/aps_s20/" # the subpath of your site, e.g. /blog
-url: "https://joannakl.github.io/aps_s20" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/aps_s21" # the subpath of your site, e.g. /blog
+#url: "https://joannakl.github.io/aps_s21" # the base hostname & protocol for your site, e.g. http://example.com
+
+email_etiquette: "email_etiquette.md"
+info: "info.md"
 
 markdown: kramdown
 kramdown:
@@ -18,43 +22,50 @@ exclude:
 
 course_number: "CSCI-UA 480"
 course_name: "Algorithmic Problem Solving"
-course_section: "004"
-course_semester: "Spring 2019"
-course_time: "<br>Tuesdays and Thursdays 12:30pm - 1:45pm, 12WP (Waverly Place) L120<br>"
+course_section: "521"
+course_semester: "Spring 2021"
+course_time: "Mondays and Wednesdays 11:00am - 12:15pm, (online)<br>"
 
-recitation_section1: "005"
-recitation_time1:  "Wednesdays 8:00-9:15AM, CIWW 101"
+
+current_course1_title: "CSCI 102 sec. 5"
+current_course1_link: "https://cs.nyu.edu/~joannakl/cs102_s21/"
+current_course2_title: "CSCI 480 sec. 521 (APS)"
+current_course2_link: "https://cs.nyu.edu/~joannakl/aps109_s21/"
+current_course3_title: ""
+current_course3_link: ""
+
+
+recitation_section1: "522"
+recitation_time1:  "Wednesdays 3:30-4:45AM, (online)"
+recitation_section2: "523"
+recitation_time2:  "Wednesdays 3:30-4:45AM, Room CIWW 201, (In-Person)"
 
 recitation_instructor1_full: "Kunal Khatri"
 recitation_instructor1_name: "Kunal"
+recitation_instructor2_full: "Samasth Norway Ananda"
+recitation_instructor2_name: "Samasth"
 
 tutor_full: "TBD"
 tutor_name: ""
 
-instructor_office_hours: "Mondays 12:30 - 2:30pm, Thursdays 11:00am - 12:00pm,
+instructor_office_hours: "TBD,
 (or you can schedule an appointment if these times do not work for you)"
-instructor_office_hours_location: "423 CIWW"
+instructor_office_hours_location: "Zoom (check NYU Classes for links)"
 
-recitation1_office_hours: "Thursdays 2:00 - 4:00pm"
-recitation1_office_hours_location: "412 CIWW"
+recitation1_office_hours: "TBD"
+recitation1_office_hours_location: "TBD"
 
 tutor_hours: "TBD"
 tutor_hours_location: ""
 
-
-current_course1_title: "CSCI 201 sec. 3"
-current_course1_link: "https://cs.nyu.edu/~joannakl/cs201_s20/"
-current_course2_title: "CSCI 480 sec. 4 (APS)"
-current_course2_link: "https://cs.nyu.edu/~joannakl/aps_s20/"
-current_course3_title: "CSCI 480 sec. 10 (OSSD)"
-current_course3_link: "https://cs.nyu.edu/~joannakl/ossd_s20/"
-
-midterm_exam_date: "March 24"
-final_exam_date: "Mon., May, 18, 12:00PM - 1:50PM "
+midterm_exam_date: "TBD"
+final_exam_date: "TBD "
 final_exams_link: "http://cs.nyu.edu/dynamic/courses/exams/"
 
-piazza_site: https://piazza.com/nyu/spring2020/aps/home
-gradescope_site: ""
+ed_site: "https://us.edstem.org/"
+ed_signup: "https://edstem.org/us/join/KgZ6kA"
+gradescope_site: "https://gradescope.com/"
+polleverywhere_guide: "https://blog.polleverywhere.com/students-poll-everywhere-101/"
 
 
 book_opt_1: "Competitive Programming, "
