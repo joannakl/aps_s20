@@ -13,7 +13,7 @@ class: center, top
 
 <br><br>
 
-# CSCI-UA 480.4: APS
+## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
 <br>
 ## Linear Data Structures
@@ -33,12 +33,12 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 
 ---
-# Questions
+## Questions
 
 - homework questions ?
 
 ---
-# Basic Linear Data Structures
+## Basic Linear Data Structures
 
 - list
   - array
@@ -75,7 +75,7 @@ class: middle, center
 
 
 ---
-# List as a Static Array
+## List as a Static Array
 
 _static array_ = fixed size, could be allocated on the stack or heap
 
@@ -104,7 +104,7 @@ there are no gaps
 
 
 ---
-# List as a Static Array
+## List as a Static Array
 
 
 _static array_ = fixed size, no need to resize it (could be allocated on the stack or heap)
@@ -136,7 +136,7 @@ there are no gaps
 (and to avoid out of bounds access problems)
 
 ---
-# List as a Static Array
+## List as a Static Array
 
 __Java 1D and 2D static array__
 
@@ -170,7 +170,7 @@ for (int i = 0; i < m; i++)     // initialize all values to 0
 ```
 
 ---
-# List as a Dynamic/Resizable Array
+## List as a Dynamic/Resizable Array
 
 - implementation provided by buil-in classes:
   - `vector` in C++ STL
@@ -190,7 +190,7 @@ reason: ???
 
 
 ---
-# List as a Dynamic/Resizable Array
+## List as a Dynamic/Resizable Array
 
 - implementation provided by buil-in classes:
   - [`vector`](http://www.cplusplus.com/reference/vector/vector/) in C++ STL
@@ -218,7 +218,7 @@ out (works only if resizing is done by multiplicative factor)
   - find O(N) if not sorted, O(logN) if sorted
 
 ---
-# List as a Linked Structure
+## List as a Linked Structure
 ## (a Linked List)
 
 
@@ -240,7 +240,7 @@ practice reference/pointer operations)
 
 ---
 
-# List _Hybrids_
+## List _Hybrids_
 
 - dynamically allocated list that consists of short fixed sized arrays that
 are connected into a linked list
@@ -259,9 +259,9 @@ array
 
 
 ---
-class: challenge
+template: challenge
 
-# Challenge
+## Challenge
 
 .left-column2[
 Given a `head` pointer/reference to a singly linked list, determine if it has a loop.
@@ -302,7 +302,7 @@ the loop
 
 class:challenge
 
-# Challenge
+## Challenge
 
 
 - Can a singly linked list be circular?
@@ -317,10 +317,10 @@ class:challenge
 
 class: middle, center
 
-# Stacks
+## Stacks
 
 ---
-# Stack (first in last out, FILO)
+## Stack (first in last out, FILO)
 
 
 - implementation provided by buil-in classes:
@@ -346,7 +346,7 @@ class: middle, center
 ---
 class:challenge
 
-# Challenge: Function Call Stack
+## Challenge: Function Call Stack
 
 What is the output of `fun(4)` ?
 
@@ -370,7 +370,7 @@ Output
 ---
 class:challenge
 
-# Challenge: Function Call Stack
+## Challenge: Function Call Stack
 
 What is the output of `fun(4)` ?
 
@@ -394,7 +394,7 @@ Output
 ---
 class:challenge
 
-# Challenge: Function Call Stack
+## Challenge: Function Call Stack
 
 What is the output of `fun(4)` ?
 
@@ -439,7 +439,7 @@ result shown above
 ---
 class:on_your_own
 
-# OnYourOwn: Function Call Stack
+## OnYourOwn: Function Call Stack
 
 How about these functions? (Try it on your own after the class. )
 .left-column2[
@@ -468,9 +468,9 @@ void fun (int x, int y ) {
 ]
 ---
 
-class: challenge
+template: challenge
 
-# Challenge: Brackets Matching
+## Challenge: Brackets Matching
 
 Given a mathematical expression containing parentheses, i.e., `(` and `)`, determine if the
 expression is valid.
@@ -501,9 +501,9 @@ Example (no symbols other than parentheses are shown):
   `(){(})` => invalid
 
 ---
-class: challenge
+template: challenge
 
-# Challenge: Brackets Matching
+## Challenge: Brackets Matching
 
 __Solution with one kind of brackets__:
 
@@ -537,7 +537,7 @@ __What is the time complexity of these algorithms?__
 ---
 class:on_your_own
 
-# On Your Own: Library Classes as Stack
+## On Your Own: Library Classes as Stack
 
 Can we use dynamic/resizable array (`vector` in C++ or `Vector` in Java)
 to provide efficient implementation of a stack? This implementation should provide
@@ -550,7 +550,7 @@ required by the stack).
 
 ---
 
-# Evaluating Mathematical Expressions
+## Evaluating Mathematical Expressions
 
 Evaluate an arithmetic expression with only operators and numbers:
 
@@ -579,7 +579,7 @@ worry about the operator precedence.
 
 ---
 
-# Prefix  and Postfix Notations
+## Prefix  and Postfix Notations
 ### (a.k.a. Polish and Reverse Polish Notation)
 
 __Infix notation__ is a notation for writing human readable arithmetic
@@ -601,7 +601,7 @@ which the operator comes _after_ its operands.
 
 ---
 
-# Evaluate Prefix Expressions
+## Evaluate Prefix Expressions
 
 
 - scan the given prefix expression from right to left
@@ -617,7 +617,7 @@ which the operator comes _after_ its operands.
 
 ---
 
-# Evaluate Postfix Expressions
+## Evaluate Postfix Expressions
 
 
 - scan the given postfix expression from left to right
@@ -632,7 +632,7 @@ which the operator comes _after_ its operands.
 - return top of the stack as result
 
 ---
-# Convert Infix to Postfix
+## Convert Infix to Postfix
 
 - for each token in the input infix string expression
   - if the token is an operand
@@ -656,9 +656,9 @@ which the operator comes _after_ its operands.
   - pop the operator stack and append to postfix string expression
 
 ---
-class: challenge
+template: challenge
 
-# Challenge: Infix to Postfix
+## Challenge: Infix to Postfix
 
 Apply the infix to postfix conversion to the following expression:
 $$4 + (5 * 6) / (1 + 2 + 3) $$
@@ -708,10 +708,10 @@ class:challenge
 
 class: middle, center
 
-# Queues
+## Queues
 
 ---
-# Queues (first in first out, FIFO)
+## Queues (first in first out, FIFO)
 
 
 - implementation provided by buil-in classes:
@@ -730,7 +730,7 @@ class: middle, center
 
 ---
 
-# Array as an Efficient Queue
+## Array as an Efficient Queue
 
 --
 
@@ -750,7 +750,7 @@ to the beginning of the array (low indexes)
 
 ---
 
-# Array as an Efficient Queue
+## Array as an Efficient Queue
 
 
 
@@ -782,11 +782,11 @@ case for the full array.
 
 class: middle, center
 
-# Deque
+## Deque
 ## (= double ended queue)
 
 ---
-# Deque
+## Deque
 
 
 - implementation provided by buil-in classes:
@@ -806,12 +806,12 @@ class: middle, center
 
 class: middle, center
 
-# More Problems
+## More Problems
 
 ---
-class: challenge
+template: challenge
 
-# Challenge: Smallest So Far
+## Challenge: Smallest So Far
 
 Given a list of N positive integers (1 <= N <= $10^6$), compute for each
 element A[i], what is the smallest element to its left (excluding itself).
@@ -834,7 +834,7 @@ Smallest to the Left Array:
 ```
 
 ---
-class: challenge
+template: challenge
 
 ## Possible solutions
 
@@ -865,9 +865,9 @@ Calculate STL as follows:
 This is $O(N)$
 
 ---
-class: challenge
+template: challenge
 
-# Challenge: Smaller than Current
+## Challenge: Smaller than Current
 
 Given a list of N positive integers (1 <= N <= $10^6$), compute for each
 element A[i], what is the __rightmost__ element to its left that is
@@ -910,7 +910,7 @@ Rightmost Smaller Solution Array:
 ]
 
 ---
-class: challenge
+template: challenge
 
 .left-column2[
 ## First Attempt
@@ -970,7 +970,7 @@ __Observation__ spans of monotonically decreasing values larger
 than a current value, cannot contain the answer.
 
 ---
-class: challenge
+template: challenge
 
 ## Second Attempt
 
@@ -1028,7 +1028,7 @@ What are good test cases for this problem?
 ---
 class:on_your_own
 
-# OnYourOwn: Modified Stack
+## OnYourOwn: Modified Stack
 
 __Task:__ Implement a stack that supports $O(1)$ operations for push, pop, top,
 __AND__ getMin (finds the smallest value in the current stack).

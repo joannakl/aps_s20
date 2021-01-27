@@ -13,7 +13,7 @@ class: center, top
 
 <br><br>
 
-# CSCI-UA 480.4: APS
+## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
 <br>
 ## Disjoint Set / Union-Find Data Structures
@@ -34,7 +34,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
-# Disjoint Set / Union-Find
+## Disjoint Set / Union-Find
 
 - tracks a set of elements partitioned into disjoint subsets
 
@@ -43,7 +43,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
-# Disjoint Set / Union-Find
+## Disjoint Set / Union-Find
 
 - tracks a set of elements partitioned into disjoint subsets
 
@@ -119,7 +119,7 @@ find(7) <br>
 
 ---
 
-# Disjoint Set / Union-Find
+## Disjoint Set / Union-Find
 
 - each tree is one subset (in which all pairs of elements have some required property, ex. they are friends)
 
@@ -138,7 +138,7 @@ find(7) <br>
 
 ---
 
-# Visualizations:
+## Visualizations:
 
 - [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/Heap.html)
 
@@ -151,7 +151,7 @@ class:challenge
 
 <!--based on UVA 10583 Uniquitous Religions-->
 
-# Challenge
+## Challenge
 
 There are N students ( 2 <= N <= 10^5) on campus. Each student belongs to exactly
 one student club. We do not know what clubs the students belong to, but we
@@ -181,7 +181,7 @@ __Answer__ There are two student clubs.
 
 ---
 
-# Performance Improvement:
+## Performance Improvement:
 ## Path Compression
 
 - performed during the `find` operations
@@ -194,7 +194,7 @@ along that path to be root
 
 ---
 
-# Performance Improvement:
+## Performance Improvement:
 ## Path Compression
 
 - performed during the `find` operations
@@ -210,7 +210,7 @@ __Algorithm for `find(x)`:__
 ```
 ---
 
-# Performance Improvement:
+## Performance Improvement:
 ## Merging by Rank
 
 - performed during the `union` operation
@@ -238,7 +238,7 @@ __Algorithm for `union(x,y)`:__
 
 ---
 
-# Performance Improvement:
+## Performance Improvement:
 ## Merging by Size
 
 - an alternative to merging by rank - it uses the number of nodes instead of
@@ -320,7 +320,7 @@ union(7, 12,)
 ---
 class:challenge
 
-# Challenge: Allies and Enemies
+## Challenge: Allies and Enemies
 
 There are N countries ( 2 <= N <= 10^5). Any pair of countries are either allies
 or enemies.
@@ -345,7 +345,7 @@ We have the following relations:
 
 ---
 
-# Challenge: Allies and Enemies
+## Challenge: Allies and Enemies
 ## Example
 
 n = 5, (countries numbered 1 - 5)
@@ -366,7 +366,7 @@ n = 5, (countries numbered 1 - 5)
 
 ---
 
-# Challenge: Allies and Enemies
+## Challenge: Allies and Enemies
 ## Solution
 
 Represent each country with two values: x and x'
@@ -386,7 +386,7 @@ The required instructions can be now implemented using disjoint set at follows:
 
 ---
 
-# Challenge: Allies and Enemies
+## Challenge: Allies and Enemies
 ## Example Solution
 
 n = 5, (countries numbered 1 - 5)
@@ -410,7 +410,7 @@ n = 5, (countries numbered 1 - 5)
 
 ---
 
-# Challenge: Build a Maze
+## Challenge: Build a Maze
 
 Given an NxN grid generate a random maze.
 
@@ -421,7 +421,7 @@ Given an NxN grid generate a random maze.
 - every cell should be reachable from every other cell
 
 ---
-# Challenge: Building a Maze
+## Challenge: Building a Maze
 
 
 __Algorithm__:
@@ -745,7 +745,7 @@ S  |     |  |  |  |
 .largest[...]
 
 ---
-# Challenge: Counting Islands
+## Challenge: Counting Islands
 
 The  NxM grid of integers gives terrain elevation. Given a water level L, every
 cell with the height (=elevation) <= L is below the water. The islands are the cells
@@ -762,7 +762,7 @@ L = 2,  there are 2 islands]
 
 
 ---
-# Challenge: Counting Islands
+## Challenge: Counting Islands
 
 The NxM grid of integers gives terrain elevation. Given a water level L, every
 cell with the height (=elevation) <= L is below the water. The islands are the cells
@@ -778,7 +778,7 @@ Determine the number of islands.
 L = 4,  there are 4 islands]
 
 ---
-# Challenge: Counting Islands
+## Challenge: Counting Islands
 
 The NxM grid of integers gives terrain elevation. Given a water level L, every
 cell with the height (=elevation) <= L is below the water. The islands are the cells
@@ -794,7 +794,7 @@ Determine the number of islands.
 L = 6,  there is 1 island]
 
 ---
-# Counting Islands
+## Counting Islands
 
 __Solution 1__ Use O(N*M) algorithm that visits all the cells one by one.
 For each cell that is above the level of water find all the cells adjacent
@@ -826,7 +826,7 @@ But, what if we need to provide the answer for "continuous" levels:
 
 ---
 
-# Counting Islands Continuous
+## Counting Islands Continuous
 
 This approach counts the islands  for levels from largest (everything
 is under water) to smallest (everything is above water)

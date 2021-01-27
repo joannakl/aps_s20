@@ -3,6 +3,71 @@
 @import url('https://fonts.googleapis.com/css?family=Droid+Sans');
 @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
+
+table {
+    /*font-family: arial, sans-serif;*/
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 2px;
+}
+/*
+tr:nth-child(odd), td {
+    border: 1px solid #ffffff;
+    background-color: #eeeeee;
+}*/
+
+p, pre{
+    margin: 0.5em 0 0.5em 0;
+}
+
+
+
+.title-slide {
+    background-image: url("../img/back2.jpg");
+    color:hsl(223, 37%, 23%);
+    background-size: cover;
+}
+.slide{
+    background-color:#e8ebea;
+    color: hsl(223, 37%, 23%);
+}
+.slide h1, .slide h2, .slide h3, .slide h4{
+    color: hsl(223, 100%, 33%);
+}
+
+.inverse {
+    background-color: #85979e;
+    color: #e8ebea;
+    text-shadow: 0 0 20px #333;
+}
+
+
+.challenge {
+    background-color:hsl(210, 55%, 73%);
+}
+
+.inverse h1, .inverse h2, .inverse h3, .inverse h4{
+    color: #e8ebea;
+}
+
+.full-height {
+    height:100%;
+    padding:0px;
+}
+
+.remark-slide>.breakout{
+    border: 50px;
+    border-color: hsl(201, 36%, 62%);
+    border-style: solid;
+    background-color:hsl(208, 39%, 94%);
+    color: hsl(201, 100%, 28%);
+}
+
 body {
     /*font-family: 'Droid Sans', sans-serif;*/
     font-family: "Times","Times New Roman", serif;
@@ -11,7 +76,7 @@ body {
 }
 h1, h2, h3 {
     /*font-family: 'Droid Sans', sans-serif;*/
-    font-weight: bold;
+    font-weight: bolder;
     padding:0;
     margin:0;
 }
@@ -20,7 +85,7 @@ h1{
 }
 
 .remark-slide-content > h1:first-of-type {
-  margin-top: 0.0ex;
+  margin-top: 0.5ex;
   padding-top:0.0px;
   line-height: 1;
 }
@@ -32,6 +97,14 @@ h1{
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     bottom: 3em
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 0.6em;
+    font-size: 70%;
+    text-align: left;
+    color:hsl(201, 100%, 28%);
 }
 
 
@@ -53,20 +126,30 @@ h1{
     line-height: 1.15;
 }
 
+.small .hljs{
+    font-size: 70%;
+}
+
+.smaller .hljs{
+    font-size: 85%;
+}
+
+
+
+.small .remark-code{
+    font-size: 70%;
+}
+
+.smaller .remark-code{
+    font-size: 85%;
+}
 /*remove extra space from top of the slide
 and set the background color*/
 .remark-slide-content {
   padding-top: 0;
-  background-color:honeydew;
 }
 
 
-.remark-slide>.challenge {
-    background-color:linen;
-}
-.remark-slide>.on_your_own {
-    background-color:wheat;
-}
 
 .tiny { font-size: 50%; }
 .small { font-size: 70%; }
@@ -75,25 +158,41 @@ and set the background color*/
 .large { font-size: 200%; }
 .huge { font-size: 300%; }
 .code{font-family: 'Ubuntu Mono'; }
+.pseudocode{font-family: "cursive"; font-size: 75%; color:white; background-color: hsl(201, 100%, 18%);}
+.pseudocode strong {color:pink}
 .center { text-align: center; }
 .left { text-align: left; }
 .right { text-align: right; }
+.red {color: red;}
+.blue {color: blue;}
+.green {color: green;}
+.center80 {
+    width: 80%;
+    margin:auto;
+}
 .center70 {
-    text-align:center;
     width: 70%;
+    margin:auto;
+}
+.center50 {
+    width: 50%;
+    margin:auto;
 }
 .highlight{
     background-color: #FECA3F;
 }
+.heavy{
+  font-weight: bold;
+}
 
 
 .section {
-    background-color: #CABFDC;
+    background-color: #85979e;
     padding: 5em;
 }
 
 .center_slide {
-    background-color: #CABFDC;
+    background-color: #85979e;
     padding: 5em;
 }
 
@@ -113,6 +212,55 @@ and set the background color*/
   background-color: #CABFDC;
 }
 
+.important{
+    margin: 0 0em 0 0.0em;
+    padding: 1px 5px  1px  5px;
+    border-style: solid;
+    border-color: #002b80; border-width:4px;
+    background-color: rgb(255, 255, 128);
+}
+
+.aside{
+
+      margin: 0 0em 0 0.0em;
+      padding: 1px 5px  1px  5px;
+      color:  #737373;
+      border-style: double;
+      border-color: #737373; border-width:3px;
+      background-color: #f2f2f8;
+}
+
+
+.yellow {
+  background-color: rgb(255, 255, 128);
+}
+
+.yellowbox  {
+  margin: 0 0em 0 0.0em;
+  padding: 1px 5px  1px  5px;
+  border-style: solid;
+  border-color: #AAA; border-width:1px;
+  background-color: rgb(255, 255, 128);
+}
+
+.clearbox  {
+  margin: 0 0em 0 0.0em;
+  padding: 1px 5px  1px  5px;
+  border-style: solid;
+  border-color: #AAA; border-width:2px;
+}
+
+.yellowbox .hljs {
+  background-color: rgb(255, 255, 128);
+}
+
+
+.yellowbox pre {
+  margin: 0;
+}
+.clearbox pre {
+  margin: 0;
+}
 .centered_80{
     width: 80%;
     margin:auto;
@@ -151,7 +299,25 @@ padding:1% 1% 1% 5%;
   clear: both;
 }
 
+.continue-column{
+  clear: both;
+}
 
+.continue-column .left-column2{
+  padding:0px;
+}
+.continue-column .right-column2{
+  padding:0px;
+}
+.continue-column .below-column2{
+  margin:0px;
+}
+.continue-column ul{
+  margin:0px;
+}
+.continue-column p{
+  margin:0px;
+}
 
 
 /* Two-column layout */

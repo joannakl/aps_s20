@@ -10,9 +10,9 @@
     <textarea id="source">
 
 
-class: challenge
+template: challenge
 
-# Challenge
+## Challenge
 
 Given `N` integers in an arbitrary order find `k` largest ones.
 
@@ -23,7 +23,7 @@ class: center, top
 
 <br><br>
 
-# CSCI-UA 480.4: APS
+## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
 <br>
 ## Priority Queue
@@ -39,7 +39,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
-# Priority Queue
+## Priority Queue
 
 A __priority queue__ is a data structure that supports
 - element insertion
@@ -58,7 +58,7 @@ Multiple elements in a priority queue can have the same priority associated with
 Priority queues are typically implemented using a _binary heap_ structure.
 
 ---
-# Binary Heap / Priority Queue
+## Binary Heap / Priority Queue
 
 A _binary heap_ is binary tree with two additional properties:
 
@@ -82,7 +82,7 @@ Building a heap from a collection of values is $O(N)$ !!!  Why?
 
 ---
 
-# Building a Binary Heap in O(N)
+## Building a Binary Heap in O(N)
 
 Visualizations:
 
@@ -95,7 +95,7 @@ Visualizations:
 
 
 ---
-# Examples:
+## Examples:
 
 .left-column2-smaller[
 in C++'s' `priority_queue` the defaul order of elements is "decreasing" (max-heap)
@@ -155,9 +155,9 @@ PriorityQueue<Integer> q =
 ]
 ---
 
-class: challenge
+template: challenge
 
-# Challenge
+## Challenge
 
 - Given `n` integers in arbitrary order find `k` largest ones.
 
@@ -168,7 +168,7 @@ element. How would you implement the following two operations:
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -182,7 +182,7 @@ __Performance__:
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -196,7 +196,7 @@ __Performance__: $O(n \log n)$
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -209,7 +209,7 @@ __Performance__:
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -223,7 +223,7 @@ __Performance__: $O(k n)$
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -238,7 +238,7 @@ __Performance__:
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -254,7 +254,7 @@ __Performance__: $O(n + k \log n)$
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -277,7 +277,7 @@ __Performance__:
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -300,7 +300,7 @@ __Performance__: $O(n \log k)$
 
 
 ---
-# k-largest values
+## k-largest values
 
 
 __Problem__:  Given $n$ integers in arbitrary order find `k` largest ones.
@@ -319,9 +319,9 @@ __Performance__: average $O(n)$, worst case $O(n^2)$
 We'll come back to this solution later.
 
 ---
-class: challenge
+template: challenge
 
-# Median
+## Median
 
 __Problem 1__: Find the median
 
@@ -334,7 +334,7 @@ the values one by one, we want to know the value of the median for the values re
 
 ---
 
-# Median - solutions
+## Median - solutions
 
 - use any of the k-largest values approach, but set k = n/2 (or adjust accordingly
 for the even n) and only use the k'th value
@@ -349,9 +349,9 @@ an algorithms textbook)
 
 ---
 
-class: challenge
+template: challenge
 
-# Challenge
+## Challenge
 
 - Is the structure represented by a 1-based compact array (ignoring
 index 0) sorted in descending order a Max Heap?

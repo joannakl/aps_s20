@@ -9,30 +9,71 @@
   <body>
     <textarea id="source">
 
-class: center, middle
+class: center, title-slide
 
-# CSCI-UA 480.4: APS
+<br/><br/>
+## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
 
-<br>
+<br/><br/><br/><br/><br/><br/><br/>
 
 ## Introduction to the Class
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
-
 ]
+
 
 .license[
-Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-]
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
 
 ---
 
-# This Course
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
+
+---
+template: section
+
+## The Course
+
+---
+
+template: slide
+
+## This Course
 
 - Course website: https://cs.nyu.edu/~joannakl/aps_s20/
 
@@ -55,20 +96,20 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
-class: center, middle
+template: section
 
-# Why are you here?
+## Why are you here?
 
 ---
 
-# What are we going to do?
+## What are we going to do?
 
 - Basic and advanced data structures and algorithms
-  - review the ones you know (data structures, basic algoriths,
+  - review the ones you know (data structures, basic algorithms,
 _Cracking the Code Interview_, ...)
   - learn a few new ones
   - use them to solve interesting problems
-  - decide what data structues and algorithms should be used for which problems
+  - decide what data structures and algorithms should be used for which problems
 
 - Programming in Java and C/C++
   - practice your coding skills in both
@@ -77,14 +118,14 @@ _Cracking the Code Interview_, ...)
 
 - Bugs, edge cases, problems, ...
   - learn how to appreciate problems
-  - use the problems your find to learn for the future
+  - use the issues you find to learn for the future
   - learn from each other
 
 
 ---
-class: challenge
+template: challenge
 
-# Challenge
+## Challenge
 
 Write a program that reads two integers from standard
 input (i.e., the user types it on the keyboard), calculates their sum and prints the result
@@ -105,9 +146,9 @@ Example output:
 ]
 
 ---
-class: challenge
+template: challenge
 
-# Challenge continued
+## Challenge continued
 
 Exchange your code with someone sitting next to you. The code that you get
 should be in the progrmming language that you are familiar with (i.e., if you
@@ -132,7 +173,7 @@ that you are reading?
 
 
 ---
-# Typical problems
+## Typical problems
 
 Problem statement:
 - description of the problem
@@ -148,23 +189,33 @@ Three parts for the problem solution:
 - output the results (to standard output)
 
 ---
-# Online Judge .large[&#x2696]
-## black-box testing
+## Online Judge (OJ) .big[&#x2696]
 
-- most of the problems will be graded by an online judge (this is just a program that determines if your program
-produces correct output given the input from a test)
+- __black-box testing__: it does not matter what the  program does and how as
+long as it produces correct/expected output given some input
 
-- contains many hidden tests (correctness of results and format matter!)
 
-- produces instant result (the solution either passed or failed the test)
+<center>
+<a title="Blackbox" href="https://commons.wikimedia.org/wiki/File:Blackbox.svg">
+<img width="400" alt="Blackbox"
+   src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Blackbox.svg/256px-Blackbox.svg.png">
+</a>
+</center>
 
-- objective
+
+- an online judge (black-box tester) contains many hidden tests (correctness of results and format matter!)
+
+- an online judge produces instant results (the solution either passed or failed the test)
+
+
+--
+
 - readability of the code does not matter .large[&#x1F622;] (well, at least note for an OJ, but
 writing readable code may help you in debugging the code and later on in reviewing your own solutions; it
 may also make it possible to show off your solutions)
 
 ---
-# Workflow
+## Workflow
 
 - Read and __understand__ the problem.
 
@@ -204,7 +255,7 @@ create inputs for which you know the correct output)
 failure
 
 ---
-# Reasons for failure
+## Reasons for failure
 
 - __Compilation errors__ - hopefully this does not happen
 
@@ -221,12 +272,12 @@ failure
 
 ---
 
-class: center, middle
+template: section
 
-# [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s20/)
+## [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s20/)
 
 ---
-# Java slow I/O
+## Java slow I/O
 
 .left-column2[
 - Classes/objects used for reading standard input:

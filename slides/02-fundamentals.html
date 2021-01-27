@@ -9,33 +9,68 @@
   <body>
     <textarea id="source">
 
-class: center, top
+class: center, title-slide
 
 <br><br>
 
-# CSCI-UA 480.4: APS
+# CSCI-UA 480: APS
 ## Algorithmic Problem Solving
-<br>
+
+<br/><br/><br/><br/><br/><br/><br/>
+
 ## Fundamentals
 
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
-
 ]
+
 
 .license[
-Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-]
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
 
 ---
 
-# This Course
+layout:true
+template:default
+name:slide
+class: slide
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_s19/
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
+
+---
+
+## This Course
+
+- Course website: https://cs.nyu.edu/~joannakl/aps_s20/
 
     This page contains the syllabus and daily summaries as well as loads
     of links to all other resources and services you will need for this class.
@@ -49,7 +84,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 
 ---
 
-# Operations Count
+## Operations Count
 
 - How fast your program runs depends on how many things it does
 
@@ -85,7 +120,7 @@ int main() {
 ]
 
 ---
-# Counting operations is not easy (possible)
+## Counting operations is not easy (possible)
 
 - hard to figure out what to count, some operations in the high level
 programming language may be actualy multiple operations on the CPU
@@ -100,13 +135,13 @@ programming language may be actualy multiple operations on the CPU
 
 ---
 
-class: center, middle
+template: section
 
 # Asymptotic Analysis
 
 ---
 
-# Asymptotic Analysis
+## Asymptotic Analysis
 
 
 __$O(g(n)) = f(n)$__
@@ -133,7 +168,8 @@ There exist positive constants _$c_1$_, _$c_2$_ and _$n_0$_ such that
 $0 <= c_1g(n) <= f(n) <= c_2g(n) $ for all $n >= n_0$
 
 ---
-# Asymptotic Analysis: Big O
+
+## Asymptotic Analysis: Big O
 
 .center[
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Big-O-notation.png" width=50%>
@@ -147,9 +183,10 @@ f(x) ∈ O(g(x)) says that there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5
 https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
 
 ---
-class: challenge
 
-# Challenge
+template: challenge
+
+## Challenge
 
 For each of the following functions state if it is $O(N^2)$:
 
@@ -167,7 +204,7 @@ For each of the following functions state if it is $O(N^2)$:
 
 
 ---
-# "Abuse" of Big O
+## "Abuse" of Big O
 
 People often say "The algorithm is $O(N^3)$ - this is slow".
 
@@ -181,7 +218,7 @@ the algorithm is $\Theta(N^3)$, even though we use the Big O description.
 
 
 ---
-# From Big O to Actual Execution Time
+## From Big O to Actual Execution Time
 
 - a typical machine executes approximately $10^9$ operations per second
  (on average, since some are slower than others)
@@ -198,7 +235,7 @@ possible input size (this is specified as part of the constrains for the problem
   it gives us the sense of what might happen)
 
 ---
-# From Big O to Actual Execution Time
+## From Big O to Actual Execution Time
 
 
 __Example__: check all pairs of value in the input set
@@ -220,7 +257,7 @@ __Example__: check all pairs of value in the input set
 
 
 ---
-# What's the performance of ...
+## What's the performance of ...
 
 ```C++
 int ans = 0;
@@ -237,7 +274,7 @@ for (int i = 0; i < n; i++ ) {
 .big[$O(N^3)$]
 
 ---
-# What's the performance of ...
+## What's the performance of ...
 
 ```C++
 int ans = 0;
@@ -254,8 +291,8 @@ for (int i = 0; i < n; i++ ) {
 .big[$O(N^3)$]
 
 ---
-class: challenge
-# Challenge
+template: challenge
+## Challenge
 
 Write a function that checks if a string Y is a substring of another
 string X. The function should return `true` or `false`.
@@ -269,9 +306,9 @@ X = 'abcdaaaabbbbcddd'
 
 
 ---
-class: challenge
+template: challenge
 
-# What's the performance of ...
+## What's the performance of ...
 
 check if a string Y is a substring of another string X
 
@@ -300,8 +337,8 @@ public static boolean substringMatch ( String X, String Y ) {
 We will discuss them later in the semester. )
 
 ---
-class: challenge
-# What's the performance of ...
+template: challenge
+## What's the performance of ...
 
 check if a string Y is a substring of another string X
 
@@ -330,7 +367,7 @@ Can we reduce the time further? ( constant factor optimization )
 as the last statement in the inner for loop
 
 ---
-# Constant factor optimization
+## Constant factor optimization
 
 - good in practice
 
@@ -338,8 +375,8 @@ as the last statement in the inner for loop
 
 
 ---
-class: challenge
-# Challenge
+template: challenge
+## Challenge
 
 
 given a sorted array of values, create a new sorted array that contains
@@ -353,8 +390,8 @@ new array: [1, 4, 5, 6, 7, 9]
 
 
 ---
-class: challenge
-# What's the performance of ...
+template: challenge
+## What's the performance of ...
 
 given a sorted array of values, create a new sorted array that contains
 only the unique elements
@@ -377,7 +414,7 @@ for (int i = 0; i < n; i++ ) {
 
 
 ---
-# Rule of Thumb:
+## Rule of Thumb:
 ## Complexity and Actual Time
 <br>
 
@@ -398,13 +435,13 @@ for (int i = 0; i < n; i++ ) {
 
 ---
 
-class: center, middle
+template: section
 
 # Data Types and Their Representation
 
 ---
 
-# Data Types
+## Data Types
 
 All data represented as binary in hardware.
 
@@ -427,7 +464,7 @@ String
 
 ---
 
-# Binary Representation of Integers
+## Binary Representation of Integers
 
 - use of base-2
 
@@ -444,7 +481,7 @@ String
 
 ---
 
-# Use of other bases
+## Use of other bases
 
 __Base 3__
 
@@ -459,7 +496,7 @@ __Base 16__
   - ...
 
 ---
-# Largest/Smallest  value with N bits
+## Largest/Smallest  value with N bits
 
 - A type using 4-bits can represent integers $(0000)_2$ to $(1111)_2$
 
@@ -480,7 +517,7 @@ __For signed numbers the limit on the `int` is $2^{31}-1 = 2,147,483,647$ <br>(o
 $2\times 10^9)$.__
 
 ---
-# ASCII/UTF-8 and `char` type
+## ASCII/UTF-8 and `char` type
 
 - characters are just numbers that use fewer bits (8 bits or 16 bits)
 
@@ -502,9 +539,9 @@ purposes
 
 ---
 
-class: challenge
+template: challenge
 
-# Challenge: Split a Number
+## Challenge: Split a Number
 
 We define the operation of splitting a binary number `n` into two numbers `a(n)`
 and  `b(n)` as follows.
@@ -548,9 +585,9 @@ Output:
 ]
 ---
 
-class: challenge
+template: challenge
 
-# Challenge: Split a Number
+## Challenge: Split a Number
 
 In pairs,
 
