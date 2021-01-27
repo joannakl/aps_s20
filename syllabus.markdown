@@ -21,7 +21,7 @@ layout: default
 # Useful Resources
 ---
 
-- [Java API 10 documentation](https://docs.oracle.com/javase/10/docs/api/)
+- [Java API 11 documentation](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
 - [CPP Reference](https://en.cppreference.com/w/)
 - [CPlusPlus](http://www.cplusplus.com/reference/)
 - [Source code examples for the CP3 book](https://sites.google.com/site/stevenhalim/home/material) - collection of
@@ -63,17 +63,26 @@ For detailed schedule, see the [Daily](daily.html) tab of this page.
 
 
 
-# Grading  (exact grading rule subject to change by the beginning of the spring semester)
+# Grading
 ---
 
-Your grade will be based on:
+Your course grade will be based on:
 
+- exams, 20%
+- homework / weekly problem set, 40%
+- online contest (4 problems), 15%
+- problem presentation, 15%
+- participation and progress, 10%
+
+<!--
 * exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
 * in-class/in-recitation quizzes (20%) - short paper-based and computer-based assessments
 * homework (20%): most homework assignments will consist of a set of problems to be solved on your own
 * recitations (10%): the participation and completion of work during the recitation sessions  - three lowest grades will be dropped to accommodate any excused or unexcused absences
+-->
 
-Grades will be determined using the following scale:
+
+The letter grades will be determined using the following scale:
 
         A   95-100
         A-  90-95
@@ -89,53 +98,80 @@ Grades will be determined using the following scale:
 The grade of *Incomplete* is reserved for students who, for legitimate and documented reason, miss the final exam. The grade of *Incomplete* **will not be given** to student who started falling behind in class. Those students should withdraw from the class or switch to *Pass/Fail* option.
 
 
-# EXAMS
+# Exams
 ---
-There will be a midterm and a final exam. All exams are cumulative.
+There will be a midterm and a final exam. All exams are cumulative, timed and synchronous.
 
 __Missing an exam:__ There will be no make-up exams. Failure to take an exam counts as a zero grade on that exam. The only exception to this rule is for students who have a legitimate medical or personal emergency (documented). These students need to talk to the instructor as soon as possible (trying to excuse an exam absence a week after it happened will not work).
+
+# Homework / Weekly Problem Sets
+---
+
+Each week you will have a problem set to solve (4-5 problems of varying difficulty). Each problem set is weighted equally.
+
+# Online Contests
+---
+
+Throughout the semester we will let you know about various online contests. You need to participate in one
+or more and submit passing solutions to four different problems (in a single contest or in multiple ones).
+
+# Problem presentation
+---
+
+Once during the semester you will need to make a presentation of a problem and its solution.
+The details of this will be discussed at the start of the semester.
+
+# Participation
+---
+
+You are expected to actively participate during the lectures, recitations and on the discussion forum.
+
 
 
 # Academic Integrity Policy
 ---
 
-I follow the department's
-[academic integrity rules](http://cs.nyu.edu/webapps/content/academic/undergrad/academic_integrity).
+This course follows the university and departmental policies on academic integrity:
+- [Academic Integrity for Students at NYU](https://www.nyu.edu/about/policies-guidelines-compliance/policies-and-guidelines/academic-integrity-for-students-at-nyu.html)
+- [CS Department Academic Integrity](http://cs.nyu.edu/webapps/content/academic/undergrad/academic_integrity)
+
+Our main philosophy is that you need to be honest and fair to yourself, other students
+in the class and the instructional stuff.
+
+We know that interactions with your classmates can facilitate deeper understanding
+of the subjects and provide invaluable lessons. But to benefit from those lessons
+you need to be a participant in the team and not just a taker.
+
+__All your work that is submitted for grading in this class has to be your own, unless
+otherwise specified. You need to acknowledge any help that you receive on the assignments in your submissions.__
+
+Here are examples of _fair_ and _not fair_ actions that a student may take. This is not an
+exhaustive list and should serve as examples of behaviors rather than a complete
+definition.
+
+__Fair Actions__
+
+- Working and solving a weekly problem set with other students AND writing the actual program
+   on your own (you should acknowledge the names of all those involved in discussions)
+- Discussing problem sets and assignments with the instructional stuff and
+acknowledging such discussions in your submission.
+- Incorporating a short fragment of code (a few lines) that you find in the course
+suggested resources or other online resources and acknowledging it in your submission.
+- Sharing code with others (possibly your classmates) that illustrates concepts
+and techniques discussed in this course as long as this code is not a solution (or a partial solution)
+to one of the assigned problems. (An example of such code would be routines that handle reading
+from and writing to standard intput/output streams.)
 
 
-I follow the department's
-[academic integrity rules](http://cs.nyu.edu/webapps/content/academic/undergrad/academic_integrity).
+__Not Fair Actions__
 
-In short, it is fine to talk to other students about your ideas and your
-programs, but it is not fine to work together on
-assignments or copy someone else's assignment. You cannot copy other people's
-work without giving them a proper credit (and
-part of your grade).<br>
-Any sharing or copying of assignments will be considered cheating.
-By the rules of the College of Arts and Science, I am required to report any incidents of cheating to the department. <br>
-If you have any doubt if something that you are doing qualifies as academic dishonesty, talk to me!
-<br>
-
-*So what is cheating?*
-
-* Sharing code/solutions: by copying, retyping, looking at, or supplying a file (this includes posting partial or
-complete solutions on the course discussion board, a public repository - think GitHub, or any place where others can access it)
-* Coaching: helping your friend to write their code line by line (send
-them to the tutors or office hours, if you want to help them)
-* Copying code from previous course or from elsewhere on WWW.
-    You are only allowed to use code from the textbook and what we supply on the course website.
-* Hiring someone to complete your assignments for you.
-
-
-*What is NOT cheating?*
-
-* Explaining how to use systems or tools
-* Helping others with high-level design issue
-
-
-
-__You are responsible for thoroughly understanding every piece of code or algorithm that
-you submit.__
+- Making your solutions available to others (publicly or privately). (This includes posting solution on a discussion forum, in a public repository, etc.).
+- Asking a classmate to see their solutions prior to the last date at which submissions are
+accepted (this may be different than the due date).
+- Failing to acknowledge any form of help in the submission.
+- Finding solutions to problems online and using them for your own submissions.
+- Asking anybody (other than the instructional stuff) for help during an exam.
+- Looking at another student's work during an exam.
 
 
 # Academic Email Etiquette
