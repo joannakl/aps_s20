@@ -19,6 +19,10 @@
 
 [Fundamentals](slides/02-fundamentals.html): algorithmic analysis, data types/sizes.
 
+### Readings
+
+- chapter 1 in _Guide to Competitive Programming ..._
+- 
 
 </div>
 
@@ -40,7 +44,7 @@ Due immediately:
 (you need to register on VJudge prior to completing this survey)
 
 Due Friday, Feb. 5:
-- problem set 1 posted on Ed 
+- problem set 1 posted on Brightspace
 
 <!--
 ### Resources / Readings

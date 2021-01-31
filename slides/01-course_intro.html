@@ -55,6 +55,14 @@ name: breakout
 class: breakout
 
 ---
+layout:true
+template: default
+name: poll
+class: inverse,  middle
+
+## Poll <br><br>
+
+---
 
 layout:true
 template:default
@@ -75,17 +83,17 @@ template: slide
 
 ## This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_s20/
+- Course website: https://cs.nyu.edu/~joannakl/aps_s21/
 
     This page contains the syllabus and daily summaries as well as loads
     of links to all other resources and services you will need for this class.
 
 - Recitations (required):
-  - Wednesdays 8:00 - 9:15am
+  - Wednesdays 3:30 - 4:45pm
   - plan to bring your laptop (there are outlets available)
 
-- Course message board / discussion: Piazza
-  - you can self-sign up at https://piazza.com/nyu/spring2020/aps
+- Course message board / discussion: Ed
+  - you can self-sign up at https://us.edstem.org/
 
 - Online judge:
     - Gradescope (for homework assignments and exams)
@@ -96,7 +104,7 @@ template: slide
 
 ---
 
-template: section
+template: poll
 
 ## Why are you here?
 
@@ -105,21 +113,40 @@ template: section
 ## What are we going to do?
 
 - Basic and advanced data structures and algorithms
-  - review the ones you know (data structures, basic algorithms,
-_Cracking the Code Interview_, ...)
-  - learn a few new ones
+  - review the ones you know (data structures, basic algorithms, ...) and learn a few new ones
   - use them to solve interesting problems
   - decide what data structures and algorithms should be used for which problems
+
+--
 
 - Programming in Java and C/C++
   - practice your coding skills in both
   - practice your debugging skills
   - practice testing skills
 
-- Bugs, edge cases, problems, ...
-  - learn how to appreciate problems
+--
+
+- Bugs, edge cases, errors/issues, ...
+  - learn how to appreciate errors/issues
   - use the issues you find to learn for the future
   - learn from each other
+
+--
+
+- Deal with frustration ...
+  - of your program failing tests and being convinced that the problem is NOT with your own code
+
+--
+
+- Discuss problems, algorithms, solutions, efficiency, ...
+
+--
+
+- Present problem solutions
+
+--
+
+- A few invited talks
 
 
 ---
@@ -171,22 +198,12 @@ Working with your partner's code (not the partner!), decide
 4. is there something interesting, new-to-you, noteworthy, strange, ... in the code
 that you are reading?
 
-
 ---
-## Typical problems
 
-Problem statement:
-- description of the problem
-- description of constraints
-- description of the given input format and expected output format
-- sample input and corresponding output
+template: section
 
---
+# Online Judge (OJ)
 
-Three parts for the problem solution:
-- read the input data (from standard input)
-- calculate results
-- output the results (to standard output)
 
 ---
 ## Online Judge (OJ) .big[&#x2696]
@@ -213,6 +230,22 @@ long as it produces correct/expected output given some input
 - readability of the code does not matter .large[&#x1F622;] (well, at least note for an OJ, but
 writing readable code may help you in debugging the code and later on in reviewing your own solutions; it
 may also make it possible to show off your solutions)
+
+---
+## Typical problems
+
+Problem statement:
+- description of the problem
+- description of constraints
+- description of the given input format and expected output format
+- sample input and corresponding output
+
+--
+
+Three parts for the problem solution:
+- read the input data (from standard input)
+- calculate results
+- output the results (to standard output)
 
 ---
 ## Workflow
@@ -268,13 +301,104 @@ failure
 
 - __Time limit exceeded error__ - the program run for too long and was terminated
 
+---
 
+template: section
+
+# Presented / Interview Problems
+
+---
+## Human Interviewer
+
+
+- human interviewer is the judge: your approach to the solution, clarity of explanation,
+  elegance and efficiency are all being judged
+
+- problem may evolve as part of the discussion
+
+- there are no hidden tests, but your solution should be able to handle edge cases and unexpected inputs
+
+- readability of the code/algorithm does matters a lot
+
+<a title="Instituto Politécnico de Setúbal from Setúbal, Portugal, CC BY 2.0 &lt;https://creativecommons.org/licenses/by/2.0&gt;, via Wikimedia Commons"
+href="https://commons.wikimedia.org/wiki/File:White_board_IPS.jpg">
+<img width="500" style="float:right;" alt="White board IPS" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/White_board_IPS.jpg/512px-White_board_IPS.jpg"></a>
+
+---
+## Workflow
+
+
+<a title="Arafat Uddin, Public domain, via Wikimedia Commons"
+href="https://commons.wikimedia.org/wiki/File:Noun_Conversation_1325511.svg"><img width="256" style="float:right;" alt="Noun Conversation 1325511"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Noun_Conversation_1325511.svg/256px-Noun_Conversation_1325511.svg.png"></a>
+
+
+- You are presented with a (new) problem. It may be unclear or ambiguous.
+
+--
+
+- Make sure you understand the problem by asking followup questions. Do NOT assume anything.
+
+--
+
+- Work through an example. This confirms your understanding of the problem to you AND to the interviewer.
+
+--
+
+- Come up with a solution. First solution does not need to be efficient, elegant, .... DO NOT WRITE CODE.
+  Talk through your approach, make sure it is correct (run through some examples and cover some edge cases),
+  and analyze its performance
+
+--
+
+- Come up with a better solution (something faster, using less memory, ...). Do similar analysis to the above.
+  DO NOT WRITE CODE unless the interviewer asks for it.
+
+--
+
+- If you can, come up with even better solution ...
+
+--
+
+- Write the code or detailed pseudo-code for your solution.
+
+--
+
+
+.important[
+
+Make sure that every step of this process is a dialog. Talk through your solution.
+Show the interviewer how you are thinking about the problem.
+]
+
+---
+## Reasons for failure
+
+--
+
+- Making assumptions instead of asking questions.
+
+- Going directly into writing code without any discussion and analysis.
+
+- Being disorganized.
+
+- Ignore interviewer suggestions.
+
+- Not being confident (you supposed to answer questions, not ask them).
+
+- Being too confident.
+
+- Not being prepared / not knowing the answer.
+
+- ...
+
+-
 
 ---
 
 template: section
 
-## [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s20/)
+## [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_s21/)
 
 ---
 ## Java slow I/O
