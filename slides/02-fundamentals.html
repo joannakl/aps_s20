@@ -21,6 +21,7 @@ class: center, title-slide
 ## Fundamentals
 
 
+
 .author[
 Instructor: Joanna Klukowska <br>
 ]
@@ -70,17 +71,23 @@ class: slide
 
 ## This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_s20/
+- Course website: https://cs.nyu.edu/~joannakl/aps_s21/
 
     This page contains the syllabus and daily summaries as well as loads
     of links to all other resources and services you will need for this class.
 
 - Recitations (required):
-  - Wednesdays 8:00 - 9:15am
+  - Wednesdays 3:30 - 4:45pm
   - plan to bring your laptop (there are outlets available)
 
-- Course message board / discussion: Piazza
-  - you can self-sign up at https://piazza.com/nyu/spring2019/aps
+- Course message board / discussion: Ed
+  - you can self-sign up at https://us.edstem.org/
+
+- Online judge:
+    - Gradescope (for homework assignments and exams)
+    - [Vjudge](https://vjudge.net/)
+
+- Grades posted on Brightspace
 
 ---
 
@@ -371,7 +378,46 @@ as the last statement in the inner for loop
 
 - good in practice
 
-- may not make significant improvments for most problems you encounter in this class
+- may or may not make significant improvements for
+problems you encounter in this class
+
+---
+template: challenge
+## Challenge
+
+
+Given a sorted array of values, remove all duplicates.
+
+ex.
+
+given array: [1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]
+
+revised array: [1, 4, 5, 6, 7, 9]
+
+
+---
+template: challenge
+## What's the performance of ...
+
+
+Given a sorted array of values, remove all duplicates.
+
+
+
+```Java
+// assume data is in an ArrayList object called array
+for (int i = 0; i < array.size(); i++ ) {
+  int j = i+1;
+  while (j < array.size() && array.get(j) == array.get(i) ) {
+    array.remove(j);
+  }
+}
+```
+--
+
+.big[$O(n^2)$]  where $n$ is the size of the original array
+
+
 
 
 ---
@@ -379,8 +425,8 @@ template: challenge
 ## Challenge
 
 
-given a sorted array of values, create a new sorted array that contains
-only the unique elements
+Given a sorted array of values, create a new sorted array that contains
+only the unique elements.
 
 ex.
 
@@ -393,8 +439,9 @@ new array: [1, 4, 5, 6, 7, 9]
 template: challenge
 ## What's the performance of ...
 
-given a sorted array of values, create a new sorted array that contains
-only the unique elements
+
+Given a sorted array of values, create a new sorted array that contains
+only the unique elements.
 
 
 ```C++
@@ -408,10 +455,18 @@ for (int i = 0; i < n; i++ ) {
 ```
 --
 
-.big[O(length of oldArray)]
+
+.big[$O(n)$]  where $n$ is the size of the original array
 
 (even though we have nested loops in the code)
 
+
+---
+## Using Library Function
+
+- good in practice, save a lot of time
+
+- be careful when analyzing performance
 
 ---
 ## Rule of Thumb:
@@ -425,10 +480,10 @@ for (int i = 0; i < n; i++ ) {
 | <=[18 .. 22 ] | $O(2^n * n)$ |
 | <= 100 | $O(n^4)$ !!! |
 | <= 400 | $O(n^3)$ |
-| <= 2K | $O(n^2 log n)$ |
+| <= 2K | $O(n^2 \log n)$ |
 | < 10K | $O(n^2)$  !!! |
-| <= 1M | $O(n log n)$ |
-| <= 100M | $O(n)$   !!! , $O(log n)$, $O(1)$ |
+| <= 1M | $O(n \log n)$ |
+| <= 100M | $O(n)$   !!! , $O(\log n)$, $O(1)$ |
 
 !!! but getting close to 10^8 may be dangerous
 
@@ -600,6 +655,7 @@ In pairs,
 
 
 - work together to try to come up with a solution (an algorithm) for the problem
+(DO NOT WRITE ACTUAL CODE)
 
 
 
