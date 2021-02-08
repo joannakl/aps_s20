@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class InputOutput0 {
+class InputOutput0 {
 
   public static void main(String [] argc ) throws Exception{
     Scanner in = new Scanner(System.in);
