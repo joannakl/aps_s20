@@ -9,27 +9,62 @@
   <body>
     <textarea id="source">
 
-class: center, top
+class: center, title-slide
 
 <br><br>
 
 ## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
-<br>
+<br/><br/><br/><br/><br/><br/><br/>
 ## Non-Linear Data Structures
+### BST and Hash Table
+
 
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
-
 ]
+
 
 .license[
-Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-]
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
+
+---
+
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
 
 
 ---
@@ -46,7 +81,7 @@ Unless noted otherwise all content is released under [CC BY 4.0](https://creativ
 - `map`/`set`/`multiset` in C++ and  `TreeMap` / `TreeSet` in Java
 
   - the _map_ versions of the classes store `(key, value)` pairs
-  - the _set_ versions of the classes store only keys
+  - the _set_ versions of the classes store only keys (which have to be unique)
   - the `multiset` (only in C++) allows duplicate keys
 
 --
@@ -67,18 +102,24 @@ template: challenge
 
 ## Challenge
 
-For each o the following problems 1) come up with tests that could be used
-for the implementation, 2) come up with an algorithm(s) that can be used to solve
-the problem, 3) what is the performance of your algorithms?
+For each o the following problems
+1. come up with tests that could be used
+for the implementation,
+2. come up with an algorithm(s) that can be used to solve
+the problem,
+3. what is the performance of your algorithms?
 
-- Given a root to a binary tree containing `N` nodes, determine
+--
+
+
+__Problem 1__ Given a root to a binary tree containing `N` nodes, determine
 if it is a binary search tree?
 
-- Given a binary search tree containing `N` nodes,
+__Problem 2__ Given a binary search tree containing `N` nodes,
 output the elements with values in the range [a..b] in ascending
 order.
 
-- Given a binary search tree containing `N` nodes, output
+__Problem 3__ Given a binary search tree containing `N` nodes, output
 the values in the leaves in ascending/descending order.
 
 

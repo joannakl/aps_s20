@@ -10,6 +10,42 @@
     <textarea id="source">
 
 
+
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
+
+---
+
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
+---
+
+
 template: challenge
 
 ## Challenge
@@ -18,15 +54,28 @@ Given `N` integers in an arbitrary order find `k` largest ones.
 
 
 ---
-
-class: center, top
+class: center, title-slide
 
 <br><br>
 
 ## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
-<br>
-## Priority Queue
+<br/><br/><br/><br/><br/><br/><br/>
+## Non-Linear Data Structures
+### Priority Queue
+
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+]
+
+
+.license[
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
 
 .author[
 Instructor: Joanna Klukowska <br>
@@ -86,13 +135,13 @@ Building a heap from a collection of values is $O(N)$ !!!  Why?
 
 Visualizations:
 
+- [VisuAlgo](https://visualgo.net/bn/heap)
+  - allows you to customize the elements
+  - has both $O(n \log n)$ and $O(N)$ processes illustrated
+
+
 - [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/Heap.html)
     - illustrates it with the worst case when the array is reverse sorted
-
-- [VisuAlgo](https://visualgo.net/bn/heap)
-    - allows you to customize the elements
-    - has both $O(n \log n)$ and $O(N)$ processes illustrated
-
 
 ---
 ## Examples:
@@ -134,7 +183,7 @@ System.out.println( q.peek() ); // 2
 q.remove();
 System.out.println( q.peek() );  // 3
 ```
-.small[
+.smaller[
 To reverse the order of elements in `q`, define a `Comparator`
 
 ```java

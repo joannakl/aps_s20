@@ -78,9 +78,10 @@ class: slide
 
 -----
 
-- please, do not remove posts from Piazza
+- please, do not remove posts from Ed
 
-- starting in hwk 3, you will not be able to see _your output_ vs _expected output_ for wrong answers and presentation errors
+- read the problems carefully; reread the input and output description after you
+write your code and make sure that your code follows those instruction
 
 - use tools that help you figure out where your program might be having issues, ex. `valgrind`
 
@@ -117,7 +118,11 @@ left shift <<
 ```
 --
 
-right shift >>  <sup>*</sup>
+right shift >>
+
+.small[in C/C++, the right shift operator is performing logical or arithmetic
+shift depending on the context; in Java, there are two right shift operators: `>>`
+performs the arithmetic shift, `>>>` performs the logical shift]
 
 ```
 001010
@@ -130,11 +135,7 @@ right shift >>  <sup>*</sup>
 - shifting is equivalent to multiplying by powers of two (but faster)
 - WARNING: avoid shifting out of the type range
 
-.footnote[
-<sup>*</sup> in C/C++, the right shift operator is performing logical or arithmetic
-shift depending on the context; in Java, there are two right shift operators: `>>`
-performs the arithmetic shift, `>>>` performs the logical shift
-]
+
 
 ---
 ## Bit-mask
@@ -143,7 +144,7 @@ A __bit mask__ of the form `1 << k` has one bit on (i.e., equal to 1)
 in the `k`<sup>th</sup> position and all other bits off (i.e., equal to 0).
 
 - to determine if a bit at the `k`<sup>th</sup> position in a particular value
-is on or off, we can use this bit mask and the bitwise and operator: `x & (1 << k)`
+is on or off, we can use this bit mask and the bitwise `and` operator: `x & (1 << k)`
 
   example:
 
@@ -191,10 +192,10 @@ currently on (just flip that bit to the opposite): ???
 Modifying bits within a value:
 
 - set the `k`<sup>th</sup> bit to be on (regardless of what it was before):
-  `x = x| (1 << k)`
+  `x = x | (1 << k)`
 
 - set the `k`<sup>th</sup> bit to be off (regardless of what it was before):
-  `x = x & (1 << k)`
+  `x = x & ~(1 << k)`
 
 - set the `k`<sup>th</sup> bit to be on if it is currently off, and to be off if it is
 currently on (just flip that bit to the opposite): `x = x ^ (1 << k)`
@@ -213,6 +214,18 @@ currently on (just flip that bit to the opposite): `x = x ^ (1 << k)`
 
 to use a 64-bit bit mask: use (`1L << k`)
 
+--
+.small[
+The last three operations depend on understanding of the relationship between `x` and `x-1` in binary.
+Here are some examples:
+
+|decimal | binary ||decimal | binary ||decimal | binary |
+|---|---||---|---||---|---|
+|45 | 0010 1101 || 32 | 0010 0000 || 36 | 0010 0100 |
+|44 | 0010 1100 || 31 | 0001 1111 || 35 | 0010 0011 |
+
+(when we compare `x` to `x-1` all the bits starting at the least significant `1` bit are flipped)
+]
 ---
 
 ## Useful library functions, C/C++
@@ -582,7 +595,11 @@ __Sieve of Eratosthenes__
 
 --
 
+- Can we stop before a half-way point?
 
+--
+
+  - stop after reaching $\sqrt(N)$
 
 
 </optgroup>
