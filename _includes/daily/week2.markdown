@@ -12,13 +12,11 @@
 
 - Continue with [Fundamentals](slides/02-fundamentals.html)
 
-- Start [Bitmasks](slides/03-bitmask.html): using bit manipulation,
-representing and manipulating sets.
-
 
 ### Lecture 2
 
--
+- [Bitmasks](slides/03-bitmask.html): using bit manipulation,
+representing and manipulating sets.
 
 ### Readings
 
@@ -26,10 +24,6 @@ representing and manipulating sets.
 </div>
 
 <div class="column_assign"  markdown="1">
-
-### Recitation / Lab (2/10)
-
--
 
 
 ### Assignment
@@ -39,15 +33,14 @@ Due Wednesday, Feb 10:
 presentation problem / topic
 
 Due Monday, Feb 15:
-- problem set 1 posted on Brightspace
-
+- problem set 2 posted on Brightspace
 
 Optional:
 - complete the survey about homework due day (link available on Ed)
 
 Ongoing:
 - participate in outside online competitions
-- make sure to register and complete this [form](https://forms.gle/h4Lb5faESmUsUybE8) before the actual contest 
+- make sure to register and complete this [form](https://forms.gle/h4Lb5faESmUsUybE8) before the actual contest
 
 
 </div>
