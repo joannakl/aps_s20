@@ -21,6 +21,8 @@ representing and manipulating sets.
 ### Readings
 
 
+- chapter 2.3 in _Guide to Competitive Programming_
+
 </div>
 
 <div class="column_assign"  markdown="1">

@@ -13,9 +13,11 @@
 ### Lecture 2 (Thursday)
 
 - [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
--
+
+
 ### Readings
 
+- chapter 5 in _Guide to Competitive Programming_
 
 </div>
 

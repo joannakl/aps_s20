@@ -20,6 +20,8 @@ __Feb 18 (Thursday) NYU follows Monday schedule__
 
 ### Readings
 
+- chapter 5 in _Guide to Competitive Programming_
+
 
 </div>
 
