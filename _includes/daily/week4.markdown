@@ -1,23 +1,19 @@
 <div class="week">
 
 <div class="week_heading" markdown="1">
-## Week 3 (2/12 - 2/18)
+## Week 4 (2/22 - 2/28)
 </div>
 
 <div class="column_materials"  markdown="1">
 
-__Feb 15 (Monday) no classes scheduled__
+### Lecture 1 (Monday)
 
-__Feb 18 (Thursday) NYU follows Monday schedule__
-
-### Lecture 1 (Wednesday)
-
-- [Linear data structures](slides/04-linear-ds.html): lists, stacks and queues.
+- Invited talk: _Advice about Interviews from Helen Chang_
 
 ### Lecture 2 (Thursday)
 
-- [Non-linear data structures, 1](slides/05-non-linear-ds_1.html): binary trees and hash tables
-
+- [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
+-
 ### Readings
 
 
@@ -28,11 +24,11 @@ __Feb 18 (Thursday) NYU follows Monday schedule__
 
 ### Assignment
 
-Due Monday, Feb 21:
-- problem set 3 posted on Brightspace
+Due Sunday, Feb 28:
+- problem set posted on Brightspace
 
-Due Wednesday, Feb 24:
-- provide feedback and comments for the presentations done on Feb 17 and Feb 18
+Due Wednesday, March 3:
+- provide feedback and comments for the presentations done on Feb 24 and Feb 25
 (your comments should be about the presentation itself and the proposed solutions; they should be made under the Ed post created by the presenter)
 
 
