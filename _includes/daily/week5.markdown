@@ -12,7 +12,7 @@
 
 ### Lecture 2 (Wednesday)
 
-- [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
+
 
 
 ### Readings
