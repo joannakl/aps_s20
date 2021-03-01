@@ -1,23 +1,23 @@
 <div class="week">
 
 <div class="week_heading" markdown="1">
-## Week 4 (2/22 - 2/28)
+## Week 5 (3/1 - 3/7)
 </div>
 
 <div class="column_materials"  markdown="1">
 
 ### Lecture 1 (Monday)
 
-- Invited talk: _Advice about Interviews from Helen Chang_
+- [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
 
 ### Lecture 2 (Wednesday)
 
-- problem set 4 discussion
-- finish with binary (search) trees questions from the previous class
+- [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
+
 
 ### Readings
 
-- chapter 5 in _Guide to Competitive Programming_
+- section 7.6.2 in _Guide to Competitive Programming_
 
 </div>
 
@@ -26,12 +26,13 @@
 
 ### Assignment
 
-Due Sunday, Feb 28:
+Due Sunday, March 7:
 - problem set posted on Brightspace
 
-Due Wednesday, March 3:
-- provide feedback and comments for the presentations done on Feb 24 and Feb 25
-(your comments should be about the presentation itself and the proposed solutions; they should be made under the Ed post created by the presenter)
+Due Wednesday, March 10:
+- provide feedback and comments for the presentations done on March 3 and March 4
+(your comments should be about the presentation itself and the proposed solutions;
+they should be made under the Ed post created by the presenter)
 
 
 Ongoing:

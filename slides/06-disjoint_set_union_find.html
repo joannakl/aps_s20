@@ -9,28 +9,59 @@
   <body>
     <textarea id="source">
 
-class: center, top
+class: center, title-slide
 
 <br><br>
 
 ## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
-<br>
+<br/><br/><br/><br/><br/><br/><br/>
 ## Disjoint Set / Union-Find Data Structures
 
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
-
 ]
+
 
 .license[
-Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-]
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
 
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
+
+---
+
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
 
 ---
 
@@ -205,8 +236,10 @@ along that path to be root
 
 __Algorithm for `find(x)`:__
 ```
-        if (parent(x) == x ) return x
-        return x = find(parent(x))
+    if (parent(x) == x )
+        return x
+    x = find(parent(x))
+    return parent(x)
 ```
 ---
 
@@ -232,7 +265,7 @@ __Algorithm for `union(x,y)`:__
             else if rank(root_x) > rank(root_y)
                 parent(root_y) = root_x
             else
-                parent(root_x) = root_y <br>
+                parent(root_x) = root_y
                 rank(root_y)++
 ```
 
@@ -279,7 +312,7 @@ union (2,5),   union(5,12)
 
 ```
         --------------------------------------------------------------
-         -1  -1  -3  -2  -1   2  -1   3  -1  -1   -1   -1    5   -1
+         -1  -1  -3  -2  -1   2  -1   3  -1  -1   -1   -1    2   -1
         --------------------------------------------------------------
           0   1   2   3   4   5   6   7   8   9   10   11   12   13
 ```
@@ -289,6 +322,12 @@ union (2,5),   union(5,12)
 class:challenge
 
 
+## Challenge
+
+How will this array change after `union(2,3)` is executed?
+
+Draw the trees associated with these sets.
+
 ```
         --------------------------------------------------------------
          -1  -1  -3  -2  -1   2  -1   3  -1  -1   -1   -1    2   -1
@@ -296,7 +335,6 @@ class:challenge
           0   1   2   3   4   5   6   7   8   9   10   11   12   13
 ```
 
-union(2,3)
 
 
 
@@ -305,6 +343,14 @@ union(2,3)
 class:challenge
 
 
+## Challenge
+
+
+
+How will this array change after `union(7, 12)` is executed?
+
+Draw the trees associated with these sets.
+
 ```
         --------------------------------------------------------------
          -1  -1  -3  -2  -1   2  -1   3  -1  -1   -1   -1    2   -1
@@ -312,7 +358,6 @@ class:challenge
           0   1   2   3   4   5   6   7   8   9   10   11   12   13
 ```
 
-union(7, 12,)
 
 
 
@@ -378,7 +423,7 @@ The required instructions can be now implemented using disjoint set at follows:
     - otherwise union(x,y) and union(x',y')
 - enemy(x,y)
     - if sameSet(x,y), then conflict
-    - otherwise union(x,y`) and union(x',y)
+    - otherwise union(x,y') and union(x',y)
 - isAlly(x,y)
     - return sameSet(x,y)
 - isEnemy(x,y)
@@ -406,7 +451,7 @@ n = 5, (countries numbered 1 - 5)
 |`isAlly(4,5)` | true  |                 `/-5 / 1 / 1'/ 1'/ 1'/-5 / 1'/ 1 / 3'/ 1 / ` *|
 |`enemy(4,5)` | conflict  |              `/-5 / 1 / 1'/ 1'/ 1'/-5 / 1'/ 1 / 3'/ 1 / `|
 
-* path compression
+<sup>*</sup> path compression
 
 ---
 
