@@ -8,12 +8,15 @@
 
 ### Lecture 1 (Monday)
 
-- [Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
+Priority queues.
+
+[Non-linear data structures, 2](slides/05-non-linear-ds_2.html)
 
 ### Lecture 2 (Wednesday)
 
+Disjoint-Sets / Union-Find
 
-
+[slides](slides/06-disjoint_set_union_find.html)
 
 ### Readings
 
