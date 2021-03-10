@@ -164,9 +164,9 @@ the range of values is [0, 1000000].
 --
 <span style="font-family:mono">9090__9__0, 6113__4__1, 97__8__1, 1001__8__2, 212__0__3, __?__5,  98__9__7, 3231__0__9 </span><br>
 --
-<span style="font-family:mono">__?__5,  212__0__3, 3231__0__9, 6113__4__1, 97__8__1, 1001__8__2, 9090__9__0, 98__9__7</span><br>
+<span style="font-family:mono">212__0__3, __?__5,  3231__0__9, 6113__4__1, 97__8__1, 1001__8__2, 9090__9__0, 98__9__7</span><br>
 --
-<span style="font-family:mono">5,  21__2__03, 323__1__09, 611__3__41, 9__7__81, 100__1__82, 909__0__90, 9__8__97</span><br>
+<span style="font-family:mono">21__2__03, 5,  323__1__09, 611__3__41, 9__7__81, 100__1__82, 909__0__90, 9__8__97</span><br>
 --
 <span style="font-family:mono">5, 909__0__90,  323__1__09, 100__1__82, 21__2__03, 611__3__41, 9__7__81, 9__8__97</span><br>
 --
@@ -176,9 +176,9 @@ the range of values is [0, 1000000].
 --
 <span style="font-family:mono">5, 1__0__0182, __2__1203, 6__1__1341, 3__2__3109, 9__0__9090,  __?__9781, __?__9897</span><br>
 --
-<span style="font-family:mono">5,  __?__9781, __?__9897, 1__0__0182, 9__0__9090, 6__1__1341, __2__1203, 3__2__3109</span><br>
+<span style="font-family:mono">5, 1__0__0182, 9__0__9090,  __?__9781, __?__9897, 6__1__1341, __2__1203, 3__2__3109</span><br>
 --
-<span style="font-family:mono">5,  9781, 9897, __1__00182, __9__09090, __6__11341, __?__21203, __3__23109</span><br>
+<span style="font-family:mono">5,  __1__00182, __9__09090, 9781, 9897, __6__11341, __?__21203, __3__23109</span><br>
 --
 <span style="font-family:mono">5,  9781, 9897, __?__21203, __1__00182, __3__23109, __6__11341, __9__09090</span><br>
 
@@ -268,7 +268,7 @@ template: challenge
 
 ## Challenge: Restaurant Problem
 
-__Solution__
+__One Possible Solution__
 
 - sort the times $a_i$ and $d_i$ (as a single array based on time)
 - start a counter at zero
@@ -385,6 +385,134 @@ later.
 
 So, the _computer scientist in you_ spent the entire spring break analyzing
 different algorithms and never went to any events at all.
+
+---
+
+template: section
+
+# Quick-Select
+
+---
+## Finding k-th Smallest/Largest
+
+- We talked about the approaches that used sorting and priority queues for finding the k-th
+smallest/largest element in an array.
+
+- Another approach for solving this problem is to use the quick-select algorithm. (Yes, it is
+called this way because of its relationship to the quicksort algorithm.)
+
+---
+
+class: center
+
+<img src="img/quick-select-2.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-3.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-4.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-5.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-6.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-7.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-8.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-9.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-10.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-11.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-12.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-13.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-14.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-15.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+class: center
+
+<img src="img/quick-select-16.jpg" alt="quick select algorithm visualization" width="800px">
+
+---
+
+## Quick-select performance
+
+- In a best case scenario we pick the pivot on the first step and it ends up in the k'th position.
+
+--
+
+- In an average case (and a little it of luck) we divide the array in two halves, and then the remaining elements in halves, ....
+
+$$n + \frac{n}{2} + \frac{n}{4} + \frac{n}{8} + ... = 2n$$
+
+--
+
+- In the worst case, we pick the pivot that creates ones of the partitions that is empty:
+
+$$n + n-1 + n-2 + n-3 + ... = n^{2}$$
+
+--
+<br/> <br/>
+__So, just like with quicksort, in the worst case we have $O(n^2)$ time, but typically, we get the answer in $O(n)$ time.
+(Note, only the worst case is like quicksort, because we only recurse on one of the partitions, not both.)__
 
 ---
 template: section
