@@ -13,7 +13,9 @@ Brute force approach to problem solving. Backtracking.
 
 ### Lecture 2 (Wednesday)
 
-Greedy.
+Problemset 7 discussion.
+
+Finish with brute force.
 
 ### Readings
 
@@ -32,7 +34,7 @@ Due Sunday, March 21:
 - problem set posted on Brightspace
 
 Due Wednesday, March 24:
-- provide feedback and comments for the presentations done on March 10 and March 11
+- provide feedback and comments for the presentations done on March 17 and March 18
 (your comments should be about the presentation itself and the proposed solutions;
 they should be made under the Ed post created by the presenter)
 
