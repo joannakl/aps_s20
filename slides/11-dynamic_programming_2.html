@@ -17,7 +17,7 @@ class: center, title-slide
 ## Algorithmic Problem Solving
 <br/><br/><br/><br/><br/><br/><br/>
 ##  Dynamic Programming
-### Wedding Shopping 
+### Wedding Shopping
 
 
 
@@ -179,33 +179,9 @@ The divide and conquer approach is not suitable here.
 
 Algorithm:
 
-
-```
-- start with money m=M and garment category i, call this function shop( m, i ); it
-returns the largest amount that can be spent assuming we have the available
-amount of money m and categoris i..C to chose from
-
-- if m < 0
-    return -INF (since we just run of of the budget purchasing the last item)
-
-- if i == C (number of categories)
-    return M-m (the total amount of money that was spent since `m` is what we have leftover)
-
-- set the highest that can be spent to -1 (best = -1)
-
-- for each garment g in this category
-      - use this item and make a rerusive call to select a garment from catergory
-        i+1 and the budget of (M - price of g), shop(M-p[g], i+1)
-      - if the value returned above is larger that best, update the best
-
-```
-
----
-## Challenge: Wedding Shopping
-
-### Complete Search / Recursive Backtracking
-
-Algorithm:
+- start with money $m=M$ and garment category $i=0$,
+- $shop( m, i )$ - returns the largest amount that can be spent assuming we have the available
+amount of money $m$ and categories $i..C$ to chose from
 
 ```
 shop( m, i )
@@ -219,14 +195,13 @@ shop( m, i )
 
     return best
 ```
+<br/>
 
 --
 
-Produces correct answer, but slow.
-
+Produces correct answer, but slow
 - in the largest case, each garment category has 20 different items and
 there are 20 garment categories
-
 - this gives $20^{20}$ recursive calls to solve the sub-problems
 in the worst case - too many
 
@@ -1421,11 +1396,6 @@ shop(20, 0) --- 19
 ]
 
 
---
-
-- What are possible improvements to this top-down approach?
-
-
 ---
 ## Wedding Shopping with DP (bottom-up)
 
@@ -1434,7 +1404,7 @@ How do we solve this problem using bottom-up approach?
 .center[.huge[??? ]]
 --
 
-- there are different approaches to this, so tehre are several possible asnwers
+- there are different approaches to this, so there are several possible answers
 
 
 ---
