@@ -10,7 +10,7 @@
 
 Dynamic programming (wedding shopping problem)
 
-[slides](slides/11-dynamic-programming_2.html)
+[slides](slides/11-dynamic_programming_2.html)
 
 
 ### Lecture 2 (Wednesday)
