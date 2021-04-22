@@ -10,10 +10,11 @@
 
 Dynamic programming.
 
+[slides](slides/11-dynamic-programming_3.html)
 
 ### Lecture 2 (Wednesday)
 
-
+Dynamic programming.
 
 ### Readings
 
