@@ -8,7 +8,7 @@
 
 ### Lecture 1 (Wednesday)
 
-Invited speaker.
+Invited speaker: [Julie Cestaro](https://www.linkedin.com/in/julieces/)
 
 
 ### Lecture 2 (Monday)

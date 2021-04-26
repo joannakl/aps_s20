@@ -17,6 +17,9 @@ Continue/finish with string algorithms
 
 ### Lecture 2 (Monday)
 
+Graph algorithms (intro)
+
+[slides](slides/13-graphs_1.html)
 
 
 ### Readings

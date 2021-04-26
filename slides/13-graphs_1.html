@@ -9,33 +9,73 @@
   <body>
     <textarea id="source">
 
-class: center, top
+
+
+class: center, title-slide
 
 <br><br>
 
 ## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
-<br>
-## Graphs
+<br/><br/><br/><br/><br/><br/><br/>
+## Graphs, Part 1
+
 
 
 .author[
 Instructor: Joanna Klukowska <br>
-
-<!--
-created based on materials for this class by Bowen Yu and
-materials shared by the authors of the textbook  Steven and Felix Halim
--->
 ]
+
 
 .license[
-Unless noted otherwise all content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-]
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
+
+---
+
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
+
+
+
+
+
 
 ---
 ## Graphs: terminology and definitions
 
-- graphs consist of _nodes_/_vertices_ and _edges_
+- graphs consist of _nodes_ / _vertices_ and _edges_
 
 --
 - a _path_ leads from one node to another through the edges in the graph; the
@@ -44,7 +84,7 @@ first and last nodes are the same
 
 --
 - a graph is _connected_ if there exists a path between every pair of nodes; connected
-parts of a graph are called its _connected componenets_
+parts of a graph are called its _connected components_
 
 --
 - a _tree_ is a connected graph with no cycles
@@ -70,8 +110,8 @@ in the graph
 - in a _complete_ graph the degree of each node is $n-1$ where $n$ is the number of nodes
 
 --
-- in a directed graph the _indegree_ of a node is the number of edges that end at
-that node and the _outdegree_ is the number of edges that start at that node
+- in a directed graph the _in-degree_ of a node is the number of edges that end at
+that node and the _out-degree_ is the number of edges that start at that node
 
 --
 - a graph is _bipartite_ if is possible to color its nodes using two colors

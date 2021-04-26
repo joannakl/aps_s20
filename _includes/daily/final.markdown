@@ -11,11 +11,12 @@
 <div class="column_materials">
 <p markdown="block">
 <br><br>
-May 18, __8:00-9:50am__, Final Exam <br>
 
-(notice that the exam is on MONDAY)
+May 12, __10:00-11:50pm ET__, alternative time if you cannot or do not want to take the exam on May 17 <br/>
 
-<br><br>
+May 17, __12:00-1:50pm ET__, CAS scheduled final exam <br/>
+
+<br/><br/>
 
 </p>
 </div>
