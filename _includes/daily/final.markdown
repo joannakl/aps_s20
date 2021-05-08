@@ -12,7 +12,7 @@
 <p markdown="block">
 <br><br>
 
-May 12, __10:00-11:50pm ET__, alternative time if you cannot or do not want to take the exam on May 17 <br/>
+May 12, __10:00-11:50am ET__, alternative time if you cannot or do not want to take the exam on May 17 <br/>
 
 May 17, __12:00-1:50pm ET__, CAS scheduled final exam <br/>
 
