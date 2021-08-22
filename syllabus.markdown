@@ -68,11 +68,10 @@ For detailed schedule, see the [Daily](daily.html) tab of this page.
 
 Your course grade will be based on:
 
-- exams, 20%
-- homework / weekly problem set, 40%
+- exams, 25% (one midterm and one final exam)
+- homework / weekly problem set, 50%
 - online contest (4 problems), 15%
-- problem presentation, 15%
-- participation and progress, 10%
+- participation, 10% (recitation attendance and completion of exercises, taking active part on the discussion forum)
 
 <!--
 * exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
@@ -114,12 +113,6 @@ Each week you will have a problem set to solve (4-5 problems of varying difficul
 
 Throughout the semester we will let you know about various online contests. You need to participate in one
 or more and submit passing solutions to four different problems (in a single contest or in multiple ones).
-
-# Problem presentation
----
-
-Once during the semester you will need to make a presentation of a problem and its solution.
-The details of this will be discussed at the start of the semester.
 
 # Participation
 ---
