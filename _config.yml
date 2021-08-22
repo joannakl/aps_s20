@@ -3,7 +3,7 @@ title: CSCI-UA 480 (Algorithmic Problem Solving)
 short_title: APS
 description: "Course website for CSCI-UA 480 (Algorithmic Problem Solving) course."
 
-baseurl: "/aps_s21" # the subpath of your site, e.g. /blog
+baseurl: "/aps_f21" # the subpath of your site, e.g. /blog
 #url: "https://joannakl.github.io/aps_s21" # the base hostname & protocol for your site, e.g. http://example.com
 
 email_etiquette: "email_etiquette.md"
@@ -22,28 +22,28 @@ exclude:
 
 course_number: "CSCI-UA 480"
 course_name: "Algorithmic Problem Solving"
-course_section: "521"
-course_semester: "Spring 2021"
-course_time: "Mondays and Wednesdays 11:00am - 12:15pm, (online)<br>"
+course_section: "52"
+course_semester: "Fall 2021"
+course_time: "Mondays and Wednesdays 9:30am - 10:45pm, (in person, classroom assignment by CAS, check your ALBERT schedule before the last day of classes)<br>"
 
 
 current_course1_title: "CSCI 102 sec. 5"
-current_course1_link: "https://cs.nyu.edu/~joannakl/cs102_s21/"
+current_course1_link: "https://cs.nyu.edu/~joannakl/cs102_f21/"
 current_course2_title: "CSCI 480 sec. 521 (APS)"
-current_course2_link: "https://cs.nyu.edu/~joannakl/aps109_s21/"
+current_course2_link: "https://cs.nyu.edu/~joannakl/aps_f21/"
 current_course3_title: ""
 current_course3_link: ""
 
 
-recitation_section1: "522"
-recitation_time1:  "Wednesdays 3:30-4:45PM, (online)"
-recitation_section2: "523"
-recitation_time2:  "Wednesdays 3:30-4:45PM, Room CIWW 201, (In-Person)"
+recitation_section1: "523"
+recitation_time1:  "Thursdays 9:30-10:45AM, (in person)"
+recitation_section2: "524"
+recitation_time2:  "Thursdays 9:30-10:45AM, (online)"
 
-recitation_instructor1_full: "Kunal Khatri"
-recitation_instructor1_name: "Kunal"
-recitation_instructor2_full: "Samasth Norway Ananda"
-recitation_instructor2_name: "Samasth"
+recitation_instructor1_full: "???"
+recitation_instructor1_name: "???"
+recitation_instructor2_full: "???"
+recitation_instructor2_name: "???"
 
 tutor_full: "TBD"
 tutor_name: ""
