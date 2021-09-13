@@ -12,7 +12,7 @@ has to be saved in a file named `main.c`, `main.cpp` or `Main.java` (according t
 Some of the assignments may have further restrictions on the programming language in which
 the solutions should be implemented.
 
-The autograder for this class is designed to assing partial credit (unlike many competitive programming platforms that you might be familiar with). It evaluates each test
+The autograder for this class is designed to assign partial credit (unlike many automated online judge platforms that you might be familiar with). It evaluates each test
 individually and assigns scores per test.
 
 There are several different outcomes possible:

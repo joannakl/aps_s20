@@ -68,8 +68,8 @@ For detailed schedule, see the [Daily](daily.html) tab of this page.
 
 Your course grade will be based on:
 
-- exams, 25% (one midterm and one final exam)
-- homework / weekly problem set, 50%
+- exams, 25% (one midterm and one final exam) (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
+- homework / weekly problem set, 50% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed).
 - online contest (4 problems), 15%
 - participation, 10% (recitation attendance and completion of exercises, taking active part on the discussion forum)
 
