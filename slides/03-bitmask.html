@@ -203,7 +203,7 @@ currently on (just flip that bit to the opposite): `x = x ^ (1 << k)`
 
 - invert all bits after  the last (least significant) one bit: `x = x | (x-1)`
 
-- set the last (least significant) one bit in x to 0: `x & (x - 1)`
+- set the last (least significant) one bit in x to 0: `x = x & (x - 1)`
 
 - test if x is a power of two: `x & (x - 1) == 0`
 
@@ -307,7 +307,7 @@ template: challenge
       x = x | (1 << i);
     }
     ```
-
+  or
     ```C
     x = 0x55555555;
     ```
@@ -316,7 +316,9 @@ template: challenge
 - Compute the _distance_ between two bitmasks, i.e., how many positions in
 the two values are different? (this is known as hamming distance)
 
-    `Integer.bitCount ( x ^ y )`
+    ```Java
+    Integer.bitCount ( x ^ y )
+    ```
 
 
 ---
@@ -526,12 +528,31 @@ Better algorithm: $O(\sqrt(N))$ (check if any of the numbers from 1 to $\sqrt(N)
 Even better algorithm: $O(\sqrt(N))$ (check if any of the numbers from 1 to $\sqrt(N)$
 is a divisor, but only test the odd values  after testing 2)
 
+--
+<br><br>
+
+Idea:
+
+- in the above _even better algorithm_ we skipped all the multiple of two after verifying if the number
+was divisible by 2
+--
+
+- what if we skipped all multiples of three after verifying if the number was divisible by 3
+
+--
+- how about skipping all multiples of 5?
+--
+
+- 7?
+--
+
+- ...
 
 ---
 
 template: challenge
 
-## Prime numbers
+## Prime Numbers in a Range from 0 to N
 
 __Task:__ Generate all prime numbers in the range from 0 to N
 
@@ -599,7 +620,31 @@ __Sieve of Eratosthenes__
 
 --
 
-  - stop after reaching $\sqrt(N)$
+  stop after reaching $\sqrt(N)$:
+
+  - Algorithm:
+      - set all values in the range to _probably prime_
+      - set 0 and 1 to be ~~not prime~~
+      - for p in 2: $\sqrt(N)$
+          - if p is _probably prime_
+              - set p to __definitely prime__
+              - set all multiples of p up to N (except for p itself) to ~~not prime~~
+
+
+---
+
+template: challenge
+
+## Prime Numbers in a Range from N1 to N2
+
+__Task:__ Generate all prime numbers in the range from N1 to N2
+
+--
+
+What happens if we cannot store all values from 0 to N2 or if it takes too long
+to iterate over all numbers in the range from 0 to N2?
+
+
 
 
 </optgroup>
