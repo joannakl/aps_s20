@@ -103,25 +103,34 @@ template: challenge
 ## Challenge
 
 For each o the following problems
-1. come up with tests that could be used
-for the implementation,
-2. come up with an algorithm(s) that can be used to solve
+1. come up with an algorithm(s) that can be used to solve
 the problem,
-3. what is the performance of your algorithms?
+1. what is the performance of your algorithms?
 
 --
 
 
-__Problem 1__ Given a root to a binary tree containing `N` nodes, determine
+__Problem 1__ Given a root of a binary tree containing `N` nodes, determine
 if it is a binary search tree?
 
 __Problem 2__ Given a binary search tree containing `N` nodes,
-output the elements with values in the range [a..b] in ascending
-order.
+output the elements with values in the range `[a..b]` in ascending
+order. (`a` and `b` values are not guaranteed to be in the tree itself.
+For simplicity, you can assume the values in nodes are integers.)
 
 __Problem 3__ Given a binary search tree containing `N` nodes, output
 the values in the leaves in ascending/descending order.
 
+--
+
+---------------------
+
+- Assume that the trees for the above problems are created based on a sequence of insert operations.
+- Assume that we are dealing with a plain old BST (no balancing).
+- Assume that the depth of any tree is guaranteed not to ever reach a recursion depth limit.
+
+
+What are some good test cases for the above problems?
 
 ---
 
@@ -153,6 +162,99 @@ table in which _keys_ are the indexes - it is simply an array
 
 ---
 
+class:challenge
+
+## Snowflakes
+
+
+<!-- https://dmoj.ca/problem/cco07p2 -->
+You may have heard that no two snowflakes are alike. Your task is to write a program to determine whether this is really true.
+Your program will read information about a collection of snowflakes, and search for a pair that may be identical.
+
+Each snowflake has six arms. For each snowflake, your program will be provided with a measurement of the length
+of each of the six arms. Any pair of snowflakes which have the same lengths of corresponding arms should be
+flagged by your program as identical.
+
+<!-- Note: The original CCO data were weak and have been augmented with some custom test cases.
+Input Specification
+-->
+.small[
+The first line of input will contain a single integer `n`, `0 < n ≤ 100000`, the number of snowflakes to follow.
+This will be followed by `n` lines, each describing a snowflake.
+Each snowflake will be described by a line containing six integers
+(each integer is at least 0 and less than 10,000,000),
+the lengths of the arms of the snowflake.
+The lengths of the arms will be given in order around the snowflake (either clockwise or counterclockwise),
+but they may begin with any of the six arms. For example, the same snowflake could be described as 1 2 3 4 5 6 or 4 3 2 1 6 5.
+]
+
+If all of the snowflakes are distinct, your program should print the message: "No two snowflakes are alike."
+
+If there is a pair of possibly identical snowflakes, your program should print the message: "Twin snowflakes found."
+
+Sample Input
+```
+2
+1 2 3 4 5 6
+4 3 2 1 6 5
+```
+Output for Sample Input
+```
+Twin snowflakes found.
+```
+
+
+---
+
+class:challenge
+
+## Snowflakes - Simplified
+
+
+<!-- https://dmoj.ca/problem/cco07p2 -->
+You may have heard that no two snowflakes are alike. Your task is to write a program to determine whether this is really true.
+Your program will read information about a collection of snowflakes, and search for a pair that may be identical.
+
+Each snowflake is represented by a single number. If the numbers are the same, the snowflakes are identical.
+
+<!-- Note: The original CCO data were weak and have been augmented with some custom test cases.
+Input Specification
+-->
+
+The first line of input will contain a single integer `n`, `0 < n ≤ 100000`, the number of snowflakes to follow.
+This will be followed by `n` lines, each describing a snowflake.
+
+
+If all of the snowflakes are distinct, your program should print the message: "No two snowflakes are alike."
+
+If there is a pair of possibly identical snowflakes, your program should print the message: "Twin snowflakes found."
+
+
+.left-column2[
+Sample Input
+```
+2
+1
+1
+```
+Output for Sample Input
+```
+Twin snowflakes found.
+```
+]
+.right-column2[
+Sample Input
+```
+3
+5
+2
+6
+```
+Output for Sample Input
+```
+No two snowflakes are alike.
+```
+]
 
 
 </optgroup>
