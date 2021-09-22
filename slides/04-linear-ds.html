@@ -379,130 +379,6 @@ class: middle, center
   - graph algorithms
 
 
-
----
-class:challenge
-
-## Challenge: Function Call Stack
-
-What is the output of `fun(4)` ?
-
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  printf ("%d\n", x);
-  fun(x-1);
-}
-```
-
---
-
-Output
-```
-4
-3
-2
-1
-```
----
-class:challenge
-
-## Challenge: Function Call Stack
-
-What is the output of `fun(4)` ?
-
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  fun(x-1);
-  printf ("%d\n", x);
-}
-```
-
---
-
-Output
-```
-1
-2
-3
-4
-```
----
-class:challenge
-
-## Challenge: Function Call Stack
-
-What is the output of `fun(4)` ?
-
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  fun(x-1);
-  fun(x-1);
-  printf ("%d ", x);
-}
-```
-
---
-
-Output `   1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
-
-
---
-
-.below-column2[
-__For more complicated recursive functions, draw a function call tree.__
-]
-.left-column2[
-.center[
-<img src="img/function_call_tree.png" width="80%" alt="function call tree">
-]]
-.right-column2[
-.small[
-Since the print statement happens __after__ the function call, the output can
-be generated using __postorder traversal__ of the function call tree.
-- f(0) prints nothing
-- f(1) prints just 1
-- f(2) prints 2, after the previous two 1's from the calls to f(1), so each of
-the calls to f(2) results in 1 1 2 output
-- f(3) prints its 3 after the output for the two calls to f(2), so each of the
-calls to f(3) results in 1 1 2 1 1 2 3
-- f(4) prints its 4 after the output for the two calls to f(4), for the final
-result shown above
-]
-]
-
----
-class:on_your_own
-
-## OnYourOwn: Function Call Stack
-
-How about these functions? (Try it on your own after the class. )
-.left-column2[
-```C++
-void fun (int x ) {
-  if (x == 0) return;
-  printf ("%d ", x);
-  fun(x-1);
-  fun(x-1);
-  printf ("%d ", x);
-}
-```
-]
-.right-column2[
-```C++
-void fun (int x, int y ) {
-  if ( abs(x) >= 3 || abs(y) >= 2)
-    return;
-  printf ("%d %d\n", x, y);
-  fun(x-1, y+1);
-  fun(x  , y-1);
-  fun(x+1, y-1);
-  printf ("%d %d\n", x, y);
-}
-```
-]
 ---
 
 template: challenge
@@ -1088,6 +964,130 @@ Hint 1: use a stack to keep track of the smallest element(s).
 Hint 2: does your algorithm work if we allow duplicate values in the stack?
 
 
+---
+class:challenge
+
+## Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d\n", x);
+  fun(x-1);
+}
+```
+
+--
+
+Output
+```
+4
+3
+2
+1
+```
+---
+class:challenge
+
+## Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  printf ("%d\n", x);
+}
+```
+
+--
+
+Output
+```
+1
+2
+3
+4
+```
+---
+class:challenge
+
+## Challenge: Function Call Stack
+
+What is the output of `fun(4)` ?
+
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+
+--
+
+Output `   1 1 2 1 1 2 3 1 1 2 1 1 2 3 4`
+
+
+--
+
+.below-column2[
+__For more complicated recursive functions, draw a function call tree.__
+]
+.left-column2[
+.center[
+<img src="img/function_call_tree.png" width="80%" alt="function call tree">
+]]
+.right-column2[
+.small[
+Since the print statement happens __after__ the function call, the output can
+be generated using __postorder traversal__ of the function call tree.
+- f(0) prints nothing
+- f(1) prints just 1
+- f(2) prints 2, after the previous two 1's from the calls to f(1), so each of
+the calls to f(2) results in 1 1 2 output
+- f(3) prints its 3 after the output for the two calls to f(2), so each of the
+calls to f(3) results in 1 1 2 1 1 2 3
+- f(4) prints its 4 after the output for the two calls to f(4), for the final
+result shown above
+]
+]
+
+---
+class:on_your_own
+
+## OnYourOwn: Function Call Stack
+
+How about these functions? (Try it on your own after the class. )
+.left-column2[
+```C++
+void fun (int x ) {
+  if (x == 0) return;
+  printf ("%d ", x);
+  fun(x-1);
+  fun(x-1);
+  printf ("%d ", x);
+}
+```
+]
+.right-column2[
+```C++
+void fun (int x, int y ) {
+  if ( abs(x) >= 3 || abs(y) >= 2)
+    return;
+  printf ("%d %d\n", x, y);
+  fun(x-1, y+1);
+  fun(x  , y-1);
+  fun(x+1, y-1);
+  printf ("%d %d\n", x, y);
+}
+```
+]
+---
 
 </optgroup>
 
