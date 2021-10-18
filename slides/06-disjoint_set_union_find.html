@@ -260,13 +260,12 @@ __Algorithm for `union(x,y)`:__
         root_x = find(x)
         root_y = find(y)
         if root_x != root_y :
-            if rank(root_x) < rank (root_y)
+            if rank(root_x) <= rank (root_y)
                 parent(root_x) = root_y
+                rank(root_y) += rank(root_x)
             else if rank(root_x) > rank(root_y)
                 parent(root_y) = root_x
-            else
-                parent(root_x) = root_y
-                rank(root_y)++
+                rank(root_x) += rank(root_y)
 ```
 
 ---
@@ -457,7 +456,8 @@ n = 5, (countries numbered 1 - 5)
 
 ## Challenge: Build a Maze
 
-Given an NxN grid generate a random maze.
+Given an NxN grid generate a random maze (i.e., start with a 2D grid with full separation;
+then remove some of the walls to join the cells on two sides of the wall).
 
 - we have a fixed start point and end point
 
@@ -472,7 +472,7 @@ Given an NxN grid generate a random maze.
 __Algorithm__:
 
 - create a set of all internal walls
-- create a disjoind set of all cells (initially each cell is in its own set)
+- create a disjoint set of all cells (initially each cell is in its own set)
 
 - as long as there are more than one set of cells:
     - choose a wall at random from the wall-set
