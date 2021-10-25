@@ -249,6 +249,9 @@ What is the __recurrence relation__ for this problem?
 
   $ coins(N) = \min_{k=0}^{K}{ coins(N-c_k)} + 1$
 
+  - given the amount $N$ calculates and returns the minimum number of
+   coins needed
+
 - base case(s):
 
   $ coins(0) = 0 $
@@ -287,15 +290,14 @@ What is the __recurrence relation__ for this problem?
 - in dynamic programming we will save the results of each of the recursive calls in a table
 to avoid making repeated computation
     ```
-    answer = a 1D array of (N+1) elements initialized to -1
+    answer = a 1D array of (N+1) elements initialized to -1, a[0] initialized to 0
 
     coins( n )
         if  n < 0   return INF   // solution is not possible
         if  n == 0              // all money used, we found a solution
-            answer[0] = 0
-            return 0
+            return answer[0]
 
-        if answer[n] >= 0  return answer[n]
+        if answer[n] > 0  return answer[n]
 
         //otherwise, compute it ...
         best = INF
@@ -315,7 +317,6 @@ call fills in one of the values in the `answer` array)
 
 
 ---
-class:challenge
 
 ## Making change with DP (bottom-up)
 
@@ -353,9 +354,9 @@ the denominations of coins that went into the optimal solution
     answer = a 1D array of (N+1) elements
     answer[0] = 0
 
-    first_coin = a 1D array of (N+1) elements, it indicates for each element
-                 the first coin used in the solution for that amount of money
-    first_coint[0] = -1
+    first_coin = a 1D array of (N+1) elements, it indicates for each element first_coin[i]
+                 the first coin used in the solution for the amount equal to i
+    first_coin[0] = -1
 
     for n in 1 .. N
         answer[n] = INF
@@ -383,38 +384,9 @@ template: challenge
 - another version of this problem is not to minimize the number of coins,
 but rather calculate the total number of possible ways in which we can make the requested amount
 
-- what is the recurrence relation  in this case?
 
---
 
-.hidden[
 
-  - relation:
-    $ coins(N) = \sum_{k=0}^{K}{ coins(N-c_k)} + 1$
-]
-.hidden[
-  - base case(s):
-    $ coins(0) = 0 $
-
-]
-
---
-
-- recall that the original solution picked the smallest value returned by the recursive calls,
-in this new case, we actually want to calculate the sum of all the possibilities
-
-.hidden[
-    ```
-    answer = a 1D array of (N+1) elements
-    answer[0] = 0
-
-    for n in 1 .. N
-        answer[n] = 0
-        for all c in C
-            if x-c >= 0
-                answer[n] = answer[n] +  answer[n-c] + 1
-    ```
-]
 
 ---
 
