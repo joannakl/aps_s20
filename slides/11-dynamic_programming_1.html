@@ -384,8 +384,46 @@ template: challenge
 - another version of this problem is not to minimize the number of coins,
 but rather calculate the total number of possible ways in which we can make the requested amount
 
+--
+
+- what is the recurrence relation  in this case?
+
+--
+
+.hidden[
+
+  - relation:
+    $ how\_many(N) = \sum_{k=0}^{K}{ how\_many(N-c_k)}$
+]
+.hidden[
+  - base case(s): <br>
+    $ how\_many( < 0 ) = 0 $ <br>
+    $ how\_many( 0 ) = 1 $
 
 
+]
+
+--
+
+- recall that the original solution picked the smallest value returned by the recursive calls,
+in this new case, we actually want to calculate the sum of all the possibilities
+
+.hidden[
+    ```
+    answer = a 1D array of (N+1) elements
+    answer[0] = 1
+
+    for n in 1 .. N
+        answer[n] = 0
+        for all c in C
+            if x-c >= 0
+                answer[n] = answer[n] +  answer[n-c]
+    ```
+]
+
+--
+
+- Try it with $coins={1,3,4}$ and desired $sum=5$. We assume we have endless supply of each coin denomination.
 
 
 ---
@@ -560,10 +598,10 @@ value of the lower right corner is `value[n][n]`
 
 - we have the following recurrence relationship
 
-  $$sum(x,y) = max( sum(x-1, y), sum(x,y-1) ) + value[x][y] $$
+  $$sum(x,y) = max( sum(x-1, y), sum(x,y-1) ) + value[x][y] $$ <br>
   $$sum(x,y) = 0 \text{ when } x=0 \text{ or } y=0$$
 
-- we store the `sum[x][y]` as a two dimensional matrix equal in size to the given grid
+- we store the `sum[x][y]` as a two dimensional matrix equal in size to the given grid + 1
 
 ]
 
