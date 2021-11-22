@@ -18,7 +18,8 @@ class: center, title-slide
 ## CSCI-UA 480: APS
 ## Algorithmic Problem Solving
 <br/><br/><br/><br/><br/><br/><br/>
-## Graphs, Part 1
+## Graphs
+### Definitions, DFS, BFS
 
 
 
@@ -190,7 +191,7 @@ follows unexplored paths from them
 
 --
 
-- what order will the DFS traversal visit the nodes in the graph on the right?
+- what order will the DFS traversal visit the nodes in the graph on the right when we start DFS at 1?
 
 --
 
@@ -233,12 +234,12 @@ follows unexplored paths from them
 
 --
 
-- what order will the BFS traversal visit the nodes in the graph on the right?
+- what order will the BFS traversal visit the nodes in the graph on the right when we start BFS at 1?
 
 --
 
-  - 1 -- 2,6 -- 3,5 -- 4
-  (where a,b indicates that the order of  does not matter )
+  - 1 -- 2,6 -- 3,5,4
+  (where a,b indicates that the order in which a and b are visited does not matter )
 --
 
 - algorithm using the adjacency list of a graph, O(n+m)
@@ -320,9 +321,7 @@ class:challenge
 
 ## Bottleneck
 
-.small[
-__Task__: Given a directed graph and a starting node, find the dominators of every vertex/node.
-
+.smaller[
 
 __Input__:
 
@@ -331,6 +330,8 @@ nodes in the graph. The next N lines contain N integers each. If the j-th (0 bas
 integer of i-th (0 based) line is ‘1’, it means that there is an edge from node i to node j and
 similarly a ‘0’ means there is no edge.
 
+The starting node is always Oth node.
+
 __Ouput__:
 
 Otput 2N + 1 lines that summarizes the dominator
@@ -338,6 +339,7 @@ relationship between every pair of nodes. If node A dominates node B, output ‘
 otherwise output ‘N’. Cell (A, B) means cell at A-th row and B-th column. Surround the output with
 ‘|’, ‘+’ and ‘-’ to make it more legible. Look at the samples for exact format.
 
+]
 
 __Example 1__:
 
@@ -352,11 +354,7 @@ Input:
 0 0 0 0 0
 ```
 ]
-
-.right-column2-small[
-<img src="img/bottleneck.png" width=130px />
-]
-.right-column2-small[
+.left-column2-small[
 Output:
 ```
 +---------+
@@ -374,20 +372,38 @@ Output:
 ```
 ]
 
-]
 
+.right-column2-small[
+<img src="img/bottleneck.png" width=130px />
+]
 
 ---
 
-template: challenge
+class:challenge
+
+## Bottleneck
+
+__Solution idea__
+
+- run a graph traversal (BFS or DFS) to determine which nodes are reachable from the given start node
+- for each node A in the graph
+  - remove that node from the original graph
+  - run a graph traversal (BFS or DFS)
+  - nodes that were reachable in the original graph, but are not reachable now are dominated by node A
+
+
+
+---
+name:frank
+class: challenge
 
 ## Follow the Path
 <!--UVA 10116-->
 
-You are programming a new robot called Frank to navigate the path through a grid. Frank should be able to  adjust to
-direction it is moving in rather than being pre-programmed.
+You are programming a new robot called Frank to navigate the path through a grid. Frank should be able to  adjust the
+direction it is moving in based on the current position rather than being pre-programmed.
 This particular robot needs to navigate through a 2D grid. At each grid location Frank receives the instructions
-for the instructions for its next move. The possible moves are:
+for its next move. The possible moves are:
 .small[
 - N - move North (or up)
 - S - move South (or down)
@@ -395,10 +411,12 @@ for the instructions for its next move. The possible moves are:
 - W - move West (or left)
 ]
 
-Your task now is to calculate what path Frank should take and verify that it actually took that path (otherwise
+Your task now is to calculate what path Frank will take and verify that it actually took that path (otherwise
 you have a bug in the code that directs Frank through the grid).
 
-Example 1:
+--
+
+__Example 1:__
 .left-column2-small[
 
 ```
@@ -419,25 +437,9 @@ north and west two more times and finally it will exit the grid.
 
 ---
 
-template: challenge
+template: frank
 
-## Follow the Path
-
-You are programming a new robot called Frank to navigate the path through a grid. Frank should be able to  adjust to
-direction it is moving in rather than being pre-programmed.
-This particular robot needs to navigate through a 2D grid. At each grid location Frank receives the instructions
-for the instructions for its next move. The possible moves are:
-.small[
-- N - move North (or up)
-- S - move South (or down)
-- E - move East (or right)
-- W - move West (or left)
-]
-
-Your task now is to calculate what path Frank should take and verify that it actually took that path (otherwise
-you have a bug in the code that directs Frank through the grid).
-
-Example 2:
+__Example 2:__
 .left-column2-small[
 ```
   F
@@ -459,11 +461,11 @@ it will move south, then east twice, and then it will enter a loop consisting of
 
 ---
 
-template: challenge
+class: challenge
 
 ## Follow the Path
 
-.small[
+.smaller[
 __Input__
 
 On the first line are three integers separated by blanks: the number of rows in the grid,
@@ -485,6 +487,7 @@ The sample input below corresponds to the two grids above and illustrates the tw
 forms of output.
 The word “step” is always immediately followed by “(s)” whether or not the number
 before it is 1.
+]
 
 .left-column2[
 __Example 1__:
@@ -520,9 +523,132 @@ Output:
 ```
 ]
 
-]
 
 ---
+
+template: challenge
+
+## Follow the Path
+
+__Solution idea__
+
+- follow the path according to the directions starting at the start point
+- for each visited location, increment the number of steps taken
+- for each visited location, mark it as visited
+- if the directions end outside of the grid, report the number of steps taken
+- if the path leads to already visited location, report that there is a loop
+
+--
+
+??? how should we keep track of the length of the loop?
+
+--
+
+two options:
+
+--
+  - associate a number of steps taken so far with each location, then the length of the loop
+    can be computed as soon as a visited location is reached
+
+--
+  - once loop is discovered, start a loop counter and follow the path once again until
+  the loop is completed counting the steps along the way
+
+
+---
+
+class: challenge
+
+## Word Transformations
+<!-- UVA 429 -->
+
+Given a dictionary of words, find the number of steps it takes to transform one
+word into another.
+- a single step consists of changing one letter in the current word
+- all "words" along the way have to be dictionary words
+
+--
+
+.left-column2[
+__Example 1:__
+
+dictionary: bar, bat, cab, car, cat, hat
+
+how many steps: cat --> bar
+
+answer: 2 steps, cat --> car --> bar
+]
+
+--
+
+.right-column2[
+__Example 2:__
+
+dictionary: dip
+lip, mad, map, maple, may, pad, pip, pod, pop, sap, sip, slice, slick, spice, stick, stock
+
+how many steps: spice --> stock
+
+answer: 4 steps, spice --> slice --> slick --> stick --> stock
+
+]
+
+--
+
+.left-column2[
+__Example 3:__
+
+dictionary: dip
+lip, mad, map, maple, may, pad, pip, pod, pop, sap, sip, slice, slick, spice, stick, stock
+
+how many steps: may --> pod
+
+answer: 3 steps, may --> mad --> pad --> pod
+
+]
+
+
+
+---
+
+class: challenge
+
+## Word Transformations
+### Solution Idea 1
+
+- Build a graph of all the dictionary words: there is an edge between two
+words if they differ exactly by one letter.
+
+--
+
+  (This is $O(n^2)$ since we need to compare each pair of nodes.)
+--
+
+- Run BFS from the starting word, until the final word is encountered.
+
+
+--
+
+__Issues:__
+
+This works when $n$ is small and using $O(n^2)$ algorithm is possible. But what if we are working
+with more _realistic_ dictionary, say 100,000 words?
+
+
+---
+
+class: challenge
+
+## Word Transformations
+### Solution Idea 2
+
+- Run BFS on an implicit graph:
+
+  - given a word W, change every letter of W to every other letter of the alphabet ($25L$ when $L$ is the length of the word)
+
+  - check if the resulting word is in the dictionary (for each check, it is $O(\log n)$ when $n$ is the size of the dictionary)
+
+  - if it is, it is one of the adjacent nodes of W  (store it in a queue for later exploration)
 
 
 </optgroup>
