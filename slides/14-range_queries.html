@@ -162,9 +162,11 @@ class: slide
 
 
 
+---
 
+template: section
 
-
+# Prefix Sum and Related Queries
 
 ---
 name: sum-range
@@ -252,6 +254,13 @@ It does not tell us anything about the smallest value in range `[3,6]`.
 
 ---
 
+
+template: section
+
+# Decomposition
+
+---
+
 ## Decomposition
 
 __Decomposition__ is a similar idea to pre-computing prefixes, but instead we
@@ -326,6 +335,13 @@ The update/change operation can be performed in O(B), or $O( \sqrt(N) )$.
 --
 
 But, can we do better than $O(M \sqrt(N) )$ for `M` queries?
+
+---
+
+
+template: section
+
+# Segment Trees
 
 ---
 
@@ -793,6 +809,481 @@ C/58
 J/40
 
 F/5
+
+
+---
+
+
+template: section
+
+# Fenwick Trees
+
+---
+
+## Fenwick Trees
+
+__Fenwick trees__ were developed in 1994 by Peter Fenwick (his structure was based on similar structures
+proposed in 1989 by Boris Ryabko).
+
+- It is somewhat similar in the idea to the segment tree.
+
+- It is also known as a binary indexed tree (we'll see why later).
+
+---
+name: fenwick-structure
+## Fenwick Trees - The Structure
+
+---
+template:fenwick-structure
+.center[<img src="img/Fenwick-trees-14.jpg" alt="fenwick tree structure" width = "70%"/>
+
+We'll start with the same array as we used before.
+
+]
+
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-15.jpg" alt="fenwick tree structure" width = "70%"/>
+
+For the segment tree, we calculated the sums of separate ranges representing the
+ranges of two elements,
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-16.jpg" alt="fenwick tree structure" width = "70%"/>
+
+For the segment tree, we calculated the sums of separate ranges representing the
+ranges of two elements, then four elements,
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-17.jpg" alt="fenwick tree structure" width = "70%"/>
+
+For the segment tree, we calculated the sums of separate ranges representing the
+ranges of two elements, then four elements, and finally, all eight elements.
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-18.jpg" alt="fenwick tree structure" width = "70%"/>
+
+At each level $k$, the range size was $2^k$.
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-19.jpg" alt="fenwick tree structure" width = "70%"/>
+
+At each level $k$, the range size was $2^k$.
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-20.jpg" alt="fenwick tree structure" width = "70%"/>
+
+But some of these ranges are redundant! <br>
+Range [3,4] can be computed based on ranges [1,4] and [1,2].
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-21.jpg" alt="fenwick tree structure" width = "70%"/>
+
+But some of these ranges are redundant! <br>
+Range [3,4] can be computed based on ranges [1,4] and [1,2]. <br>
+Range [7,8] could be computed based on ranges [1,8], [1,4] and [5,6].
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-22.jpg" alt="fenwick tree structure" width = "70%"/>
+
+But some of these ranges are redundant! <br>
+Range [3,4] can be computed based on ranges [1,4] and [1,2]. <br>
+Range [7,8] could be computed based on ranges [1,8], [1,4] and [5,6].<br>
+Range [5,8] could be computed based on ranges [1,4] and [1,8].
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-23.jpg" alt="fenwick tree structure" width = "70%"/>
+
+In fact, we can compute all ranges stored in the segment tree based on the eight ranges
+highlighted above: [1,1], [1,2], [3,3], [1,4], [5,5], [5,6], [7,7], [1,8].
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-24.jpg" alt="fenwick tree structure" width = "70%"/>
+
+In fact, we can compute all ranges stored in the segment tree based on the eight ranges
+highlighted above: [1,1], [1,2], [3,3], [1,4], [5,5], [5,6], [7,7], [1,8].
+
+__The array representing the Fenwick tree stores only these ranges.__
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-25.jpg" alt="fenwick tree structure" width = "70%"/>
+
+In fact, we can compute all ranges stored in the segment tree based on the eight ranges
+highlighted above: [1,1], [1,2], [3,3], [1,4], [5,5], [5,6], [7,7], [1,8].
+
+The __Fenwick tree__ is usually presented without those extra ranges.
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-26.jpg" alt="fenwick tree structure" width = "50%"/>
+
+The prefix sums can be then extracted from the array by adding sums of partial ranges.
+]
+.center50[
+| range | indexes in the Fenwick array |
+|---|---|
+| [1,4] | 4 |
+
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-27.jpg" alt="fenwick tree structure" width = "50%"/>
+
+The prefix sums can be then extracted from the array by adding sums of partial ranges.
+]
+.center50[
+| range | indexes in the Fenwick array |
+|---|---|
+| [1,4] | 4 |
+| [1,3] | 3, 2 |
+
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-28.jpg" alt="fenwick tree structure" width = "50%"/>
+
+The prefix sums can be then extracted from the array by adding sums of partial ranges.
+]
+.center50[
+| range | indexes in the Fenwick array |
+|---|---|
+| [1,4] | 4 |
+| [1,3] | 3, 2 |
+| [1,7] | 7, 6, 4 |
+
+
+
+]
+---
+
+template:fenwick-structure
+
+.center[<img src="img/Fenwick-trees-29.jpg" alt="fenwick tree structure" width = "50%"/>
+
+The prefix sums can be then extracted from the array by adding sums of partial ranges.
+]
+.center50[
+| range | indexes in the Fenwick array |
+|---|---|
+| [1,4] | 4 |
+| [1,3] | 3, 2 |
+| [1,7] | 7, 6, 4 |
+| [1,6] | 6, 4 |
+]
+--
+.center[
+But how do we get these indexes based on the range?
+]
+
+
+---
+
+## Fenwick Tree - Indexes of Interest
+
+.left-column2[
+<br>
+
+| range | indexes in the Fenwick array |
+|---|---|
+| [1,4] | 4 |
+| [1,3] | 3, 2 |
+| [1,7] | 7, 6, 4 |
+| [1,6] | 6, 4 |
+]
+
+--
+.right-column2[
+Let's rewrite the indexes in binary
+
+| | |
+|---|---|
+| [1,4] | 0100 |
+]
+
+--
+.right-column2[
+
+| | |
+|---|---|
+| [1,3] | 0011 |
+| | 0010 |
+]
+
+
+--
+.right-column2[
+
+| | |
+|---|---|
+| [1,7] | 0111|
+| | 0110 |
+| | 0100 |
+]
+
+--
+.left-column2[
+<br>
+<br>
+<br>
+]
+.right-column2[
+
+
+| | |
+|---|---|
+| [1,6] | 0110 |
+| | 0100 |
+]
+
+
+
+--
+
+__What do you notice?__
+
+
+--
+
+To get the indexes for range [1, x]:
+- go to index x,
+- then index x with least significant 1 bit dropped,
+- then again drop least significant bit,
+- ...,
+- until there are no one bits left.
+
+
+---
+
+## Fenwick Tree
+### Get Prefix Sum `[1, x]` and Range `[a,b]`
+
+This assumes indexing of arrays starting at 1. If you want to start at zero, offset the indexes by 1 and make sure
+to change the loop condition accordingly!
+
+```
+int getPrefix ( x )
+  sum = 0
+  while x != 0
+      sum += fenwick[x]
+      x = x - (-x)&x
+  return sum
+```
+
+--
+
+- `x - (-x)&(x)` uses a bitwise mask to remove the least significant bit from x
+
+--
+
+- to get an arbitrary range `[a,b]`, we just calculate `getPrefix(b) - getPrefix(a)`
+
+--
+
+- this is O(log N) process once we have the Fenwick tree / array
+
+
+---
+name: fenwick-update
+
+## Fenwick Tree - Update
+
+If we need to update a value in the original array, the Fenwick array needs to be updated as well.
+
+But, which indexes need to be updated in the Fenwick array?
+--
+
+.center[<img src="img/Fenwick-trees-25.jpg" alt="fenwick tree structure" width = "50%"/>
+]
+--
+
+.center[
+When we update the value at index 4 (i.e., add something to 9), then its parent,
+and its parent parent (i.e., 12 and 37 need to be updated) - nothing else.
+]
+--
+
+.center[
+When we update the value at index 1 (i.e., add something to 1), then all three nodes on the way to the
+root need to be updated.
+]
+--
+
+.center[__How do we get indexes of the _parent_ node?__]
+
+---
+
+template: fenwick-update
+
+
+```
+update to the array: A[k] = A[k] + v
+N is the highest valid index in A
+
+update (k, v )
+    while k <= N
+      fenwick[k] += v
+      k = k + (-k)&k
+
+```
+
+
+--
+
+- `k = k + (-k)&k` uses a bitwise mask to _add_ the least significant bit to `k`
+right after the current least significant set bit
+
+--
+
+- `parent(k) = k + (-k) & k`
+
+--
+
+- this is also O(log N) process
+
+---
+
+template: challenge
+
+## Fenwick Tree Creation
+
+We talked about `update` function and `getPrefix` function. Both of them assume the existence of the
+Fenwick array.
+
+- But how do we create this array to begin with?
+
+- What is the performance of this process?
+
+---
+
+## Fenwick Tree Creation
+
+
+__Take 1__
+
+```
+A[N] original data array
+fenw[N] initialized to all zeros
+
+for i in 1..N
+    update (i)
+
+```
+
+- this is O(N logN )
+
+
+--
+
+__Take 2__
+
+```
+A[N] original data array
+fenw[N] initialized to values from A
+
+create
+    for i in 1..N
+        j = i + (-i)&i
+        if j <= N
+            fenw[j] += fenw[i]
+```
+
+- this is O(N)
+
+---
+
+
+| x | -x | -x & x | x + (-x)&x | x - (-x)&x|
+|---|---|---|---|---|
+|00001| 11111 | 00001 |00010 | 00000 |
+|00010| 11110 | 00010 |00100 | 00000 |
+|00011| 11101 | 00001 |00100 | 00010 |
+|00100| 11100 | 00100 |01000 | 00000 |
+|00101| 11011 | 00001 |00110 | 00100 |
+|00110| 11010 | 00010 |01000 | 00100 |
+|00111| 11001 | 00001 |01000 | 00110 |
+|01000| 11000 | 01000 |----- | 00000 |
+
+```
+A[N] original data array
+fenw[N] initialized to values from A
+
+create
+    for i in 1..N
+        j = i + (-i)&i
+        if j <= N
+            fenw[j] += fenw[i]
+```
+
+```
+A = [    1,     6,     4,     2,     9,     3,     5,    7  ]
+
+```
+---
+template: challenge
+
+## Fenwick Tree with Other N
+
+What would a Fenwick array / tree look like if N was not a power of two?
+
+For example take the array
+
+```
+A = [ 3, 8, 1, 12, 9, 6, 7, 10, 4, 11, 2, 5]
+```
+
+where N = 12 and try to construct a Fenwick array / tree.
+
 
 
 
