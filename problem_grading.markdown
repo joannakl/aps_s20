@@ -43,7 +43,11 @@ The total score for a problem is determined by the maximum between zero and the 
 
 Every exam problem is graded out of 10 points. The total exam grade is the weighted sum computed as follows (assume _scoreN_ is a score for a particular problem with _score1_ >= _score2_ >= _score3_ >= _score4_):
 
+If you are given 5 problems and suppose to solve four of them, then the exam grade is calculated as:
 _exam =  4 * score1 + 3 * score2 + 2 * score3 + 1 * score4_
+
+If you are given 4 problem and suppose to solve three of them, then the exam grade is calculated as:
+_exam =  5 * score1 + 3 * score2 + 2 * score3_
 
 The total score for a problem is determined by the maximum between zero and the sum of scores for individual tests based on their results. The maximum score for each test is determined by *max_score = 10/number_of_tests*.
 

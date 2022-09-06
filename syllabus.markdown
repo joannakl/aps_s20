@@ -57,21 +57,14 @@ updated for the next edition of the book
 - string matching: Rabin-Karp, polynomial string hashing, KMP
 - mathematics: prime, sieve of Eratosthenes, combinatorics, probability and expected value
 
-
-For detailed schedule, see the [Daily](daily.html) tab of this page.
-
-
-
-
 # Grading
 ---
 
 Your course grade will be based on:
 
 - exams, 25% (one midterm and one final exam) (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
-- homework / weekly problem set, 50% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed).
-- online contest (4 problems), 15%
-- participation, 10% (recitation attendance and completion of exercises, taking active part on the discussion forum)
+- homework / weekly problem set, 60% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed).
+- online contest (6 problems), 15%
 
 <!--
 * exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
@@ -106,20 +99,13 @@ __Missing an exam:__ There will be no make-up exams. Failure to take an exam cou
 # Homework / Weekly Problem Sets
 ---
 
-Each week you will have a problem set to solve (4-5 problems of varying difficulty). Each problem set is weighted equally.
+Each week you will have a problem set to solve (4-5 problems of varying difficulty). Each problem set is weighted equally. No late submissions will be accepted for the homework problems.
 
 # Online Contests
 ---
 
 Throughout the semester we will let you know about various online contests. You need to participate in one
-or more and submit passing solutions to four different problems (in a single contest or in multiple ones).
-
-# Participation
----
-
-You are expected to actively participate during the lectures, recitations and on the discussion forum.
-
-
+or more and submit passing solutions to six different problems (in a single contest or in multiple ones). Think of this as practice of your skills in the real world.
 
 # Academic Integrity Policy
 ---

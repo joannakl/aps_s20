@@ -8,7 +8,7 @@ title: Course Essentials
 ---
 
 <div class="alert" markdown="1">
-We’ll be using NYU's new learning management system (LMS) called [Brightspace](https://brightspace.nyu.edu/) instead of NYU Classes for this course.
+We’ll be using NYU's new learning management system (LMS) called [Brightspace](https://brightspace.nyu.edu/).
 
 Check out [student training materials](http://www.nyu.edu/it/lms/student-training) for more info on the new LMS.
 </div>
@@ -19,21 +19,8 @@ Check out [student training materials](http://www.nyu.edu/it/lms/student-trainin
 </p>
 
 
-<p class="hang" markdown="1"><span class="emph">Recitation:</span> <br>
-{{ site.recitation_time1 }} <br>
-{{ site.recitation_time2 }} </p>
-
-
-
-
-<p class="hang" markdown="1"><span class="emph">Recitation leaders</span>: <br/>
-{{ site.recitation_instructor1_full }} (sec. 522)<br/>
-{{ site.recitation_instructor2_full }} (sec. 523) </p>
-
-
-
-<p class="hang" markdown="1"><span class="emph">Office hours:</span> <br>
-See [Brightspace](https://brightspace.nyu.edu/) for the times and Zoom links of our office hours.
+<p class="hang" markdown="1"><span class="emph">Office hours and tutoring hours:</span> <br>
+See [Brightspace](https://brightspace.nyu.edu/) for the times and Zoom links of office hours and tutoring hours.
 </p>
 
 
