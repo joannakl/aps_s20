@@ -85,6 +85,26 @@ in order to find the desired solution
 
 - recursive backtracking solutions fall under this category
 
+---
+
+template: challenge
+
+## Generate all sequences ...
+
+__Task 1__
+
+Generate all 7-character sequences consisting of letters 'p', 'r', 'o', 'b', 'l', 'e', 'm'.
+
+--
+
+__Task 2__
+
+Generate all 7-character sequences consisting of letters  'p', 'r', 'o', 'b', 'l', 'e', 'm' that are actual words in a given dictionary.
+
+--
+
+- In solution to task 2 we can significantly reduce the search space by not following
+paths that lead to sequences that are not words by checking prefixes against the dictionary.
 
 ---
 template: challenge
@@ -166,7 +186,7 @@ template: challenge
 
 ## Challenge: Solving Equations
 
-Given three integers A, B, C ($1 <= A,B,C <= 10000$) find three other distict values
+Given three integers A, B, C ($1 <= A,B,C <= 10000$) find three other distinct values
 X, Y, Z such that:
 
 $$X + Y + Z = A$$
