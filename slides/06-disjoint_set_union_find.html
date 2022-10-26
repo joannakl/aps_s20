@@ -881,9 +881,9 @@ is under water) to smallest (everything is above water)
 - for level L0 (the highest level), go through all cells with values > L0 and union each
 of them with its four neighbors if that neighbor is also above L0; keep track
 of the number of islands
-- for level L1 (the next highest level), go through all the cells with
-values > L1 and <=L0, union each with its four neighbors if that neighbor is
-between L1 and L0; keep track of the number of islands
+- for level L1 (the next highest level), go through all the cells with values > L1
+and <=L0, union each with its four neighbors if that neighbor is larger than L1;
+keep track of the number of islands
 - ...
 
 
