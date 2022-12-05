@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Power Of Algorithms</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="css/slides.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: center, title-slide
+
+
+<br><br>
+
+## CSCI-UA 480: APS
+## Algorithmic Problem Solving
+<br/><br/><br/><br/><br/><br/><br/>
+## _Power_ Of Algorithms
+
+
+
+.author[
+Instructor: Joanna Klukowska <br>
+]
+
+
+.license[
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
+Background image by Stewart Weiss<br>]
+
+
+---
+layout:true
+template: default
+name: section
+class: inverse, middle, center
+
+---
+layout:true
+template: default
+name: challenge
+class: challenge
+
+---
+layout:true
+template: default
+name: poll
+class: inverse, full-height, center, middle
+
+---
+layout:true
+template: default
+name: breakout
+class: breakout
+
+---
+
+layout:true
+template:default
+name:slide
+class: slide
+
+.bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
+
+---
+
+template: challenge
+
+## College Entry Exams During a Pandemic
+
+- You are in charge of a large testing center administering college entry exams
+for a large number of students distributed all around the world.
+
+--
+
+- It is spring of 2020. Covid-19 disrupts everything. The decision was made to cancel
+all in-person exams.
+
+--
+
+- Your company needs to figure out how to provide an equivalent that can be administered
+to students distributed in different time zones, with very different access to technology
+and unknown living conditions.
+
+--
+
+- What do you do?
+
+---
+
+template: section
+
+From The New York Times:
+
+# _When Algorithms Give Real Students Imaginary Grades_
+
+In-person final exams were canceled for thousands of students this spring, so computers stepped in — to disastrous effect. <br>
+
+Sept. 8, 2020, By Meredith Broussard, NYU
+
+https://www.nytimes.com/2020/09/08/opinion/international-baccalaureate-algorithm-grades.html?smid=em-share
+
+---
+## _When Algorithms Give Real Students Imaginary Grades_
+
+
+
+__Isabel Castañeda__ is a native Spanish speaker. Her family comes from Mexico. She attends Westminster High in Colorado.
+She got a 5 out of 5 on her Advanced Placement Spanish exam (2019), after two straight years of A+ grades in Spanish class.
+
+In spring of 2020 she took the International Baccalaureate Spanish exam  ... __and failed.__
+
+--
+
+-------
+.small[from Wired, https://www.wired.com/story/algorithm-set-students-grades-altered-futures/]
+
+__Anahita Nagpal__, who lives in Göttingen, Germany, had been offered a pre-med place and scholarship at NYU.
+Her acceptance was dependent on her results in the International Baccalaureate diploma,
+a two-year high school program recognized by colleges and taken by more than 170,000 students
+this year, most in the US. __But she scored more poorly than expected.__
+
+--
+
+
+---
+## _When Algorithms Give Real Students ..._
+
+
+"The International Baccalaureate - a global program that awards a prestigious diploma to students
+in addition to the one they receive from their high schools - canceled its usual in-person final exams
+because of the pandemic. Instead, it used an algorithm to “predict” students’ grades, based on an
+array of student information, including teacher-estimated grades and past performance by students
+in each school."
+
+--
+
+-------
+.small[from Harvard Business Review, https://hbr.org/2020/08/what-happens-when-ai-is-used-to-set-grades]
+<br>__In normal years:__
+- coursework counts for some 20-30% of the overall final grade
+- the exam accounts for the remainder.
+
+(Prior to the exam, teachers provide “predicted” grades, which allow universities to offer places
+conditional on the candidates’ final grades meeting the predictions.)
+
+--
+
+-------
+
+.small[from Reuters article, https://www.reuters.com/article/us-global-tech-education-analysis-trfn-idUSKCN24M29L]
+<br>__How were the _exam_ scores determined in 2020?__
+- predictions that teachers made about how students would perform on the exam
+- coursework
+- "school context", i.e., historical data on students' performance from the given school
+
+__The exact details are not public.__
+
+
+---
+
+template:challenge
+
+## Biased Judges
+
+- Judges are humans and come with their own biased opinions.
+
+--
+
+- During sentencing it is often up to the judge to decide the severity of the
+penalty based on the sentence ranges dictated by the state and federal laws.
+
+--
+
+- It has been observed that the judges in your area seem to be giving more
+severe penalties to people with certain socio-economic backgrounds.
+
+--
+
+- As a consultant for your judicial district, you are asked for advice on how this
+problem could avoided.
+
+---
+
+template:section
+
+From The New York Times:
+
+# _When an Algorithm Helps Send You to Prison_
+
+Giving a computer program responsibility over sentences doesn’t eliminate bias.
+
+Oct. 26, 2017, By Ellora Thadaney Israni
+
+https://www.nytimes.com/2017/10/26/opinion/algorithm-compas-sentencing-bias.html?smid=em-share
+
+
+---
+
+## _When an Algorithm Helps Send You to Prison_
+
+.small[from NYT, https://www.nytimes.com/2017/10/26/opinion/algorithm-compas-sentencing-bias.html?smid=em-share]
+
+In 2013, police officers in Wisconsin arrested a man driving a car that had
+been used in a recent shooting. The man, Eric Loomis, pleaded guilty to attempting
+to flee an officer, and no contest to operating a vehicle without the owner’s
+consent. Neither of his crimes mandates prison time.
+
+--
+
+At Mr. Loomis’s sentencing, the judge cited, among other factors, Mr. Loomis’s
+high risk of recidivism as predicted by a computer program called COMPAS, a risk
+assessment algorithm used by the state of Wisconsin. The judge denied probation
+and prescribed an 11-year sentence: six years in prison, plus five years of
+extended supervision.
+
+
+
+
+---
+
+## _When an Algorithm Helps Send You to ..._
+### COMPAS Software
+
+.small[from Wikipedia, https://en.wikipedia.org/wiki/COMPAS_(software)]
+
+__Correctional Offender Management Profiling for Alternative Sanctions (COMPAS)__ is
+a case management and decision support tool developed and owned by Northpointe
+(now Equivant) used by U.S. courts to assess the likelihood of a defendant becoming a recidivist.
+
+COMPAS has been used by the U.S. states of New York, Wisconsin, California,
+Florida's Broward County, and other jurisdictions.
+
+--
+
+------
+
+<br><br>
+__The internal algorithsm that perform decision making and risk assessment in COMPAS were never made public.__
+<br><br>
+
+--
+
+------
+
+
+.small[from NYT, https://www.nytimes.com/2017/10/26/opinion/algorithm-compas-sentencing-bias.html?smid=em-share]
+<br>Computers may be intelligent, but they are not wise. Everything they know, we
+taught them, and we taught them our biases. They are not going to un-learn them
+without transparency and corrective action by humans.
+
+
+---
+template: section
+
+
+# Zillow 
+
+
+---
+template: section
+
+from The New York Times
+# Zillow, facing big losses, quits flipping houses and will lay off a quarter of its staff.
+November 2, 2021, by Stephen Gandel,
+
+https://www.nytimes.com/2021/11/02/business/zillow-q3-earnings-home-flipping-ibuying.html
+
+---
+
+## Zillow, quits flipping houses
+
+- Zillow is a real estate listing site.
+
+--
+
+- It's __zestimate__ attempts to predict the value of real estate (not only actual listings, but anything)
+
+--
+
+- Zillow Offers is a part of Zillow that focuses on _flipping houses_: they make instant offers for listings
+that are below their zestimate, they renovate/fix-up the property and sell it for a hire price.
+
+--
+
+- __What can go wrong?__
+--
+&nbsp;&nbsp;&nbsp;Well! Everything!
+
+--
+-----
+
+.small[from CNN, https://www.cnn.com/2021/11/09/tech/zillow-ibuying-home-zestimate/index.html ]
+<br>
+- According to CNN, the company purchased 27,000 properties in this way since April 2018, but sold only
+17,000 as of September 2021.
+
+--
+
+- As of November 2021, Zillow is cutting 25% of its workforce (~2000 employees).
+
+--
+
+- "The challenge we faced in Zillow Offers was the ability to accurately forecast the future
+price of inventory three to six months out, in a market where there were larger and more rapid
+changes in home values than ever before," Shelton said.
+
+
+</optgroup>
+
+
+
+    </textarea>
+     <script src="js/remark.js" type="text/javascript">
+    </script>
+    <script src="js/remark_conf.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
+  </body>
+</html>
