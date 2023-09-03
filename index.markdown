@@ -30,16 +30,14 @@ See [Brightspace](https://brightspace.nyu.edu/) for the times and Zoom links of 
 - If you have private questions related to your grading, your course progress, or anything that should not be discussed by the entire class,  you should post them on Ed as well, but make them visible only to the course staff (any question on Ed can be made private). <br/>
 - To get started with Ed, follow this [Quick Start Guide](https://us.edstem.org/help). <br/>
 
-- For those registering late: you can self sign up on [Ed]( {{site.ed_signup}}) for this class (make sure you use
-your netID email address, or you may end up being removed from the site once we update the roster).
- </p>
+</p>
 
 
 
 <p class="hang" markdown="1"><span class="emph">How to get help?</span>
 Ask questions on discussion forums! Ask questions during lectures!
 Talk to us (We cannot help, unless we know there is an issue).
-See the tutors and/or instructor during posted office hours or set up an appointment!
+See us during posted office hours or set up an appointment!
 Make sure you let us know as soon as you feel lost in the course. Do not wait till you
 start getting failing grades because it might be too late by then.
 </p>
@@ -54,8 +52,7 @@ CSCI-UA 480 Prerequisite: Computer Systems Organization (CSCI-UA 201), Basic Alg
 
 Many of the top firms in the technological and financial sectors are using algorithmic problems as interview questions for assessing candidate skill. In this course we take this idea one step further and use algorithmic problem solving as way to hone programming skills. Students will use the material covered in the data structures and algorithms courses and learn new algorithmic techniques to solve challenging problems quickly. Each week will be devoted to a particular type of algorithm. Weekly problem sets will reinforce the lecture, and require students to implement their solutions in Java or C++.
 
-In this course students are expected to do a lot of hands on programming. The implementations are evaluated based on their
-correctness and speed.
+In this course students are expected to do a lot of hands on programming. The implementations are evaluated based on their correctness and speed.
 
 __Sample problems__:
 - [Minstack](https://www.spoj.com/problems/MINSTACK/en/)

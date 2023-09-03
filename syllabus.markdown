@@ -63,8 +63,9 @@ updated for the next edition of the book
 Your course grade will be based on:
 
 - exams, 25% (one midterm and one final exam) (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
-- homework / weekly problem set, 60% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed).
-- online contest (6 problems), 15%
+- homework / weekly problem set, 60% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
+- online contest (6 problems), 10%
+- course participation, 5% (this will be based on participation in the dicussion forum, in-class problem submissions, and occasional in-class poll or quiz) 
 
 <!--
 * exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
@@ -94,12 +95,12 @@ The grade of *Incomplete* is reserved for students who, for legitimate and docum
 ---
 There will be a midterm and a final exam. All exams are cumulative, timed and synchronous.
 
-__Missing an exam:__ There will be no make-up exams. Failure to take an exam counts as a zero grade on that exam. The only exception to this rule is for students who have a legitimate medical or personal emergency (documented). These students need to talk to the instructor as soon as possible (trying to excuse an exam absence a week after it happened will not work).
+__Missing an exam:__ There will be no make-up exams. Failure to take an exam counts as a zero grade on that exam. The only exception to this rule is for students who have a legitimate medical or personal emergency. These students need to talk to the instructor as soon as possible (trying to excuse an exam absence a week after it happened will not work).
 
 # Homework / Weekly Problem Sets
 ---
 
-Each week you will have a problem set to solve (4-5 problems of varying difficulty). Each problem set is weighted equally. No late submissions will be accepted for the homework problems.
+Each week you will have a problem set to solve (several problems of varying difficulty). Each problem set is weighted equally. No late submissions will be accepted for the homework problems.
 
 # Online Contests
 ---

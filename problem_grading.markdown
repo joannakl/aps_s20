@@ -25,7 +25,7 @@ There are several different outcomes possible:
 
 ## Homework problems
 
-Every homework program is graded out of 20 points. The total homework grade is the sum of all the scores on individual problems. Each problem has the same weight.
+Every homework program is graded out of 20 points (assuming that the problem set contains five problems). The total homework grade is the sum of all the scores on individual problems. Each problem has the same weight.
 
 The total score for a problem is determined by the maximum between zero and the sum of scores for individual tests based on their results. The maximum score for each test is determined by *max_score = 20/number_of_tests*.
 
