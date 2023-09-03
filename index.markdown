@@ -7,12 +7,6 @@ title: Course Essentials
 
 ---
 
-<div class="alert" markdown="1">
-We’ll be using NYU's new learning management system (LMS) called [Brightspace](https://brightspace.nyu.edu/).
-
-Check out [student training materials](http://www.nyu.edu/it/lms/student-training) for more info on the new LMS.
-</div>
-
 
 
 <p class="hang" markdown="1"><span class="emph">Class meetings:</span><br> {{ site.course_time }}
