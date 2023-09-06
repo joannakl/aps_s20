@@ -84,7 +84,7 @@ template: slide
 
 ## This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_f22/
+- Course website: https://cs.nyu.edu/~joannakl/aps_f23/
 
     This page contains the syllabus as well as loads
     of links to all other resources and services you will need for this class.
@@ -97,7 +97,7 @@ template: slide
     - Gradescope (for homework assignments and exams)
     - [Vjudge](https://vjudge.net/) for inclass work
 
-- Brightspace for access to these slides, gradebook, exams, ...
+- Brightspace for access to these slides, gradebook, ...
 
 
 
@@ -175,18 +175,22 @@ do not know C++ do not take code that was written in C++).
 
 Working with your partner's code (not the partner!), decide
 
-1. would it compile, if it was typed exactly the way it is written
+1. would it compile, if it was typed exactly the way it is written?
 
-2. (assume that it compiles) would it produce the correct result if the input values were :
+1. is the code readable? is it clear what the intent of the code is?
+
+1. (assume that it compiles) would it produce the correct result if the input values were :
 
     - `35 -17`
-    - `1000000000 -1000000000`
-    - `1000000000 1000000000`
-    - `-2000000000 -2000000000`
-    - `2147483648 5`
-
-4. is there something interesting, new-to-you, noteworthy, strange, ... in the code
+    - `1000000000 -1000000000 ` &emsp; &emsp; &emsp; &emsp; (nine zeros in each)
+    - `1000000000 1000000000 ` &emsp; &emsp; &emsp; &emsp; &nbsp; (nine zeros in each)
+    - `-2000000000 -2000000000 ` &emsp; &emsp; &emsp; &nbsp;&nbsp;  (nine zeros in each)
+    - `2147483648 5 ` &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; (the first number is $2^{31}$)
+    
+1. is there something interesting, new-to-you, noteworthy, strange, ... in the code
 that you are reading?
+
+
 
 ---
 
@@ -244,7 +248,15 @@ Three parts for the problem solution:
 ---
 ## Workflow
 
-- Read and __understand__ the problem.
+- Read and __understand__ the problem. 
+
+--
+
+- Understand the given examples.
+
+--
+
+- Write additional tests that cover edge cases for the problem and all different categories of situations. 
 
 --
 
@@ -252,8 +264,9 @@ Three parts for the problem solution:
 
 --
 
-- Analyze the solutions's correctness and efficiency (if not correct or not
-efficient go back to the previous step)
+- Analyze the solutions's correctness and efficiency (this means actually manually running 
+that solution through the example input/output and your own tests) - if not correct or not
+efficient go back to the previous step. 
 
 --
 
@@ -261,12 +274,7 @@ efficient go back to the previous step)
 
 --
 
-- Test your solution using the sample input/output given in the problem
-
---
-
-- Test your solution using your own tests  (this means you need to
-create inputs for which you know the correct output)
+- Test your code solution using the sample input/output given in the problem and your own tests.
 
 --
 
@@ -310,9 +318,9 @@ template: section
 
 - problem may evolve as part of the discussion
 
-- there are no hidden tests, but your solution should be able to handle edge cases and unexpected inputs
+- there are no hidden tests (except for whatever is in the head of the interviewer), but your solution should be able to handle edge cases and unexpected inputs
 
-- readability of the code/algorithm does matters a lot
+- readability of the code/algorithm does matter
 
 <a title="Instituto Politécnico de Setúbal from Setúbal, Portugal, CC BY 2.0 &lt;https://creativecommons.org/licenses/by/2.0&gt;, via Wikimedia Commons"
 href="https://commons.wikimedia.org/wiki/File:White_board_IPS.jpg">
@@ -397,7 +405,7 @@ Show the interviewer how you are thinking about the problem.
 
 template: section
 
-## [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_f22/)
+## [Course Syllabus](https://cs.nyu.edu/~joannakl/aps_f23/)
 
 ---
 ## Java slow I/O
@@ -457,6 +465,26 @@ sys	0m0.320s
     </script>
     <script src="js/remark_conf.js" type="text/javascript">
     </script>
+
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+       processEscapes: true
+     },
+     "HTML-CSS": { availableFonts: ["TeX"] }
+   });
+</script>
+
+
 
   </body>
 </html>
