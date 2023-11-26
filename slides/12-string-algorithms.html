@@ -68,11 +68,10 @@ class: slide
 .bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
 
 
-
 ---
 ## String Definitions
 
-a __string__ `s` of length $n$ consists of characters `s[0]`, `s[1]`, ..., `s[n-1]`
+a __string__ `s` of length `$n$` consists of characters `s[0]`, `s[1]`, ..., `s[n-1]`
 
 a __substring__ `s[a..b]` is a sequence of consecutive characters in a string
 that starts at position `a` and ends at position `b` (inclusive on both ends)
@@ -346,7 +345,7 @@ for i in 0..|T|
 
 <br/><br/>
 
-This is $O(|T|\times|P|)$.
+This is `$O(|T|\times|P|)$`.
 
 ---
 ## Knuth-Morris-Pratt’s (KMP) Algorithm
@@ -981,11 +980,11 @@ index   0  1  2  3  4  5  6  7  8  9 10
 
 - What is the performance of this?
 --
-&nbsp;&nbsp;&nbsp; __$O(|T|\times|P|)$__
+&nbsp;&nbsp;&nbsp; __`$O(|T|\times|P|)$`__
 
 --
 
-- Can we do better? can we make the call to `hash()` in the loop $O(1)$?
+- Can we do better? can we make the call to `hash()` in the loop `$O(1)$`?
 
 ---
 
@@ -996,7 +995,7 @@ index   0  1  2  3  4  5  6  7  8  9 10
 --
 
 - Assign unique values to all characters in the alphabet. For example, if the
-alphabet is $\Sigma = {a, b, c, ..., z}$ (all lowercase letters), then such
+alphabet is `$\Sigma = {a, b, c, ..., z}$` (all lowercase letters), then such
 an assignment could be `'a'= 1`, `'b'= 2`, ..., `'z'= 26`.
 
 --
@@ -1007,37 +1006,57 @@ an assignment could be `'a'= 1`, `'b'= 2`, ..., `'z'= 26`.
 
 - Compute the `hash()` function as follows
 
-  `hash(s)` = (c<sub>0</sub>A<sup>0</sup> + c<sub>1</sub>A<sup>1</sup> + ... + c<sub>n-1</sub>A<sup>n-1</sup> ) % M = $\Sigma$<sub>i=0</sub><sup>N-1</sup>c<sub>i</sub>A<sup>i</sup> % M
+`
+$$
+\begin{equation}
+\begin{split}
+hash(s) & = (c_0 \times A^0 + c_1 \times A^1 + \ldots + c_{n-1} \times A^{n-1}) \% M \\
+ & = \Sigma_{i=0}^{N-1}c_i \times A^i  \% M 
+\end{split}
+\end{equation}
+$$
+`
+
+---
+
+## Polynomial Hash or Rolling Hash
+
+__Example__
+
+A = 2, M = 10<sup>9</sup>+7 (large enough that it does not really do anything in the computations below)
+
+<br/>
+
+`$ hash(abc) = (1\times 2^0 + 2\times 2^1 + 3\times 2^2 ) \% M = 17 $`
 
 --
 
-Example
-
-- A = 2, M = 10<sup>9</sup>+7 (large enough that it does not really do anything in the computations below)
-
-- `hash(abc)` = $1\times 2^0 + 2\times 2^1 + 3\times 2^2 ) % M$ = 17
+`$ hash(abcc) = (1\times 2^0 + 2\times 2^1 + 3\times 2^2 + 4\times 2^3) \% M = 59 $`
 
 --
 
-- `hash(abcc)` = $1\times 2^0 + 2\times 2^1 + 3\times 2^2 + 4\times 2^3) % M$ = 59
---
-&nbsp;&nbsp;(or $17 + 4\times 2^3$)
+`$\quad\quad\quad\quad\quad\quad\text{or}\quad 17 + 4\times 2^3$`
 
 --
 
-- `hash(xxy)` = $(24\times2^0 + 24\times2^1 + 25\times2^2) % M$ = 172
+`$ hash(xxy) = (24\times2^0 + 24\times2^1 + 25\times2^2) \% M = 172 $`
 
 --
 
-- `hash(abcxxy)` = $(1\times 2^0 + 2\times 2^1 + 3\times 2^2 + 24\times2^3 + 24\times2^4 + 25\times2^5) % M$ = 1393
---
-&nbsp;&nbsp;(or $17 + 172\times 2^3$)
+`$ hash(abcxxy) = (1\times 2^0 + 2\times 2^1 + 3\times 2^2 + 24\times2^3 + 24\times2^4 + 25\times2^5) \% M = 1393 $`
 
 --
 
-- `hash(bcxxy)` = $(2\times 2^0 + 3\times 2^1 + 24\times2^2 + 24\times2^3 + 25\times2^4) % M$ = 696
+`$\quad\quad\quad\quad\quad\quad\text{or}\quad 17 + 172\times 2^3$`
+
 --
-&nbsp;&nbsp;(or $1393 / 2$ - integer division)
+
+`$ hash(bcxxy) = ( 2\times 2^0 + 3\times 2^1 + 24\times2^2 + 24\times2^3 + 25\times2^4) \% M = 696 $`
+
+--
+
+`$\quad\quad\quad\quad\quad\quad\text{or}\quad 1393 / 2$`  - integer division by A
+
 
 ---
 
@@ -1046,30 +1065,75 @@ Example
 
 
 
-    </textarea>
-     <script src="js/remark.js" type="text/javascript">
-    </script>
-    <script src="js/remark_conf.js" type="text/javascript">
-    </script>
+</textarea>
 
-    <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+
+<script src="js/remark.js" type="text/javascript">
+</script>
+<script src="js/remark_conf.js" type="text/javascript">
 </script>
 
 
-<script type="text/x-mathjax-config">
-   MathJax.Hub.Config({
-     extensions: ["tex2jax.js"],
-     jax: ["input/TeX", "output/HTML-CSS"],
-     tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-       processEscapes: true
-     },
-     "HTML-CSS": { availableFonts: ["TeX"] }
-   });
+<script type="text/javascript">
+MathJax = {
+  options: {
+    // Remove <code> tags from the blacklist. Even though we pass an
+    // explicit list of elements to process, this blacklist is still
+    // applied.
+    skipHtmlTags: { '[-]': ['code'] },
+  },
+  tex: {
+    // By default, only \( is enabled for inline math, to prevent false
+    // positives. Since we already only process code blocks that contain
+    // exactly one math expression and nothing else, it is also fine to
+    // use the nicer $...$ construct for inline math.
+    inlineMath: { '[+]': [['$', '$']] },
+  },
+  startup: {
+    // This is called on page ready and replaces the default MathJax
+    // "typeset entire document" code.
+    pageReady: function() {
+      var codes = document.getElementsByTagName('code');
+      var to_typeset = [];
+      for (var i = 0; i < codes.length; i++) {
+        var code = codes[i];
+        // Only allow code elements that just contain text, no subelements
+        if (code.childElementCount === 0) {
+          var text = code.textContent.trim();
+          inputs = MathJax.startup.getInputJax();
+          // For each of the configured input processors, see if the
+          // text contains a single math expression that encompasses the
+          // entire text. If so, typeset it.
+          for (var j = 0; j < inputs.length; j++) {
+            // Only use string input processors (e.g. tex, as opposed to
+            // node processors e.g. mml that are more tricky to use).
+            if (inputs[j].processStrings) {
+              matches = inputs[j].findMath([text]);
+              if (matches.length == 1 && matches[0].start.n == 0 && matches[0].end.n == text.length) {
+                // Trim off any trailing newline, which otherwise stays around, adding empty visual space below
+                code.textContent = text;
+                to_typeset.push(code);
+                code.classList.add("math");
+                if (code.parentNode.tagName == "PRE")
+                  code.parentNode.classList.add("math");
+                break;
+              }
+            }
+          }
+        }
+      }
+      // Code blocks to replace are collected and then typeset in one go, asynchronously in the background
+      MathJax.typesetPromise(to_typeset);
+    },
+  },
+};
 </script>
 
+
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
   </body>
 </html>
