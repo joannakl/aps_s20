@@ -100,8 +100,9 @@ incomplete in the course and you will need to take the final exam during the fir
 
 Each week you will have a problem set to solve (several problems of varying difficulty).  You should expect 12 problem sets with 5 problems each. (These numbers may be adjusted if there are significant
 changes to the course scheduling.)
-Fifty highest scoring problems will count towards your course grade. There will be no late submissions on problem sets for any reason (this is why we will be dropping ten lowest scores). 
-We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  
+Fifty highest scoring problems will count towards your course grade. There will be no late submissions on problem sets for any reason (this is why we will be dropping ten lowest scores).
+We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  The only late submissions will be allowed at the start of the semester to accommodate students who may be joining the class 
+after the due date for a problem set. 
 
 After the due date for each problem set, we will announce one problem (and one alternative problem) from the problem set for which you need to record a 5 minute long explanation of your solution. 
 If you submitted a solution to the announced problem, then you have to explain that problem. If you did not, but submitted a solution to the alternative problem, then you need to 
