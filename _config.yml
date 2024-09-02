@@ -3,7 +3,7 @@ title: CSCI-UA 480 (Algorithmic Problem Solving)
 short_title: APS
 description: "Course website for CSCI-UA 480 (Algorithmic Problem Solving) course."
 
-baseurl: "/aps_f23" # the subpath of your site, e.g. /blog
+baseurl: "/aps_f24" # the subpath of your site, e.g. /blog
 #url: "https://joannakl.github.io/aps_f23" # the base hostname & protocol for your site, e.g. http://example.com
 
 email_etiquette: "email_etiquette.md"
@@ -23,14 +23,14 @@ exclude:
 course_number: "CSCI-UA 480"
 course_name: "Algorithmic Problem Solving"
 course_section: "52"
-course_semester: "Fall 2023"
-course_time: "Mondays and Wednesdays 12:30pm - 1:45pm, (in person, Meyr 122)<br>"
+course_semester: "Fall 2024"
+course_time: "Mondays and Wednesdays 12:30pm - 1:45pm, (in person, Silver 520)<br>"
 
 
 current_course1_title: "CSCI 102 sec. 5"
 current_course1_link: "https://cs.nyu.edu/~joannakl/cs102/"
 current_course2_title: "CSCI 480 sec. 52 (APS)"
-current_course2_link: "https://cs.nyu.edu/~joannakl/aps_f23/"
+current_course2_link: "https://cs.nyu.edu/~joannakl/aps_f24/"
 current_course3_title: ""
 current_course3_link: ""
 

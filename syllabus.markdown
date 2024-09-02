@@ -62,18 +62,13 @@ updated for the next edition of the book
 
 Your course grade will be based on:
 
-- exams, 25% (one midterm and one final exam) (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
-- homework / weekly problem set, 60% (see [Gradescope verdicts](problem_grading.html) for how the scores are computed)
-- online contest (6 problems), 10%
-- course participation, 5% (this will be based on participation in the dicussion forum, in-class problem submissions, and occasional in-class poll or quiz) 
-
-<!--
-* exams (50%): a midterm exam (20%) and a final exam (30%) - the exams will be computer-based and given in class
-* in-class/in-recitation quizzes (20%) - short paper-based and computer-based assessments
-* homework (20%): most homework assignments will consist of a set of problems to be solved on your own
-* recitations (10%): the participation and completion of work during the recitation sessions  - three lowest grades will be dropped to accommodate any excused or unexcused absences
--->
-
+- exams, 35% (one midterm: 15%, and one final exam: 20)
+- weekly homeworks 40%, each homework will consist of two parts 
+	- 20% problem set with 5 problems each week (see [Gradescope verdicts](problem_grading.html) for how the scores are computed) 
+	- 20% recorded 5 minute problem presentation 
+- online Codeforces contest participation, 5%
+- group project on an assigned topic and 20 minute in-class presentation on that topic, 20% 
+- unannounced in-class activities (add up to 3 points each to the next exam score).   
 
 The letter grades will be determined using the following scale:
 
@@ -88,25 +83,49 @@ The letter grades will be determined using the following scale:
         F   less than 65
 
 
-The grade of *Incomplete* is reserved for students who, for legitimate and documented reason, miss the final exam. The grade of *Incomplete* **will not be given** to student who started falling behind in class. Those students should withdraw from the class or switch to *Pass/Fail* option.
+The grade of *Incomplete* is reserved for students who, for legitimate and documented reason, miss the final exam. The grade of *Incomplete* **will not be given** to student who started falling behind in class. 
+Those students should withdraw from the class or switch to *Pass/Fail* option.
 
 
-# Exams
+## Exams
 ---
-There will be a midterm and a final exam. All exams are cumulative, timed and synchronous.
+There will be a midterm and a final exam. All exams are cumulative, timed and synchronous. The exams are paper-based. You are expected to write algorithms and apply given algorithms (no coding).
 
-__Missing an exam:__ There will be no make-up exams. Failure to take an exam counts as a zero grade on that exam. The only exception to this rule is for students who have a legitimate medical or personal emergency. These students need to talk to the instructor as soon as possible (trying to excuse an exam absence a week after it happened will not work).
+__Missing an exam:__ If you miss the midterm exam, the final exam score will count for both exams. If you miss the final exam, you will receive a grade of 
+incomplete in the course and you will need to take the final exam during the first week of the spring semester. 
 
-# Homework / Weekly Problem Sets
----
 
-Each week you will have a problem set to solve (several problems of varying difficulty). Each problem set is weighted equally. No late submissions will be accepted for the homework problems.
-
-# Online Contests
+## Homework / Weekly Problem Sets
 ---
 
-Throughout the semester we will let you know about various online contests. You need to participate in one
-or more and submit passing solutions to six different problems (in a single contest or in multiple ones). Think of this as practice of your skills in the real world.
+Each week you will have a problem set to solve (several problems of varying difficulty).  You should expect 12 problem sets with 5 problems each. (These numbers may be adjusted if there are significant
+changes to the course scheduling.)
+Fifty highest scoring problems will count towards your course grade. There will be no late submissions on problem sets for any reason (this is why we will be dropping ten lowest scores). 
+We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  
+
+After the due date for each problem set, we will announce one problem (and one alternative problem) from the problem set for which you need to record a 5 minute long explanation of your solution. 
+If you submitted a solution to the announced problem, then you have to explain that problem. If you did not, but submitted a solution to the alternative problem, then you need to 
+explain your solution to that problem. Finally, if you were not able to submit solutions to either of the posted problems, you can submit an explanation of any problem that you submitted. 
+You do not need to pass all (or even any) of the autograder tests in order to explain your solutions. These will be graded on clarity of the explanation and consistency of the explanation with the submitted code, 
+not the correctness of your solution. 
+
+## Online Contests
+---
+
+You need to participate in one or more of the regular contests hosted on [Codeforces](https://codeforces.com). 
+You need to submit passing solutions to five different problems (in a single contest or in multiple ones). Your solutions need to be submited while the contest is active, not after the contests concludes. 
+Think of this as practice of your skills in the real world.
+
+The CodeForces contests fall under different divisions (division 1 contains the most challenging problems, division 2 has somewhat simpler problems, and so on). Problems that you solve in 
+divison 1 and all but problem A in division 2 contests earn you full credit. Problem A in division 2 and all problems in division 3 and 4 contests earn you 75% credit. 
+
+Check the [calendar of contests on Codeforces site](https://codeforces.com/calendar) for upcoming contests. There are contests added on a regular basis.  
+
+## Group Project
+---
+
+Early on in the semester, you will be placed in a small student group. You will need to prepare material on a given topic (this will include a short tutorial presentation on the topic, and a collection of a few 
+problems that other students in the class can attempt).  Each group will be allocated 20 minutes during one of the lectures to present their topic. 
 
 # Academic Integrity Policy
 ---
@@ -149,7 +168,7 @@ __Not Fair Actions__
 - Asking a classmate to see their solutions prior to the last date at which submissions are
 accepted (this may be different than the due date).
 - Failing to acknowledge any form of help in the submission.
-- Finding solutions to problems online and using them for your own submissions.
+- Finding or generating solutions to problems online and using them for your own submissions.
 - Asking anybody (other than the instructional stuff) for help during an exam.
 - Looking at another student's work during an exam.
 
