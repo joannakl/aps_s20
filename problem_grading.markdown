@@ -39,6 +39,8 @@ The total score for a problem is determined by the maximum between zero and the 
 
 (The program needs to pass more than half of the tests to receive a non-zero score.)
 
+<!--
+
 ## Exam problems
 
 Every exam problem is graded out of 10 points. The total exam grade is the weighted sum computed as follows (assume _scoreN_ is a score for a particular problem with _score1_ >= _score2_ >= _score3_ >= _score4_):
@@ -58,3 +60,5 @@ The total score for a problem is determined by the maximum between zero and the 
 | runtime error | *- max_score* |
 | timeout error | *- 0.5 max_score* |
 | presentation error | *0.5 max_score* |
+
+-->

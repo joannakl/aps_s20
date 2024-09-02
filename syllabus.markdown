@@ -88,7 +88,8 @@ Those students should withdraw from the class or switch to *Pass/Fail* option.
 
 
 ## Exams
----
+
+
 There will be a midterm and a final exam. All exams are cumulative, timed and synchronous. The exams are paper-based. You are expected to write algorithms and apply given algorithms (no coding).
 
 __Missing an exam:__ If you miss the midterm exam, the final exam score will count for both exams. If you miss the final exam, you will receive a grade of 
@@ -96,7 +97,7 @@ incomplete in the course and you will need to take the final exam during the fir
 
 
 ## Homework / Weekly Problem Sets
----
+
 
 Each week you will have a problem set to solve (several problems of varying difficulty).  You should expect 12 problem sets with 5 problems each. (These numbers may be adjusted if there are significant
 changes to the course scheduling.)
@@ -111,7 +112,8 @@ You do not need to pass all (or even any) of the autograder tests in order to ex
 not the correctness of your solution. 
 
 ## Online Contests
----
+
+
 
 You need to participate in one or more of the regular contests hosted on [Codeforces](https://codeforces.com). 
 You need to submit passing solutions to five different problems (in a single contest or in multiple ones). Your solutions need to be submited while the contest is active, not after the contests concludes. 
@@ -123,7 +125,8 @@ divison 1 and all but problem A in division 2 contests earn you full credit. Pro
 Check the [calendar of contests on Codeforces site](https://codeforces.com/calendar) for upcoming contests. There are contests added on a regular basis.  
 
 ## Group Project
----
+
+
 
 Early on in the semester, you will be placed in a small student group. You will need to prepare material on a given topic (this will include a short tutorial presentation on the topic, and a collection of a few 
 problems that other students in the class can attempt).  Each group will be allocated 20 minutes during one of the lectures to present their topic. 
