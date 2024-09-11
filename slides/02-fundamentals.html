@@ -721,6 +721,245 @@ In pairs,
 - work together to try to come up with a solution (an algorithm) for the problem
 (DO NOT WRITE ACTUAL CODE)
 
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Visual Depiction of the Problem
+
+Assume `n` is an 8-bit number.
+
+.center[
+<img src="img/splitting_numbers.png" width=80%/>
+]
+
+
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Test cases
+
+--
+
+```
+Input: 1
+Output: 1 0
+```
+
+This is a simplest test case with a single one-bit that goes to `a`. 
+
+
+--
+
+```
+Input: 2
+Output: 2 0
+```
+
+Another simple test case with a single one-bit at a different position. This bit should also go to `a`. 
+
+--
+
+```
+Input: 5
+Output: 1 4
+```
+
+Binary represetation of 5 is `101`. This tests a value with two one-bits at alternating positions. The rightmost bit should go to `a` resulting in 1. The leftmost bit should go to `b` resulting in 4.
+
+--
+
+```
+Input: 6
+Output: 6 4
+```
+
+Binary represetation of 6 is `110`. This tests a value with two one-bits at adjacent positions. The rightmost bit should go to `a` resulting in 2. The leftmost bit should go to `b` resulting in 4.
+
+--
+
+```
+Input: 15
+Output: 5 10
+```
+
+Binary represetation of 15 is `1111`. This tests a value with larger number of consecutive one-bits at the low order bits. 
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Test cases
+
+--
+
+```
+Input: 2147483647
+Output: 1431655765 2863311530
+```
+
+2147483647 is 2^31 - 1, so its binary representation is `0` followed by 31 one-bits. Tests being able to deal with a large number and distribute the bits correctly
+
+--
+
+```
+Input: 1073741824
+Output: 1073741824 0
+```
+
+1073741824 is 2^30, so, just like any other power of 2, this number has a single one-bit in its binary representation. It goes to `a`. 
+
+--
+
+```
+Input: 2730
+Output: 170 2560
+```
+
+2730 is `101010101010` in binary. It is a larger number than the previous test that had alrentating one-bits. 
+--
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Algorithm 
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Algorithm 1
+
+`n` - given number 
+
+`a(n)` - contains alternating one bits from `n`, starting with the least 
+significant one-bit 
+
+`b(n)` - contains alternating one bits from `n`,. starting with the second least
+significant one-bit 
+
+1. Convert the decimal number `n` to its binary representation.
+1. Initialize two numbers, `a` and `b`, to zero.
+1. Traverse the bits of the binary representation of `n`:
+   - For every 1-bit encountered, alternate placing it in `a` and `b` starting with `a`.
+1. Convert the binary representations of `a` and `b` back to their decimal form.
+1. Output `a` and `b` separated by a space.
+
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Algorithm 2 
+
+`n` - given number 
+
+`a(n)` - contains alternating one bits from `n`, starting with the least 
+significant one-bit 
+
+`b(n)` - contains alternating one bits from `n`, starting with the second least
+significant one-bit 
+
+1. Initialize two numbers, `a` and `b`, to zero.
+1. Initialize `position` to zero to keep track of which bit we are on 
+1. Traverse the bits in `n` starting at the least significant one (the zeroth bit)
+	- if the bit is 1 add it at the appropriate position in either `a` or `b`; 
+	alternate placing it in `a` and `b`, starting with `a`
+	- increment `posiiton` by one to move on to the next bit 
+1. Output `a` and `b` separated by a space.
+
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### Algorithm 2 with more details 
+
+`n` - given number 
+
+`a(n)` - contains alternating one bits from `n`, starting with the least 
+significant one-bit 
+
+`b(n)` - contains alternating one bits from `n`, starting with the second least
+significant one-bit 
+
+1. Initialize two numbers, `a` and `b`, to zero.
+1. Initialize a boolean flag `a_turn` to `true` to indicate that the next bit will be placed in `a`. 
+1. Initialize variable `bit_position` to zero to indicate the position of the bit that we are working on. 
+1. As long as `n` is not zero:
+	- if the least significant bit in `n` is 1 we found the next one-bit
+		- if `a_turn` is true, set the bit at `bit_position` in `a` to 1
+		- if `a_turn` is false, set the bit at `bit position` in `b` to 1
+		- flip the valuie of `a_turn` to the opposite 
+	- increment `bit_posiiton` by one to move on to the next bit 
+1. Output `a` and `b` separated by a space.
+
+
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### NOT an Algorithm 
+
+
+```Java
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        int a = 0, b = 0;
+        int index = 0;
+
+        while (n != 0) {
+            if ((n & 1) == 1) {
+                if (index % 2 == 0) {
+                    a |= (1 << index);
+                } else {
+                    b |= (1 << index);
+                }
+            }
+            index++;
+            n >>= 1;
+        }
+
+        System.out.println(a + " " + b);
+```
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### NOT an Algorithm 
+
+```C
+    int x, y, z, i;
+    scanf("%d", &x);
+    for (y = z = i = 0; x; x >>= 1, i++) {
+        if (x & 1) {
+            if (i % 2) z |= 1 << i;
+            else y |= 1 << i;
+        }
+    }
+    printf("%d %d\n", y, z);
+```
+
 
 
 </optgroup>
