@@ -360,6 +360,30 @@ Draw the trees associated with these sets.
 
 
 
+---
+class:challenge
+
+
+## Challenge
+
+
+
+How will this array change after the following three union operations are 
+executed: `union(8,9)`, `union(10,11)`, `union(8,10)` (in that order)?
+
+Draw the trees associated with these sets.
+
+```
+        --------------------------------------------------------------
+         -1  -1  -3  -2  -1   2  -1   3  -1  -1   -1   -1    2   -1
+        --------------------------------------------------------------
+          0   1   2   3   4   5   6   7   8   9   10   11   12   13
+```
+
+
+
+
+
 
 ---
 class:challenge
@@ -415,7 +439,7 @@ n = 5, (countries numbered 1 - 5)
 
 Represent each country with two values: x and x'
 
-The required instructions can be now implemented using disjoint set at follows:
+The required instructions can be now implemented using disjoint set as follows:
 
 - ally(x,y)
     - if sameSet(x,y'), then conflict
@@ -464,6 +488,23 @@ then remove some of the walls to join the cells on two sides of the wall).
 - there should be no cycles in the maze
 
 - every cell should be reachable from every other cell
+
+
+```
+ -- -- -- -- -- --
+S  |  |  |  |  |  |
+ -- -- -- -- -- --
+|  |  |  |  |  |  |
+ -- -- -- -- -- --
+|  |  |  |  |  |  |
+ -- -- -- -- -- --
+|  |  |  |  |  |  |
+ -- -- -- -- -- --
+|  |  |  |  |  |  |
+ -- -- -- -- -- --
+|  |  |  |  |  |  E
+ -- -- -- -- -- --
+```
 
 ---
 ## Challenge: Building a Maze
