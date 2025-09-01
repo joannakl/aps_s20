@@ -23,7 +23,6 @@ See [Brightspace](https://brightspace.nyu.edu/) for the times and Zoom links of 
 - Post all course related questions to the discussion board: content of lectures, labs, projects, .... <br/>
 - If you have private questions related to your grading, your course progress, or anything that should not be discussed by the entire class,  you should post them on Ed as well, but make them visible only to the course staff (any question on Ed can be made private). <br/>
 - To get started with Ed, follow this [Quick Start Guide](https://us.edstem.org/help). <br/>
-
 </p>
 
 
