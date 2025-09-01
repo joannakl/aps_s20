@@ -3,7 +3,7 @@ title: CSCI-UA 480 (Algorithmic Problem Solving)
 short_title: APS
 description: "Course website for CSCI-UA 480 (Algorithmic Problem Solving) course."
 
-baseurl: "/aps_f24" # the subpath of your site, e.g. /blog
+baseurl: "/aps_f25" # the subpath of your site, e.g. /blog
 #url: "https://joannakl.github.io/aps_f23" # the base hostname & protocol for your site, e.g. http://example.com
 
 email_etiquette: "email_etiquette.md"
@@ -23,14 +23,14 @@ exclude:
 course_number: "CSCI-UA 480"
 course_name: "Algorithmic Problem Solving"
 course_section: "52"
-course_semester: "Fall 2024"
-course_time: "Mondays and Wednesdays 12:30pm - 1:45pm, (in person, Silver 520)<br>"
+course_semester: "Fall 2025"
+course_time: "Mondays and Wednesdays 12:30pm - 1:45pm, (in person, 60 Fifth Ave 150)<br>"
 
 
-current_course1_title: "CSCI 102 sec. 5"
+current_course1_title: "CSCI 102 sec. 10"
 current_course1_link: "https://cs.nyu.edu/~joannakl/cs102/"
 current_course2_title: "CSCI 480 sec. 52 (APS)"
-current_course2_link: "https://cs.nyu.edu/~joannakl/aps_f24/"
+current_course2_link: "https://cs.nyu.edu/~joannakl/aps_f25/"
 current_course3_title: ""
 current_course3_link: ""
 
@@ -45,8 +45,9 @@ recitation1_office_hours_location: "TBD"
 tutor_hours: "TBD"
 tutor_hours_location: ""
 
-midterm_exam_date: "October 16 (Wednesday), 12:30 - 1:45 (subject to change in case of significant schedule changes)"
-final_exam_date: "December 16 (Monday), 2:00 - 3:50pm (subject to change by CAS)"
+exam1: "October 15 (Wednesday), 12:30 - 1:45 "
+exam2: "December 1 (Monday), 12:30 - 1:45 "
+final_exam_date: "December 15 (Monday), 2:00 - 3:50pm (subject to change by CAS)"
 final_exams_link: "http://cs.nyu.edu/dynamic/courses/exams/"
 
 ed_site: "https://us.edstem.org/"

@@ -58,12 +58,13 @@ __Sample problems__:
 # Important Dates
 ---
 
-<p class="hang" markdown="1"> **Midterm Exam (these dates may change if there are any schedule changes):** <br>
-{{ site.midterm_exam_date }}
+<p class="hang" markdown="1"> **Exam 1 :** {{ site.exam1 }} (these dates may change if there are any schedule changes)
 </p>
-<p class="hang" markdown="1"> **Final Exam:**
-(date and time subject to change by CAS, check the dates posted by the department
-[here]({{site.final_exams_link}}) ) <br><b>{{site.final_exam_date}}</b>
+<p class="hang" markdown="1"> **Exam 2 :** {{ site.exam2 }} (these dates may change if there are any schedule changes)
+</p>
+<p class="hang" markdown="1"> **End of Semester Programming Contest:**
+{{site.final_exam_date}} check the dates posted by the department
+[here]({{site.final_exams_link}}) 
 
 
 <br>

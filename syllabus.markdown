@@ -3,7 +3,7 @@ layout: default
 ---
 
 
-# Textbook(s)
+# Textbook(s) - ALl Optional
 
 ---
 
@@ -21,7 +21,7 @@ layout: default
 # Useful Resources
 ---
 
-- [Java API 11 documentation](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
+- [Java API 17 documentation](https://docs.oracle.com/en/java/javase/17/docs/api/)
 - [CPP Reference](https://en.cppreference.com/w/)
 - [CPlusPlus](http://www.cplusplus.com/reference/)
 - [Source code examples for the CP3 book](https://sites.google.com/site/stevenhalim/home/material) - collection of
@@ -36,7 +36,7 @@ updated for the next edition of the book
 ---
 
 - __Passing CSCI.UA.0201 with a grade of C or better.__
-- __Passing CSCI.UA.0310 with a grade of C or better.__
+- __Passing CSCI.UA.0310 with a grade of C or better.__ (talk to me if you did not complete this course)
 - Strong familiarity with either Java or C++ or both. (__You will not be able to program in Python.__)
 - (You are expected to also know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.)
 
@@ -62,13 +62,13 @@ updated for the next edition of the book
 
 Your course grade will be based on:
 
-- exams, 35% (one midterm: 15%, and one final exam: 20)
-- weekly homeworks 40%, each homework will consist of two parts 
-	- 20% problem set with 5 problems each week (see [Gradescope verdicts](problem_grading.html) for how the scores are computed) 
-	- 20% recorded 5 minute problem presentation 
+- exams, 25% (exam 1: 10%, and exam 2: 15%)
+- end-of-semester programming contest (during the final exam period), 20%
+- weekly homeworks 30%, each homework will consist of two parts 
+	- 15% problem set with 5 problems each week (see [Gradescope verdicts](problem_grading.html) for how the scores are computed) 
+	- 15% recorded 5 minute problem presentation (an assigned problem from the set for the given week)
+- regular in-class problem solving sprints, 20% 
 - online Codeforces contest participation, 5%
-- group project on an assigned topic and 20 minute in-class presentation on that topic, 20% 
-- unannounced in-class activities (add up to 3 points each to the next exam score).   
 
 The letter grades will be determined using the following scale:
 
@@ -90,10 +90,14 @@ Those students should withdraw from the class or switch to *Pass/Fail* option.
 ## Exams
 
 
-There will be a midterm and a final exam. All exams are cumulative, timed and synchronous. The exams are paper-based. You are expected to write algorithms and apply given algorithms (no coding).
+There will be two paper based exams. All exams are cumulative, timed and synchronous. You are expected to write algorithms (in a programming language independent fashion) and apply given algorithms (no coding).
 
-__Missing an exam:__ If you miss the midterm exam, the final exam score will count for both exams. If you miss the final exam, you will receive a grade of 
-incomplete in the course and you will need to take the final exam during the first week of the spring semester. 
+__Missing an exam:__ If you miss the exam 1, the exam 2 score will count for both. If you miss the exam 2, you will receive a grade of 
+incomplete in the course and you will need to take the exam 2 during the first week of the spring semester. 
+
+## End Of Semester Programming Contest
+
+During the time allocated for the final exam, there will be a programming contest during which you will need to solve a few programming challenges. This will be timed and synchronous contest and you will have to code in a controlled environment with limited access to resources. 
 
 
 ## Homework / Weekly Problem Sets
@@ -102,34 +106,44 @@ incomplete in the course and you will need to take the final exam during the fir
 Each week you will have a problem set to solve (several problems of varying difficulty).  You should expect 12 problem sets with 5 problems each. (These numbers may be adjusted if there are significant
 changes to the course scheduling.)
 Fifty highest scoring problems will count towards your course grade. There will be no late submissions on problem sets for any reason (this is why we will be dropping ten lowest scores).
-We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  The only late submissions will be allowed at the start of the semester to accommodate students who may be joining the class 
-after the due date for a problem set. 
+We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  The only late submissions will be allowed at the start of the semester to accommodate students who may be joining the class after the due date for a problem set. 
 
-After the due date for each problem set, we will announce one problem (and one alternative problem) from the problem set for which you need to record a 5 minute long explanation of your solution. 
-If you submitted a solution to the announced problem, then you have to explain that problem. If you did not, but submitted a solution to the alternative problem, then you need to 
-explain your solution to that problem. Finally, if you were not able to submit solutions to either of the posted problems, you can submit an explanation of any problem that you submitted. 
-You do not need to pass all (or even any) of the autograder tests in order to explain your solutions. These will be graded on clarity of the explanation and consistency of the explanation with the submitted code, 
-not the correctness of your solution. 
+For each problem set, each student will be assigned one problem for which they need to prepare a 5 minute long video explanation of the solution for the problem. If you were not able to submit a solution (correct or incorrect) to the assigned problem, you may submit an explanation of any other problem that you submitted for partial credit. 
+You do not need to pass all (or even any) of the autograder tests in order to explain your solutions. These will be graded on clarity of the explanation and consistency of the explanation with the submitted code, not the correctness of your solution. 
 
 ## Online Contests
-
-
 
 You need to participate in one or more of the regular contests hosted on [Codeforces](https://codeforces.com). 
 You need to submit passing solutions to five different problems (in a single contest or in multiple ones). Your solutions need to be submited while the contest is active, not after the contests concludes. 
 Think of this as practice of your skills in the real world.
 
 The CodeForces contests fall under different divisions (division 1 contains the most challenging problems, division 2 has somewhat simpler problems, and so on). Problems that you solve in 
-divison 1 and all but problem A in division 2 contests earn you full credit. Problem A in division 2 and all problems in division 3 and 4 contests earn you 75% credit. 
+divison 1 and all but problem A in division 2 contests earn you full credit. Problem A in division 2 and all problems in division 3 and 4 contests earn you 50% credit. You can complete more than five problems in order to earn full credit. 
 
 Check the [calendar of contests on Codeforces site](https://codeforces.com/calendar) for upcoming contests. There are contests added on a regular basis.  
 
-## Group Project
+After successfully completing a contest problem, you will need to share its solution and a brief explanation of your solution with the rest of the class. 
+
+# Generative AI Policy
+---
+
+The rise of generative AI tools like Gemini, ChatGPT, Copilot, and many others is fundamentally changing the landscape of computer science and beyond. Given their ubiquity, it is increasingly difficult to avoid their use. In this class, we will not ban these tools; instead, we hope that you will  use them to your benefit rather than to your detriment.
+
+Using AI to do all of your coding work for you will be a detriment to your learning. This approach will leave you unable to perform on exams, succeed in technical interviews, or be a reliable contributor on projects where you are expected to be an expert. True mastery in this field comes from a deep, hands-on practice and understanding of the material, not from effective prompting.
+
+Instead, we encourage you to use AI as a learning partner, leveraging its capabilities in the following ways:
+
+- AI as a Feedback Generator: Use AI to review your code and offer suggestions for improvement, just as a peer would. You can ask it to identify potential bugs, simplify complex sections, or suggest alternative approaches (but make sure to document such assistance, make sure that the suggested changes are correct and that you understand them).
+- AI as a Personal Tutor: When you're stuck on a concept, use AI to explain it in different ways. You can ask it to break down a difficult topic, provide more examples, or clarify why a particular solution works. Remember, however, that AI can "hallucinate" incorrect information; you are responsible for critically evaluating and verifying any information it provides. Sometimes it may be wiser and safer to visit instructors' office hours or tutoring hours to get help rather than relying purely on AI for such help. 
+
+Keep in mind that exams and other assessments in this class will be given with no access to AI tools, so you need to be able to write complete programs, implement parts of given programs, answer questions and suggest solutions to problems on your own without the help of any tools. 
+
+Further resources: 
+
+- [Provost’s Guidance on Student Learning with Generative AI](https://www.nyu.edu/faculty/teaching-and-learning-resources/Student-Learning-with-Generative-AI.html)
 
 
 
-Early on in the semester, you will be placed in a small student group. You will need to prepare material on a given topic (this will include a short tutorial presentation on the topic, and a collection of a few 
-problems that other students in the class can attempt).  Each group will be allocated 20 minutes during one of the lectures to present their topic. 
 
 # Academic Integrity Policy
 ---
