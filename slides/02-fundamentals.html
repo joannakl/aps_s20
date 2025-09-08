@@ -71,7 +71,7 @@ class: slide
 
 ## This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_f24/
+- Course website: https://cs.nyu.edu/~joannakl/aps_f25/
 
     This page contains the syllabus as well as loads
     of links to all other resources and services you will need for this class.
@@ -80,18 +80,16 @@ class: slide
 - Course message board / discussion: Ed
 
 - Online judge:
-    - Gradescope (for homework assignments and exams)
+    - Gradescope (for homework assignments)
+    - Ed (for in-class assessments)
     - Codeforces (for outside contest participation) 
-    - [Vjudge](https://vjudge.net/) for inclass work  - we may or may not use it 
 
-- Brightspace for access to these slides, gradebook, exams, ...
-
-
+- Brightspace for access to these slides, problem sets, gradebook, exams, ...
 
 ---
 
 
-## Online Contest (6 problems)
+## Online Contest (5 problems)
 
 
 [Codeforces](https://codeforces.com/) is a site designed with programming competition 
@@ -102,23 +100,32 @@ on Codeforces.
 - get five problems accepted (can be in one or several different contests) 
 - your solution has to be submitted to the contest while it is active (not to the archived version of a contest)
 - problems that you solve in divison 1 and all but problem A in division 2 contests earn you full credit
-- problem A in division 2 and all problems in division 3 and 4 contests earn you 75% credit
-- the [contest calendar](https://codeforces.com/calendar) is regularly updated with new contests 
+- problem A in division 2 and all problems in division 3 and 4 contests earn you 50% credit, problems solved in unrated contests do not give you credit towards this class, but may still provide valuable practice 
+- the [contest calendar](https://codeforces.com/calendar) is regularly updated with new contests, but do not wait 
+till December to start  
 
---
+---
 
-When you successfully solve a problem and __after__ the actual contest ends:
-- make a post on Ed using "Online Contests" category
-- include a link to the problem description that you successfully solved
-- include a screenshot showing that your solution was accepted 
-- create a runnable code block with your solution so other people
-can see it and test it out
 
-If you solve more than one problem in a single contest, make multiple posts.
+## Online Contest (5 problems)
 
-__These posts should be made within one week of contest completion
-(not on the last day of classes!).
-BUT wait till the contest is over before posting your solutions.__
+When you successfully solve a problem and __after__ the actual contest ends, you will need to share your solution 
+with the rest of the class:
+- Create a workspace on Ed that is shared with anybody in the course (i.e., public). 
+  - Upload your code solution. 
+  - Create a few sample inputs and outputs. 
+  - Create a README file.  It should also have a link to the contest itself and a link to the original problem statement in the contest.
+  It should also contain instructions for how to compile and run your program. Finally, include any comments about challenged you 
+  faced and how you figured out the final correct solution. 
+- Add a comment to the [Codeforces Submissins](https://edstem.org/us/courses/86057/discussion/6928582) thread on Ed. This comment should include
+  - name and date of the contest
+  - name of the problem you solved
+  - link to the workspace with your solution 
+  - screenshot showing your accepted verdict - this screenshot needs to include your username, the name of the problem, and the time stamp 
+
+If you solve more than one problem in a single contest, create multiple workspaces and make multiple posts/comments.
+
+
 
 
 ---
@@ -330,90 +337,7 @@ for (int i = 0; i < n; i++ ) {
 .big[$O(N^3)$]
 
 ---
-template: challenge
-## Challenge
 
-Write a function that checks if a string Y is a substring of another
-string X. The function should return `true` or `false`.
-
-Ex.
-
-X = 'abcdaaaabbbbcddd'
-
-- Y = 'ab'  => function returns `true`
-- Y = 'abab'  => function returns `false`
-
-
----
-template: challenge
-
-## What's the performance of ...
-
-check if a string Y is a substring of another string X
-
-```Java
-public static boolean substringMatch ( String X, String Y ) {
-  for (int i = 0; i < X.length(); i++ ) {
-    boolean matched = true;
-    for (int j = 0; j < Y.length(); j++) {
-      if (i+j >= X.length()) {
-        matched = false;
-        break;
-      }
-      if ( X.charAt(i+j) != Y.charAt(j) )
-        matched = false;
-    }
-    if (matched) return true;
-  }
-  return false;
-}
-```
---
-
-.big[O(X.length * Y.length)]
-
-(Note: there are more efficient solutions.
-We will discuss them later in the semester. )
-
----
-template: challenge
-## What's the performance of ...
-
-check if a string Y is a substring of another string X
-
-```Java
-public static boolean substringMatch ( String X, String Y ) {
-  for (int i = 0; i < X.length(); i++ ) {
-    boolean matched = true;
-    for (int j = 0; j < Y.length(); j++) {
-      if (i+j >= X.length()) {
-        matched = false;
-        break;
-      }
-      if ( X.charAt(i+j) != Y.charAt(j) )
-        matched = false;
-    }
-    if (matched) return true;
-  }
-  return false;
-}
-```
-
-Can we reduce the time further? ( constant factor optimization )
---
-<br>Yes, add
-<br>`    if (!matched) break;       `<br>
-as the last statement in the inner for loop
-
----
-## Constant factor optimization
-
-- good in practice
-
-- may or may not make significant improvements for
-problems you encounter in this class
-
----
 template: challenge
 ## Challenge
 
@@ -424,7 +348,7 @@ ex.
 
 given array: [1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]
 
-revised array: [1, 4, 5, 6, 7, 9]
+revised array: [1, 4, 5, 6, 7, 9, ?, ?, ?, ?, ?, ?, ? ]  (values in remaining spaces are irrelevant)
 
 
 ---
@@ -443,6 +367,18 @@ for (int i = 0; i < array.size(); i++ ) {
   while (j < array.size() && array.get(j) == array.get(i) ) {
     array.remove(j);
   }
+}
+```
+
+or 
+
+```C++
+// assume data is in a std::vector object called array 
+for (int i = 0; i < array.size(); ++i) {
+    int j = i + 1;
+    while (j < array.size() && array.at(j) == array.at(i)) {
+        array.erase(array.begin() + j);
+    }
 }
 ```
 --
@@ -496,7 +432,7 @@ for (int i = 0; i < n; i++ ) {
 ---
 ## Using Library Function
 
-- good in practice, save a lot of time
+- good in practice, saves a lot of time
 
 - be careful when analyzing performance
 
@@ -524,7 +460,7 @@ for (int i = 0; i < n; i++ ) {
 
 template: section
 
-# Data Types and Their Representation
+# Data Types and Their Representation 
 
 ---
 
