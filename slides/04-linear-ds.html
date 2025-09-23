@@ -26,7 +26,7 @@ Instructor: Joanna Klukowska <br>
 
 
 .license[
-Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+Copyright 2025 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
 Background image by Stewart Weiss<br>]
 
@@ -65,12 +65,6 @@ class: slide
 .bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
 
 
-
-
----
-## Questions
-
-- homework questions ?
 
 ---
 ## Basic Linear Data Structures
@@ -334,21 +328,6 @@ then there is a loop and a node at which they meet is somewhere on the loop
 - trace through the loop with one of them to determine the number of nodes in
 the loop
 ]
-
----
-
-class:challenge
-
-## Challenge
-
-
-- Can a singly linked list be circular?
-
-- Can a doubly linked list be circular?
-
-- Can a doubly linked list have a loop?
-
-
 
 ---
 
@@ -696,16 +675,15 @@ case for the full array.
 
 class: middle, center
 
-## Deque
-## (= double ended queue)
+## Hybrids of Stacks and Queues 
 
 ---
-## Deque
+## Deque (= double ended queue)
 
 
 - implementation provided by buil-in classes:
-  - `deque` in C++ STL
-  - `Deque`  in Java (note that this is an interface that
+  - [`deque`](https://en.cppreference.com/w/cpp/container/deque.html) in C++ STL
+  - [`Deque`](https://docs.oracle.com/en/java/javase//20/docs/api/java.base/java/util/Deque.html_)  in Java (note that this is an interface that
   is implemented by several different classes in Java)
 
 --
@@ -714,6 +692,46 @@ class: middle, center
     - push front, push back O(1) - add to either end of the deque
     - pop front, pop back O(1) - remove from either end of the deque
     - empty O(1) - determine if the deque is empty (optional)
+--
+    - add to OR remove from an arbitrary position - O(N) if implemented 
+    - random access to individual elements - O(1) in C++, not provided in Java 
+
+---
+template: challenge
+
+## Challenge: Deque Implementation
+
+Implement your own deque that guarantees O(1) access (add/remove/peek) to both ends. 
+
+---
+template: challenge
+
+## Challenge: Deque with Random Access
+
+Implement your own deque that guarantees O(1) access (add/remove/peek) for both ends AND O(1) random access (retrieval, but not removal or addition) to any position within the deque. 
+
+---
+template: challenge
+
+## Challenge: Teque
+
+__Teque__ stands for Tripple Ended Queue. In addition to the deque's operations, it also provides access to the middle:
+- add/remove front
+- add/remove back
+- add/remove middle 
+
+And we would like all of these to be O(1). 
+
+How can we implement this data structure? 
+
+--
+
+__Additional challenge__: Redesign your teque to provide constant time random access (retrieval, but not removal or addition) to any position within the teque. 
+
+--
+
+Put your ideas and implementations to test on Kattis: [teque](https://open.kattis.com/problems/teque) 
+
 
 ---
 
@@ -946,6 +964,113 @@ $O(N)$
 --
 
 What are good test cases for this problem?
+
+---
+template: challenge
+
+## Challenge: Package Sorting
+
+<!--based on https://onlinejudge.org/external/10/1062.pdf -->
+
+In a high-tech postal sorting facility, packages arrive on a conveyor belt, each one stamped with a capital letter indicating its destination. The facility's automated sorting robots must place each package onto one of several delivery carts. The rule is simple, yet strict: __a package can only be placed on top of a stack if its destination letter is alphabetically earlier than or the same as the letter of the package already at the top of that stack__.
+
+For example, a package going to Chicago (C) can be placed on top of a stack with a New York (N) package, but not on a stack with a Boston (B) package on top.  If a package arrives and none of the existing carts can accommodate it, the robots must deploy a new, empty cart. The facility's management wants to optimize the process to use the absolute minimum number of carts, as each one represents a significant cost. The challenge is to calculate the smallest number of carts needed to sort any given sequence of packages as they arrive.
+
+--
+
+.left-column2[
+
+**Example**
+
+Input 
+
+ABC
+
+Output 
+
+3
+
+
+**Example**
+
+Input 
+
+CBA
+
+Output 
+
+1
+
+]
+.right-column2[
+
+**Example**
+
+Input
+
+CFBD 
+
+Output 
+
+2
+
+
+**Example**
+
+Input
+
+CBACBACBACBACBA 
+
+Output 
+
+3
+
+]
+
+---
+
+
+template: challenge
+
+## Challenge: Package Sorting - Algorithm
+
+```
+input: 
+  alphabetical sequence of letters identifying packages 
+  
+initialize 
+  stacks [] - an empty list of stacks 
+  count = 0 - number of existing stacks 
+  
+for each incoming package p 
+  //find all stacks that are possible places for it 
+  possible_stacks[] - create an empty list of possible stacks 
+  for each stack s in stacks[] 
+    if top of s is larger than or equal to p 
+      add s to possible_stacks
+  if possible_stacks is empty
+    create a new stack and add p to it 
+    increment count 
+  otherwise 
+    //find the possible stack has the smallest letter on top 
+    //(this is the stack that minimizes the difference between p and s.top)
+    destination_stack = first element in the possible_stacks[]
+    for each stack s in the rest of the possible_stacks[] 
+      if top of s is smaller than top of destination_stack 
+        destination_stack = s
+    add p to destination_stack 
+```
+    
+
+---
+
+
+
+
+class: middle, center
+
+## On Your Own
+
 
 ---
 class:on_your_own

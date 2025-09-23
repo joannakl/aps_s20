@@ -852,7 +852,7 @@ significant one-bit
 template: challenge
 
 ## Challenge: Split a Number
-### NOT an Algorithm 
+### NOT a Readable Algorithm 
 
 
 ```Java
@@ -882,7 +882,7 @@ template: challenge
 template: challenge
 
 ## Challenge: Split a Number
-### NOT an Algorithm 
+### NOT a Readable Algorithm 
 
 ```C
     int x, y, z, i;
@@ -895,7 +895,39 @@ template: challenge
     }
     printf("%d %d\n", y, z);
 ```
+---
 
+template: challenge 
+
+## Challenge: Split a Number
+### Algorithm Suggested in Class
+
+```
+n - input value to split 
+
+counter = 0   index number of one bits 
+
+a = 0
+b = 0
+
+n_bin = convert n to binary  // how?
+
+for bit in n_bin from least significant to most significant 
+
+     if bit is 0   continue 
+
+     if counter is even  
+
+             add bit to b at the same position that it was in n 
+
+    else 
+
+              add bit to a at the same position that it was in n 
+
+    increment counter by 1 
+    
+a and b contain the results 
+```
 
 
 </optgroup>
