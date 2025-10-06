@@ -65,6 +65,78 @@ class: slide
 
 ---
 
+## Friends
+
+There is a town with N citizens. It is known that some pairs of people are friends. According to the
+famous saying that “The friends of my friends are my friends, too” it follows that if A and B are friends
+and B and C are friends then A and C are friends, too.
+
+Your task is to count how many people there are in the largest group of friends.
+
+.small[
+__Input__: The first line contains tho numbers N and M , where N is the number of people (1 <= N <= 30000) 
+and M is the number of pairs of people (0 <= M <= 500000), which are known
+to be friends. Each of the following M lines consists of two integers A and B (1 <= A,B <= N , A != B)
+which describe that A and B are friends. There could be repetitions among the given pairs.
+
+__Output__: The size of the largest group of friends. 
+]
+
+.left-column2[
+
+__Example__
+```
+Input
+3 2
+1 2
+2 3
+
+Output 
+3
+``` 
+
+]
+.right-column2[
+
+__Example__
+
+```
+Input
+10 11
+1 2
+3 1
+3 4
+5 4
+3 5
+4 6
+5 2
+2 1
+7 1
+9 10
+8 9
+
+Output 
+7 
+```
+]
+
+---
+
+## Friends 2
+
+
+There is a town with N citizens. It is known that some pairs of people are friends. According to the
+famous saying that “The friends of my friends are my friends, too” it follows that if A and B are friends
+and B and C are friends then A and C are friends, too.
+
+In this town there are town parties each weekend where citizens of the town get to make new friends. 
+(No friendships are ever broken.)
+
+Your task is to count how many people there are in the largest group of friends at the end of each weekend. 
+
+
+---
+
 ## Disjoint Set / Union-Find
 
 - tracks a set of elements partitioned into disjoint subsets
@@ -120,7 +192,7 @@ union(6,8)
 
 
 union(4,6)<br>
-(uses merging by rank: the _tree_ with higher approximate height
+(uses merging by rank: the _tree_ with larger size
 becomes the root)
 
 
@@ -171,7 +243,7 @@ find(7) <br>
 
 ## Visualizations:
 
-- [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/Heap.html)
+- [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/DisjointSets.html)
 
 - [VisuAlgo](https://visualgo.net/en/ufds?slide=1)
 
