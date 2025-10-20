@@ -296,6 +296,7 @@ along that path to be root
 <img src="06/path_compression_2_.png" width = "43%"/>
 
 ---
+name:path_comp
 
 ## Performance Improvement:
 ## Path Compression
@@ -303,16 +304,46 @@ along that path to be root
 - performed during the `find` operations
 
 - when traversing the path from the node to its root, set the parent of each node
-along that path to be root
+along that path to be the root (effectively shortening the paths) 
+
+--
+
+- `find()` without path compression:
+
+```
+    // Input: The element 'i' whose set representative we want to find.
+    // Output: The representative of the set containing 'i'.
+
+    find(i):
+      while parent[i] != i:
+        i = parent[i]
+      
+      return i
+```
+
+---
+template:path_comp
 
 
-__Algorithm for `find(x)`:__
+- `find()` with path compression 
+
 ```
-    if (parent(x) == x )
-        return x
-    x = find(parent(x))
-    return parent(x)
+    // Input: The element 'i' whose set representative we want to find.
+    // Output: The representative of the set containing 'i'.
+
+    find(i):
+      // If 'i' is the root, return it.
+      if parent[i] == i:
+        return i
+      
+      // Recursively find the root of the set. As the recursion unwinds, 
+      // set the parent of 'i' directly to the root. 
+      root = find(parent[i])
+      parent[i] = root
+      
+      return root
 ```
+
 ---
 
 ## Performance Improvement:
@@ -321,44 +352,81 @@ __Algorithm for `find(x)`:__
 - performed during the `union` operation
 
 - rank = upper bound on the depth of the tree (not exact, since the depth is affected by
-path compression and it would be too expensive to keep rank equal to the actual depth)
+path compression and it would be too expensive to keep rank equal to the actual depth) stored in a separate array
+(initially all ranks for singleton sets are the same)
 
 - when merging two sets/trees, we point the root of the one with the lower rank to the root of
 the one with the higher rank
 
-__Algorithm for `union(x,y)`:__
+
+
+---
+
+## Performance Improvement:
+## Merging by Rank
 
 ```
-        root_x = find(x)
-        root_y = find(y)
-        if root_x != root_y :
-            if rank(root_x) <= rank (root_y)
-                parent(root_x) = root_y
-                rank(root_y) += rank(root_x)
-            else if rank(root_x) > rank(root_y)
-                parent(root_y) = root_x
-                rank(root_x) += rank(root_y)
+// Input: Two elements 'i' and 'j' that we want to merge into a single set.
+// Assumes the existence of a find() function and a rank array.
+
+function union(i, j):
+  // Find the representatives (roots) of the sets containing 'i' and 'j'.
+  root_i = find(i)
+  root_j = find(j)
+
+  // If they are already in the same set, do nothing.
+  if root_i == root_j:
+    return
+
+  // Attach the smaller-rank tree under the root of the higher-rank tree.
+  if rank[root_i] < rank[root_j]:
+    parent[root_i] = root_j
+  else if rank[root_i] > rank[root_j]:
+    parent[root_j] = root_i
+  else:
+    // If ranks are the same, make one the root and increment its rank.
+    // It doesn't matter which one we choose.
+    parent[root_j] = root_i
+    rank[root_i] = rank[root_i] + 1
 ```
+
+--
+
+Why don't we increment rank of `root_i` and `root_j` when they are not equal? 
+
+
 
 ---
 
 ## Performance Improvement:
 ## Merging by Size
 
-- an alternative to merging by rank - it uses the number of nodes instead of
+- an alternative to merging by rank: uses the number of nodes instead of
 the approximate depth
 
 
---
+---
 
-__How do we store the information about the size (or rank from the previous slide)?__
+## Performance Improvement:
+## Merging by Rank/Size
 
---
-
-- to mark that element `i` is the root of the tree, use `-size` at its value, i.e., `A[i]=-size`
-(since we do not need to know the parent for the root)
+- Can we store the information about the rank/size without using an extra array? 
 
 --
+
+(For the rest of this discussion, we focus on size.) 
+
+--
+
+- Use the original array that stores the parent information. To indicate that an element 
+is the root of the set, its value is set to -size. 
+    - this means that whenever we discover a negative value we know it is a root (no longer looking for A[i] == i relationship) 
+    - the absolute value of A[i] is the size 
+
+
+---
+
+## Performance Improvement
 
 ```
         --------------------------------------------------------------
