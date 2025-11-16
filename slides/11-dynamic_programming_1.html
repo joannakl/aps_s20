@@ -86,9 +86,26 @@ class: slide
 
 
 
+---
+## Richard Bellman 
+
+--
+
+[From Wikipedia (Nov 10, 2025)](https://en.wikipedia.org/wiki/Richard_E._Bellman)
+
+Richard Ernest Bellman (August 26, 1920 – March 19, 1984) was an American applied mathematician, who introduced dynamic programming in 1953, and made important contributions in other fields of mathematics, such as biomathematics.
 
 
+--
 
+__What's with the name _dynamic programming_?__
+
+--
+
+
+[From Wikipedia (Nov 10, 2025)](https://en.wikipedia.org/wiki/Dynamic_programming#History_of_the_name) 
+
+The word dynamic was chosen by Bellman to capture the time-varying aspect of the problems, and because it sounded impressive. The word programming referred to the use of the method to find an optimal program, in the sense of a military schedule for training or logistics. This usage is the same as that in the phrases linear programming and mathematical programming, a synonym for mathematical optimization.
 
 
 
@@ -106,11 +123,13 @@ class: slide
 ## Dynamic Programming
 
 __Dynamic programming__ is a technique of solving problems by means of breaking a larger
-problem into smaller/simpler sub-problems.
+problem into smaller/simpler overlapping sub-problems.
 
 Dynamic programming solutions gain their speed over the complete-search types of problem solving
 techniques by making sure that each sub-problem is solved only once and the result
-is stored for reuse later one.
+is stored for reuse later on.
+
+
 
 ---
 
@@ -122,7 +141,7 @@ Here is one way to compute Fibonacci Numbers:
 int fib ( int N ) {
   if N <= 1
     return N
-  return fib (N-1) + fib(N+2)
+  return fib (N-1) + fib(N-2)
 }
 ```
 --
@@ -201,11 +220,11 @@ int fib ( int N ) {
 - behind all of these aproaches there is the same recurrence relation:
     $$ fib(i) = fib(i-1) + fib(i-2) $$
 
-- two approaches to solution:
+- two approaches to a solution:
 
     - __top-down__
         - start from the desired value, fib(N)
-        - follows its dependencies based on the recurrence ration
+        - follows its dependencies based on the recurrence relation
         - use memoization to avoid recomputation
 
     - __bottom-up__
@@ -323,7 +342,7 @@ call fills in one of the values in the `answer` array)
 - we can compute the same using an iterative approach
 that constructs the solution from the bottom (bottom-up approach)
 
-- what will the algorith for this look like?
+- what will the algorithm for this look like?
 
 .hidden[
     ```
@@ -337,6 +356,14 @@ that constructs the solution from the bottom (bottom-up approach)
                 answer[n] = min ( answer[n] ,  answer[n-c] + 1)
     ```
 ]
+
+---
+
+## Making change with DP 
+
+__Example__
+
+N = 17, coins = {2, 5, 8, 10} 
 
 ---
 
@@ -381,50 +408,60 @@ template: challenge
 
 ## Making change: in how many ways
 
-- another version of this problem is not to minimize the number of coins,
+Another version of this problem is not to minimize the number of coins,
 but rather calculate the total number of possible ways in which we can make the requested amount
 
 --
 
-- what is the recurrence relation  in this case?
+- What is the recurrence relation  in this case?
 
 --
 
-.hidden[
+- Test your recurrence relation with $C={1,3,4}$ and desired amount $A=5$. We assume we have endless supply of each coin denomination.
 
-  - relation:
-    $ how\_many(N) = \sum_{k=0}^{K}{ how\_many(N-c_k)}$
-]
-.hidden[
-  - base case(s): <br>
-    $ how\_many( < 0 ) = 0 $ <br>
-    $ how\_many( 0 ) = 1 $
+---
+
+## Making change: in how many ways
+
+__Idea__ 
 
 
-]
+For any given amount $a$, and a specific coin $c_i$, we have two options: 
+- do not use the coin $c_i$, and see in how many ways we can construct $a$ without using that coin, and 
+- do use the coin $c_i$, and in see how many ways we can construct $a-c_i$ (since we are using $c_i$, the amount decreases).
 
---
 
-- recall that the original solution picked the smallest value returned by the recursive calls,
-in this new case, we actually want to calculate the sum of all the possibilities
+---
 
-.hidden[
-    ```
-    answer = a 1D array of (N+1) elements
-    answer[0] = 1
+## Making change: in how many ways
 
-    for n in 1 .. N
-        answer[n] = 0
-        for all c in C
-            if x-c >= 0
-                answer[n] = answer[n] +  answer[n-c]
-    ```
-]
+Let's define a function $count(i, a)$
+
+$C$ - the array of coin denominations, $C=[c_1,c_2, ..., c_K]$ 
+
+$i$ - the index of the coin denomination we are currently considering
+
+$a$ - the target amount we are still trying to make, $A$ is the overall given target amount
 
 --
 
-- Try it with $coins={1,3,4}$ and desired $sum=5$. We assume we have endless supply of each coin denomination.
+$$count(i, a) = count(i + 1, a) + count(i, a - c_i)$$
 
+--
+
+$count(i + 1, a)$ - do not use $c_i$ to make the amount $a$, use the coins starting from the one at index $i+1$ 
+
+--
+
+$count(i, a - c_i)$ - use $c_i$ to make the amount $a$, now we need to know how many ways we can make $a-c_i$ starting from the coin at index $i$ since we can reuse the same coin many times 
+
+--
+
+Base cases:
+
+- $count(i, 0) = 1$ - we found one way to come up with the amount $A$ 
+- $count(i, a) = 0$ if $a < 0$ - we overshot the target with the given coin choices, so this is not a way to come up with amount $A$
+- $count(i, a) = 0$ if $i > K$ (and $a > 0$), we run out of coins to consider and the left over amount is still positive, so this is not a way to come up with amount $A$
 
 ---
 
