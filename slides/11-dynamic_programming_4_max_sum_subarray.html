@@ -71,33 +71,36 @@ class: slide
 
 
 ---
-## Challenge: # Max Sum Subarray
+## Challenge: Max Sum Subarray
 
-In computer science, the maximum sum subarray problem is the task of finding a contiguous subarray wit
-h the largest sum, within a given one-dimensional array A[1...n] of numbers.
+The __maximum sum subarray problem__ is the task of finding a contiguous subarray with the largest sum, within a given one-dimensional array `A[0..n-1]` of numbers.
 
-Formally, the task is to find indices i and j with 1 <= i <= j <= n, such that the sum
+__Example__
 
-a[i] + a[i+1] + ... + a[j-1] + a[j]
+array `A = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`
 
-is as large as possible.
-
-For example, for the array of values [-2, 1, -3, 4, -1, 2, 1, -5, 4], the contiguous subarray with the
- largest sum is [4, -1, 2, 1], with sum 6.
+the subarray with the largest sum is `[4, -1, 2, 1]`, with sum `6`.
 
 Write a program to calculate such sum with given input array.
 
+--
+.small[
 __Input__
 
-The first line contains 1 integer n, the number of elements in the input array. 1 <= n <= 100000.
+The first line contains an integer `n`, the number of elements in the input array, $1 <= n <= 100000$.
 
-In the next line, there are n integer indicating the elements of the array. We have $-10^9 <= A[i] <= 
-10^9$ for $1 <= i <= n$.
+On the next line, there are `n` integers indicating the elements of the array. We have $-10^9 <= A[i] <= 
+10^9$ for $0 <= i <= n-1$.
 
 __Output__
 
 Output one line containing the value of the sum for the  maximum subarray.
 
+]
+
+--
+
+.left-column2[ 
 
 __Example 1__
 
@@ -110,7 +113,8 @@ Output:
 6
 
 ```
-
+]
+.right-column2[
 __Example 2__
 
 ```
@@ -121,6 +125,7 @@ Input:
 Output:
 -1
 ```
+]
 
 ---
 
@@ -169,11 +174,17 @@ for i in 0 .. N
         if sum > best 
             best = sum 
 return best 
+
+
+
 ```
+
 --
+
 
 __Complexity__ $O(N^3)$
 
+---
 
 ## Brute Force - Take 2
 
@@ -219,1875 +230,328 @@ The maximum subarray for a given array `A[i...j]` can be in one of three places:
 
 - in the left half `A[i...mid]`
 
-- in the right half `A[mid+1...j]
+- in the right half `A[mid+1...j]`
 
 - spanning the midpoint (a subarray that starts in the left half and ends in the right half).
 
+---
+
+
+
+
+## Divide and Conquer - Algorithm 
+
+.left-column2-small[
+
+`A[0...n-1]` - the given array 
+
+`maxSubarra(i, j)`  - computes the max subarray between indexes `i` and `j`
+]
 --
+.right-column2-large[
 
 ```
-
-A[0...n-1] - the given array 
-
-maxSubarra(i, j)  - computes the max subarray between indexes i and j
-
-
-
 maxSubArray(i, j):
     if i == j:
-        return A[i]                  // only one element
-
+        return A[i]       // only one element
+```
+]
+--
+.right-column2-large[
+```
     mid = (i + j) / 2
 
     // solve in left and right halves
     leftMax  = maxSubArray(i, mid)
     rightMax = maxSubArray(mid + 1, j)
-
+    
+```
+]
+--
+.right-column2-large[
+```
     // compute best suffix of left half
     sum = 0
     bestLeftMiddle = -INF
     for l from mid down to i:
         sum += A[l]
         bestLeftMiddle = max(bestLeftMiddle, sum)
-
+        
     // compute best prefix of right half
     sum = 0
     bestRightMiddle = -INF
     for r from mid + 1 up to j:
         sum += A[r]
         bestRightMiddle = max(bestRightMiddle, sum)
-
+```
+]
+--
+.right-column2-large[
+```
     crossMax = bestLeftMiddle + bestRightMiddle
 
     return max(leftMax, rightMax, crossMax)
 
-
 ```
-
-
-
-## Max Sum Subarray
-
-### Greedy Attempt Fails
-
-__Idea__: Go through each garment and pick the most expensive item within the
-remaining budget.
-
-__Problem__: Each decision influences the possible future decisions, making some of them impossible.
-In many cases, this approach will lead to wrong answers (sub-optimal solution or no solution).
-
-
-__Example__:
-
-M = 12, C = 3:
-
-```
-3:   6 4 8
-2:   5 10
-4:   1 5 3 5
-```
-
-Greedy approach picks 8 for the first garment, and returns no solution since
-the remaining budget of 4 does not allow us to pick anything else.
-
-Optimal solution picks 6, 5, 1 and uses the entire budget.
-
-
-__BUT__ greedy approach works for the original example when the budget was 20.
-
-
----
-## Max Sum Subarray
-
-### Divide and Conquer
-
-Subproblems (selecting of each type of the garment) are not independent - the
-solution depends on the choices made for other subproblems.
-
-The divide and conquer approach is not suitable here.
-
-
-
----
-## Max Sum Subarray
-
-### Complete Search / Recursive Backtracking
-
-Algorithm:
-
-- start with money $m=M$ and garment category $i=0$,
-- $shop( m, i )$ - returns the largest amount that can be spent assuming we have the available
-amount of money $m$ and categories $i..C$ to chose from
-
-```
-shop( m, i )
-
-    if m < 0  return -INF          //run out of money
-    if i == C return (M - m)       //finished and spent M-m
-
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-
-    return best
-```
-<br/>
-
---
-
-Produces correct answer, but slow
-- in the largest case, each garment category has 20 different items and
-there are 20 garment categories
-- this gives $20^{20}$ recursive calls to solve the sub-problems
-in the worst case - too many
-
-
-
----
-## Max Sum Subarray
-
-
-
-But, the good news is that some of those $20^{20}$ subproblems are overlapping and
-we really have many fewer unique subproblems to solve.
---
-
-- if any garment category has more than one item with the same price, then the two
-subproblems (selecting one or the other of the garments) are the same, example:
-    ```
-    C = 3:
-
-    3:   6 1 8
-    3:   5 10 5
-    4:   1 5 3 5
-    ```
-    selecting either of the 5's in the second row, will lead to the same solutions
---
-
--  at the time that we look at garment cagory i, we might be starting with the same
-amount of money even though we made different choices in the previous categories,  example:
-    ```
-    C = 3:
-
-    3:   6 1 8
-    3:   5 10 5
-    4:   1 5 3 5
-    ```
-    selecting either 6 and 5, or 1 and 10 will lead to the same _best_ option for
-    the last row (in both cases, we already spend 11 out of the budget)
-
-
----
-## Max Sum Subarray
-
-.small[
-consider the following functions and quantities
-- $shop(m, i)$, $0 <= m <= M$ and $0 <= i <= C$ <br>
-returns the amount of money we can spend using `m` dollars for the
-garments in categories `i, i+1, ..., C-1`
-
-- $p[i][g]$ is the price of garment g in garment category i
-
-- $count[i]$ is the number of garments in garment category i
 ]
 
 --
 
-then the following are true
+__Complexity__ $O(N\log N)$
 
-- if $m < 0$, then $shop(m, i) = -\infty$
 
-- if $i == C$ (an item in last garment category has been purchased), then
-$shop(m,i) = M-m$
 
-- for all other cases, <br>
+---
 
-  $$shop(m, i) = \max_{g=0}^{count[i]}{ shop(m - p[i][g], i+1)}$$
+## Another _Brute Force_, But Different 
+
+__Idea__ At any index `i` in the array, we have two options:
+
+- continue with the _current best_, i.e., with the currently computed best sum (this is not the best overall sum known so far)
+
+- start a new _best_  
 
 --
 
-In this problem, there are
-- 201 options for M (since `0 <= M <= 200`)
-- 20 options for item category (since `1 <= C <= 20`)
 
-so there are 201*20 = 4020 possible subproblems (in the worst case).
+`A[0...n-1]` - the given array 
 
----
-## Wedding Shopping with DP (top-down)
+`bestEndingAt(i)` - maximum sum of a subarray that ends exactly at index `i`
 
-
-```
-answer = an M+1 by C 2D array initialized to -1
-
-shop( m, i )
-
-    if m < 0  return -INF          //run out of money
-    if i == C return (M - m)       //finished and spent M-m
-
-    // !!! without this line below, we are simply doing backtracking
-    if answer[m][i] != -1   return answer[m][i]
-
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-
-    answer[m][i] = best
-
-    return best
-
-```
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-```
-shop(20, 0)
-```
-]
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)
-  shop(19, 1)
-  shop(12, 1)
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)
-  shop(19, 1)      shop(4, 2)
-  shop(12, 1)      shop(9, 2)
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  shop(8, 3)
-  shop(19, 1)      shop(4, 2)       shop(4, 3)
-  shop(12, 1)      shop(9, 2)       shop(6, 3)
-                                    shop(4, 3)
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  shop(8, 3)  --- return 12
-  shop(19, 1)      shop(4, 2)       shop(4, 3)  --- return 16
-  shop(12, 1)      shop(9, 2)       shop(6, 3)  --- return 14
-                                    shop(4, 3)  --- return 16
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  shop(8, 3)  --- return 12
-  shop(19, 1)      shop(4, 2)       shop(4, 3)  --- return 16
-  shop(12, 1)      shop(9, 2)       shop(6, 3)  --- return 14
-                                    shop(4, 3)  --- return 16
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  16
-  shop(19, 1)      shop(4, 2)  ---  shop(3, 3)
-  shop(12, 1)      shop(9, 2)       shop(-1, 3)
-                                    shop(1, 3)
-                                    shop(-1, 3)
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  16
-  shop(19, 1)      shop(4, 2)  ---  shop(3, 3)  --- 17
-  shop(12, 1)      shop(9, 2)       shop(-1, 3) --- -INF
-                                    shop(1, 3)  --- 19
-                                    shop(-1, 3) --- -INF
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  16
-  shop(19, 1)      shop(4, 2)  ---  shop(3, 3)  --- 17
-  shop(12, 1)      shop(9, 2)       shop(-1, 3) --- -INF
-                                    shop(1, 3)  --- 19
-                                    shop(-1, 3) --- -INF
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- shop(9, 2)  ---  16
-  shop(19, 1)      shop(4, 2)  ---  19
-  shop(12, 1)      shop(9, 2)  ---  16 (table lookup)
-
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- shop(14, 2)
-  shop(12, 1)      shop(9, 2)
-                   shop(14, 2)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- shop(14, 2)   ---  shop(13, 3)
-  shop(12, 1)      shop(9, 2)         shop(9, 3)
-                   shop(14, 2)        shop(11, 3)
-                                      shop(9, 3)
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    |    |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- shop(14, 2)   ---  shop(13, 3)  ---  7
-  shop(12, 1)      shop(9, 2)         shop(9, 3)   ---  11
-                   shop(14, 2)        shop(11, 3)  ---  9
-                                      shop(9, 3)   ---  11
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- shop(14, 2)   ---  11
-  shop(12, 1)      shop(9, 2)
-                   shop(14, 2)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    |    |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- shop(14, 2)   ---  11
-  shop(12, 1)      shop(9, 2)    ---  16  (table lookup)
-                   shop(14, 2)   ---  11  (table lookup)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)
-                   shop(2, 2)
-                   shop(7, 2)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  shop(6, 3)
-                   shop(2, 2)       shop(2, 3)
-                   shop(7, 2)       shop(4, 3)
-                                    shop(2, 3)
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   |   |   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  shop(6, 3)  ---  14
-                   shop(2, 2)       shop(2, 3)  ---  18
-                   shop(7, 2)       shop(4, 3)  ---  16
-                                    shop(2, 3)  ---  18
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  18
-                   shop(2, 2)
-                   shop(7, 2)
-
-
-
-```
-]
-
-
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   |   |   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  18
-                   shop(2, 2)  ---  shop(1, 3)  --- 19
-                   shop(7, 2)       shop(-3, 3) --- -INF
-                                    shop(-8, 3) --- -INF
-                                    shop(-3, 3) --- -INF
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   | 19|   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  18
-                   shop(2, 2)  ---  19
-                   shop(7, 2)
-
-
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    | 19 |    |    |    |    | 16 |    |
-| 2 |   | 19|   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- shop(7, 2)  ---  18
-                   shop(2, 2)  ---  19
-                   shop(7, 2)  ---  18 (table lookup)
-
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    | 19 |    | 19 |    |    |    |    | 16 |    |
-| 2 |   | 19|   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0)
-  shop(14, 1)  --- 19
-  shop(19, 1)  --- 16
-  shop(12, 1)  --- 19
-
-
-```
-]
-
----
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( m, i )
-    if m < 0  return -INF
-    if i == C return (M - m)
-    if answer[m][i] != -1   return answer[m][i]
-    best = -1
-    for g in  0 .. count[i]
-        best  =  max ( best,  shop(m - price[i][g], i+1) )
-    answer[m][i] = best
-    return best
-```
-]
-.below-column2[
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    | 19 |
-| 1 |   |   |   |   |   |   |   |   |   |    |    | 19 |    | 19 |    |    |    |    | 16 |    |
-| 2 |   | 19|   | 19|   |   | 18|   | 16|    |    |    |    | 11 |    |    |    |    |    |    |
-
-```
-shop(20, 0) --- 19
-
-```
-]
-
-
----
-## Wedding Shopping with DP (bottom-up)
-
-How do we solve this problem using bottom-up approach?
-
-.center[.huge[??? ]]
---
-
-- there are different approaches to this, so there are several possible answers
-
-
----
-
-## Wedding Shopping with DP (bottom-up)
-
-```
-answer = an M+1 by C 2D array initialized to -1
-
-shop( M )
-
-    //populate the table with values from the first category
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-    //populate the remaining categories
-    for i in 1 .. C-1
-        for m  in  0 .. M
-            if answer[m][i-1] != -1
-                for g in 0 .. count[i]
-                    answer[ m + price[i][g] ][i] = m + price[i][g]    <<<<
-
-    // find the highest price in the bottom row of the table
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-
-
-
-`<<<<  `  be careful with array out of bounds access here
-
-
----
-
-
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-    for i in 1 .. C-1
-        for m  in  0 .. M
-            if answer[m][i-1] != -1
-                for g in 0 .. count[i]
-                    answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
-
----
-
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-*   for g in  0 .. count[0]
-*       answer[ price[0][g] ][i] = price[0][g]
-
-    for i in 1 .. C-1
-        for m  in  0 .. M
-            if answer[m][i-1] != -1
-                for g in 0 .. count[i]
-                    answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
----
-
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 1
-        for m  in  0 .. M
-            if answer[m][i-1] != -1
-                for g in 0 .. count[i]
-                    answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 1
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1       m = 1
-*               for g in 0 .. count[i]
-*                   answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    |    |    |    |    |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 1
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1       m = 6
-*               for g in 0 .. count[i]
-*                   answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    |    |    |    | 16 |    |    |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 1
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1       m = 8
-*               for g in 0 .. count[i]
-*                   answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-            if answer[m][i-1] != -1
-                for g in 0 .. count[i]
-                    answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1          m = 6
-*              for g in 0 .. count[i]
-*                  answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 |    |    |    |    |    |    |    |    |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1          m = 11
-*              for g in 0 .. count[i]
-*                  answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 | 12 |    | 14 |    | 16 |    |    |    |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1          m = 13
-*              for g in 0 .. count[i]
-*                  answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 | 12 |    | 14 |    | 16 |    | 18 |    |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1          m = 16
-*              for g in 0 .. count[i]
-*                  answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 | 12 |    | 14 |    | 16 | 17 | 18 | 19 |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-*   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-*           if answer[m][i-1] != -1          m = 18
-*              for g in 0 .. count[i]
-*                  answer[ m + price[i][g] ][i] = m + price[i][g]
-
-    for m in M .. 1
-        if answer[m][C-1] != -1
-            return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 | 12 |    | 14 |    | 16 | 17 | 18 | 19 |    |
-]
-
----
-
-.left-column2-small[
-```
-M = 20
-C = 3
-c0: 6, 1, 8
-c1: 5, 10, 5
-c2: 1, 5, 3, 5
-```
-]
-.right-column2-large[
-```
-shop( M )
-    for g in  0 .. count[0]
-        answer[ price[0][g] ][i] = price[0][g]
-
-   for i in 1 .. C-1               i = 2
-        for m  in  0 .. M
-            if answer[m][i-1] != -1          m = 18
-               for g in 0 .. count[i]
-                   answer[ m + price[i][g] ][i] = m + price[i][g]
-
-*   for m in M .. 1
-*       if answer[m][C-1] != -1
-*           return m
-```
-]
-.below-column2[
-
-answer table:
-
-|   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | 1 |   |   |   |   | 6 |   | 8 |   |    |    |    |    |    |    |    |    |    |    |    |
-| 1 |   |   |   |   |   | 6 |   |   |   |    | 11 |    | 13 |    |    | 16 |    | 18 |    |    |
-| 2 |   |   |   |   |   |   | 7 |   | 9 |    | 11 | 12 |    | 14 |    | 16 | 17 | 18 | 19 |    |
-]
-
-return 19
+`bestOverall(i)` - maximum sum of a subarray anywhere in `A[0..i]`
 
 --
 
-- What are possible improvements to this top-down approach?
+Recurrence relation: 
+
+$$bestEndingAt(i) = max ( A[i], A[i]+bestEndingAt(i−1) )$$ 
+
+$$bestOverall(i) = max ( bestOverall(i−1), bestEndingAt(i) ) $$
+
+
+--
+
+Base cases:
+
+- $bestEndingAt(0) = A[0]$
+
+- $bestOverall(0) = A[0]$
+
+
 
 ---
+
+## Another _Brute Force_ (top-down)
+
+
+.left-column2[
+
+```
+memoEnd[0..n-1]    - initialized to undefined 
+memoEnd[0] = A[0]  - base case 
+
+
+
+bestEndingAt(i)
+    if i < 0:
+        return -INF 
+
+    if memoEnd[i] is defined:
+        return memoEnd[i]
+
+    if i == 0:
+        memoEnd[0] = A[0]
+    else:
+        memoEnd[i] = max( A[i], 
+                A[i] + bestEndingAt(i-1) )
+
+    return memoEnd[i]
+
+
+```
+]
+--
+.right-column2[
+```
+
+
+
+
+
+bestOverall(i)
+    if i < 0:
+        return -INF
+    
+    best = -INF 
+    
+    if i == 0:
+        best = A[0]
+    else:
+        best = max( bestOverall(i-1), 
+                     bestEndingAt(i) )
+
+    return best 
+
+```
+]
+
+---
+
+name:topdown1
+
+## Another _Brute Force_ (top-down)
+
+
+Example 
+
+- `A = A = [3, -2, 5, -1, 4]`
+
+- we need to trace `bestOverall(4)` 
+
+---
+template:topdown1
+name:topdown2
+
+.left-column2[
+
+```
+bestOverall(4)
+ └─ needs bestOverall(3) and bestEndingAt(4)
+
+bestOverall(3)
+ └─ needs bestOverall(2) and bestEndingAt(3)
+
+bestOverall(2)
+ └─ needs bestOverall(1) and bestEndingAt(2)
+
+bestOverall(1)
+ └─ needs bestOverall(0) and bestEndingAt(1)
+
+bestOverall(0)
+ └─ base case: bestEndingAt(0) = A[0] = 3
+    return 3
+
+```
+]
+
+---
+template:topdown2
+
+.right-column2[
+
+```
+memoEnd = [3, undef, undef, undef, undef ]
+
+bestEndingAt(1):
+   uses bestEndingAt(0) -> memo hit (3)
+   memoEnd[1] = max(-2, -2 + 3) = 1
+   
+bestOverall(1) = max(3, 1) = 3
+return 3
+```
+]
+
+
+---
+template:topdown2
+
+.right-column2[
+
+```
+memoEnd = [3, 1, undef, undef, undef ]
+
+bestEndingAt(2):
+   bestEndingAt(1) -> memo hit (1)
+   memoEnd[2] = max(5, 5 + 1) = 6
+   
+bestOverall(2) = max(3, 6) = 6
+return 6
+```
+]
+
+
+---
+template:topdown2
+
+.right-column2[
+
+```
+memoEnd = [3, 1, 6, undef, undef ]
+
+bestEndingAt(3):
+   bestEndingAt(2) -> memo hit (6)
+   memoEnd[3] = max(-1, -1 + 6) = 5
+   
+bestOverall(3) = max(6, 5) = 6
+return 6
+```
+]
+
+
+---
+template:topdown2
+
+.right-column2[
+
+```
+memoEnd = [3, 1, 6, 5, undef ]
+
+bestEndingAt(4):
+   bestEndingAt(3) -> memo hit (5)
+   memoEnd[4] = max(4, 4 + 5) = 9
+   
+bestOverall(4) = max(6, 9) = 9
+return 9
+```
+]
+
+
+---
+
+
+## Another _Brute Force_ (bottom-up)
+
+```
+A[0..n-1]                // given array
+bestEndingAt[0] = A[0]   // max sum of subarray ending exactly at index 0
+best = A[0]              // best subarray seen so far
+
+for i from 1 to n-1:
+    bestEndingAt[i] = max(A[i], A[i] + bestEndingAt[i-1])
+    best = max(best, bestEndingAt[i])
+
+return best
+
+```
+--
+
+
+
+__Example  `A = A = [3, -2, 5, -1, 4]`__
+
+```
+i = 1:
+    bestEndingAt[1] = max(-2, -2 + 3) = 1
+    best = max(3, 1) = 3
+```
+--
+```
+i = 2:
+    bestEndingAt[2] = max(5, 5 + 1) = 6
+    best = max(3, 6) = 6
+```
+--
+```
+i = 3:
+    bestEndingAt[3] = max(-1, -1 + 6) = 5
+    best = max(6, 5) = 6
+```
+--
+```
+i = 4:
+    bestEndingAt[4] = max(4, 4 + 5) = 9
+    best = max(6, 9) = 9
+```
 
 
 </optgroup>
