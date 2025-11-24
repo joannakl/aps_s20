@@ -463,7 +463,188 @@ Base cases:
 - $count(i, a) = 0$ if $a < 0$ - we overshot the target with the given coin choices, so this is not a way to come up with amount $A$
 - $count(i, a) = 0$ if $i > K$ (and $a > 0$), we run out of coins to consider and the left over amount is still positive, so this is not a way to come up with amount $A$
 
+--
+
+Using this recurrence relation work out the specific case when 
+- target amount $A = 5$ 
+- coins $C = [1, 3, 4]$
+
+
 ---
+
+### Making change: in how many ways (top-down)
+
+- `C` - the array of coin denominations, `[c_0, c_1, ..., c_{m-1}]`.
+
+- `A` -  the target amount.
+
+- `wayCache` - a 2D array (cache or memo table) to store computed results; -1 marks a state as "not yet computed."
+
+--
+
+
+```
+function findTotalWays(A, C):
+  // Get number of coin denominations
+  m = C.length
+
+  // create the cache: [m][A + 1]
+  // we need m rows (for index 0 to m-1)
+  // we need A+1 columns (for amount 0 to A)
+  initialize wayCache[m][A + 1] with -1
+
+  // start the recursion from the first coin (index 0) and target amount A
+  return countWays(0, A, C, wayCache)
+```
+
+]
+
+---
+
+```
+function countWays(i, a, C, wayCache):
+  // i = current coin index, a = current amount to make
+
+  // BASE CASE 1: Success, we've successfully made the exact amount. This is 1 valid way.
+  if (a == 0):  return 1
+
+  // BASE CASE 2: Failure, we overshot. This path is invalid.
+  if (a < 0):   return 0
+
+  // BASE CASE 3: Failure, we run out of coins, but the amount 'a' is still > 0.
+  if (i == C.length): return 0
+
+  // If we've already computed the result for this state (i, a), return it.
+  if (wayCache[i][a] != -1):
+    return wayCache[i][a] 
+
+  // Compute the two possibilities
+  // 1. Exclude the coin C[i] and move to the next coin (i + 1) with the same amount a.
+  waysExclude = countWays(i + 1, a, C, wayCache)
+
+  // 2. Include the coin C[i] and stay on the same coin (i) but reduce the target 
+  //    amount a by C[i].
+  waysInclude = countWays(i, a - C[i], C, wayCache)
+
+  // The total number of ways is the sum of both choices. Store this result in the cache.
+  wayCache[i][a] = waysExclude + waysInclude
+  
+  return wayCache[i][a]
+
+```
+
+---
+
+### Making change: in how many ways (bottom-up )
+
+- `ways[m][A + 1]` a 2D table where `m` is the number of coins and `A` is the target amount 
+
+- `ways[i][a]` is the number of ways to make amount `a` using only the coins from index `0` up to index `i` (i.e., `C[0]` through `C[i]`) 
+
+--
+
+To fill any value `ways[i][a]`, we  have two choices, just like before
+
+- **Exclude the new coin `C[i]`.** 
+    - If we don't use the coin `C[i]`, then the number of ways to make amount `a` is the same as the number of ways we could make `a` using only the coins before it (up to `C[i-1]`).  
+    - This value is ways[i-1][a] - the same column `a`, but one row up in the state table.
+
+- **Include the new coin `C[i]`.**
+    - If we use the coin `C[i]` (at least once), the remaining amount we need is `a - C[i]`. The number of ways to make that amount (using coins up to and including `C[i]`, since we can re-use it) is in the location in the table for the smaller amount. 
+    - This value is ways[i][a - C[i]] - the same row `i`, but at a smaller amount `a` in the state table.
+
+--
+
+The recurrence to compute the content of the table is
+
+ - `ways[i][a] = ways[i-1][a] + ways[i][a - C[i]]`
+
+--
+
+- we must add base cases to handle initial values in the table, `i=0` and `a` smaller than any coin amount. 
+
+---
+
+```
+function findWays(A, C):
+  m = C.length
+  
+  // Create a 2D table, m rows (coins), A+1 columns (amounts)
+  ways = new array[m][A + 1] initialized to 0
+
+  for each coin index i from 0 to m-1
+    coin = C[i]
+    
+    for each amount a from 0 to A:
+      
+      // There is 1 way to make amount 0 (the empty set)
+      if a == 0:
+        ways[i][a] = 1
+        continue
+      
+      // Exclude the coin C[i]: get the value from the row above (using coins up to i-1)
+      waysExclude = 0
+      if i > 0
+        waysExclude = ways[i-1][a]
+
+      // Include the coin C[i]: get the value from the same row, but smaller amount
+      waysInclude = 0
+      if a >= coin
+        waysInclude = ways[i][a - coin]
+      
+      // Total is the sum of both choices
+      ways[i][a] = waysExclude + waysInclude
+
+  // The final answer is in the bottom-right corner
+  return ways[m-1][A]
+```
+
+
+---
+
+### Making change: in how many ways (bottom-up )
+
+**Challenge: Do we really need a 2D table for the bottom-up approach?**
+
+--
+
+- One each iteration using the next coin, we only need the previous row of the 2D table (the row for the previous coin). 
+
+--
+
+- We can use the same row to *overwrite* its current value with the updated value. 
+
+--
+
+- This reduces the required space to a 1D `A+1` element table. 
+
+--
+
+- **Updated recurrence** `ways[a] = ways[a] + ways[a - coin]`
+
+- `ways[0] = 1` 
+
+---
+
+```
+function FindWays(A, C):
+  // Create a 1D array, size A+1, initialize with 0
+  ways = new array[A + 1] with all 0s
+
+  //Base case: 1 way to make amount 0
+  ways[0] = 1
+
+  for each coin in C:
+    // Update the ways array for all amounts that this coin can contribute to 
+    for a from coin to A
+      ways[a] = ways[a] + ways[a - (coin)]
+  
+  // The final answer is in the last cell
+  return ways[A]
+```
+---
+
+
 
 template: section
 
