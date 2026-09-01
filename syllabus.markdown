@@ -39,6 +39,7 @@ updated for the next edition of the book
 - __Passing CSCI.UA.0310 with a grade of C or better.__ (talk to me if you did not complete this course)
 - Strong familiarity with either Java or C++ or both. (__You will not be able to program in Python.__)
 - (You are expected to also know and remember the material from CSCI.UA.0101 and CSCI.UA.0102 courses.)
+- __But, most importantly, interest in solving problems, learning about different approaches and designs, and curiosity.__
 
 
 
@@ -62,13 +63,12 @@ updated for the next edition of the book
 
 Your course grade will be based on:
 
-- exams, 25% (exam 1: 10%, and exam 2: 15%)
-- end-of-semester programming contest (during the final exam period), 20%
-- weekly homeworks 30%, each homework will consist of two parts 
-	- 15% problem set with 5 problems each week (see [Gradescope verdicts](problem_grading.html) for how the scores are computed) 
-	- 15% recorded 5 minute problem presentation (an assigned problem from the set for the given week)
-- regular in-class problem solving sprints, 20% 
-- online Codeforces contest participation, 5%
+- two paper exams, 35% (15% each)
+- three coding exams (10% each)
+- weekly problem sets 10%: problem set with 5 problems each week (see [Gradescope verdicts](problem_grading.html) for how the scores are computed) 
+- video presentation of an assigned problem 10%: recorded 20-25 minute problem presentation 
+- regular in-class activities, polls, pop-quizzes, 10% 
+- online Codeforces contest participation, 10%
 
 The letter grades will be determined using the following scale:
 
@@ -83,33 +83,45 @@ The letter grades will be determined using the following scale:
         F   less than 65
 
 
-The grade of *Incomplete* is reserved for students who, for legitimate and documented reason, miss the final exam. The grade of *Incomplete* **will not be given** to student who started falling behind in class. 
-Those students should withdraw from the class or switch to *Pass/Fail* option.
+The grade of *Incomplete* is reserved for students who, for legitimate and documented reason, miss the final exam. The grade of *Incomplete* **will not be given** to student who started falling behind in class or missed earlier exams or assignments. 
+Those students should withdraw from the class or switch to *Pass/Fail* option. 
 
 
-## Exams
+## Paper Exams
 
 
 There will be two paper based exams. All exams are cumulative, timed and synchronous. You are expected to write algorithms (in a programming language independent fashion) and apply given algorithms (no coding).
 
-__Missing an exam:__ If you miss the exam 1, the exam 2 score will count for both. If you miss the exam 2, you will receive a grade of 
+__Missing a paper exam:__ If you miss the exam 1, the exam 2 score will count for both. If you miss the exam 2, you will receive a grade of 
 incomplete in the course and you will need to take the exam 2 during the first week of the spring semester. 
 
-## End Of Semester Programming Contest
+## Coding Exams
 
-During the time allocated for the final exam, there will be a programming contest during which you will need to solve a few programming challenges. This will be timed and synchronous contest and you will have to code in a controlled environment with limited access to resources. 
+There will be three coding exams: two during the regular lecture time and the third during the time allocated for the final exam.
+These will be timed and synchronous exams and you will have to code in a controlled environment with limited access to resources other than your own knowledge. 
+
+__Missing a coding exam:__ If you miss the exam 1, or the exam 2, the score will be replaced by exam 3. If you miss the exam 3, you will receive a grade of 
+incomplete in the course and you will need to take the exam 3 during the first week of the spring semester. You cannot miss more than one of the coding exams.  
 
 
-## Homework / Weekly Problem Sets
-
+## Weekly Problem Sets
 
 Each week you will have a problem set to solve (several problems of varying difficulty).  You should expect 12 problem sets with 5 problems each. (These numbers may be adjusted if there are significant
 changes to the course scheduling.)
 Fifty highest scoring problems will count towards your course grade. There will be no late submissions on problem sets for any reason (this is why we will be dropping ten lowest scores).
-We will try to avoid having due dates that conflict with major holidays, but it is not always possible.  The only late submissions will be allowed at the start of the semester to accommodate students who may be joining the class after the due date for a problem set. 
+We will try to avoid having due dates that conflict with major holidays, but it is not always possible. The only late submissions will be allowed at the start of the semester to accommodate students who may be joining the class after the due date for a problem set. 
 
-For each problem set, each student will be assigned one problem for which they need to prepare a 5 minute long video explanation of the solution for the problem. If you were not able to submit a solution (correct or incorrect) to the assigned problem, you may submit an explanation of any other problem that you submitted for partial credit. 
-You do not need to pass all (or even any) of the autograder tests in order to explain your solutions. These will be graded on clarity of the explanation and consistency of the explanation with the submitted code, not the correctness of your solution. 
+## Video Presentation
+
+For each problem set, there will be several students who will need to submit a video presentation of their solution for one of the week's problems. 
+These will be graded on completeness and clarity of the explanation, and consistency of the explanation with the submitted code.
+Each week we will randomly pick a number of students to submit such a video. If you wish, you can volunteer for a given week, but we will restrict the number of volunteers. 
+
+If you are not satisfied with the score that you receive for your video submission, you can submit another video for a different problem (assigned to you in the later time). The second grade will count towards your course grade. 
+
+## In-class Activities, Polls, and Pop-Quizzes
+
+There will be a number of paper-based pop-quizzes, polls and other types of activities during the regular lectures. We will drop one quarter of these grades to account for any absences.   
 
 ## Online Contests
 
@@ -117,12 +129,12 @@ You need to participate in one or more of the regular contests hosted on [Codefo
 You need to submit passing solutions to five different problems (in a single contest or in multiple ones). Your solutions need to be submited while the contest is active, not after the contests concludes. 
 Think of this as practice of your skills in the real world.
 
-The CodeForces contests fall under different divisions (division 1 contains the most challenging problems, division 2 has somewhat simpler problems, and so on). Problems that you solve in 
-divison 1 and all but problem A in division 2 contests earn you full credit. Problem A in division 2 and all problems in division 3 and 4 contests earn you 50% credit. You can complete more than five problems in order to earn full credit. 
+More details on which contests and problems qualify will be provided later. 
 
 Check the [calendar of contests on Codeforces site](https://codeforces.com/calendar) for upcoming contests. There are contests added on a regular basis.  
 
-After successfully completing a contest problem, you will need to share its solution and a brief explanation of your solution with the rest of the class. 
+
+
 
 # Generative AI Policy
 ---
