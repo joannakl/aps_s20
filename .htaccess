@@ -4,11 +4,11 @@
 # is no longer supported.
 # Use the following instead
 
-Order deny,allow
-AuthType Basic
-AuthName "Authorized NYU users only!"
-AuthBasicAuthoritative On
-AuthBasicProvider ldap-nyu
-require valid-user
-satisfy all
+#Order deny,allow
+#AuthType Basic
+#AuthName "Authorized NYU users only!"
+#AuthBasicAuthoritative On
+#AuthBasicProvider ldap-nyu
+#require valid-user
+#satisfy all
 
