@@ -28,7 +28,7 @@ Instructor: Joanna Klukowska <br>
 
 
 .license[
-Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under a <br>
 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
 Background image by Stewart Weiss<br>]
 
@@ -71,7 +71,7 @@ class: slide
 
 ## This Course
 
-- Course website: https://cs.nyu.edu/~joannakl/aps_f25/
+- Course website: https://cs.nyu.edu/~joannakl/aps_f26/
 
     This page contains the syllabus as well as loads
     of links to all other resources and services you will need for this class.
@@ -97,59 +97,61 @@ practice in mind.
 
 Throughout the semester you will need to participate in one or more contests scheduled 
 on Codeforces. 
-- get five problems accepted (can be in one or several different contests) 
-- your solution has to be submitted to the contest while it is active (not to the archived version of a contest)
-- problems that you solve in divison 1 and all but problem A in division 2 contests earn you full credit
-- problem A in division 2 and all problems in division 3 and 4 contests earn you 50% credit, problems solved in unrated contests do not give you credit towards this class, but may still provide valuable practice 
-- the [contest calendar](https://codeforces.com/calendar) is regularly updated with new contests, but do not wait 
-till December to start  
+- Get five problems accepted (can be in one or several different contests). 
+- Your solution has to be submitted to the contest while it is active (not to the archived version of a contest).
+- The [contest calendar](https://codeforces.com/calendar) is regularly updated with new contests, but do not wait 
+until December to start.
+
+--
+
+- We'll post an update with specific details as to which Codeforces contest problems count and how.
 
 ---
 
+## Problem Presentations
 
-## Online Contest (5 problems)
+Starting with the next problem set, we will pick a number of students to submit their presentation for a problem. 
 
-When you successfully solve a problem and __after__ the actual contest ends, you will need to share your solution 
-with the rest of the class:
-- Create a workspace on Ed that is shared with anybody in the course (i.e., public). 
-  - Upload your code solution. 
-  - Create a few sample inputs and outputs. 
-  - Create a README file.  It should also have a link to the contest itself and a link to the original problem statement in the contest.
-  It should also contain instructions for how to compile and run your program. Finally, include any comments about challenged you 
-  faced and how you figured out the final correct solution. 
-- Add a comment to the [Codeforces Submissins](https://edstem.org/us/courses/86057/discussion/6928582) thread on Ed. This comment should include
-  - name and date of the contest
-  - name of the problem you solved
-  - link to the workspace with your solution 
-  - screenshot showing your accepted verdict - this screenshot needs to include your username, the name of the problem, and the time stamp 
+The presentation should be a 15-20 minute recorded video. 
 
-If you solve more than one problem in a single contest, create multiple workspaces and make multiple posts/comments.
+The content of the presentation:
+- Brief explanation of the problem.
+- Demonstration of a few examples (these should not be just the ones from the problem statement itself).
+- Two or three different approaches to solving the problem with discussion of performance. 
+- Final algorithm presentation using pseudocode (not source code). 
 
+--
 
+You need to talk through the presentation. 
 
+Your face needs to be visible in the video. 
+
+--
+
+If you want to volunteer for a given week, you can do so, but you have to volunteer before the problem set is posted. 
 
 ---
 
 ## Operations Count
 
-- How fast your program runs depends on how many things it does
+- How fast your program runs depends on how many things it does:
 
   _things_ == operations that the CPU performs on behalf of the program
 
 - How many things the computer does depends on how you (the programmer) write
-the code, what algorithm you chose, etc
+the code, what algorithm you choose, etc.
 
 --
 
-So, how many operations does this program perform:
+So, how many operations does this program perform?
 .left-column2[
 ```C++
 #include <iostream>
 using namespace std;
 
 int main() {
-  for (int i = 1; i <= 10; i++ ) {
-    for (int j = 1; j <= 10; j++ ) {
+  for (int i = 1; i <= 10; i++) {
+    for (int j = 1; j <= 10; j++) {
       printf("%3d\t", i*j);
     }
     printf("\n");
@@ -159,25 +161,20 @@ int main() {
 ```
 ]
 
---
-
-.right-column2[
-  .huge[.center[???]]
-]
 
 ---
-## Counting operations is not easy (possible)
+## Counting operations is not easy (or possible)
 
-- hard to figure out what to count, some operations in the high level
-programming language may be actualy multiple operations on the CPU
+- It is hard to figure out what to count; some operations in a high-level
+programming language may actually be multiple operations on the CPU.
 
-- some CPU operations are faster then others
+- Some CPU operations are faster than others.
 
-- some operations require I/O and that slows them down
+- Some operations require I/O, which slows them down significantly.
 
 --
 
-.big[we need a simplified way of deciding how fast the program runs]
+.big[We need a simplified way of deciding how fast a program runs.]
 
 ---
 
@@ -192,41 +189,26 @@ template: section
 
 __$O(g(n)) = f(n)$__
 
-There exist positive constants _c_ and _$n_0$_ such that
-$0 <= f(n) <= cg(n)$ for all $n >= n_0$
+There exist positive constants $c$ and $n_0$ such that
+$0 \le f(n) \le c \cdot g(n)$ for all $n \ge n_0$.
 
 --
 
 <hr>
 
-__ $\Omega(g(n)) = f(n)$__
+__$\Omega(g(n)) = f(n)$__
 
-There exist positive constants _$c$_ and _$n_0$_ such that
-$0 <= cg(n)<= f(n) $ for all $n >= n_0$
+There exist positive constants $c$ and $n_0$ such that
+$0 \le c \cdot g(n) \le f(n)$ for all $n \ge n_0$.
 
 --
 
 <hr>
 
-__ $\Theta(g(n)) = f(n)$__
+__$\Theta(g(n)) = f(n)$__
 
-There exist positive constants _$c_1$_, _$c_2$_ and _$n_0$_ such that
-$0 <= c_1g(n) <= f(n) <= c_2g(n) $ for all $n >= n_0$
-
----
-
-## Asymptotic Analysis: Big O
-
-.center[
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Big-O-notation.png" width=50%>
-]
-
-Example of Big O notation:
-
-f(x) ∈ O(g(x)) says that there exists c > 0 (e.g., c = 1) and x0 (e.g., x0 = 5) such that f(x) ≤ cg(x) whenever x ≥ x0.
-
-.footnote[Image and descriptions in Public Domain. Retrieved from Wikipedia:
-https://commons.wikimedia.org/wiki/File:Big-O-notation.png ]
+There exist positive constants $c_1$, $c_2$, and $n_0$ such that
+$0 \le c_1 \cdot g(n) \le f(n) \le c_2 \cdot g(n)$ for all $n \ge n_0$.
 
 ---
 
@@ -234,7 +216,7 @@ template: challenge
 
 ## Challenge
 
-For each of the following functions state if it is $O(N^2)$:
+For each of the following functions, state if it is $O(N^2)$:
 
 - $3 N^2 + 25 N - 20000$
 
@@ -250,91 +232,54 @@ For each of the following functions state if it is $O(N^2)$:
 
 
 ---
-## "Abuse" of Big O
+## "Abuse" of Big-O
 
-People often say "The algorithm is $O(N^3)$ - this is slow".
+People often say "The algorithm is $O(N^3)$ — this is slow."
 
-An algorithm that performs in constant time is $O(N^3)$ so the above
-does not make much sense.
+An algorithm that runs in constant time is also technically $O(N^3)$, so the statement above is imprecise.
 
-But this is a common abuse of the terminology. We really mean that
-the algorithm is $\Theta(N^3)$, even though we use the Big O description.
+However, this is a common informal shorthand. We usually mean that
+the algorithm is $\Theta(N^3)$, even though we use Big $O$ notation.
 
 
 
 
 ---
-## From Big O to Actual Execution Time
+## From Big-O to Actual Execution Time
 
-- a typical machine executes approximately $10^9$ operations per second
- (on average, since some are slower than others)
+- A typical machine executes approximately $10^9$ operations per second
+ (on average, since some operations are slower than others).
 
 --
 
-- to determine how long it might take the program to execute on the largest
-possible input size (this is specified as part of the constrains for the problem)
-  - determine the the Big O term for the maximum N
-  - divide the result by $10^9$
+- To determine how long it might take the program to execute on the largest
+possible input size (specified as part of the constraints for the problem):
+  - Determine the Big-O expression for the maximum $N$.
+  - Divide the result by $10^9$.
 
-  (this will give you the number of seconds it should take your program
-  to solve the problem - again, this is an approximation, but
-  it gives us the sense of what might happen)
+  (This gives an approximation of the execution time in seconds, offering a helpful baseline estimate.)
 
 ---
-## From Big O to Actual Execution Time
+## From Big O-to Actual Execution Time
 
 
-__Example__: check all pairs of value in the input set
+__Example__: Check all pairs of values in the input set
 
 - Performance is $O(N^2)$
 
 --
 
-- when $N = 10$, $N^2 = 100$, time = $100 / 10^9$   => program finishes immediately
+- When $N = 10$, $N^2 = 100$, time = $100 / 10^9 \Rightarrow$ program finishes immediately.
 
 --
 
-- when $N = 1000$, $N^2 = 1,000,000$, time = $10^6 / 10^9$  => program finishes in 0.001s (practically instantly)
+- When $N = 1000$, $N^2 = 1,000,000$, time = $10^6 / 10^9 \Rightarrow$ program finishes in 0.001s (practically instant).
 
 --
 
-- when $N = 10^5$, $N^2 = 10^{10}$, time = $10^{10} / 10^9$  => program finishes in 10s
-(too long for most of the kinds of problems that we will be looking at)
+- When $N = 10^5$, $N^2 = 10^{10}$, time = $10^{10} / 10^9 \Rightarrow$ program finishes in 10s
+(too long for most programming competition time limits).
 
-
----
-## What's the performance of ...
-
-```C++
-int ans = 0;
-for (int i = 0; i < n; i++ ) {
-  for (int j = 0; j < n; j++ ) {
-    for (int k = 0; k < n; k++ ) {
-      ans += i*j + j*k + k*i;
-    }
-  }
-}
-```
---
-
-.big[$O(N^3)$]
-
----
-## What's the performance of ...
-
-```C++
-int ans = 0;
-for (int i = 0; i < n; i++ ) {
-  for (int j = i+1; j < n; j++ ) {
-    for (int k = j+1; k < n; k++ ) {
-      ans += i*j + j*k + k*i;
-    }
-  }
-}
-```
---
-
-.big[$O(N^3)$]
 
 ---
 
@@ -344,11 +289,11 @@ template: challenge
 
 Given a sorted array of values, remove all duplicates.
 
-ex.
+e.g.,
 
-given array: [1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]
+Given array: `[1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]`
 
-revised array: [1, 4, 5, 6, 7, 9, ?, ?, ?, ?, ?, ?, ? ]  (values in remaining spaces are irrelevant)
+Revised array: `[1, 4, 5, 6, 7, 9, ?, ?, ?, ?, ?, ?, ?]` (values in remaining spaces are irrelevant)
 
 
 ---
@@ -361,10 +306,10 @@ Given a sorted array of values, remove all duplicates.
 
 
 ```Java
-// assume data is in an ArrayList object called array
-for (int i = 0; i < array.size(); i++ ) {
-  int j = i+1;
-  while (j < array.size() && array.get(j) == array.get(i) ) {
+// Assume data is in an ArrayList object called array
+for (int i = 0; i < array.size(); i++) {
+  int j = i + 1;
+  while (j < array.size() && array.get(j) == array.get(i)) {
     array.remove(j);
   }
 }
@@ -373,7 +318,7 @@ for (int i = 0; i < array.size(); i++ ) {
 or 
 
 ```C++
-// assume data is in a std::vector object called array 
+// Assume data is in a std::vector object called array 
 for (int i = 0; i < array.size(); ++i) {
     int j = i + 1;
     while (j < array.size() && array.at(j) == array.at(i)) {
@@ -383,7 +328,7 @@ for (int i = 0; i < array.size(); ++i) {
 ```
 --
 
-.big[$O(n^2)$]  where $n$ is the size of the original array
+.big[$O(n^2)$] where $n$ is the size of the original array
 
 
 
@@ -396,11 +341,11 @@ template: challenge
 Given a sorted array of values, create a new sorted array that contains
 only the unique elements.
 
-ex.
+e.g.,
 
-given array: [1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]
+Given array: `[1, 1, 4, 5, 5, 5, 6, 7, 7, 9, 9, 9, 9]`
 
-new array: [1, 4, 5, 6, 7, 9]
+New array: `[1, 4, 5, 6, 7, 9]`
 
 
 ---
@@ -413,47 +358,51 @@ only the unique elements.
 
 
 ```C++
-for (int i = 0; i < n; i++ ) {
-  int j = i;
-  while (j < n && oldArray[j] == oldArray[i] )
-    j++;
-  newArray.push(oldArray[i]);
-  i = j - 1;
-}
+REMOVE-DUPLICATES(oldArray, n)
+    // Returns a new array with adjacent duplicates removed
+    newArray ← new empty array matching the type of oldArray
+    i ← 0
+    while i < n do
+        j ← i
+        while j < n and oldArray[j] = oldArray[i] do
+            j ← j + 1
+        APPEND(newArray, oldArray[i])
+        i ← j
+    return newArray
 ```
 --
 
 
-.big[$O(n)$]  where $n$ is the size of the original array
+.big[$O(n)$] where $n$ is the size of the original array
 
-(even though we have nested loops in the code)
+(even though there are nested loops in the code)
 
 
 ---
-## Using Library Function
+## Using Library Functions
 
-- good in practice, saves a lot of time
+- Excellent practice in competitions; saves significant implementation time.
 
-- be careful when analyzing performance
+- Be careful when analyzing performance under the hood.
 
 ---
 ## Rule of Thumb:
 ## Complexity and Actual Time
 <br>
 
-| N | worst algorithm to pass on OJ |
+| N | Worst algorithm complexity expected to pass OJ |
 |:---|:---|
-| <= 10 | $O(n!)$, $O(n^6)$ |
-| <=[15 .. 18 ] | $O(2^n * n^2)$ |
-| <=[18 .. 22 ] | $O(2^n * n)$ |
-| <= 100 | $O(n^4)$ !!! |
-| <= 400 | $O(n^3)$ |
-| <= 2K | $O(n^2 \log n)$ |
-| < 10K | $O(n^2)$  !!! |
-| <= 1M | $O(n \log n)$ |
-| <= 100M | $O(n)$   !!! , $O(\log n)$, $O(1)$ |
+| $\le 10$ | $O(n!)$, $O(n^6)$ |
+| $\le [15 \dots 18]$ | $O(2^n \cdot n^2)$ |
+| $\le [18 \dots 22]$ | $O(2^n \cdot n)$ |
+| $\le 100$ | $O(n^4)$ |
+| $\le 400$ | $O(n^3)$ |
+| $\le 2\text{K}$ | $O(n^2 \log n)$ |
+| $< 10\text{K}$ | $O(n^2)$ |
+| $\le 1\text{M}$ | $O(n \log n)$ |
+| $\le 100\text{M}$ | $O(n)$, $O(\log n)$, $O(1)$ |
 
-!!! but getting close to 10^8 may be dangerous
+*Note: Approaching $10^8$ operations may risk a Time Limit Exceeded (TLE) result.*
 
 
 ---
@@ -466,45 +415,45 @@ template: section
 
 ## Data Types
 
-All data represented as binary in hardware.
+All data is represented in binary format in hardware.
 
 Primitive types:
 
-|type| size|
+| Type | Size |
 |---|---|
-|`boolean` (in C), `char` (in C/C++)| 1 byte |
-|`short`, `char` (in Java) | 2 bytes |
-|`int`, `float` | 4 bytes|
-|`long`, `double` | 8 bytes |
+| `boolean` (in C), `char` (in C/C++) | 1 byte |
+| `short`, `char` (in Java) | 2 bytes |
+| `int`, `float` | 4 bytes |
+| `long`, `long long`, `double` | 8 bytes |
 
 --
 
 String
 
-- not a primitive type
-- stored as an array of characters
-- WARNING: comparing two strings for equality is NOT constant time
+- Not a primitive type.
+- Stored as an array/sequence of characters.
+- **WARNING:** Comparing two strings for equality is **not** a constant time operation ($O(\text{length})$).
 
 ---
 
 ## Binary Representation of Integers
 
-- use of base-2
+- Use of base-2
 
-- binary to decimal
+- Binary to decimal:
   - $(101)_2 = 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 5$
   - $(11010)_2 = 1 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 = 26$
 
-- decimal to binary: mod by 2, record the remainder, divide by 2, and finally reverse the resulting string
-  - `26 % 2 = 0 ` &nbsp; ` 26 / 2 = 13 `
-  - `13 % 2 = 1 ` &nbsp; ` 13 / 2 = 6 `
-  - ` 6 % 2 = 0 ` &nbsp; `  6 / 2 =  3 `
-  - ` 3 % 2 = 1 ` &nbsp; `  3 / 2 =  1 `
-  - ` 1 % 2 = 1 ` &nbsp; `  1 / 2 =  0 `
+- Decimal to binary: Take modulo by 2, record remainder, divide by 2, and reverse final sequence:
+  - `26 % 2 = 0` &nbsp; `26 / 2 = 13`
+  - `13 % 2 = 1` &nbsp; `13 / 2 = 6`
+  - ` 6 % 2 = 0` &nbsp; ` 6 / 2 = 3`
+  - ` 3 % 2 = 1` &nbsp; ` 3 / 2 = 1`
+  - ` 1 % 2 = 1` &nbsp; ` 1 / 2 = 0`
 
 ---
 
-## Use of other bases
+## Use of Other Bases
 
 __Base 3__
 
@@ -516,49 +465,46 @@ __Base 9__
 
 __Base 16__
 
-  - ...
+  - Hexadecimal format (`0-9`, `A-F`)
+  - $(2\text{A}3)_{16} = 2 \times 16^2 + 10 \times 16^1 + 3 \times 16^0 = 675$
 
 ---
-## Largest/Smallest  value with N bits
+## Largest/Smallest Value with N Bits
 
-- A type using 4-bits can represent integers $(0000)_2$ to $(1111)_2$
-
-
-- __Non-negative numbers__: a type using N-bits can represent values in the
-range $[0, 2^N)$ <br>
-  - upperbound is NOT included
-  - this assumes that we represent only non-negative values
+- A 4-bit type can represent unsigned integers $(0000)_2$ through $(1111)_2$ (0 to 15).
 
 
-- __Negative numbers__: a type using N-bits can represent values in
-the range $[-2^{N-1}, 2^{N-1})$ <br>
-  - upperbound is NOT included
-  - the leading bit is associated with a negative multiplier
+- __Non-negative numbers__: An N-bit type represents values in the range $[0, 2^N)$.
+  - Upper bound is **not** included.
+  - Assumes strictly non-negative representation.
 
 
-__For signed numbers the limit on the `int` is $2^{31}-1 = 2,147,483,647$ <br>(or approximately
-$2\times 10^9)$.__
+- __Signed numbers__: An N-bit type represents values in the range $[-2^{N-1}, 2^{N-1})$.
+  - Upper bound is **not** included.
+  - The most significant bit serves as the sign bit.
+
+
+__For signed 32-bit integers, the maximum value is $2^{31}-1 = 2,147,483,647$ (approx. $2\times 10^9$).__
 
 ---
-## ASCII/UTF-8 and `char` type
+## ASCII/UTF-8 and `char` Type
 
-- characters are just numbers that use fewer bits (8 bits or 16 bits)
+- Characters are mapped to numerical values using 8 or 16 bits.
 
-- each character has a corresponding numerical value
-  - 'a' = 97
-  - 'A' = 65
-  - '2' = 50
-  - '!' = 33
+- Each character maps to an integer ASCII code:
+  - `'a'` = 97
+  - `'A'` = 65
+  - `'2'` = 50
+  - `'!'` = 33
 
-- this comes in handy when comparing strings or processing characters for other
-purposes
+- Useful when processing characters or performing string comparisons.
 
-- but be careful about lexicographical ordering
-  - "aaa" < "ab"
-  - "AAA" < "aaa"
-  - "ZZZ" < "aaa"
-  - "10" < "100"
-  - "2000" < "30"
+- Note lexicographical ordering rules:
+  - `"aaa"` < `"ab"`
+  - `"AAA"` < `"aaa"`
+  - `"ZZZ"` < `"aaa"`
+  - `"10"` < `"100"`
+  - `"2000"` < `"30"`
 
 ---
 
@@ -567,13 +513,10 @@ template: challenge
 ## Challenge: Split a Number
 
 We define the operation of splitting a binary number `n` into two numbers `a(n)`
-and  `b(n)` as follows.
-Let $0 \leq i_1 < i_2 < ... < i_k$  be the indices of the bits (with the least
-significant bit having index 0) in `n` that are 1. Then the indices of the bits
-of `a(n)` that are 1 are $i_1$, $i_3$, $i_5$, ... and the indices of the bits of
- `b(n)` that are 1 are $i_2$, $i_4$, $i_6$, ...
+and `b(n)` as follows:
+Let $0 \le i_1 < i_2 < \dots < i_k$ be the bit positions (with index 0 representing the least significant bit) in `n` that are set to 1. Then the bit positions of `a(n)` set to 1 are $i_1, i_3, i_5, \dots$ and the bit positions of `b(n)` set to 1 are $i_2, i_4, i_6, \dots$
 
-For example, if `n` is `110110101` in binary then, again in binary, `a = 010010001` and `b= 100100100`.
+For example, if `n` is `110110101` in binary, then `a = 010010001` and `b = 100100100`.
 
 .left-column2-large[
 __Input__
@@ -582,8 +525,7 @@ The input consists of a single integer `n` between `1` and $2^{31} - 1$ written 
 
 __Output__
 
-The output consists of a single line, containing the integers `a(n)` and `b(n)` separated
-by a single space. Both `a(n)` and `b(n)` should be written in decimal format.
+The output consists of a single line containing integers `a(n)` and `b(n)` separated by a single space, formatted in decimal.
 ]
 .right-column2-small[
 __Example 1__
@@ -593,7 +535,6 @@ Input:
 6
 Output:
 2 4
-
 ```
 
 __Example 2__
@@ -603,7 +544,6 @@ Input:
 7
 Output:
 5 2
-
 ```
 
 __Example 3__
@@ -613,49 +553,21 @@ Input:
 11
 Output:
 9 2
-
 ```
 ]
 
-<!--
-Example 1:
-
-6 = 0110
-2 = 0010
-4 = 0100
-
-Example 2:
-
-7 = 0111
-5 = 0101
-2 = 0010
-
-
-Example 3:
-
-11 = 1011
-9  = 1001
-2 =  0010
-
--->
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
 
-In pairs,
+In pairs:
 
-- make sure that __you understand how the output values are obtained from the input__
-  (try all examples by hand)
-- create two new test cases (input and output pairs) that are for some reason interesting,
-    - restriction: they need to be values > 2000
-    - try to come up with a test case that is likely to be different than those of
-    other students around you
-
-
-- work together to try to come up with a solution (an algorithm) for the problem
-(DO NOT WRITE ACTUAL CODE)
+- Make sure that __you understand how output values are derived from input__ (trace all examples by hand).
+- Construct two new non-trivial test cases ($N > 2000$).
+  - Aim for cases likely to differ from those of your peers.
+- Work together to formulate a conceptual algorithm for the problem (**DO NOT WRITE CODE YET**).
 
 ---
 
@@ -664,21 +576,18 @@ template: challenge
 ## Challenge: Split a Number
 ### Visual Depiction of the Problem
 
-Assume `n` is an 8-bit number.
+Assume `n` is an 8-bit number:
 
 .center[
 <img src="img/splitting_numbers.png" width=80%/>
 ]
-
-
-
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### Test cases
+### Test Cases
 
 --
 
@@ -687,8 +596,7 @@ Input: 1
 Output: 1 0
 ```
 
-This is a simplest test case with a single one-bit that goes to `a`. 
-
+Simplest test case with a single 1-bit, which is routed to `a`.
 
 --
 
@@ -697,7 +605,7 @@ Input: 2
 Output: 2 0
 ```
 
-Another simple test case with a single one-bit at a different position. This bit should also go to `a`. 
+Single 1-bit at position 1. This bit is also assigned to `a`.
 
 --
 
@@ -706,16 +614,16 @@ Input: 5
 Output: 1 4
 ```
 
-Binary represetation of 5 is `101`. This tests a value with two one-bits at alternating positions. The rightmost bit should go to `a` resulting in 1. The leftmost bit should go to `b` resulting in 4.
+Binary representation of 5 is `101`. Tests alternating set bits. Bit 0 goes to `a` (1), bit 2 goes to `b` (4).
 
 --
 
 ```
 Input: 6
-Output: 6 4
+Output: 2 4
 ```
 
-Binary represetation of 6 is `110`. This tests a value with two one-bits at adjacent positions. The rightmost bit should go to `a` resulting in 2. The leftmost bit should go to `b` resulting in 4.
+Binary representation of 6 is `110`. Tests consecutive 1-bits. Bit 1 goes to `a` (2), bit 2 goes to `b` (4).
 
 --
 
@@ -724,15 +632,14 @@ Input: 15
 Output: 5 10
 ```
 
-Binary represetation of 15 is `1111`. This tests a value with larger number of consecutive one-bits at the low order bits. 
-
+Binary representation of 15 is `1111`. Tests multiple adjacent 1-bits in lower order positions.
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### Test cases
+### Test Cases
 
 --
 
@@ -741,7 +648,7 @@ Input: 2147483647
 Output: 1431655765 2863311530
 ```
 
-2147483647 is 2^31 - 1, so its binary representation is `0` followed by 31 one-bits. Tests being able to deal with a large number and distribute the bits correctly
+$2147483647 = 2^{31} - 1$ (`0` followed by 31 ones). Tests maximum boundary size and bit distribution.
 
 --
 
@@ -750,7 +657,7 @@ Input: 1073741824
 Output: 1073741824 0
 ```
 
-1073741824 is 2^30, so, just like any other power of 2, this number has a single one-bit in its binary representation. It goes to `a`. 
+$1073741824 = 2^{30}$. Like any single power of two, it has one set bit which routes entirely to `a`.
 
 --
 
@@ -759,122 +666,157 @@ Input: 2730
 Output: 170 2560
 ```
 
-2730 is `101010101010` in binary. It is a larger number than the previous test that had alrentating one-bits. 
+Binary representation `101010101010`. Tests larger inputs with repeating alternating bit patterns.
+
 --
 
+__Sanity check__
+
+a + b = n
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### Algorithm 
+### High-Level Strategy
+
+1. Convert decimal integer `n` to its binary representation (except we won't really do it to save space).
+2. Initialize target accumulators `a ← 0` and `b ← 0`.
+3. Track set bits ($1$-bits) from right to left:
+   - Assign the 1st, 3rd, 5th... set bit to `a` at its original bit position.
+   - Assign the 2nd, 4th, 6th... set bit to `b` at its original bit position.
+4. Output resulting integers `a` and `b`.
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### Algorithm 1
+### Algorithm (APS Pseudocode Standard)
 
-`n` - given number 
+```
+SPLIT-NUMBER(n)
+    // Input: An integer n (1 <= n <= 2^31 - 1)
+    // Output: Tuple (a, b) containing the split integer components
 
-`a(n)` - contains alternating one bits from `n`, starting with the least 
-significant one-bit 
+    a ← 0
+    b ← 0
+    bit_position ← 0
+    a_turn ← true
 
-`b(n)` - contains alternating one bits from `n`,. starting with the second least
-significant one-bit 
+    while n > 0 do
+        if (n AND 1) = 1 then
+            if a_turn = true then
+                a ← a OR (1 SHIFT-LEFT bit_position)
+                a_turn ← false
+            else
+                b ← b OR (1 SHIFT-LEFT bit_position)
+                a_turn ← true
+        bit_position ← bit_position + 1
+        n ← n SHIFT-RIGHT 1
 
-1. Convert the decimal number `n` to its binary representation.
-1. Initialize two numbers, `a` and `b`, to zero.
-1. Traverse the bits of the binary representation of `n`:
-   - For every 1-bit encountered, alternate placing it in `a` and `b` starting with `a`.
-1. Convert the binary representations of `a` and `b` back to their decimal form.
-1. Output `a` and `b` separated by a space.
-
-
-
----
-
-template: challenge
-
-## Challenge: Split a Number
-### Algorithm 2 
-
-`n` - given number 
-
-`a(n)` - contains alternating one bits from `n`, starting with the least 
-significant one-bit 
-
-`b(n)` - contains alternating one bits from `n`, starting with the second least
-significant one-bit 
-
-1. Initialize two numbers, `a` and `b`, to zero.
-1. Initialize `position` to zero to keep track of which bit we are on 
-1. Traverse the bits in `n` starting at the least significant one (the zeroth bit)
-	- if the bit is 1 add it at the appropriate position in either `a` or `b`; 
-	alternate placing it in `a` and `b`, starting with `a`
-	- increment `posiiton` by one to move on to the next bit 
-1. Output `a` and `b` separated by a space.
-
-
+    return (a, b)
+```
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### Algorithm 2 with more details 
+### Another Algorithm (APS Pseudocode Standard)
 
-`n` - given number 
+```
+SPLIT_NUMBER(n)
+    // Decomposes n by distributing its set bits alternatingly into a and b
+    a = 0
+    b = 0
+    a_turn = true
 
-`a(n)` - contains alternating one bits from `n`, starting with the least 
-significant one-bit 
+    while n > 0 do
+        lsb = n & -n                // Isolate the lowest set bit
+        if a_turn == true then
+            a = a | lsb
+        else
+            b = b | lsb
+        a_turn = not a_turn
+        n = n & (n - 1)             // Clear the lowest set bit
 
-`b(n)` - contains alternating one bits from `n`, starting with the second least
-significant one-bit 
-
-1. Initialize two numbers, `a` and `b`, to zero.
-1. Initialize a boolean flag `a_turn` to `true` to indicate that the next bit will be placed in `a`. 
-1. Initialize variable `bit_position` to zero to indicate the position of the bit that we are working on. 
-1. As long as `n` is not zero:
-	- if the least significant bit in `n` is 1 we found the next one-bit
-		- if `a_turn` is true, set the bit at `bit_position` in `a` to 1
-		- if `a_turn` is false, set the bit at `bit position` in `b` to 1
-		- flip the valuie of `a_turn` to the opposite 
-	- increment `bit_posiiton` by one to move on to the next bit 
-1. Output `a` and `b` separated by a space.
-
-
+    return (a, b)
+```
 
 ---
 
 template: challenge
 
 ## Challenge: Split a Number
-### NOT a Readable Algorithm 
+### Yet Another Algorithm (APS Pseudocode Standard)
 
+__This is not a good idea from the efficiency point of view, but it does have a proper format.__ 
+
+```
+SPLIT-NUMBER-ARRAY(n)
+    // Convert integer n into an array of bits 
+    create new empty array bits
+    temp = n
+    while temp > 0 do
+        APPEND(bits, temp mod 2)
+        temp = temp / 2
+
+    len = bits.length
+    create array a_bits of size len initialized to 0
+    create array b_bits of size len initialized to 0
+
+    // Distribute set bits alternatingly into bit arrays
+    a_turn = true
+    for i = 0 to len - 1 by 1 do
+        if bits[i] == 1 then
+            if a_turn == true then
+                a_bits[i] = 1
+                a_turn = false
+            else
+                b_bits[i] = 1
+                a_turn = true
+
+    // Convert bit arrays back to integers
+    a = 0
+    b = 0
+    for i = 0 to len - 1 by 1 do
+        if a_bits[i] == 1 then
+            a = a + (1 SHIFT-LEFT i)
+        if b_bits[i] == 1 then
+            b = b + (1 SHIFT-LEFT i)
+
+    return (a, b)
+```
+
+---
+
+template: challenge
+
+## Challenge: Split a Number
+### NOT a Readable Pseudocode Solution (Java Source)
 
 ```Java
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+Scanner scanner = new Scanner(System.in);
+int n = scanner.nextInt();
 
-        int a = 0, b = 0;
-        int index = 0;
+int a = 0, b = 0;
+int index = 0;
 
-        while (n != 0) {
-            if ((n & 1) == 1) {
-                if (index % 2 == 0) {
-                    a |= (1 << index);
-                } else {
-                    b |= (1 << index);
-                }
-            }
-            index++;
-            n >>= 1;
+while (n != 0) {
+    if ((n & 1) == 1) {
+        if (index % 2 == 0) {
+            a |= (1 << index);
+        } else {
+            b |= (1 << index);
         }
+    }
+    index++;
+    n >>= 1;
+}
 
-        System.out.println(a + " " + b);
+System.out.println(a + " " + b);
 ```
 
 ---
@@ -882,82 +824,38 @@ template: challenge
 template: challenge
 
 ## Challenge: Split a Number
-### NOT a Readable Algorithm 
+### NOT a Readable Pseudocode Solution (C Source)
 
 ```C
-    int x, y, z, i;
-    scanf("%d", &x);
-    for (y = z = i = 0; x; x >>= 1, i++) {
-        if (x & 1) {
-            if (i % 2) z |= 1 << i;
-            else y |= 1 << i;
-        }
+int x, y, z, i;
+scanf("%d", &x);
+for (y = z = i = 0; x; x >>= 1, i++) {
+    if (x & 1) {
+        if (i % 2) z |= 1 << i;
+        else y |= 1 << i;
     }
-    printf("%d %d\n", y, z);
+}
+printf("%d %d", y, z);
 ```
----
-
-template: challenge 
-
-## Challenge: Split a Number
-### Algorithm Suggested in Class
-
-```
-n - input value to split 
-
-counter = 0   index number of one bits 
-
-a = 0
-b = 0
-
-n_bin = convert n to binary  // how?
-
-for bit in n_bin from least significant to most significant 
-
-     if bit is 0   continue 
-
-     if counter is even  
-
-             add bit to b at the same position that it was in n 
-
-    else 
-
-              add bit to a at the same position that it was in n 
-
-    increment counter by 1 
-    
-a and b contain the results 
-```
-
-
-</optgroup>
-
-
 
     </textarea>
-     <script src="js/remark.js" type="text/javascript">
-    </script>
-    <script src="js/remark_conf.js" type="text/javascript">
-    </script>
-
+    <script src="js/remark.js" type="text/javascript"></script>
+    <script src="js/remark_conf.js" type="text/javascript"></script>
     <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
-
-<script type="text/x-mathjax-config">
-   MathJax.Hub.Config({
-     extensions: ["tex2jax.js"],
-     jax: ["input/TeX", "output/HTML-CSS"],
-     tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-       processEscapes: true
-     },
-     "HTML-CSS": { availableFonts: ["TeX"] }
-   });
-</script>
-
-
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
   </body>
 </html>
