@@ -160,7 +160,7 @@ there are no gaps
 --
 
 - solutions to problems often allocate a static array that is too large to
-  guarnatee that it never needs to be resized
+  guarantee that it never needs to be resized
 --
  (and to avoid out of bounds access problems)
 
@@ -201,7 +201,7 @@ for (int i = 0; i < m; i++)     // initialize all values to 0
 ---
 ## List as a Dynamic/Resizable Array
 
-- implementation provided by buil-in classes:
+- implementation provided by builr-in classes:
 - [`vector`](http://www.cplusplus.com/reference/vector/vector/) in C++ STL
 - [`ArrayList`](https://docs.oracle.com/javase/10/docs/api/java/util/ArrayList.html)
 or [`Vector`](https://docs.oracle.com/javase/10/docs/api/java/util/Vector.html)
@@ -399,9 +399,9 @@ template: challenge
 
 __Solution with one kind of brackets__:
 
-- keep an integer that starts at zero
-- for each opening bracket increment it
-- for closed bracket decrement it (if less than zero, INVALID)
+- keep an integer counter that starts at zero
+- for each opening bracket, increment the counter
+- for closed bracket, decrement the counter (if less than zero, INVALID)
 
 if the value at the end is zero, then VALID, otherwise INVALID
 
@@ -412,8 +412,8 @@ __Solution for mixed brackets__:
 - keep a stack of characters
 - for each opening brackets, push it on the stack
 - for each closing bracket,
-  - if matches top of the stack, then pop the stack
-  - otherwise, INVALID  (this covers empty stack as well)
+  - if the bracket matches top of the stack, then pop the stack
+  - otherwise, INVALID  (this covers empty stack as well) 
 
 if the stack is empty, then VALID, otherwise INVALID
 
@@ -453,7 +453,7 @@ Evaluate an arithmetic expression with only operators and numbers:
 
 --
 
-Do the same with added parenthesis:
+Do the same with added parentheses:
 
 - `1 + 2 * 3    =>  7`
 - `(1 + 2) * 3    =>  9`
@@ -464,9 +464,9 @@ Do the same with added parenthesis:
 
 The code that can evaluate such expressions has to:
 - find and evaluate all subexpressions
-- for each operator figure out what its operands are
+- for each operator, figure out what its operands are
 
-It is easier if we can ignore the parenthesis and not have to
+It is easier if we can ignore parentheses and don't have to
 worry about the operator precedence.
 
 ---
@@ -474,8 +474,8 @@ worry about the operator precedence.
 ## Prefix  and Postfix Notations
 ### (a.k.a. Polish and Reverse Polish Notation)
 
-__Infix notation__ is a notation for writing human readable arithmetic
-expressions in which the operator appears _in-between_ its operands.
+__Infix notation__ is a notation for writing human-readable arithmetic
+expressions in which the operator appears _in between_ its operands.
 
 [__Prefix notation__](http://en.wikipedia.org/wiki/Polish_notation)
 is a notation for writing arithmetic expressions in
@@ -493,7 +493,7 @@ which the operator comes _after_ its operands.
 
 ---
 
-## Evaluate Prefix Expressions
+## Evaluate Prefix Expressions - Idea
 
 
 - scan the given prefix expression from right to left
@@ -509,7 +509,29 @@ which the operator comes _after_ its operands.
 
 ---
 
-## Evaluate Postfix Expressions
+
+## Evaluate Prefix Expressions - Algorithm 
+
+
+```
+EVALUATE-PREFIX(expr)
+    S ← CREATE-STACK()
+    for i ← expr.length - 1 downto 0 do
+        token ← expr[i]
+        if IS-OPERAND(token) then
+            S.push(token)
+        else if IS-OPERATOR(token) then
+            op1 ← S.pop()
+            op2 ← S.pop()
+            res ← EVALUATE(op1, token, op2)
+            S.push(res)
+    return S.top()
+```
+
+
+---
+
+## Evaluate Postfix Expressions - Idea
 
 
 - scan the given postfix expression from left to right
@@ -524,7 +546,28 @@ which the operator comes _after_ its operands.
 - return top of the stack as result
 
 ---
-## Convert Infix to Postfix
+
+## Evaluate Postfix Expressions - Algorithm 
+
+```
+EVALUATE-POSTFIX(expr)
+    S ← CREATE-STACK()
+    for i ← 0 to expr.length - 1 do
+        token ← expr[i]
+        if IS-OPERAND(token) then
+            S.push(token)
+        else if IS-OPERATOR(token) then
+            op2 ← S.pop()
+            op1 ← S.pop()
+            res ← EVALUATE(op1, token, op2)
+            S.push(res)
+    return S.top()
+    
+```
+
+
+---
+## Convert Infix to Postfix - Idea 
 
 - for each token in the input infix string expression
   - if the token is an operand
@@ -534,8 +577,7 @@ which the operator comes _after_ its operands.
   - else if the token is an operator
       - if the stack is not empty
           - while (top element on the stack is not a left brace) AND
-                  (the operator on top of the stack has higher or equal )
-                  (this operator has higher or equal precedence to the one at the top of the stack)
+                  (the operator at the top of the stack has higher or equal precedence than the current token)
               - pop the stack and append to postfix string expression
       - push it (the current operator) onto the operator stack
   - else if the token is a right brace
@@ -547,6 +589,42 @@ which the operator comes _after_ its operands.
               - break
 - while the operator stack is not empty
   - pop the operator stack and append to postfix string expression
+
+
+---
+## Convert Infix to Postfix - Algirithm 
+
+```
+INFIX-TO-POSTFIX(expr)
+    postfix ← ""
+    S ← CREATE-STACK()
+    
+    for i ← 0 to expr.length - 1 do
+        token ← expr[i]
+        
+        if IS-OPERAND(token) then
+            postfix ← postfix + token
+        else if token == '(' then
+            S.push(token)
+        else if IS-OPERATOR(token) then
+            while not S.is_empty() and S.top() != '(' 
+                      and PRECEDENCE(S.top()) >= PRECEDENCE(token) do
+                postfix ← postfix + S.pop()
+            S.push(token)
+        else if token == ')' then
+            while not S.is_empty() and S.top() != '(' do
+                postfix ← postfix + S.pop()
+            if not S.is_empty() and S.top() == '(' then
+                S.pop()
+                
+    while not S.is_empty() do
+        postfix ← postfix + S.pop()
+        
+    return postfix
+
+```
+
+
 
 ---
 template: challenge
@@ -604,7 +682,7 @@ class: middle, center
 ## Queues
 
 ---
-## Queues (first in first out, FIFO)
+## Queues (first in, first out, FIFO)
 
 
 - implementation provided by buil-in classes:
@@ -615,7 +693,7 @@ class: middle, center
 --
 
 - operations performed
-    - add/enqueu/push O(1) - adds to the back of the queue
+    - add/enqueue/push O(1) - adds to the back of the queue
     - remove/dequeue/pop O(1) - removes from the front of the queue
     - empty O(1) - determine if the stack is empty (optional)
 
@@ -715,7 +793,7 @@ template: challenge
 
 ## Challenge: Teque
 
-__Teque__ stands for Tripple Ended Queue. In addition to the deque's operations, it also provides access to the middle:
+__Teque__ stands for Triple Ended Queue. In addition to the deque's operations, it also provides access to the middle:
 - add/remove front
 - add/remove back
 - add/remove middle 
@@ -782,7 +860,7 @@ __First Attempt__
 
 __Second Attempt__
 
-__Obeservation__: the sequence of the "smallest to the left" is monotonically
+__Observation__ the sequence of the "smallest to the left" is monotonically
 decreasing
 
 --
@@ -909,6 +987,7 @@ than a current value, cannot contain the answer.
 
 __Idea__ keep track of the values that could be RST, and ignore others.
 
+
 ---
 template: challenge
 
@@ -923,6 +1002,31 @@ template: challenge
   - else set RST[i] to the top of the stack (do not pop it)
   - push A[i] onto the stack
 
+
+
+---
+template: challenge
+
+## Second Attempt
+
+```
+RIGHTMOST-SMALLER(A, n)
+    RST ← ARRAY(n)
+    RST[0] ← NULL
+    S ← CREATE-STACK()
+    S.push(A[0])
+    
+    for i ← 1 to n - 1 do
+        while not S.is_empty() and S.top() >= A[i] do
+            S.pop()
+        if S.is_empty() then
+            RST[i] ← NULL
+        else
+            RST[i] ← S.top()
+        S.push(A[i])
+        
+    return RST
+```
 
 --
 
@@ -1052,7 +1156,7 @@ for each incoming package p
     create a new stack and add p to it 
     increment count 
   otherwise 
-    //find the possible stack has the smallest letter on top 
+    //find the possible stack that has the smallest letter on top 
     //(this is the stack that minimizes the difference between p and s.top)
     destination_stack = first element in the possible_stacks[]
     for each stack s in the rest of the possible_stacks[] 
@@ -1061,6 +1165,47 @@ for each incoming package p
     add p to destination_stack 
 ```
     
+
+---
+
+
+
+template: challenge
+
+## Challenge: Package Sorting - Algorithm
+
+```
+MIN-CARTS-PACKAGE-SORTING(P, n)
+    stacks ← []
+    
+    for i ← 0 to n - 1 do
+        p ← P[i]
+        best_stack_idx ← -1
+        
+        for j ← 0 to stacks.length - 1 do
+            s ← stacks[j]
+            if s.top() >= p then
+                if best_stack_idx == -1 or s.top() < stacks[best_stack_idx].top() then
+                    best_stack_idx ← j
+                    
+        if best_stack_idx == -1 then
+            new_stack ← CREATE-STACK()
+            new_stack.push(p)
+            stacks.append(new_stack)
+        else
+            stacks[best_stack_idx].push(p)
+            
+    return stacks.length
+```
+
+--
+
+<br/>
+
+Does this work for the last example in the problem statement? 
+
+Show the content of the stack array after each iteration of the outer loop. 
+
 
 ---
 
@@ -1075,7 +1220,7 @@ class: middle, center
 ---
 class:on_your_own
 
-## OnYourOwn: Modified Stack
+## On Your Own: Modified Stack
 
 __Task:__ Implement a stack that supports $O(1)$ operations for push, pop, top,
 __AND__ getMin (finds the smallest value in the current stack).
