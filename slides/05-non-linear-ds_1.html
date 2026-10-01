@@ -134,8 +134,88 @@ the values in the leaves in ascending/descending order.
 What are some good test cases for the above problems?
 -->
 
+
+---
+## Is it BST?
+
+Approach 1: An in-order traversal.
+
+Approach 2: Traverse tree recursively, enforcing valid min/max range bounds 
+for every sub-tree.
+
+```
+IS-BST(root)
+    // Determines if a binary tree rooted at root is a valid BST
+    return IS-BST-VALIDATE(root, -INFINITY, INFINITY)
+
+IS-BST-VALIDATE(x, min_val, max_val)
+    if x == NULL then
+        return true
+
+    // Check if the current node's value violates the valid range
+    if x.key ≤ min_val or x.key ≥ max_val then
+        return false
+
+    // Recursively validate left and right subtrees with updated bounds
+    left_valid ← IS-BST-VALIDATE(x.left, min_val, x.key)
+    right_valid ← IS-BST-VALIDATE(x.right, x.key, max_val)
+
+    return left_valid and right_valid
+```
+Time Complexity: O(N)  - visits each node at most once.
+
+Auxiliary Space Complexity: O(H) -  call stack space proportional to tree height (O(log N), when balances, O(N) in the worst case).
 ---
 
+## Range Query $[a..b]$ 
+
+Approach: Performs an in-order traversal pruned using BST properties. Left or right subtrees are skipped if their values cannot fall within the target range $[a..b]$.
+
+```
+PRINT-RANGE(x, a, b)
+    // Outputs BST node keys in the range [a..b] in ascending order
+    if x == NULL then
+        return
+
+    // Search left subtree only if current node's key is greater than lower bound a
+    if x.key > a then
+        PRINT-RANGE(x.left, a, b)
+
+    // Output current node if it lies within [a..b]
+    if a ≤ x.key and x.key ≤ b then
+        OUTPUT(x.key)
+
+    // Search right subtree only if current node's key is less than upper bound b
+    if x.key < b then
+        PRINT-RANGE(x.right, a, b)
+```
+
+Time Complexity: O(K+H) - where K is the number of keys printed in range $[a..b]$ and H is tree height.
+
+Auxiliary Space Complexity: O(H) - call stack depth bounded by tree height.
+
+---
+## Ascending order of leaves
+
+```
+PRINT-LEAVES-ASCENDING(x)
+    // Outputs leaf node keys of a BST in ascending order
+    if x == NULL then
+        return
+
+    // Check if current node is a leaf
+    if x.left == NULL and x.right == NULL then
+        OUTPUT(x.key)
+        return
+
+    PRINT-LEAVES-ASCENDING(x.left)
+    PRINT-LEAVES-ASCENDING(x.right)
+```
+Time Complexity: O(N) - traverses the tree nodes to locate all leaves.
+
+Auxiliary Space Complexity: O(H) - call stack depth bounded by tree height H.
+
+---
 template: challenge
 
 ## Challenge
@@ -175,6 +255,102 @@ Output:
 
 If you wish, you can try to submit it at https://vjudge.net/problem/UVA-12347
 
+---
+template: challenge
+
+## Challenge: Preorder to Postorder, ver 1 
+
+```
+PREORDER-TO-POSTORDER-BST(P, n)
+    // Converts a preorder array P of length n to postorder
+    // traversal by constructing a Binary Search Tree.
+
+    // Implement your own BST
+
+    root ← NULL
+    for i ← 0 to n - 1 do
+        root ← BST-INSERT(root, P[i])
+
+    BST-POSTORDER(root)
+
+
+BST-POSTORDER(node)
+    // Traverses and outputs nodes in postorder position
+    if node ≠ NULL then
+        BST-POSTORDER(node.left)
+        BST-POSTORDER(node.right)
+        OUTPUT(node.key)
+```
+--
+
+This approach builds a standard non-self-balancing Binary Search Tree by sequentially inserting elements from the preorder array P, 
+and then runs a postorder traversal on the resulting tree.
+
+---
+
+
+template: challenge
+
+## Challenge: Preorder to Postorder, ver 2
+
+```
+PREORDER-TO-POSTORDER-QUADRATIC(P, left, right)
+    // Outputs postorder traversal of a BST from preorder array P
+    // within range bounds left to right (inclusive).
+    if left > right then
+        return
+
+    val ← P[left]
+
+    // Find index k of first element strictly greater than current root
+    k ← left + 1
+    while k ≤ right and P[k] < val do
+        k ← k + 1
+
+    // Process left subtree (elements from left + 1 to k - 1)
+    PREORDER-TO-POSTORDER-QUADRATIC(P, left + 1, k - 1)
+
+    // Process right subtree (elements from k to right)
+    PREORDER-TO-POSTORDER-QUADRATIC(P, k, right)
+
+    // Output current node in postorder position
+    OUTPUT(val)
+```
+--
+
+This approach uses the first element of each subarray as the subtree root, linearly scans to find the first larger element to split into left and right subtrees, and recursively outputs the result in postorder.
+
+---
+
+template: challenge
+
+## Challenge: Preorder to Postorder, ver 3
+
+```
+PREORDER-TO-POSTORDER(P, min_val, max_val, idx)
+    // Outputs the postorder traversal of a BST given its preorder 
+    // array P, valid value range bounds, and tracking index object
+    if idx.val ≥ P.length then
+        return
+
+    val ← P[idx.val]
+    
+    // Check if the current preorder element falls within valid subtree range
+    if val < min_val or val > max_val then
+        return
+
+    // Advance pointer to consume this node as current subtree root
+    idx.val ← idx.val + 1
+
+    // Process left subtree (all values must be < val)
+    PREORDER-TO-POSTORDER(P, min_val, val, idx)
+
+    // Process right subtree (all values must be > val)
+    PREORDER-TO-POSTORDER(P, val, max_val, idx)
+
+    // Output current node in postorder position
+    OUTPUT(val)
+```
 
 
 ---
