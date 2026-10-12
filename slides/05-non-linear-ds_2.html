@@ -129,6 +129,82 @@ Performance of the operations:
 
 Building a heap from a collection of values is $O(N)$ !!!  Why?
 
+
+
+
+---
+
+## Building a Binary Heap in O(N logN)
+
+Add values to the min-heap (or max-heap) one by one. 
+
+```
+BUILD-MIN-HEAP-INEFFICIENT(A, n)
+    // Transforms unordered array A of length n into a min-heap in O(n log n) time.
+    for i ← 1 to n - 1 do
+        PERCOLATE-UP(A, i)
+        
+PERCOLATE-UP(A, i)
+    // Restores min-heap property by bubbling element at index i up to root.
+    parent ← ⌊(i - 1) / 2⌋
+    while i > 0 and A[i] < A[parent] do
+        temp ← A[i]
+        A[i] ← A[parent]
+        A[parent] ← temp
+        
+        i ← parent
+        parent ← ⌊(i - 1) / 2⌋
+```
+
+---
+
+## Building a Binary Heap in O(N)
+
+Builds the heap in-place. Starts at the first non-leaf node and _fixes_ each subtree
+so that it is a proper heap. 
+
+
+```
+BUILD-MIN-HEAP-EFFICIENT(A, n)
+    // Transforms unordered array A of length n into a min-heap in O(n) time.
+    for i ← ⌊n / 2⌋ - 1 downto 0 do
+        MIN-HEAPIFY(A, n, i)
+
+MIN-HEAPIFY(A, n, i)
+    // Restores the min-heap property for the subtree rooted at index i,
+    // assuming subtrees at left and right children are already min-heaps.
+    left ← 2 * i + 1
+    right ← 2 * i + 2
+    smallest ← i
+
+    if left < n and A[left] < A[smallest] then
+        smallest ← left
+
+    if right < n and A[right] < A[smallest] then
+        smallest ← right
+
+    if smallest ≠ i then
+        temp ← A[i]
+        A[i] ← A[smallest]
+        A[smallest] ← temp
+        
+        MIN-HEAPIFY(A, n, smallest)
+
+```
+---
+
+
+## Try it yourself
+
+Show the array 
+
+`A = [12, 8, 15, 7, 2, 5, 3, 10, 4 ]`
+
+after each iteration of the loop in `BUILD-MIN-HEAP-EFFICIENT(A, 9)`. 
+
+
+
+
 ---
 
 ## Building a Binary Heap in O(N)
@@ -414,7 +490,19 @@ what are the possible indexes at which the third largest element is located?
 - Given a max-heap represented by a 1-based compact array (ignoring index 0)
 what are the possible indexes at which the smallest element is located?
 
+---
 
+
+template: challenge
+
+## Challenge
+
+Try to solve some of these problems. 
+
+
+
+
+- [Numbers On a Tree](https://open.kattis.com/problems/numbertree?tab=metadata) 
 
 
 </optgroup>
