@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Disjoint Set / Union Find</title>
+    <title>Disjoint Set / Union-Find</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="css/slides.css" rel="stylesheet" type="text/css" />
@@ -25,7 +25,7 @@ Instructor: Joanna Klukowska <br>
 
 
 .license[
-Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under  a <br>
+Copyright 2020 Joanna Klukowska. Unless noted otherwise all content is released under a <br>
 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).<br>
 Background image by Stewart Weiss<br>]
 
@@ -67,17 +67,17 @@ class: slide
 
 ## Friends
 
-There is a town with N citizens. It is known that some pairs of people are friends. According to the
-famous saying that “The friends of my friends are my friends, too” it follows that if A and B are friends
-and B and C are friends then A and C are friends, too.
+There is a town with $N$ citizens. It is known that some pairs of people are friends. According to the
+famous saying that "The friends of my friends are my friends, too," it follows that if $A$ and $B$ are friends
+and $B$ and $C$ are friends, then $A$ and $C$ are friends, too.
 
 Your task is to count how many people there are in the largest group of friends.
 
 .small[
-__Input__: The first line contains tho numbers N and M , where N is the number of people (1 <= N <= 30000) 
-and M is the number of pairs of people (0 <= M <= 500000), which are known
-to be friends. Each of the following M lines consists of two integers A and B (1 <= A,B <= N , A != B)
-which describe that A and B are friends. There could be repetitions among the given pairs.
+__Input__: The first line contains two numbers $N$ and $M$, where $N$ is the number of people ($1 \le N \le 30000$) 
+and $M$ is the number of pairs of people ($0 \le M \le 500000$) known to be friends.
+Each of the following $M$ lines consists of two integers $A$ and $B$ ($1 \le A, B \le N$, $A \neq B$)
+which describe that $A$ and $B$ are friends. There could be repetitions among the given pairs.
 
 __Output__: The size of the largest group of friends. 
 ]
@@ -122,49 +122,94 @@ Output
 
 ---
 
+## Friends - Idea 1
+
+
+- **Represent the Graph:**
+     
+    - Model citizens as vertices labeled $1$ to $N$.
+         
+    - Model friendships as undirected edges between vertices.
+         
+    - Store this as an **adjacency list** (or an adjacency matrix).
+         
+- **Track Visited Citizens:**
+     
+    - Maintain a boolean array `visited` initialized to `FALSE`.
+         
+- **Traverse and Count:**
+     
+    - Iterate through every citizen $i$ from $1$ to $N$:
+         
+        - If citizen $i$ has not been visited, start a Depth-First Search (DFS) or Breadth-First Search (BFS) from $i$.
+             
+        - During the traversal, mark every reachable citizen as visited and increment a component size counter.
+             
+        - Update your global `max_group_size` with the size of the component you just explored.
+         
+--
+
+**Time Complexity**: $\mathcal{O}(N + M)$, where $N$ is the number of citizens and $M$ is the number of friendship pairs. Every node and edge is processed once.
+
+**Space Complexity**: $\mathcal{O}(N + M)$ to store the adjacency list and recursion stack/queue.
+
+---
+
 ## Friends 2
 
 
-There is a town with N citizens. It is known that some pairs of people are friends. According to the
-famous saying that “The friends of my friends are my friends, too” it follows that if A and B are friends
-and B and C are friends then A and C are friends, too.
+There is a town with $N$ citizens. It is known that some pairs of people are friends. According to the
+famous saying that "The friends of my friends are my friends, too," it follows that if $A$ and $B$ are friends
+and $B$ and $C$ are friends, then $A$ and $C$ are friends, too.
 
 In this town there are town parties each weekend where citizens of the town get to make new friends. 
 (No friendships are ever broken.)
 
 Your task is to count how many people there are in the largest group of friends at the end of each weekend. 
 
+---
+
+## Friends 2 - Idea 1
+
+- Standard graph traversals cannot incrementally update component sizes without full re-traversal, so the graph must be re-scanned at the end of each weekend.
+
+
+--
+
+**Time Complexity**:
+- Per-weekend update $\mathcal{O}(N + M\_{\text{current}})$, where $M\_{current}$ is the total accumulated friendships up to that point.
+- Total time over $W$ weekends with $M$ total friendships: $\mathcal{O}(W \cdot N + W \cdot M)$.
+
+**Space Complexity**: 
+
+- $\mathcal{O}(N + M)$ memory to maintain the full graph structure in an adjacency list.
+
+
 
 ---
 
 ## Disjoint Set / Union-Find
 
-- tracks a set of elements partitioned into disjoint subsets
+- Tracks a set of elements partitioned into disjoint subsets.
 
-    - disjoint?
+Disjoint?
 
-
----
-
-## Disjoint Set / Union-Find
-
-- tracks a set of elements partitioned into disjoint subsets
-
-    - disjoint?
 --
-        = non overlapping, no elements in common
+= Non-overlapping; no elements in common.
 
 --
 
-- amortized performance: near constant time (bound by inverse [Ackerman function](https://en.wikipedia.org/wiki/Ackermann_function))
-  for
-    - `find(x)` - determine which set an element belongs to
-    - `sameSet(x,y)` - determine if x and y belong to the same set
-    - `union(x,y)` - merge two sets  of which x and y are members
+- Amortized performance: near-constant time (bounded by the inverse [Ackermann function](https://en.wikipedia.org/wiki/Ackermann_function))
 
-- the above performance assumes
-    - path compression
-    - merging by rank
+  for:
+    - `FIND(x)` — determine which set an element belongs to
+    - `SAME-SET(x, y)` — determine if $x$ and $y$ belong to the same set
+    - `UNION(x, y)` — merge two sets of which $x$ and $y$ are members
+
+- The above performance assumes:
+
+    - Path compression
+    - Merging by rank (or by size)
 
 ---
 ## Example
@@ -179,8 +224,8 @@ Your task is to count how many people there are in the largest group of friends 
 .center[<img src="img/union_find_2.png" alt="union-find" width = "75%"/>]
 
 
-union(0,1)<br>
-union(6,8)
+`UNION(0, 1)`<br>
+`UNION(6, 8)`
 
 
 ---
@@ -191,8 +236,8 @@ union(6,8)
 
 
 
-union(4,6)<br>
-(uses merging by rank: the _tree_ with larger size
+`UNION(4, 6)`<br>
+(Uses merging by rank: the _tree_ with larger rank
 becomes the root)
 
 
@@ -204,9 +249,9 @@ becomes the root)
 
 
 
-union(3,7)<br>
-union(2,9) <br>
-union(9,3)
+`UNION(3, 7)`<br>
+`UNION(2, 9)`<br>
+`UNION(9, 3)`
 
 
 ---
@@ -217,82 +262,144 @@ union(9,3)
 
 
 
-find(7) <br>
-(uses path compression)
+`FIND(7)`<br>
+(Uses path compression)
 
 ---
 
 ## Disjoint Set / Union-Find
 
-- each tree is one subset (in which all pairs of elements have some required property, ex. they are friends)
+- Each tree is one subset (in which all pairs of elements have some required property, e.g., they are friends).
 
-- each tree's root is the representative of the subset (we often use the root as the _name_ for the subset)
 
-- merging two subsets is performed by merging their respective trees
+- Each tree's root is the representative of the subset (we often use the root as the _name_ for the subset).
+
+
+- Merging two subsets is performed by merging their respective trees.
+
 
 --
 
-- stored as arrays in which elements are the indexes into the array
+- Stored as arrays in which elements are indices into the array.
 
-- for an element `i` its parent element is `A[i]`
 
-- different convenstions to indicate the root: the simplests (not an efficient one) is that
-`A[i] = i` for the root
+- For an element `i`, its parent element is `parent[i]`.
+
+
+- Different conventions to indicate the root: the simplest (though not most space-efficient) is: 
+`parent[i] = i` for the root.
 
 ---
 
-## Visualizations:
+## Visualizations
 
-- [USFCA visualization](https://www.cs.usfca.edu/~galles/visualization/DisjointSets.html)
+- [USFCA Visualization](https://www.cs.usfca.edu/~galles/visualization/DisjointSets.html)
+
 
 - [VisuAlgo](https://visualgo.net/en/ufds?slide=1)
 
 
+---
+
+## Friends - Idea 2
+
+
+1. **Initialize Sets:**
+    - Each citizen starts in their own set of size 1.
+    - Maintain a `parent` array where `parent[i] ← i` and a `size` array where `size[i] ← 1`.
+         
+2. **Process Friendships:**
+    - For each given pair $(A, B)$:
+        - Find the root representative of $A$ and the root representative of $B$ using a `FIND` operation with path compression.
+        - If `FIND(A) != FIND(B)` (they belong to different groups):
+            - Merge the two groups using a `UNION` operation.
+            - Combine their sizes: `size[rootA] ← size[rootA] + size[rootB]`.
+            - Update your running `max_group_size`.
+                 
+3. **Return Result:**
+    - The answer is the maximum value present in your `size` tracking array after processing all friendship pairs.
+         
+--
+ 
+- **Time Complexity:** $\mathcal{O}((N + M) \cdot \alpha(N))$, where $\alpha$ is the Inverse Ackermann function (effectively constant time, $\mathcal{O}(1)$, in practice).
+     
+- **Space Complexity:** $\mathcal{O}(N)$ auxiliary space for the `parent` and `size` arrays (no adjacency lists needed).
 
 ---
+
+## Friends 2 - Idea 2
+
+
+1. **Initialize Sets:**
+  - Each citizen starts in their own set of size 1.
+  - Maintain a `parent` array where `parent[i] ← i` and a `size` array where `size[i] ← 1`.
+
+2. **For each weekend $w$, Process New Friendships:**
+    - For each given pair $(A, B)$:
+        - Find the root representative of $A$ and the root representative of $B$ using a `FIND` operation with path compression.
+        - If `FIND(A) != FIND(B)` (they belong to different groups):
+            - Merge the two groups using a `UNION` operation.
+            - Combine their sizes: `size[rootA] ← size[rootA] + size[rootB]`.
+            - Update your running `max_group_size` for this weekend.
+             
+--
+
+- **Time Complexity**:
+    - Initialization: $\mathcal{O}(N)$
+    - Per Friendship Added: $\mathcal{O}(\alpha(N))$ amortized time (virtually $\mathcal{O}(1)$).
+    - Total time over $W$ weekends with $M$ total friendships: $\mathcal{O}(N + M \cdot \alpha(N))$.
+- **Space Complexity**: $\mathcal{O}(N)$ auxiliary space for `parent` and `size` arrays.
+
+
+---
+
+
+
+
 class:challenge
 
-<!--based on UVA 10583 Uniquitous Religions-->
+<!--based on UVA 10583 Ubiquitous Religions-->
 
 ## Challenge
 
-There are N students ( 2 <= N <= 10^5) on campus. Each student belongs to exactly
+There are $N$ students ($2 \le N \le 10^5$) on campus. Each student belongs to exactly
 one student club. We do not know what clubs the students belong to, but we
 do have information about pairs of students who belong to the same club.
-This information is presented in the form of pairs: (a,b) - this indicates
-that the students a and b belong to the same student club.
-We have P (1 <= P <= 10^5) such pairs. The pairs are not guaranteed to be
+This information is presented in the form of pairs: $(a, b)$ — this indicates
+that students $a$ and $b$ belong to the same student club.
+We have $P$ ($1 \le P \le 10^5$) such pairs. The pairs are not guaranteed to be
 unique.
 
 Find the number of student clubs on campus.
 
 __Example:__
 
-n = 5, (so at most 5 clubs)
+$N = 5$ (so at most 5 clubs)
 
-list of pairs:
+List of pairs:
 ```
-(1,2)
-(1,4)
-(3,5)
-(2,4)
+(1, 2)
+(1, 4)
+(3, 5)
+(2, 4)
 ```
 
 --
 
-__Answer__ There are two student clubs.
+__Answer__: There are two student clubs.
 
 ---
 
 ## Performance Improvement:
 ## Path Compression
 
-- performed during the `find` operations
+- Performed during `FIND` operations.
 
-- when traversing the path from the node to its root, set the parent of each node
-along that path to be root
 
-<img src="06/path_compression_1_.png" width = "43%"/>`find(12)`
+- When traversing the path from the node to its root, set the parent of each node
+  along that path to be the root.
+
+<img src="06/path_compression_1_.png" width = "43%"/>`FIND(12)`
 <img src="06/path_compression_2_.png" width = "43%"/>
 
 ---
@@ -301,47 +408,40 @@ name:path_comp
 ## Performance Improvement:
 ## Path Compression
 
-- performed during the `find` operations
+- Performed during `FIND` operations.
 
-- when traversing the path from the node to its root, set the parent of each node
-along that path to be the root (effectively shortening the paths) 
+
+- When traversing the path from the node to its root, set the parent of each node
+  along that path to be the root (effectively shortening the paths). 
 
 --
 
-- `find()` without path compression:
+- `FIND(i)` without path compression:
+
 
 ```
-    // Input: The element 'i' whose set representative we want to find.
-    // Output: The representative of the set containing 'i'.
-
-    find(i):
-      while parent[i] != i:
-        i = parent[i]
-      
-      return i
+FIND(i)
+    while parent[i] != i do
+        i ← parent[i]
+    return i
 ```
 
 ---
 template:path_comp
 
 
-- `find()` with path compression 
+- `FIND(i)` with path compression:
+
 
 ```
-    // Input: The element 'i' whose set representative we want to find.
-    // Output: The representative of the set containing 'i'.
-
-    find(i):
-      // If 'i' is the root, return it.
-      if parent[i] == i:
+FIND(i)
+    if parent[i] == i then
         return i
-      
-      // Recursively find the root of the set. As the recursion unwinds, 
-      // set the parent of 'i' directly to the root. 
-      root = find(parent[i])
-      parent[i] = root
-      
-      return root
+    
+    // Recursively find the root of the set. As recursion unwinds, 
+    // set the parent of 'i' directly to the root.
+    parent[i] ← FIND(parent[i])
+    return parent[i]
 ```
 
 ---
@@ -349,14 +449,14 @@ template:path_comp
 ## Performance Improvement:
 ## Merging by Rank
 
-- performed during the `union` operation
+- Performed during the `UNION` operation.
 
-- rank = upper bound on the depth of the tree (not exact, since the depth is affected by
-path compression and it would be too expensive to keep rank equal to the actual depth) stored in a separate array
-(initially all ranks for singleton sets are the same)
 
-- when merging two sets/trees, we point the root of the one with the lower rank to the root of
-the one with the higher rank
+- **Rank**: An upper bound on the height of the tree (stored in a separate `rank` array).
+  Initially, all ranks for singleton sets are $0$.
+
+- When merging two sets/trees, point the root of the tree with the lower rank to the root of
+  the tree with the higher rank.
 
 
 
@@ -366,33 +466,28 @@ the one with the higher rank
 ## Merging by Rank
 
 ```
-// Input: Two elements 'i' and 'j' that we want to merge into a single set.
-// Assumes the existence of a find() function and a rank array.
+UNION(i, j)
+    root_i ← FIND(i)
+    root_j ← FIND(j)
 
-function union(i, j):
-  // Find the representatives (roots) of the sets containing 'i' and 'j'.
-  root_i = find(i)
-  root_j = find(j)
+    // If they are already in the same set, do nothing.
+    if root_i == root_j then
+        return
 
-  // If they are already in the same set, do nothing.
-  if root_i == root_j:
-    return
-
-  // Attach the smaller-rank tree under the root of the higher-rank tree.
-  if rank[root_i] < rank[root_j]:
-    parent[root_i] = root_j
-  else if rank[root_i] > rank[root_j]:
-    parent[root_j] = root_i
-  else:
-    // If ranks are the same, make one the root and increment its rank.
-    // It doesn't matter which one we choose.
-    parent[root_j] = root_i
-    rank[root_i] = rank[root_i] + 1
+    // Attach the smaller-rank tree under the root of the higher-rank tree.
+    if rank[root_i] < rank[root_j] then
+        parent[root_i] ← root_j
+    else if rank[root_i] > rank[root_j] then
+        parent[root_j] ← root_i
+    else
+        // If ranks are equal, pick one as root and increment its rank.
+        parent[root_j] ← root_i
+        rank[root_i] ← rank[root_i] + 1
 ```
 
 --
 
-Why don't we increment rank of `root_i` and `root_j` when they are not equal? 
+Why don't we increment the rank when `rank[root_i] != rank[root_j]`?
 
 
 
@@ -401,8 +496,8 @@ Why don't we increment rank of `root_i` and `root_j` when they are not equal?
 ## Performance Improvement:
 ## Merging by Size
 
-- an alternative to merging by rank: uses the number of nodes instead of
-the approximate depth
+- An alternative to merging by rank: uses the total number of nodes in the tree instead of
+  the approximate depth.
 
 
 ---
@@ -410,7 +505,8 @@ the approximate depth
 ## Performance Improvement:
 ## Merging by Rank/Size
 
-- Can we store the information about the rank/size without using an extra array? 
+- Can we store rank/size information without using an extra array? 
+
 
 --
 
@@ -418,10 +514,10 @@ the approximate depth
 
 --
 
-- Use the original array that stores the parent information. To indicate that an element 
-is the root of the set, its value is set to -size. 
-    - this means that whenever we discover a negative value we know it is a root (no longer looking for A[i] == i relationship) 
-    - the absolute value of A[i] is the size 
+- Use the original array that stores parent information. To indicate that an element 
+  is the root of the set, set its value to `-size`. 
+    - Discovering a negative value identifies a root (instead of checking `parent[i] == i`). 
+    - The absolute value of `parent[i]` gives the size of the set. 
 
 
 ---
@@ -436,7 +532,7 @@ is the root of the set, its value is set to -size.
 ```
 
 --
-union (3,7)
+`UNION(3, 7)`
 
 ```
         --------------------------------------------------------------
@@ -447,7 +543,7 @@ union (3,7)
 
 --
 
-union (2,5),   union(5,12)
+`UNION(2, 5)`, `UNION(5, 12)`
 
 ```
         --------------------------------------------------------------
@@ -463,7 +559,7 @@ class:challenge
 
 ## Challenge
 
-How will this array change after `union(2,3)` is executed?
+How will this array change after `UNION(2, 3)` is executed?
 
 Draw the trees associated with these sets.
 
@@ -486,7 +582,7 @@ class:challenge
 
 
 
-How will this array change after `union(7, 12)` is executed?
+How will this array change after `UNION(7, 12)` is executed?
 
 Draw the trees associated with these sets.
 
@@ -509,7 +605,7 @@ class:challenge
 
 
 How will this array change after the following three union operations are 
-executed: `union(8,9)`, `union(10,11)`, `union(8,10)` (in that order)?
+executed: `UNION(8, 9)`, `UNION(10, 11)`, `UNION(8, 10)` (in that order)?
 
 Draw the trees associated with these sets.
 
@@ -530,104 +626,118 @@ class:challenge
 
 ## Challenge: Allies and Enemies
 
-There are N countries ( 2 <= N <= 10^5). Any pair of countries are either allies
+There are $N$ countries ($2 \le N \le 10^5$). Any pair of countries are either allies
 or enemies.
 
 
-Instructions to be implemented:
+Operations to be implemented:
 
-- `ally(x,y)`, x and y are allies
-- `enemy(x,y)`, x and y are enemies
-- `isAlly(x,y)`, queries about being allies
-- `isEnemy(x,y)`, queries about being enemies
+- `ALLY(x, y)`: $x$ and $y$ are allies.
 
-(if an instruction `ally` or `enemy` conflicts with existing information,
-it should be ignored and a conflict should be reported )
+- `ENEMY(x, y)`: $x$ and $y$ are enemies.
 
-We have the following relations:
+- `IS-ALLY(x, y)`: Queries whether $x$ and $y$ are allies.
 
-- if  `ally(x,y)` and `ally(y,z)` then `ally(x,z)`
-- if  `ally(x,y)` and `enemy(y,z)` then `enemy(x,z)`
-- if  `enemy(x,y)` and `ally(y,z)` then `enemy(x,z)`
-- if  `enemy(x,y)` and `enemy(y,z)` then `ally(x,z)`
+- `IS-ENEMY(x, y)`: Queries whether $x$ and $y$ are enemies.
+
+
+(If an `ALLY` or `ENEMY` operation conflicts with existing information,
+ignore it and report a conflict.)
+
+We have the following properties:
+
+- If `ALLY(x, y)` and `ALLY(y, z)`, then `ALLY(x, z)`.
+
+- If `ALLY(x, y)` and `ENEMY(y, z)`, then `ENEMY(x, z)`.
+
+- If `ENEMY(x, y)` and `ALLY(y, z)`, then `ENEMY(x, z)`.
+
+- If `ENEMY(x, y)` and `ENEMY(y, z)`, then `ALLY(x, z)`.
+
 
 ---
 
 ## Challenge: Allies and Enemies
 ## Example
 
-n = 5, (countries numbered 1 - 5)
+$N = 5$ (countries numbered $1 - 5$)
 
-|instructions | response |
+| Instructions | Response |
 |:---|:---|
-|`isAlly(1,2)` | false, no info yet |
-|`isEnemy(1,2)` | false, no info yet |
-|`ally(1,2)` | OK (i.e., no conflict) |
-|`ally(3,4)` | OK (i.e., no conflict) |
-|`enemy(1,2)` | conflict |
-|`enemy(1,4)` | OK (i.e., no conflict) |
-|`isEnemy(1,3)` | true |
-|`enemy(1,5)` | OK (i.e., no conflict) |
-|`isAlly(2,5)` | false  |
-|`isAlly(3,5)` | true  |
-|`enemy(4,5)` | conflict  |
+|`IS-ALLY(1, 2)` | false, no info yet |
+|`IS-ENEMY(1, 2)` | false, no info yet |
+|`ALLY(1, 2)` | OK (no conflict) |
+|`ALLY(3, 4)` | OK (no conflict) |
+|`ENEMY(1, 2)` | conflict |
+|`ENEMY(1, 4)` | OK (no conflict) |
+|`IS-ENEMY(1, 3)` | true |
+|`ENEMY(1, 5)` | OK (no conflict) |
+|`IS-ALLY(2, 5)` | false |
+|`IS-ALLY(3, 5)` | true |
+|`ENEMY(4, 5)` | conflict |
 
 ---
 
 ## Challenge: Allies and Enemies
 ## Solution
 
-Represent each country with two values: x and x'
+Represent each country with two nodes: $x$ (friend node) and $x'$ (enemy node).
 
-The required instructions can be now implemented using disjoint set as follows:
+The operations can be implemented using Disjoint Sets as follows:
 
-- ally(x,y)
-    - if sameSet(x,y'), then conflict
-    - otherwise union(x,y) and union(x',y')
-- enemy(x,y)
-    - if sameSet(x,y), then conflict
-    - otherwise union(x,y') and union(x',y)
-- isAlly(x,y)
-    - return sameSet(x,y)
-- isEnemy(x,y)
-    - return sameSet(x,y')
+- `ALLY(x, y)`:
+    - If `SAME-SET(x, y')`, report conflict.
+    - Otherwise, `UNION(x, y)` and `UNION(x', y')`.
+
+- `ENEMY(x, y)`:
+    - If `SAME-SET(x, y)`, report conflict.
+    - Otherwise, `UNION(x, y')` and `UNION(x', y)`.
+
+- `IS-ALLY(x, y)`:
+    - Return `SAME-SET(x, y)`.
+
+- `IS-ENEMY(x, y)`:
+    - Return `SAME-SET(x, y')`.
 
 ---
 
 ## Challenge: Allies and Enemies
 ## Example Solution
 
-n = 5, (countries numbered 1 - 5)
+$N = 5$ (countries numbered $1 - 5$)
 
-|instructions | response | disjoint set |
+| Instructions | Response | Disjoint Set Array |
 |:---|:---|:---|
-| | |                                    `/ 1 / 2 / 3 / 4 / 5 / 1'/ 2'/ 3'/ 4'/ 5'/ ` |
-|`isAlly(1,2)` | false, no info yet |    `/-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 / ` |
-|`isEnemy(1,2)` | false, no info yet |   `/-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 /-1 / ` |
-|`ally(1,2)` | OK (i.e., no conflict) |  `/-2 / 1 /-1 /-1 /-1 /-2 / 1'/-1 /-1 /-1 / ` |
-|`ally(3,4)` | OK (i.e., no conflict) |  `/-2 / 1 /-2 / 3 /-1 /-2 / 1'/-2 / 3'/-1 / ` |
-|`enemy(1,2)` | conflict |               `/-2 / 1 /-2 / 3 /-1 /-2 / 1'/-2 / 3'/-1 / ` |
-|`enemy(1,4)` | OK (i.e., no conflict) | `/-4 / 1 / 1'/ 3 /-1 /-4 / 1'/ 1 / 3'/-1 / ` |
-|`isEnemy(1,3)` | true |                 `/-4 / 1 / 1'/ 3 /-1 /-4 / 1'/ 1 / 3'/-1 / ` |
-|`enemy(1,5)` | OK (i.e., no conflict) | `/-5 / 1 / 1'/ 3 / 1'/-5 / 1'/ 1 / 3'/ 1 / ` |
-|`isAlly(2,5)` | false  |                `/-5 / 1 / 1'/ 3 / 1'/-5 / 1'/ 1 / 3'/ 1 / ` |
-|`isAlly(4,5)` | true  |                 `/-5 / 1 / 1'/ 1'/ 1'/-5 / 1'/ 1 / 3'/ 1 / ` *|
-|`enemy(4,5)` | conflict  |              `/-5 / 1 / 1'/ 1'/ 1'/-5 / 1'/ 1 / 3'/ 1 / `|
+| | | `| 1 | 2 | 3 | 4 | 5 | 1'| 2'| 3'| 4'| 5'|` |
+|`IS-ALLY(1, 2)` | false, no info | `|-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |` |
+|`IS-ENEMY(1, 2)` | false, no info | `|-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |-1 |` |
+|`ALLY(1, 2)` | OK | `|-2 | 1 |-1 |-1 |-1 |-2 | 1'|-1 |-1 |-1 |` |
+|`ALLY(3, 4)` | OK | `|-2 | 1 |-2 | 3 |-1 |-2 | 1'|-2 | 3'|-1 |` |
+|`ENEMY(1, 2)` | conflict | `|-2 | 1 |-2 | 3 |-1 |-2 | 1'|-2 | 3'|-1 |` |
+|`ENEMY(1, 4)` | OK | `|-4 | 1 | 1'| 3 |-1 |-4 | 1'| 1 | 3'|-1 |` |
+|`IS-ENEMY(1, 3)` | true | `|-4 | 1 | 1'| 3 |-1 |-4 | 1'| 1 | 3'|-1 |` |
+|`ENEMY(1, 5)` | OK | `|-5 | 1 | 1'| 3 | 1'|-5 | 1'| 1 | 3'| 1 |` |
+|`IS-ALLY(2, 5)` | false | `|-5 | 1 | 1'| 3 | 1'|-5 | 1'| 1 | 3'| 1 |` |
+|`IS-ALLY(4, 5)` | true | `|-5 | 1 | 1'| 1'| 1'|-5 | 1'| 1 | 3'| 1 |` *|
+|`ENEMY(4, 5)` | conflict | `|-5 | 1 | 1'| 1'| 1'|-5 | 1'| 1 | 3'| 1 |` |
 
-<sup>*</sup> path compression
+<sup>*</sup> Path compression applied.
 
 ---
 
 ## Challenge: Build a Maze
 
-Given an NxN grid generate a random maze (i.e., start with a 2D grid with full separation;
-then remove some of the walls to join the cells on two sides of the wall).
+Given an $N \times N$ grid, generate a random maze (i.e., start with a 2D grid with full separation,
+then remove walls to join cells on opposite sides).
 
-- we have a fixed start point and end point
+- Fixed start point $S$ and end point $E$.
 
-- there should be no cycles in the maze
 
-- every cell should be reachable from every other cell
+- No cycles in the maze.
+
+
+- Every cell must be reachable from every other cell.
+
 
 
 ```
@@ -652,14 +762,17 @@ S  |  |  |  |  |  |
 
 __Algorithm__:
 
-- create a set of all internal walls
-- create a disjoint set of all cells (initially each cell is in its own set)
+- Create a set of all internal walls.
 
-- as long as there are more than one set of cells:
-    - choose a wall at random from the wall-set
-    - if the cells on each side of this wall are not in the same set,
-        - erase the wall from the maze
-        - union the two sets associated with the two cells
+- Create a disjoint set of all cells (initially, each cell is in its own set).
+
+
+- While there is more than 1 set of cells:
+
+    - Choose a wall $W$ at random from the wall set.
+    - If the cells on either side of $W$ are NOT in the same set:
+        - Erase $W$ from the maze.
+        - `UNION` the two sets associated with the two cells.
 ---
 
 ```
@@ -791,7 +904,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --     W --
+ -- -- --      W --
 |  |  |  |     |  |
  -- -- -- -- -- --
 |  |  |  |  |  |  |
@@ -809,7 +922,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  -- -- -- -- -- --
 |  |  |  |  |  |  |
@@ -827,7 +940,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  W  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  -- -- -- -- -- --
 |  |  |  |  |  |  |
@@ -845,7 +958,7 @@ S  |     |  W  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  -- -- -- -- -- --
 |  |  |  |  |  |  |
@@ -863,7 +976,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  --  W -- -- -- --
 |  |  |  |  |  |  |
@@ -881,7 +994,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  --    -- -- -- --
 |  |  |  |  |  |  |
@@ -898,7 +1011,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  --    -- -- -- --
 |  |  |  W  |  |  |
@@ -917,7 +1030,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
- -- -- --       --
+ -- -- --        --
 |  |  |  |     |  |
  --    -- -- -- --
 |  |  |     |  |  |
@@ -935,7 +1048,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
-  W -- --       --
+ W -- --        --
 |  |  |  |     |  |
  --    -- -- -- --
 |  |  |     |  |  |
@@ -953,7 +1066,7 @@ S  |     |  |  |  |
 ```
  -- -- -- -- -- --
 S  |     |  |  |  |
-    -- --       --
+    -- --        --
 |  |  |  |     |  |
  --    -- -- -- --
 |  |  |     |  |  |
@@ -973,10 +1086,10 @@ S  |     |  |  |  |
 ---
 ## Challenge: Counting Islands
 
-The  NxM grid of integers gives terrain elevation. Given a water level L, every
-cell with the height (=elevation) <= L is below the water. The islands are the cells
-above the water. An island is a group of 4-connected cells (connected by the
-sides, not corners).
+An $N \times M$ grid of integers gives terrain elevation. Given a water level $L$, every
+cell with height $\le L$ is under water. The islands are the cells
+above water. An island is a group of 4-connected cells (connected horizontally or vertically,
+not diagonally).
 
 Determine the number of islands.
 
@@ -984,16 +1097,16 @@ Determine the number of islands.
 <img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
 <img src="img/islands2.PNG" alt="elevation map" width="375px"/>
 
-L = 2,  there are 2 islands]
+$L = 2$: there are 2 islands]
 
 
 ---
 ## Challenge: Counting Islands
 
-The NxM grid of integers gives terrain elevation. Given a water level L, every
-cell with the height (=elevation) <= L is below the water. The islands are the cells
-above the water. An island is a group of 4-connected cells (connected by the
-sides, not corners).
+An $N \times M$ grid of integers gives terrain elevation. Given a water level $L$, every
+cell with height $\le L$ is under water. The islands are the cells
+above water. An island is a group of 4-connected cells (connected horizontally or vertically,
+not diagonally).
 
 Determine the number of islands.
 
@@ -1001,15 +1114,15 @@ Determine the number of islands.
 <img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
 <img src="img/islands3.PNG" alt="elevation map" width="375px"/>
 
-L = 4,  there are 4 islands]
+$L = 4$: there are 4 islands]
 
 ---
 ## Challenge: Counting Islands
 
-The NxM grid of integers gives terrain elevation. Given a water level L, every
-cell with the height (=elevation) <= L is below the water. The islands are the cells
-above the water. An island is a group of 4-connected cells (connected by the
-sides, not corners).
+An $N \times M$ grid of integers gives terrain elevation. Given a water level $L$, every
+cell with height $\le L$ is under water. The islands are the cells
+above water. An island is a group of 4-connected cells (connected horizontally or vertically,
+not diagonally).
 
 Determine the number of islands.
 
@@ -1017,63 +1130,58 @@ Determine the number of islands.
 <img src="img/islands1.PNG" alt="elevation map" width="375px"/>&nbsp;&nbsp;&nbsp;
 <img src="img/islands4.PNG" alt="elevation map" width="375px"/>
 
-L = 6,  there is 1 island]
+$L = 6$: there is 1 island]
 
 ---
 ## Counting Islands
 
-__Solution 1__ Use O(N*M) algorithm that visits all the cells one by one.
-For each cell that is above the level of water find all the cells adjacent
-to it (DFS type search) and mark them as visited. For each discovered island
-increment the count of islands.
+__Solution 1__: Use an $\mathcal{O}(N \cdot M)$ algorithm that visits all cells one by one.
+For each cell above water, perform a traversal (e.g., DFS/BFS) to visit all adjacent land cells,
+marking them visited. Increment the island count for each connected component found.
 
 ----
 --
 
-__Solution 2__ Use disjoint sets data structure.
+__Solution 2__: Use a Disjoint Set data structure.
 
 --
 
-For each cell, look at the four adjacent neighbors. If they are above L
-union the two cells. The number of sets is the number of islands.
+For each cell above water, inspect its 4 adjacent neighbors. If a neighbor is also above $L$,
+`UNION` the two cells. The number of non-water sets is the number of islands.
 
 --
 
-Or is it? What about the "sets" associated with the cells with values <= L?
+*(Note: Cells with values $\le L$ are ignored/not placed in land sets).*
 
 ----
 --
 
-__Problem variation__
+__Problem Variation__:
 
-But, what if we need to provide the answer for "continuous" levels:
-- global warming -> waters are rising
-- after floding -> waters are slowly dropping
+What if we need to output the answer across continuously changing water levels?
+- Global warming $\rightarrow$ water level rising.
+- Post-flooding $\rightarrow$ water level falling.
+
 
 ---
 
-## Counting Islands Continuous
+## Counting Islands (Continuous Levels)
 
-This approach counts the islands  for levels from largest (everything
-is under water) to smallest (everything is above water)
+This approach counts islands for levels from largest (everything submerged)
+to smallest (everything exposed):
 
-- each cell is in its own set
-- for processing sort the cells from largest (highest elevation) to lowest
-- for level L0 (the highest level), go through all cells with values > L0 and union each
-of them with its four neighbors if that neighbor is also above L0; keep track
-of the number of islands
-- for level L1 (the next highest level), go through all the cells with values > L1
-and <=L0, union each with its four neighbors if that neighbor is larger than L1;
-keep track of the number of islands
-- ...
+- Initialize each cell in its own set.
 
+- Sort cells in descending order by elevation.
 
+- For level $L_0$ (highest water level), iterate over all cells with elevation $> L_0$.
+  `UNION` each with its 4 neighbors if the neighbor is also $> L_0$. Track the island count.
 
+- For level $L_1$ (next highest level), iterate over cells with elevation $> L_1$
+  and $\le L_0$. `UNION` each with its 4 neighbors if the neighbor is $> L_1$.
+  Track the updated island count.
 
-
-</optgroup>
-
-
+- Repeat for all remaining water levels.
 
     </textarea>
      <script src="js/remark.js" type="text/javascript">
