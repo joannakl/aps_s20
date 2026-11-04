@@ -75,26 +75,148 @@ template: section
 
 ## Sorting Algorithms
 
-- swap based sorts
+- **Comparison-based sorts**
 
-  - swapping consecutive elements, $O(N^2)$,
-      - bubble sort
-      - insertion sort
-      - selection sort
+  - bubble sort, insertion sort, and selection sort: $O(N^2)$
+  - merge sort and heap sort: $O(N \log N)$ in the worst case
+  - quicksort: $O(N \log N)$ on average (or in expectation with randomized pivots),
+    but $O(N^2)$ in the worst case
 
-  - swapping non-consecutive elements, $O(N \log N)$
-      - merge sort
-      - quick sort
-      - heap sort
+  - _Note_: Any comparison-based sort requires at least
+    $\Omega(N \log N)$ comparisons in the worst case.
 
-  - _Note_: It is not possible to sort $N$ elements using comparisons
-    in time better than $O(N\log N)$
+- **Non-comparison sorts**: counting sort and radix sort
+
+---
+## Train Swapping Problem 
+
+- [UVA 299 Train Swapping](https://onlinejudge.org/external/2/299.pdf)
+
+- or how many elements get swapped by bubble sort when sorting a given array 
+
+--
+
+- naive solution: maintain a counter that increments every time an adjacent swap occurs.
+
+```text
+    swaps = 0
+    for i from 0 to N-1:
+        for j from 0 to N-i-2:
+            if A[j] > A[j+1]:
+                swap(A[j], A[j+1])
+                swaps++
+``` 
+
+- time complexity $O(n^2)$
+
+--
+
+- this naive solution works for the Train Swapping problem because N is small (very small) 
+
+---
+
+## Mapping Swaps to Inversions 
+
+
+An **inversion** in an array $A$ is an index pair $(i, j)$ such that:
+$$i < j \quad \text{and} \quad A[i] > A[j]$$
+
+--
+
+**total number of swaps performed by bubble sort = number of inversions in the array**
+
+--
+
+**why?**
+
+- Swapping adjacent elements $A[j]$ and $A[j+1]$ when $A[j] > A[j+1]$ eliminates **exactly 1 inversion** (the pair $(j, j+1)$).
+
+- An adjacent swap changes the relative order of $A[j]$ and $A[j+1]$, but leaves the relative order of all other element pairs unchanged.
+
+---
+## Modified Merge Sort to Count Inversions 
+
+
+- use merge sort idea to count inversions while sorting the array in $O(N \log N)$ time instead 
+
+
+
+- algorithm: 
+
+  - Split the array into left and right halves (recursively, until size 1).
+  - Recurse: count inversions in the left half and in the right half.
+  - Merge the two sorted halves with two pointers i (left) and j (right):
+      - If left[i] <= right[j]: take left[i], no new inversions.
+      - Else: take right[j]. It is smaller than left[i] and everything after it in the left half (since the left is sorted), so add len(left) - i inversions.
+      - Total = left inversions + right inversions + cross inversions counted during the merge.
+
+--
+
+- complexity
+  * time complexity: $O(N \log N)$
+  * space complexity: $O(N)$ auxiliary space
+
+---
+
+## Modified BST to Count Inversions 
+
+- Use a self-balancing order-statistic BST. Each node stores the size of its
+  subtree, counting occurrences; store a multiplicity at each node to handle
+  duplicate keys.
+
+--
+
+- algorithm
+
+  - For each element x, from left to right:
+      - Let seen = number of elements already in the tree (the elements to the left of x).
+      - Query rank_leq(x) = number of elements in the tree that are <= x.
+      - Add (seen - rank_leq(x)) to inversions. These are the earlier elements strictly greater than x, each forming an inversion with it.
+      - Insert x into the tree. 
+      
+--
+
+- how do we compute rank_leq(x) ? 
+
+--
+
+  - Start at the root with count = 0.
+  - Walk down the tree, comparing x to the current node’s key:
+      - If node.key <= x, the node and its entire left subtree are all <= x, so add size(node.left) + node.multiplicity to count, then move to the right child.
+      - If node.key > x, the node and its right subtree are too large, so add nothing and move to the left child.
+  - Stop when you reach an empty (null) child.
+
+--
+
+- complexity
+  - time complexity:  $O(N \log N)$ ($N$ insertions, each taking $O(\log N)$)
+  - space complexity: $O(N)$
+
+--
+
+- This approach can also be used dynamically as data arrives one element at a time.
+
+---
+
+## Counting Inversions when Range is Limited 
+
+- Other approaches exist when we restrict the values in the array to integers in
+  $[1, K]$.
+
+- We'll come back to this scenario later. 
+
+---
+
+template: section
+
+# Counting Sort
+
 
 ---
 ## Sorting Algorithms: Counting Sort
 
 
-- assumes that elements to be sorted are in a fixed range of 0 to $c$
+- Assumes that the values to be sorted are integers in the fixed range $[0, c]$.
 
 - works in $O(N + c)$
     - which is $O(N)$ for $c < N$,
@@ -102,9 +224,9 @@ template: section
       using counting sort gives $O(N^2)$ time)
 
 - algorithm:
-  - linear pass through the data to count how many of each elements 0 to $c$
-    there are (counter for each possible element)
-  - linear pass through the counters to produce data in order
+  - Make one linear pass through the data, counting occurrences of each value
+    from 0 to $c$ (one counter for each possible value).
+  - Make one linear pass through the counters to produce the values in order.
 
 ---
 ## Sorting Algorithms: Counting Sort
@@ -115,18 +237,17 @@ Data to sort: A = [1, 3, 6, 9, 9, 3, 5, 9], the max possible value is `c = 9`
 
 --
 
-- create an array C with indexes 0 to 9, initialize all values to zero
-- for each element i in A
-    - increment C[A[i]] by one
+- Create an array C with indexes 0 to 9 and initialize all values to zero.
+- For each value v in A, increment C[v] by one.
 
 ```
     index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
     value  | 0 | 1 | 0 | 2 | 0 | 1 | 1 | 0 | 0 | 3 |
 ```
 
-- create and empty array B
-- for each element i in C
-    - if C[i] > 0, add i to B C[i] times
+- Create an empty array B.
+- For each value i from 0 to 9:
+    - If C[i] > 0, append i to B exactly C[i] times.
 
 B is the sorted version of A
 
@@ -136,13 +257,13 @@ need to use a C array)
 ---
 ## Sorting Algorithms: Radix Sort
 
-- another _fast_ sort for integer data (or data that can be easily mapped to integers)
-
-- useful when counting sort is too slow, i.e., the range is significantly larger than the number of elements
-
-- idea: sort the numbers by digits from least significant to most significant
-
-- can be applied to representations in different basis
+- A fast sort for integer keys (or keys that can be mapped to digit sequences).
+- Process digits from least significant to most significant, using a **stable**
+  sort on each digit.
+- Counting sort is often used for each digit because its range is small. With
+  $d$ digits in base $b$, this takes $O(d(N+b))$ time and $O(N+b)$ auxiliary
+  space.
+- The same idea works with different number bases.
 
 
 ---
@@ -154,37 +275,24 @@ Data to sort:
 A = [100182, 21203, 611341, 909090, 9897, 323109, 5, 9781],
 the range of values is [0, 1000000].
 
+For these inputs, the largest value is 909090, so values are zero-padded to six
+digits. Each row shows the order **after** a stable pass; the bold digit is the
+digit used for that pass.
 
-
---
-
-<span style="font-family:mono">10018__2__, 2120__3__, 61134__1__, 90909__0__, 989__7__, 32310__9__, __5__, 978__1__ </span><br>
---
-<span style="font-family:mono">90909__0__, 61134__1__, 978__1__, 10018__2__, 2120__3__, __5__,  989__7__, 32310__9__ </span><br>
---
-<span style="font-family:mono">9090__9__0, 6113__4__1, 97__8__1, 1001__8__2, 212__0__3, __?__5,  98__9__7, 3231__0__9 </span><br>
---
-<span style="font-family:mono">212__0__3, __?__5,  3231__0__9, 6113__4__1, 97__8__1, 1001__8__2, 9090__9__0, 98__9__7</span><br>
---
-<span style="font-family:mono">21__2__03, 5,  323__1__09, 611__3__41, 9__7__81, 100__1__82, 909__0__90, 9__8__97</span><br>
---
-<span style="font-family:mono">5, 909__0__90,  323__1__09, 100__1__82, 21__2__03, 611__3__41, 9__7__81, 9__8__97</span><br>
---
-<span style="font-family:mono">5, 90__9__090,  32__3__109, 10__0__182, 2__1__203, 61__1__341, __9__781, __9__897</span><br>
---
-<span style="font-family:mono">5, 10__0__182, 2__1__203, 61__1__341, 32__3__109, 90__9__090,  __9__781, __9__897</span><br>
---
-<span style="font-family:mono">5, 1__0__0182, __2__1203, 6__1__1341, 3__2__3109, 9__0__9090,  __?__9781, __?__9897</span><br>
---
-<span style="font-family:mono">5, 1__0__0182, 9__0__9090,  __?__9781, __?__9897, 6__1__1341, __2__1203, 3__2__3109</span><br>
---
-<span style="font-family:mono">5,  __1__00182, __9__09090, 9781, 9897, __6__11341, __?__21203, __3__23109</span><br>
---
-<span style="font-family:mono">5,  9781, 9897, __?__21203, __1__00182, __3__23109, __6__11341, __9__09090</span><br>
+| Pass | Output after stable sort |
+|---|---|
+| Input | <span style="font-family:mono">100182&nbsp; 021203&nbsp; 611341&nbsp; 909090&nbsp; 009897&nbsp; 323109&nbsp; 000005&nbsp; 009781</span> |
+| 1: ones | <span style="font-family:mono">90909<strong>0</strong>&nbsp; 61134<strong>1</strong>&nbsp; 00978<strong>1</strong>&nbsp; 10018<strong>2</strong>&nbsp; 02120<strong>3</strong>&nbsp; 00000<strong>5</strong>&nbsp; 00989<strong>7</strong>&nbsp; 32310<strong>9</strong></span> |
+| 2: tens | <span style="font-family:mono">0212<strong>0</strong>3&nbsp; 0000<strong>0</strong>5&nbsp; 3231<strong>0</strong>9&nbsp; 6113<strong>4</strong>1&nbsp; 0097<strong>8</strong>1&nbsp; 1001<strong>8</strong>2&nbsp; 9090<strong>9</strong>0&nbsp; 0098<strong>9</strong>7</span> |
+| 3: hundreds | <span style="font-family:mono">000<strong>0</strong>05&nbsp; 909<strong>0</strong>90&nbsp; 323<strong>1</strong>09&nbsp; 100<strong>1</strong>82&nbsp; 021<strong>2</strong>03&nbsp; 611<strong>3</strong>41&nbsp; 009<strong>7</strong>81&nbsp; 009<strong>8</strong>97</span> |
+| 4: thousands | <span style="font-family:mono">000<strong>0</strong>05&nbsp; 10<strong>0</strong>182&nbsp; 02<strong>1</strong>203&nbsp; 61<strong>1</strong>341&nbsp; 32<strong>3</strong>109&nbsp; 90<strong>9</strong>090&nbsp; 00<strong>9</strong>781&nbsp; 00<strong>9</strong>897</span> |
+| 5: ten-thousands | <span style="font-family:mono">0<strong>0</strong>0005&nbsp; 1<strong>0</strong>0182&nbsp; 9<strong>0</strong>9090&nbsp; 0<strong>0</strong>9781&nbsp; 0<strong>0</strong>9897&nbsp; 6<strong>1</strong>1341&nbsp; 0<strong>2</strong>1203&nbsp; 3<strong>2</strong>3109</span> |
+| 6: hundred-thousands | <span style="font-family:mono"><strong>0</strong>00005&nbsp; <strong>0</strong>09781&nbsp; <strong>0</strong>09897&nbsp; <strong>0</strong>21203&nbsp; <strong>1</strong>00182&nbsp; <strong>3</strong>23109&nbsp; <strong>6</strong>11341&nbsp; <strong>9</strong>09090</span> |
 
 --
 
-How should each _digit_ be sorted to guarantee the final sorted order?
+What property must each per-digit sort have to preserve the order established by
+earlier passes?
 
 What is the performance of this sort?
 
@@ -192,9 +300,48 @@ What is the performance of this sort?
 
 ## Challenge: Date Sorting
 
-__Task__ 
+__Task__
 
-Given a large number of dates in the format  `MM DD, YEAR`, sort then from earliest to latest in the _time_ order. 
+Sort these dates from earliest to latest:
+
+```text
+12/31/2024    01/01/2024    02/14/2023    01/01/2025    02/14/2024
+```
+
+**Think:** 
+- Which date comes first? 
+- Which comes last? 
+
+--
+
+Would sorting the date strings alphabetically work?
+
+```text
+01/01/2024    01/01/2025    02/14/2023    02/14/2024    12/31/2024
+```
+--
+
+The strings are in month/day/year order, so alphabetical order puts every
+January date before every February date—even when the January date is from a
+later year.
+
+---
+
+## Challenge: Date Sorting
+
+__One Solution: Compare the Components__
+
+- Parse each date into `(month, day, year)`.
+- Compare dates by `(year, month, day)`, in that order.
+- For the example, the chronological order is:
+
+```text
+    02/14/2023    01/01/2024    02/14/2024    12/31/2024    01/01/2025
+```
+
+- Sort by this key in $O(N \log N)$ time with a comparison sort.
+- If dates are already stored in sortable `YYYY-MM-DD` form, lexicographic
+  string order matches chronological order.
 
 ---
 
@@ -206,9 +353,146 @@ Given a large number of dates in the format  `MM DD, YEAR`, sort then from earli
 - in both cases the implementations provide $O(N \log N)$ performance
 
 
-- __but__ learn how to implement a comparison operations that can
-be given to those sorts to decide/alter the sorting order of objects
+- __But__ learn how to implement a comparison operation that can be given to
+  those sorts to determine or change the sorting order of objects.
 
+--
+
+**What sorts are used in the libraries?**
+
+--
+
+- Some library implementations use a form of **two-pivot (dual-pivot) quicksort**;
+  for example, some Java primitive-array sorts use it.
+
+- A more common choice for library sorts is a combination of sorts. 
+
+  - **Timsort** is a hybrid, stable sorting algorithm derived from Merge Sort and Insertion Sort, created by Tim Peters in 2002 for Python. It works by finding naturally ordered subsequences ("runs") in the data, extending small runs using Insertion Sort, and merging them efficiently. It achieves $O(N \log N)$ worst-case time and $O(N)$ best-case time on nearly-sorted data. It is the default sorting algorithm for Python and Java's object arrays.
+
+  - **Introsort** (Introspective Sort) is a hybrid sorting algorithm created by David Musser in 1997 for Silicon Graphics (SGI) C++ Standard Template Library (STL). It begins with Quicksort, switches to Heapsort if the recursion depth gets too deep (preventing Quicksort's $O(N^2)$ worst-case), and uses Insertion Sort for small sub-arrays. This gives it $O(N \log N)$ worst-case performance with the fast practical speed of Quicksort, making it the standard algorithm behind C++'s std::sort.
+
+
+---
+
+## Two-Pivot Quicksort
+
+- Choose two pivot values $p$ and $q$ such that $p < q$.
+
+--
+
+- Partition the array into five regions:
+  - values less than $p$
+  - values equal to $p$
+  - values strictly between $p$ and $q$
+  - values equal to $q$
+  - values greater than $q$
+
+--
+
+- Recursively sort the first, third, and fifth regions. The equal-pivot regions
+  are already in their final positions.
+
+--
+
+- If no two distinct pivot values are available, use a one-pivot, three-way
+  partition instead.
+
+- With randomized pivot selection, the expected running time is
+  $O(N \log N)$. Repeatedly unbalanced partitions can lead to the worst-case
+  $O(N^2)$ running time.
+
+---
+
+## Partitioning Around Two Pivots: 
+### First Pass
+
+First, partition the whole range around $p$ into values below $p$, equal to
+$p$, and above $p$. Work on the half-open range `A[lo..hi)`.
+
+```text
+
+# Assume p < q.
+
+lt = lo; i = lo; gt = hi - 1
+
+while i <= gt:
+    if A[i] < p:
+        swap(A[lt], A[i]); 
+        lt++; 
+        i++
+    else if A[i] == p:
+        i++
+    else:
+        swap(A[i], A[gt]); 
+        gt--
+
+```
+
+At the end, `A[lo..lt)` contains values below $p$, `A[lt..gt + 1)` contains
+values equal to $p$, and `A[gt + 1..hi)` contains values above $p$.
+
+---
+
+## Partitioning Around Two Pivots: 
+### Second Pass
+
+Now partition only the values above $p$ around $q$. Their values below $q$
+belong between the pivots; the rest are equal to or above $q$.
+
+```text
+
+start = gt + 1                  # first element greater than p
+
+lt2 = start; i = start; gt2 = hi - 1
+
+while i <= gt2:
+    if A[i] < q:
+        swap(A[lt2], A[i]); 
+        lt2++; i++
+    else if A[i] == q:
+        i++
+    else:
+        swap(A[i], A[gt2]); 
+        gt2--
+```
+
+The five regions are `A[lo..lt)`, `A[lt..start)`, `A[start..lt2)`,
+`A[lt2..gt2 + 1)`, and `A[gt2 + 1..hi)`, in order: below $p$, equal to $p$,
+between the pivots, equal to $q$, and above $q$. Values within each region are
+not necessarily sorted.
+
+---
+
+## Two-Pivot Partition: Example
+
+Let $p=3$, $q=7$, and start with:
+
+```text
+[9, 3, 7, 2, 5, 8, 1, 6, 4, 7, 3, 9]
+```
+
+After the first partition around $p=3$:
+
+```text
+[1, 2 | 3, 3 | 8, 5, 6, 4, 7, 7, 9, 9]
+```
+
+After the second partition around $q=7$, the five regions are:
+
+```text
+< p       = p       p < x < q       = q       > q
+[1, 2] | [3, 3] | [5, 6, 4] | [7, 7] | [9, 9, 8]
+```
+
+The order inside each region is unspecified. 
+Recurse on `[1, 2]`, `[5, 6, 4]`, and `[9, 9, 8]`; the pivot-equal regions need no further work.
+
+---
+
+## Challenge: Sorting out Sorts
+
+- Given implemented and compiled sorting algorithms, what could you use 
+to figure out which algorithm is which. 
 
 ---
 
@@ -234,9 +518,7 @@ __Brute force solution__, $O(N^2)$
 
 - elements are UNIQUE
 
-
 --
-
 
 __Better, using sorting__, $O(N \log N)$
 
@@ -246,6 +528,10 @@ __Better, using sorting__, $O(N \log N)$
       - if A[i] is equal to A[i-1]  return NOT_UNIQUE
 
 - elements are UNIQUE
+
+--
+
+__Best, using a hash table__, $O(N)$ expected time 
 
 ---
 template: challenge
@@ -277,7 +563,9 @@ template: challenge
 
 __One Possible Solution__
 
-- sort the times $a_i$ and $d_i$ (as a single array based on time)
+- Sort the times $a_i$ and $d_i$ as a single array, ordered by time.
+- Treat each party's stay as the half-open interval $[a_i, d_i)$; when times
+  are equal, process departures before arrivals.
 - start a counter at zero
 - set max_counter to zero
 - for each element in the array of arrival/departure times
@@ -290,12 +578,49 @@ __One Possible Solution__
 <br><br><br>
 
 This is algorithm in the family of __sweep line__ algorithms.
+---
+
+template: challenge
+
+
+## Challenge: Restaurant Problem
+
+__Another Possible Solution: Fixed-Width Time Bins__
+
+- Choose a time-bin width, such as 1 minute, and divide the evening into
+  consecutive bins.
+- Initialize each bin's count to zero.
+- For each party, increment every bin that its stay overlaps.
+- The largest bin count estimates the busiest time; report that bin (or bins).
+- With $B$ bins, the time is $O(B + \text{total bin overlaps})$ and the space
+  is $O(B)$.
+
+__Example:__ Use 1-minute bins and count a party in every bin its stay overlaps.
+
+Suppose the party stays are $A=[6{:}00,6{:}03)$, $B=[6{:}01,6{:}04)$,
+$C=[6{:}02,6{:}05)$, and $D=[6{:}03,6{:}04)$.
+
+| Time bin | Parties present | Count | Visual |
+|---|:---|:---:|:---|
+| 6:00-6:01 | A | 1 | # |
+| 6:01-6:02 | A, B | 2 | ## |
+| 6:02-6:03 | A, B, C | 3 | ### |
+| 6:03-6:04 | B, C, D | 3 | ### |
+| 6:04-6:05 | C | 1 | # |
+
+Here, the busiest bins are 6:02-6:03 and 6:03-6:04, with 3 parties.
+
+<br>
+
+The result depends on the bin width: a party is counted in a bin if they are
+there at any time during it, so parties present at different moments in one
+bin may be counted together. Smaller bins give finer time resolution.
 
 ---
 
 template: challenge
 
-## Challenge: Springbreak
+## Challenge: Spring Break
 
 __Task__<br/>
 
@@ -305,7 +630,7 @@ home to see them during the break.
 will do as many _fun things_ as you can during that week.
 - You have a calendar of fun events that are happening around you. The goal is to
 attend as many of them as possible, but some of them are overlapping in time.
-- You are going to write an algorihtm that picks the largest number of events to attend
+- You are going to write an algorithm that picks the largest number of events to attend
 given the start and end time for each event.
 
 
@@ -326,7 +651,7 @@ as possible.
 ---
 template: challenge
 
-## Challenge: Springbreak
+## Challenge: Spring Break
 
 __Solution 1__ - sort by length ($e_i - s_i$)
 
@@ -361,29 +686,27 @@ __Which of these solutions would result in the largest number of events?__
 ---
 template: challenge
 
-## Challenge: Springbreak
+## Challenge: Spring Break
 
 Consider these scenarios
 
-| scenario | sol 1 | sol 2| sol 3| optimal |
+| scenario | by length | by start time| by end time| optimal |
 |:---:|---|---|---|---|
 | <img src="img/events_3.PNG" alt="four events" width = "350px"/> | 3: e1, e3, e4 | 3: e1, e3, e4 | 3: e1, e3, e4 | 3: e1, e3, e4 |
 | <img src="img/events_2.PNG" alt="three events" width = "350px"/> | 1: e2 | 2: e1, e3 | 2: e1, e3 | 2: e1, e3 |
 | <img src="img/events_1.PNG" alt="four events" width = "350px"/> | 3: e2, e3, e4 | 1: e1 | 3: e2, e3, e4 | 3: e2, e3, e4 |
 
 ---
-## Challenge: Springbreak
+## Challenge: Spring Break
 
-The solutions #3 is the optimal one.
+Solution 3 is the optimal one.
 
-__Justification for optimality__: <br/>
-consider what happens when we pick an event that ends later than the one we picked
-- it will either conflict with another event that is in the set of events for solution 3, or not
-- if it does not conflict, than we have an equivalent optimal solution (i.e., same number of events)
-- if it does conflict, we have to give up another event, and the new solution has fewer events (not optimal)
-
-Picking an event that ends sooner, always gives a better or equivalent solution than picking an event that ends
-later.
+__Why is it optimal?__ <br/>
+Consider an optimal schedule and its first event. Replacing that event with the
+eligible event that ends earliest cannot make any later event incompatible,
+because the replacement finishes no later. Thus an optimal schedule can include
+the greedy choice. Repeating this argument on the remaining events proves that
+choosing the next compatible event with the earliest end time is optimal.
 
 
 --
@@ -506,20 +829,25 @@ class: center
 
 --
 
-- In an average case (and a little it of luck) we divide the array in two halves, and then the remaining elements in halves, ....
+- If each pivot splits the remaining array into roughly equal halves, the work is
+  $n + \frac{n}{2} + \frac{n}{4} + \cdots = O(n)$. With randomized pivots,
+  quick-select has expected $O(n)$ running time.
 
 $$n + \frac{n}{2} + \frac{n}{4} + \frac{n}{8} + ... = 2n$$
 
 --
 
-- In the worst case, we pick the pivot that creates ones of the partitions that is empty:
+- In the worst case, each pivot leaves one partition empty:
 
 $$n + n-1 + n-2 + n-3 + ... = n^{2}$$
 
 --
 <br/> <br/>
-__So, just like with quicksort, in the worst case we have $O(n^2)$ time, but typically, we get the answer in $O(n)$ time.
-(Note, only the worst case is like quicksort, because we only recurse on one of the partitions, not both.)__
+__So, quick-select takes $O(n^2)$ time in the worst case and expected $O(n)$
+time with randomized pivots.__
+
+(Only the worst case is like quicksort: quick-select recurses on one partition,
+not both.)
 
 ---
 template: section
@@ -542,11 +870,10 @@ template: challenge
 
 ## Challenge: Count A's and B's
 
-__Taks__<br/>
+__Task__<br/>
 
-Given an array of `N` elements such that indexes `0..k` are filled with A's
-and indexes `k+1..N-1` are filled with B's, find the number of A's and B's
-in that array.
+Given an array of `N` elements consisting of a prefix of A's followed by a
+suffix of B's (either group may be empty), find the number of A's and B's.
 
 <br>
 
@@ -566,26 +893,21 @@ template: challenge
 
 __Solution__
 
-Perform a modified binary search on `data ` searching for an A that is followed by a B.
+Use binary search to find the first B.
 
 ```
-begin = 0
-end = size of the array - 1
+lo = 0
+hi = N                 # search the half-open range [lo, hi)
 
-while begin <= end
-      mid = (begin+end)/2
-      if data[mid] == A
-          if data[mid+1] == B            <=== look for a B
-              found it so break
-          else
-              search in the first half
-              end = mid-1
-      else
-          search in the second half
-          begin = mid+1
+while lo < hi
+      mid = lo + floor((hi - lo) / 2)
+      if data[mid] == B
+          hi = mid
+      else              # data[mid] == A
+          lo = mid + 1
 
-countA = mid + 1
-countB = n - mid - 1
+countA = lo
+countB = N - lo
 ```
 
 
@@ -594,7 +916,7 @@ template: challenge
 
 ## Challenge: Separate A's and B's
 
-__Taks__<br/>
+__Task__<br/>
 
 Given an array of `N` elements each of which is an A or a B, rearrange the array so that
 it contains a continuous run of all A's followed by all B's.
@@ -611,11 +933,11 @@ _Example:_<br/>
 
 template: challenge
 
-## Challenge: Separate A's, B's, C's,  D's and F's
+## Challenge: Separate A's, B's, C's, D's, E's, and F's
 
-__Taks__<br/>
+__Task__<br/>
 
-Given an array of `N` elements each of which is an A - F, rearrange the array so that
+Given an array of `N` elements, each of which is a letter from A through F, rearrange the array so that
 it contains a continuous run of all A's followed by all B's, all C's, ... .
 
 <br>
@@ -628,25 +950,24 @@ _Example:_<br/>
 
 ---
 
+## More Problems To Solve
+
+Kattis Problems
+
+[Sort of Sorting (sortofsorting)](https://open.kattis.com/problems/sortofsorting)
+
+[A Classy Problem (classy)](https://open.kattis.com/problems/classy)
+
+[Best Relay Team (bestrelayteam)](https://open.kattis.com/problems/bestrelayteam)
+
+UVa Online Judge Problems
+
+[UVa 299: Train Swapping](https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=236)
 
 
-template: challenge
+[UVa 11495: Bubbles and Buckets](https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=2490)
 
-## Challenge
-
-__Taks__<br/>
-
-Given a preorder traversal of a binary search tree, recreate the tree.
-
-<br>
-
-_Example:_<br/>
-
-- input  `50 35 20 40 37 45 43 90 75 85 80 87 100`
-
-- output: actual structure of the tree
-
-
+[UVa 10107: What is the Median?](https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=107)
 
 
 </optgroup>
