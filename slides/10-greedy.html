@@ -78,15 +78,15 @@ class: slide
 ## Greedy
 
 
-- solving problems by making locally (at each step) optimal choices with
-the hope of obtaining optimal solution overall
+- Solving problems by making locally (at each step) optimal choices in the
+  hope of obtaining an optimal solution overall.
 
-- when does it work
-    - problem has optimal sub-structure: optimal solution for the problem
-      contains optimal solutions for sub-problems
-    - problem has a greedy property: optimal choices made at the moment
-      lead to otpimal overall solution (no need to go back and explore
-      an alternative)
+- When does it work?
+    - The problem has optimal substructure: an optimal solution to the problem
+      contains optimal solutions to its subproblems.
+    - The problem has the greedy-choice property: locally optimal choices
+      lead to an optimal overall solution, so there is no need to go back and
+      explore alternatives.
 
 - examples
 
@@ -98,9 +98,9 @@ class:challenge
 
 __Task__
 
-Given an amount V (in cents) and a list of denominations of n coins find
-the way to make the change with the minimum number of coins.
-Assume that you have unlimited supply of each coin (for each given denomination).
+Given an amount V (in cents) and a list of n coin denominations, find a way to
+make change using the minimum number of coins. Assume that you have an
+unlimited supply of each denomination.
 
 ---
 class:challenge
@@ -113,7 +113,7 @@ __Example__
 - denominations = {25, 10, 5, 1} cents
 - desired amount V = 47 cents
 
-solution:
+Solution:
 - start with the largest denomination and use as many coins as possible<br>
   47 - 25 = 22
 - use the next highest denomination <br>
@@ -124,18 +124,18 @@ solution:
   2 - 1 = 1 <br>
   2 - 1 = 0 <br>
 
-so we need 5 coins: 25, 10, 10, 1, 1
+So, we need 5 coins: 25, 10, 10, 1, 1.
 
 
 
 ---
 ## Challenge: Making Change
 
-This problem posseses both characteristics that make the greedy solution
+This problem possesses both characteristics that make the greedy solution
 applicable here:
 
 - the solutions to its subproblems are optimal, for example
-    - for 22 cents, the otpimal solution would be 4 coins: {10, 10, 1, 1}
+    - for 22 cents, the optimal solution would be 4 coins: {10, 10, 1, 1}
     - for 12 cents, the optimal solution would be 3 coins: {10, 1, 1}
 
 - the solution has a greedy property: we use the largest possible
@@ -147,7 +147,7 @@ coin with more than one coin in the alternative solution.
 _Note_<br>
 
 This approach does not work for all denominations. It does work for
-American coins of {25, 10, 5, 1} cents.
+American coins with denominations of {25, 10, 5, 1} cents.
 
 
 ---
@@ -155,28 +155,26 @@ class:challenge
 
 ## Computing Center Load Balancing
 
-You are an operator of a super computing center and in control of M nodes.
-One day, a research institute from Light Kingdom submitted N computational
-tasks. Given the computational power needed for each task, you are to distribute the tasks among
-the available nodes. Restriction: every node can process up to two tasks.
-You also want to distribute the
-workload as evenly as possible, i.e. minimize the following imbalance value
+You operate a supercomputing center with M nodes. One day, a research
+institute from Light Kingdom submits N computational tasks. Given the
+computational power required for each task, distribute the tasks among the
+available nodes. Each node can process up to two tasks. Minimize the workload
+imbalance, defined as follows:
 
 $$Imbalance = \sum_{i=0}^{M-1}{|Avg-Load_i|} $$
 
-where $Avg$ is average load per node and $Load_i$ is the load of the
+where $Avg$ is the average load per node and $Load_i$ is the load on the
 i-th node.
 
 __Input__:
-The first line of the input contains two integers M (1 <= M <= 5) and N (1 <= N
-<= 2M), indicating the number of nodes you control and the number of tasks,
-respectively.
-The second line contains N integers, each of which represents the computational
-power required for a task. Numbers on this line are between 1 and 1000.
+The first line of the input contains two integers, M (1 <= M <= 5) and
+N (1 <= N <= 2M), indicating the number of nodes and tasks, respectively.
+The second line contains N integers, each representing the computational power
+required for a task. Each value is between 1 and 1000.
 
 __Output__:
-Print one line `IMBALANCE = I` where `I` is the minimum imbalance value rounded
-to 5 decimal places.
+Print one line, `IMBALANCE = I`, where `I` is the minimum imbalance value,
+rounded to 5 decimal places.
 
 
 ---
@@ -185,16 +183,15 @@ to 5 decimal places.
 
 .left-column2[
 
-You are an operator of a super computing center and in control of M nodes.
-One day, a research institute from Light Kingdom submitted N computational
-tasks. Given the computational power needed for each task, you are to distribute the tasks among
-the available nodes. Restriction: every node can process up to two tasks.
-You also want to distribute the
-workload as evenly as possible, i.e. minimize the following imbalance value
+You operate a supercomputing center with M nodes. One day, a research
+institute from Light Kingdom submits N computational tasks. Given the
+computational power required for each task, distribute the tasks among the
+available nodes. Each node can process up to two tasks. Minimize the workload
+imbalance, defined as follows:
 
 $$Imbalance = \sum_{i=0}^{M-1}{|Avg-Load_i|} $$
 
-where $Avg$ is average load per node and $Load_i$ is the load of the
+where $Avg$ is the average load per node and $Load_i$ is the load on the
 i-th node.
 
 ]
@@ -246,16 +243,15 @@ IMBALANCE = 11.60000
 
 .left-column2[
 
-You are an operator of a super computing center and in control of M nodes.
-One day, a research institute from Light Kingdom submitted N computational
-tasks. Given the computational power needed for each task, you are to distribute the tasks among
-the available nodes. Restriction: every node can process up to two tasks.
-You also want to distribute the
-workload as evenly as possible, i.e. minimize the following imbalance value
+You operate a supercomputing center with M nodes. One day, a research
+institute from Light Kingdom submits N computational tasks. Given the
+computational power required for each task, distribute the tasks among the
+available nodes. Each node can process up to two tasks. Minimize the workload
+imbalance, defined as follows:
 
 $$Imbalance = \sum_{i=0}^{M-1}{|Avg-Load_i|} $$
 
-where $Avg$ is average load per node and $Load_i$ is the load of the
+where $Avg$ is the average load per node and $Load_i$ is the load on the
 i-th node.
 
 ]
@@ -263,13 +259,13 @@ i-th node.
 .right-column2[
 
 
-__Observation 1__: If there is an empty computing node in the final solution, than it is always
-beneficial (in the sense that the new solution is not worse than the original) to move
-one task from a computing node with two tasks to the empty one. Otherwise, the empty
-computing node contributes more to the imbalance than the alternative assignment.
+__Observation 1__: If there is an empty computing node in the final solution,
+then moving one task from a node with two tasks to the empty node never
+increases the imbalance. Otherwise, the empty node contributes more to the
+imbalance than the alternative assignment.
 
-__Observation 2__: If N > M, then N-M tasks must be scheduled on computing nodes that
-already contain other tasks.
+__Observation 2__: If N > M, then N-M tasks must be assigned to computing
+nodes that already contain another task.
 
 ]
 
@@ -280,7 +276,7 @@ already contain other tasks.
 
 
 
-- __Given__: 
+- __Given__:
   - a set of islands (points) in the sea (`y > 0`, `x` unrestricted)
   - a radar range `d`.
 
@@ -290,7 +286,8 @@ already contain other tasks.
 
 - __Objective__: Find the minimum number of radars needed to cover all islands.
 
-- __Output__: Report the minimum count, or -1 if it's impossible to cover all islands. 
+- __Output__: Report the minimum count, or -1 if it is impossible to cover all
+  the islands.
 
 --
 
@@ -320,12 +317,13 @@ islands: (-3, 1), (1,2), (2,1)
 
 __Idea__
 
-- For each island, we compute the interval of possible radar positions:
+- For each island, compute the interval of possible radar positions:
 
      [xi - sqrt(d² - yi²), xi + sqrt(d² - yi²)].
 
-- By always placing the radar at the rightmost possible position that still covers the current island, 
-we ensure it covers as many subsequent islands as possible — this is a greedy strategy.
+- By always placing the radar at the rightmost possible position that still
+covers the current island, we ensure that it covers as many subsequent
+islands as possible. This is a greedy strategy.
 
 
 
@@ -343,11 +341,11 @@ __Given:__
 
 __Initialization and setup:__ 
 
-sort the `islands` array by the `x` coordinate from smallest to largest
+Sort the `islands` array in ascending order by the `x` coordinate.
 
-`radar_count = 0` the count of installed radars 
+`radar_count = 0` // Count of installed radars
 
-`lastRadarX = -∞` the `x`-coordinate of the most recently installed radar
+`lastRadarX = -∞` // `x`-coordinate of the most recently installed radar
 
 
 
@@ -379,18 +377,18 @@ __Compute the number of radars__
 ```
 for each island (xi, yi) in islands:
 
-  //check if the island can be covered by any radar at all
-  if yi > d, it is impossible to cover this island,  return -1
+  // Check whether the island can be covered by any radar.
+  if yi > d, it is impossible to cover this island; return -1.
 
-  //check if the island is already covered by the current radar
-  //(i.e., does it lie within the last radar's coverage area) 
+  // Check whether the island is already covered by the current radar
+  // (i.e., whether it lies within the last radar's coverage area).
   if xi <= lastRadarX + sqrt(d^2 - yi^2)  
-    continue, no need to add another radar 
+    continue // No need to add another radar.
     
-  //otherwise, install a new radar at the rightmost x position where 
-  //a radar could be placed to still cover this island
+  // Otherwise, install a new radar at the rightmost x-position that still
+  // covers this island.
   radar_count++
-  lastRadarX = x1 + sqrt(d^2 - yi^2)  
+  lastRadarX = xi + sqrt(d^2 - yi^2)
 
 return radar_count
 
@@ -400,25 +398,26 @@ return radar_count
 
 ## [Radar Installation](https://onlinejudge.org/external/11/1193.pdf) - Algorithm (Take 1) 
 
-.big[WARNING!!! <br>The algorithm we just went over, does not work in all cases!!!  
+.big[WARNING!!! <br>The algorithm we just went over does not work in all cases!!!
 ]
 
 --
 
-Can you think of a scenario in which it fails to find the minimum number of radars? 
+Can you think of a scenario in which it fails to find the minimum number of radars?
 
 
 --
 
-- Assume $d$ (the radar's coverage diameter) is larger than 1
+- Assume $d$ (the radar's range) is larger than 1.
 
 - Two islands with the following coordinates:
 
   - $x_1$, $\epsilon$ 
   - $x_1+1$, $d$ 
   
-The algorithm would place the radar at coordinate $x_1 + d$ (assuming that $\epsilon$ is very small). This radar cannot cover the second island. 
-But if we place a radar at the location $x_1 + 1$, then both islands are covered. 
+The algorithm would place the radar at coordinate $x_1 + d$ (assuming that
+$\epsilon$ is very small). This radar cannot cover the second island. However,
+if we place a radar at $x_1 + 1$, then both islands are covered.
 
 ---
 
@@ -427,23 +426,25 @@ But if we place a radar at the location $x_1 + 1$, then both islands are covered
 
 - __Given__
 
-  - A target line segment `[0, M]` to be covered  .
-  - A list of available line segments, each with coordinates `[Li, Ri]`.
+  - A target line segment, `[0, M]`, to cover.
+  - A list of available line segments, each with endpoints `[Li, Ri]`.
 
-- __Task__: Find the minimal number of available segments that are needed to completely cover the entire `[0, M]` segment.
+- __Task__: Find the minimum number of available segments needed to cover the
+  entire `[0, M]` segment.
 
 - __Output__:
 
   - The count of the minimal segments used.
-  - The list of those specific segments, sorted by their left coordinate.
-  - If covering `[0, M]` is impossible, output `0`.
+  - The selected segments, sorted by their left endpoints.
+  - If it is impossible to cover `[0, M]`, output `0`.
 
 --
 
 __Intuition__
 
-This is the classic greedy __interval-cover problem__: 
-repeatedly choose the segment that starts at or before the current uncovered point and extends as __far right as possible__.
+This is the classic greedy __interval-covering problem__:
+repeatedly choose the segment that starts at or before the current uncovered
+point and extends as __far right as possible__.
 
 
 ---
@@ -452,28 +453,31 @@ repeatedly choose the segment that starts at or before the current uncovered poi
 
 __Given__
 
-`M` target right endpoint (we need to cover [0,M]
+`M` — the target's right endpoint (we need to cover `[0, M]`)
 
-`segments` — list of pairs `(Li, Ri)` of segments to work with 
+`segments` — a list of endpoint pairs `(Li, Ri)` for the available segments.
 
 --
 
 __Preprocess by filter & sort__
 
-- Remove any segment with `R < 0` and segments with `L > M` - they cannot cover any part of the `[0,M]` interval. 
+- Remove any segment with `R < 0` or `L > M`; such segments cannot cover any
+  part of the `[0, M]` interval.
 
-- Sort segments by `L` ascending (and if equal `L`, by `R` descending). - 
-Sorting by left endpoint lets you scan from the left to right picking segments that can start at or before the current point.  
+- Sort the segments by `L` in ascending order, breaking ties by sorting `R`
+  in descending order. Sorting by left endpoint lets you scan from left to
+  right, picking segments that start at or before the current point.
 
 --
 
 __Initialize__
 
-`covered = 0.0` - current point covered (we need to advance covered from `0` toward `M`
+`covered = 0.0` — the current rightmost covered point (advance it from `0`
+toward `M`)
 
-`i = 0` - index into sorted segments
+`i = 0` — the index into the sorted segments
 
-`chosen = []`  - list of chosen segments (for output) 
+`chosen = []` — the list of selected segments (for output)
 
 
 ---
@@ -484,26 +488,29 @@ __Initialize__
 .small[
 __Given__
 
-`M` target right endpoint (we need to cover [0,M]
+`M` — the target's right endpoint (we need to cover `[0, M]`)
 
-`segments` — list of pairs `(Li, Ri)` of segments to work with 
+`segments` — a list of endpoint pairs `(Li, Ri)` for the available segments.
 
 
 __Preprocess by filter & sort__
 
-Remove any segment with `R < 0` and segments with `L > M` - they cannot cover any part of the `[0,M]` interval. 
+Remove any segment with `R < 0` or `L > M`; such segments cannot cover any
+part of the `[0, M]` interval.
 
-Sort segments by `L` ascending (and if equal `L`, by `R` descending). - 
-Sorting by left endpoint lets you scan from the left to right picking segments that can start at or before the current point.  
+Sort the segments by `L` in ascending order, breaking ties by sorting `R`
+in descending order. Sorting by left endpoint lets you scan from left to
+right, picking segments that start at or before the current point.
 
 
 __Initialize__
 
-`covered = 0.0` - current point covered (we need to advance covered from `0` toward `M`
+`covered = 0.0` — the current rightmost covered point (advance it from `0`
+toward `M`)
 
-`i = 0` - index into sorted segments
+`i = 0` — the index into the sorted segments
 
-`chosen = []`  - list of chosen segments (for output) 
+`chosen = []` — the list of selected segments (for output)
 
 ]
 ]
@@ -517,9 +524,8 @@ while covered < M:
 
   bestR = -∞ and bestSegment = None.
 
-  //consider all segments that befin at or before the current 
-  //uncovered point and choose the one that reaches farthest 
-  //right 
+  // Consider all segments that begin at or before the current
+  // uncovered point, and choose the one that reaches farthest right.
   while i < len(segments) and segments[i].L <= covered:
 
     if segments[i].R > bestR, 
@@ -527,8 +533,8 @@ while covered < M:
       bestSegment = segments[i]
       i ++
 
-  if bestR <= covered //no segment found that extends coverage
-    impossible to cover, return 0
+  if bestR <= covered // No segment found that extends coverage.
+    impossible to cover; return 0.
   otherwise
     append bestSegment to chosen
     covered = bestR
@@ -575,26 +581,29 @@ minimal_cover(M, segments):
 ## [Radar Installation](https://onlinejudge.org/external/11/1193.pdf) (Take 2)
 
 
-Can we think of the radar problem as the interval covering problem? 
+Can we think of the radar problem as an interval-covering problem?
 
-How? 
+How?
 
 --
 
-- Convert all islands given by ($x_i$, $y_i$) into intervals along the coast ($y = 0$):
-  - left end point $L(x_i) = x_i - \sqrt{d^2 - {y_i}^2}$
-  - right end point $R(x_i) = x_i + \sqrt{d^2 - {y_i}^2}$
+- Convert each island at ($x_i$, $y_i$) into an interval along the coast
+  ($y = 0$):
+  - Left endpoint: $L(x_i) = x_i - \sqrt{d^2 - {y_i}^2}$
+  - Right endpoint: $R(x_i) = x_i + \sqrt{d^2 - {y_i}^2}$
  
 --
 
-- Sort all the invervals __by the right endpoint__!
+- Sort all the intervals __by their right endpoints__.
 
 --
 
-- Initialize last placed radar location to $x_R = -\infty$ 
+- Initialize the last radar location to $x_R = -\infty$.
 
-- Go through the islands in the sorted order 
-  - if that island is not yet covered by an existing radar, i.e., if $ \lvert x_i - x_R \rvert > \sqrt{d^2 - y_i^2}$, place a radar at the location corresponding to $R(x_i)$ 
+- Go through the islands in sorted order.
+  - If an island is not yet covered by an existing radar (i.e., if
+    $\lvert x_i - x_R \rvert > \sqrt{d^2 - y_i^2}$), place a radar at the
+    location corresponding to $R(x_i)$.
 
 
 <!--
