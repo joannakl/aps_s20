@@ -19,7 +19,6 @@ class: center, title-slide
 ##  Divide and Conquer
 
 
-
 .author[
 Instructor: Joanna Klukowska <br>
 ]
@@ -64,191 +63,564 @@ class: slide
 
 .bottom-left[&#169; Joanna Klukowska. CC-BY-SA.]
 
+---
 
+## Exponentiation
 
+Task: compute $a^n$ for a given integer $a$ and nonnegative integer $n$. 
+
+--
+
+Approach 1: 
+- Multiply $a$ by itself $n$ times. 
+- This is $O(n)$.
+
+--
+
+Approach 2:
+- Use the recursive formula:
+`$$
+a^n =
+\begin{cases}
+1 & n=0 \\
+a(a^{n-1}) & n>0 
+\end{cases}
+$$`
+
+- This is also $O(n)$.
+
+--
+
+<br><br>
+Can we do better? 
+
+---
+
+## Exponentiation, continued
+
+Approach 3:
+- Use the recursive formula:
+`$$
+a^n =
+\begin{cases}
+1 & n=0 \\
+(a^{n/2})^2 & n \text{ even} \\
+a\times(a^{\lfloor n/2\rfloor})^2 & n \text{ odd}
+\end{cases}
+$$` 
+- This is $O(\log n)$. 
+
+--
+
+- Pseudocode 
+```
+    POWER(a, n):
+        if n == 0:
+            return 1
+        half = POWER(a, n / 2)
+        if n % 2 == 0:
+            return half * half
+        else:
+            return a * half * half
+```
 
 
 ---
 
 ## Divide and Conquer
 
+Divide and conquer solves a problem by:
 
-- solving problems by _dividing_ them into smaller/simpler problems and then
-_conquering_ the subproblems
+1. **Dividing** it into smaller instances of the same problem.
+2. **Conquering** those instances, usually recursively.
+3. **Combining** their answers into the answer to the original instance.
 
-- general approach:
-    - divide the given problem into sub-problems (often using halves)
-    - find solutions to the sub-problems (often by following the same
-      divide and conquer approach)
-    - combine the solutions of sub-problems into a solution for the given problem
+The pattern is useful when the subproblems are strictly smaller and their
+answers can be combined efficiently.
 
-- examples
-    - quicksort, mergesort
-    - binary search
+Examples: merge sort, fast exponentiation, and bitmap compression.
 
-- decrease and conquer - a version of divide and conquer algorithms in which
-only one sub-problem needs to be solved (as in binary search or quick-select)
+---
+## A design checklist
+
+For a recursive algorithm, answer these questions before writing code:
+
+- What does one recursive call promise to solve?
+
+- How is the input divided, and does every recursive input get smaller?
+
+- What are the base cases?
+
+- How are recursive answers combined?
+
+- How many calls are made, and what work is done outside the calls?
+
+
 
 ---
 
-template: challenge
+## Warm-up: merge sort
 
-## Challenge: Paying Off a Loan
+To sort an array:
 
-You use a bank loan to buy a car. You need to pay off the loan by paying
-$d$ dollars for $m$ months.  The original value of the car is $v$ and the bank
-charges the interest rate of $i%$ for any unpaid amount at the end of
-each month.
+- divide it into a left and right half;
+- recursively sort each half;
+- merge the two sorted halves.
 
-Given the values for $v$, $i$ and $m$ figure out what $d$ needs to be.
-Determine $d$ with two digits after the decimal point.
 
 --
 
-__Solution using a bisection method__
+For merge sort:
 
-- we want $d$ in a particular given range [a,b] = [0.0, $v\times(1+i/100)$]
+- Level 0: one problem of size $n$; merge work $O(n)$.
+- Level 1: two problems of size $n/2$; total merge work $O(n)$.
+- Level $k$: $2^k$ problems of size $n/2^k$; total merge work $O(n)$.
+- The recursion stops after about $\log_2 n$ levels.
 
-- we start with an estimate for $d$ as $\dfrac{a+b}{2}$
-
-- if the result is that we overpay, then try to decrease $d$,
-otherwise, increase $d$
-
----
-
-<br><br>
-
-a | b | d | estimate | action
----|---|---|---|---
-0.010000|1000.000000|500.005000|underpaid|increase d
-500.005000|1000.000000|750.002500|overpaid|decrease d
-500.005000|750.002500|625.003750|overpaid|decrease d
-500.005000|625.003750|562.504375|overpaid|decrease d
-500.005000|562.504375|531.254688|overpaid|decrease d
-500.005000|531.254688|515.629844|underpaid|increase d
-515.629844|531.254688|523.442266|underpaid|increase d
-523.442266|531.254688|527.348477|overpaid|decrease d
-523.442266|527.348477|525.395371|overpaid|decrease d
-523.442266|525.395371|524.418818|overpaid|decrease d
-523.442266|524.418818|523.930542|overpaid|decrease d
-523.442266|523.930542|523.686404|underpaid|increase d
-523.686404|523.930542|523.808473|underpaid|increase d
-523.808473|523.930542|523.869507|overpaid|decrease d
-523.808473|523.869507|523.838990|overpaid|decrease d
-523.808473|523.838990|523.823732|overpaid|decrease d
-523.808473|523.823732|523.816102|overpaid|decrease d
-523.808473|523.816102|523.812288|overpaid|decrease d
-523.808473|523.812288|523.810380|overpaid|decrease d
-523.808473|523.810380|523.809427|done
+Total work $O(n\log n)$.
 
 ---
 
-```C++
-int m, x;  double value, i;
+## Divide and conquer or decrease and conquer?
 
-scanf ("%lf %lf %d", &value, &i, &m);
+- **Divide and conquer:** solve multiple smaller instances, then combine.
 
-double a = 0.01, b = (1+1/100)*value;
-double d = (a+b)/2;
-double paid , owed ;
+  - Merge sort or quick sort solve both parts.
 
-do {
-    paid = 0.0, owed = value;
-    for (int month = 1; month <= m; month++) {
-        paid += d;
-        owed -= d;
-        owed *= (1+i/100);
+--
 
-    }
-    printf("%f\t%f\t%f", a, b, d);
+- **Decrease and conquer:** solve one smaller instance, then extend its answer.
 
-    if (fabs(0.0 - owed) < 0.001){
-        printf("\tdone\n");
-    }
-    else if ( owed < 0) {
-        b = d;
-        printf ("\toverpaid\tdecrease d\n");
-    }
-    else {// ( owed > 0)
-        a = d;
-        printf ("\tunderpaid\tincrease d\n");
-    }
-    d = (a+b)/2;
+  - Binary search keeps only one half.
+  - Quick select picks only one half to recurse into. 
 
-}
-while (fabs(0.0 - owed) >= 0.001 ) ;
 
-```
----
-## Spending ALL the Money
+--
 
-<!-- UVA 11057, Exact Sum -->
+Both use recursion (or iteration) and shrinking inputs. The difference is
+whether more than one subproblem must be solved.
 
-Jeff likes to read books. He also does not like to have any money.
-Every week he receives a check from his parents and he is determined to spend it all on books
-that he can read that week. He also knows that he does not have time to read more than two books
-in a given week.
-
-With these strange idea, Jeff needs to figure out each week which two books he should buy so
-that he spends all the money that he has that week.
-
-__Input__: <br>
-Each test case starts with 2 <= N <= 1000 which is the number of books he can chose from.
-Next line has the N book prices. The cost of a book is no more than 1,000,001.
-The third line has an integer M representing the amount of money that Jeff's parents sent him that week.
-
-__Output__: <br>
-For each test case you must print a message: "Jeff should buy books whose prices are i and j.", where i
-and j are the prices of the books whose sum is equal to M (exactly) and i <= j.  <br>
-It is always possible to pick two different books whose prices add up to M. <br>
-If there are more than one such options, you should report on the pair for which the difference between
-j and i is the smallest.
 
 ---
+template: challenge
 
-## Spending ALL the Money
+## Bitmap conversion challenge
 
+A black-and-white bitmap is a rectangular grid of pixels:
 
-Jeff likes to read books. He also does not like to have any money.
-Every week he receives a check from his parents and he is determined to spend it all on books
-that he can read that week. He also knows that he does not have time to read more than two books
-in a given week.
+- `1` represents a black pixel;
+- `0` represents a white pixel.
 
-With these strange idea, Jeff needs to figure out each week which two books he should buy so
-that he spend exactly all the money that he has that week.
+We will represent the same image in two ways:
 
-__Example 1__: <br>
+- as its pixels in row-by-row order;
+- as a recursive description:
+  - a region containing only `0`s is written `0`;
+  - a region containing only `1`s is written `1`;
+  - a mixed region is written `D`, followed by descriptions of its parts.
 
+**Task:** given either representation and the image dimensions, produce the
+other representation.
+
+---
+template: challenge
+
+## Example 1: a uniform image
+
+Start with this 2-by-2 bitmap:
+
+```text
+00
+00
 ```
-Input:
-2
-40 40
-80
 
-Output:
-Jeff should byu books whose prices are 40 and 40.
-```
-__Example 2__: <br>
+The whole rectangle contains only `0`s, so its complete description is one
+character:
 
+```text
+0
 ```
-Input:
-5
-10 2 6 8 4
+
+To decode `0` for a 2-by-2 image, fill all four pixels with `0`.
+No subdivision is needed.
+
+---
+template: challenge
+
+## Example 1: a mixed 2-by-2 image
+
+Now consider:
+
+```text
+01
 10
-
-Output:
-Jeff should buy books whose prices are 4 and 6.
 ```
 
+1. The whole rectangle is mixed, so write `D`.
+2. Visit its four 1-by-1 parts in this fixed order:
+   top-left, top-right, bottom-left, bottom-right.
+3. Their values are `0`, `1`, `1`, `0`.
+
+Therefore the complete description is:
+
+```text
+D0110
+```
+
+Decoding follows the same order: `D` means split; the next four symbols fill
+top-left, top-right, bottom-left, bottom-right.
 
 ---
+template: challenge
+
+## Example 2: a larger image
+
+Encode this 3-by-4 bitmap:
+
+```text
+0010
+0001
+1011
+```
+--
+
+The first symbol is `D` because the whole image is mixed. Since the height is
+3, the top part has 2 rows and the bottom part has 1. The width is 4, so
+each side has 2 columns.
+
+
+```text
+00 10
+00 01
+
+10 11
+```
+--
+
+Visit the resulting rectangles in top-left, top-right, bottom-left,
+bottom-right order.
+
 ---
+template: challenge
+
+## Example 2: encode each part
+
+For the 3-by-4 image, the four parts contribute:
+
+| Part | Pixels | Description |
+|---|---|---|
+| top-left, 2-by-2 | `00` / `00` | `0` |
+| top-right, 2-by-2 | `10` / `01` | `D1001` |
+| bottom-left, 1-by-2 | `10` | `D10` |
+| bottom-right, 1-by-2 | `11` | `1` |
+
+Prefix the four descriptions with the root `D`, then concatenate in table
+order:
+
+```text
+D + 0 + D1001 + D10 + 1 = D0D1001D101
+```
+
+This is the entire encoding; every `D` is followed by the descriptions of
+that region's parts in the same fixed order.
+
+---
+template: challenge
+
+## Example 2: decode the same image
+
+Given a 3-by-4 image and description `D0D1001D101`:
+
+1. Read the root `D`: split into 2-by-2, 2-by-2, 1-by-2, 1-by-2 parts.
+2. `0` fills the top-left part with zeros.
+3. `D1001` splits the top-right part; its four pixels are `1`, `0`, `0`, `1`.
+4. `D10` splits the bottom-left part into `1`, then `0`.
+5. `1` fills the bottom-right part with ones.
+
+Putting those parts back in the same positions gives:
+
+```text
+0010
+0001
+1011
+```
+
+---
+template: challenge
+
+## Example 3: sometimes the description is longer
+
+Consider this 3-by-3 checkerboard:
+
+```text
+010
+101
+010
+```
+
+Every region containing more than one pixel is mixed, so subdivision
+continues until the regions are individual pixels. Applying the same split order:
+
+```text
+root: D
+top-left 2-by-2: D0110
+top-right 2-by-1: D01
+bottom-left 1-by-2: D01
+bottom-right 1-by-1: 0
+```
+
+The complete description is:
+
+```text
+DD0110D01D010
+```
+
+The bitmap has 9 characters; its description has 13. This representation is
+not guaranteed to compress every image.
+
+---
+template: challenge
+
+## Rules for splitting a mixed region
+
+For a mixed rectangle, visit the parts in this order:
+
+1. top-left
+2. top-right
+3. bottom-left
+4. bottom-right
+
+When a dimension is odd, the top or left part gets the extra row or column.
+If there is only one row, split left then right. If there is only one column,
+split top then bottom. Never make an empty part.
+
+For a 3-by-4 region, the split dimensions are:
+
+```text
+top: 2 rows       bottom: 1 row
+left: 2 columns   right: 2 columns
+```
+
+---
+template: challenge
+## Exercise: convert in both directions
+
+Work in pairs. Apply the fixed split and traversal rules from the previous slide.
+
+#### A. Bitmap to description
+
+Encode this **5-by-6** bitmap:
+
+```text
+000111
+000111
+110000
+110000
+101010
+```
+
+Draw the first split and write the description in preorder.
+
+#### B. Description to bitmap
+
+Decode this description for a **5-by-5** image:
+
+```text
+DDD0001D01D01100D0101
+```
+
+Write the five rows. Mark how each `D` divides its region; the odd dimensions
+mean that the top/left portions receive the extra row or column.
+
+---
+template: challenge
+
+## The recursive subproblem
+
+Represent a rectangular region by its top-left coordinate and dimensions:
+
+```text
+(top, left, height, width)
+```
+
+Each call will encode or decode exactly this rectangle.
+
+- **Encoding base case:** every pixel in the rectangle is the same.
+- **Encoding recursive case:** the rectangle is mixed; describe its
+  nonempty parts in order.
+- **Decoding base case:** the next symbol is `0` or `1`; fill the rectangle.
+- **Decoding recursive case:** the next symbol is `D`; process its parts.
+
+---
+
+## A straightforward encoding
+
+Start with the whole bitmap. For each region:
+
+1. Scan its pixels to see whether they are all the same.
+2. If they are, output that pixel value.
+3. If they are mixed, output `D` and recursively encode the parts.
+
+This solution is intentionally direct: the full scan makes the base case
+easy to understand. It may inspect the same pixel again at several levels.
+
+---
+
+## Straightforward encoding: pseudocode
+
+```text
+encode(top, left, height, width):
+    first = bitmap[top][left]
+    uniform = true
+    for each pixel in this rectangle:
+        if pixel != first:
+            uniform = false
+            stop scanning
+
+    if uniform:
+        append first to output
+        return
+
+    append 'D' to output
+    for each nonempty part in required order:
+        encode(part)
+```
+
+The recursive calls solve strictly smaller rectangles. Their output, in
+order, completes the description of this region.
+
+---
+
+## Splitting without off-by-one errors
+
+When both dimensions exceed one:
+
+```text
+topHeight    = (height + 1) / 2
+bottomHeight = height / 2
+leftWidth    = (width + 1) / 2
+rightWidth   = width / 2
+```
+
+The four parts are:
+
+```text
+(top, left,                         topHeight,    leftWidth)
+(top, left + leftWidth,             topHeight,    rightWidth)
+(top + topHeight, left,             bottomHeight, leftWidth)
+(top + topHeight, left + leftWidth, bottomHeight, rightWidth)
+```
+
+If height is 1, split only left/right. If width is 1, split only top/bottom.
+For a one-row region, use left width $(width+1)/2$ and right width
+$width/2$. For a one-column region, use top height $(height+1)/2$ and bottom
+height $height/2$. Integer division is floor division.
+
+---
+
+## Decoding: follow the description
+
+The recursive description is read in preorder. Keep one cursor into its
+string.
+
+For each rectangle:
+
+- read and advance past one symbol;
+- if it is `0` or `1`, fill the rectangle with that value;
+- if it is `D`, recursively decode the parts in order.
+
+The cursor is shared by all recursive calls. Each call consumes exactly the
+symbols that describe its own rectangle.
+
+---
+
+## Decoding: trace an example
+
+The description for a 2-by-3 region is:
+
+```text
+DD10111
+```
+
+Read the first `D` and split the image.
+
+- Top-left is `D`, then splits into `1` and `0`.
+- Top-right is `1`.
+- Bottom-left is `1`.
+- Bottom-right is `1`.
+
+The rows become `101` and `111`; row-major output is `101111`.
+
+---
+
+## Decoding: pseudocode
+
+```text
+decode(top, left, height, width):
+    symbol = input[cursor]
+    cursor = cursor + 1
+
+    if symbol is '0' or '1':
+        fill this rectangle with symbol
+        return
+
+    for each nonempty part in required order:
+        decode(part)
+```
+
+After decoding the full image, the cursor should be at the end of the
+description. Otherwise, the split/order logic or input parsing is incorrect.
+
 ---
 
 
+## Binary search and numerical bisection
 
-</optgroup>
+Binary search repeatedly discards half of a sorted search interval, keeping
+only the half that can contain the answer.
 
+The same idea works on a monotone decision predicate or a continuous function
+whose root is bracketed:
+
+- keep an interval known to contain the answer;
+- test its midpoint;
+- retain the half that still satisfies the condition;
+- stop at the required precision.
+
+This is **decrease and conquer**, not the multi-subproblem pattern of merge
+sort or bitmap encoding. A correct solution must justify monotonicity,
+the initial bounds, and the stopping condition.
+
+---
+
+## When divide and conquer is a good fit
+
+Look for:
+
+- repeated subproblems that are smaller instances of the same task;
+- a natural partition (halves, quadrants, or exponent halves);
+- a manageable number of recursive calls;
+- a combine step cheaper than solving the original problem from scratch.
+
+Be cautious when:
+
+- subproblems overlap heavily (dynamic programming may be better);
+- dividing does not shrink the input;
+- combining dominates the total work;
+- recursion duplicates work that could be reused.
+
+---
+
+## Takeaways
+
+- Name the recursive subproblem precisely.
+- Establish progress with smaller inputs and explicit base cases.
+- Make partitioning cover every element or pixel exactly once.
+- Analyze the recurrence, including work outside recursive calls.
+- The two bitmap conversions are preorder traversal in opposite directions:
+  emit a region description, or consume one to fill a region.
+
+---
 
 
     </textarea>
@@ -261,18 +633,22 @@ Jeff should buy books whose prices are 4 and 6.
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      //var slideshow = remark.create();
 
-<script type="text/x-mathjax-config">
-   MathJax.Hub.Config({
-     extensions: ["tex2jax.js"],
-     jax: ["input/TeX", "output/HTML-CSS"],
-     tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-       processEscapes: true
-     },
-     "HTML-CSS": { availableFonts: ["TeX"] }
-   });
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
 </script>
 
 

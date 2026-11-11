@@ -75,12 +75,203 @@ class: slide
 
 ---
 
+template: challenge
+
+## Veci
+
+Your program is given an integer `X`. Find the smallest number larger than `X`
+that consists of the same digits as `X`.
+
+__Input__
+
+The first line contains an integer `X` ($1 \le X \le 999\,999$). Its first digit
+is not zero.
+
+__Output__
+
+Output the result on a single line. If no such number exists, output `0`.
+
+| Sample input | Sample output |
+|:--|:--|
+| `156` | `165` |
+| `330` | `0` |
+| `27711` | `71127` |
+
+---
+
+template: challenge
+
+## Veci: generate every permutation
+
+The most direct solution generates all distinct permutations of the digits,
+keeps those that form a number larger than `X`, and chooses the smallest one.
+
+```
+FIND-NEXT-NUMBER-BRUTE-FORCE(X)
+    digits ← DIGITS(X)
+    answer ← 0
+
+    for each distinct permutation p of digits do
+        value ← NUMBER(p)
+        if value > X and (answer == 0 or value < answer) then
+            answer ← value
+
+    return answer
+```
+
+How do we generate all distinct permutations of the digits? 
+
+
+---
+
+template: challenge
+
+## Veci: generate every permutation
+
+Use frequency counts so repeated digits produce only distinct permutations:
+
+```
+GENERATE-PERMUTATIONS(count, position, permutation, n)
+    if position == n then
+        PRINT(permutation)
+        return
+
+    for digit ← 0 to 9 do
+        if count[digit] > 0 then
+            count[digit] ← count[digit] - 1
+            permutation[position] ← digit
+            GENERATE-PERMUTATIONS(count, position + 1, permutation, n)
+            count[digit] ← count[digit] + 1
+```
+
+Start with `count[d]` equal to digit `d`'s frequency, `position = 0`, and a
+length-`n` array. 
+
+
+At most `n!` permutations are generated.
+
+--
+
+For Veci, `n ≤ 6`, so generating every permutation is feasible.
+
+But we can do better than generating all permutations for this problem. 
+
+---
+
+template: challenge
+
+## Veci: take 1
+
+Scan adjacent digits from right to left. At the first pair where the digit on
+the left is smaller, swap the pair and sort the digits to the right in
+increasing order.
+
+```
+TRY-NEXT-NUMBER(digits)
+    for i ← digits.length - 1 down to 1 do
+        if digits[i - 1] < digits[i] then
+            SWAP(digits[i - 1], digits[i])
+            SORT(digits, i, digits.length - 1)
+            return NUMBER(digits)
+
+    return 0
+```
+
+--
+
+This gives the right answer on many inputs:
+
+| `X` | Result |
+|:--|:--|
+| `156` | `165` |
+| `330` | `0` |
+| `27711` | `71127` |
+| `123` | `132` |
+
+---
+
+template: challenge
+
+## Veci: take 1 counterexample
+
+Try `X = 218765`.
+
+- The first increasing adjacent pair found from the right is `1, 8`.
+
+- Swapping them and sorting the suffix gives `281567`.
+
+- But `251678` is a smaller number that is still larger than `218765` and uses
+  exactly the same digits.
+
+
+This approach makes a larger number, but it does not always make the __smallest__
+larger number. 
+
+---
+
+template: challenge
+
+## Veci: take 2, the next permutation idea
+
+To get the smallest larger arrangement:
+
+1. Find the rightmost position `i` where `digits[i] < digits[i + 1]` (the pivot).
+
+2. Swap the pivot with the smallest digit to its right that is larger.
+
+3. Put the suffix in increasing order. It is decreasing before the swap, so
+   reversing it is enough.
+
+--
+
+The table compares the tempting rule (take 1) with the correct result:
+
+| `X` | Take 1 | Next permutation |
+|:--|:--|:--|
+| `156` | `165` | `165` |
+| `330` | `0` | `0` |
+| `27711` | `71127` | `71127` |
+| `123` | `132` | `132` |
+| `218765` | `281567` | `251678` |
+| `1243` | `1423` | `1324` |
+| `534976` | `539467` | `536479` |
+
+---
+
+template: challenge
+
+## Veci: next permutation
+
+```
+NEXT-PERMUTATION(digits)
+    i ← digits.length - 2
+    while i ≥ 0 and digits[i] ≥ digits[i + 1] do
+        i ← i - 1
+
+    if i < 0 then
+        return 0
+
+    j ← digits.length - 1
+    while digits[j] ≤ digits[i] do
+        j ← j - 1
+
+    SWAP(digits[i], digits[j])
+    REVERSE(digits, i + 1, digits.length - 1)
+    return NUMBER(digits)
+```
+
+This is the __next permutation problem__: given one arrangement, find the
+immediately following arrangement in lexicographic order. For Veci, the digits
+are the items being permuted.
+
+---
+
 ## Complete Search
 
 <br><br><br>
 - a.k.a., __brute force__
 <br><br>
-- solving problems by traversing the entire (or a large part of) search space
+- solving problems by traversing the entire (or a large part of the) search space
 in order to find the desired solution
 
 - recursive backtracking solutions fall under this category
@@ -93,9 +284,54 @@ template: challenge
 
 __Task 1__
 
-Generate all 7-character sequences consisting of letters 'p', 'r', 'o', 'b', 'l', 'e', 'm'.
+Generate all 7-character sequences consisting of letters 'p', 'r', 'o', 'b', 'l', 'e', 'm' - we can use each letter multiple times.
 
 --
+
+The number of sequences is $7^7 = 823,543$. 
+
+--
+
+A recursive backtracking solution is as follows: 
+
+```
+GENERATE-SEQUENCE(sequence, position)
+    if position == 7 then
+        PRINT(sequence)
+        return
+
+    for each letter in {'p', 'r', 'o', 'b', 'l', 'e', 'm'} do
+        sequence[position] ← letter
+        GENERATE-SEQUENCE(sequence, position + 1)
+``` 
+
+---
+
+template: challenge
+
+## Generate all sequences ...
+
+An iterative solution can use a queue to store the sequences that are being generated. The queue is initialized with the empty sequence. Then, while the queue is not empty, we remove a sequence from the queue and add all possible extensions of that sequence to the queue. If a sequence has length 7, we print it:
+
+```
+GENERATE-SEQUENCES-ITERATIVE()
+    Q ← CREATE-QUEUE()
+    ENQUEUE(Q, "")
+
+    while IS-EMPTY(Q) == FALSE do
+        sequence ← DEQUEUE(Q)
+        if sequence.length == 7 then
+            PRINT(sequence)
+        else
+            for each letter in {'p', 'r', 'o', 'b', 'l', 'e', 'm'} do
+                ENQUEUE(Q, sequence + letter)
+```
+---
+
+template: challenge
+
+## Generate all sequences ...
+
 
 __Task 2__
 
@@ -103,10 +339,31 @@ Generate all 7-character sequences consisting of letters  'p', 'r', 'o', 'b', 'l
 
 --
 
-- In solution to task 2 we can significantly reduce the search space by not following
-paths that lead to sequences that are not words by checking prefixes against the dictionary.
+- In the solution to Task 2, we can significantly reduce the search space by not following
+paths that lead to sequences that are not words by checking prefixes against the dictionary. 
+
+A recursive backtracking solution is as follows:
+
+```
+GENERATE-WORDS(sequence, position, dict)
+    if position == 7 then
+        if IS-WORD(dict, sequence) == TRUE then
+            PRINT(sequence)
+        return
+
+    for each letter in {'p', 'r', 'o', 'b', 'l', 'e', 'm'} do
+        sequence[position] ← letter
+        prefix ← SUBSTRING(sequence, 0, position)
+        if IS-PREFIX(dict, prefix) == TRUE then
+            GENERATE-WORDS(sequence, position + 1, dict)
+```
+
+--
+
+__This is still a brute force solution__, but it is a more efficient one than the one for Task 1. 
 
 ---
+
 template: challenge
 
 ## Challenge: Digit Quotient
@@ -136,14 +393,15 @@ template: challenge
 
 __Observation__
 
-- `fghij` can range from `01234` to `98765` <br>
-   or, even better from  `01234` to `(98765/N)`
+- `fghij` can range from `01234` to `98765` 
+<br>
+   or, even better, from `01234` to $\lfloor 98765 / N \rfloor$
 
-- given `fghij` we can compute `abcde` as `fghij*N`
+- given `fghij` we can compute `abcde` as $\text{fghij} \times N$
 
 __Questions__
 
-- given two values `tmp1` and `tmp2`, how can be decide if they use all ten digits
+- given two values `tmp1` and `tmp2`, how can we decide if they use all ten digits?
 
 --
 
@@ -153,11 +411,12 @@ __Solution__
 input: N
 
 ```
-for fghij in 1234 to 98765/N :
-    abcde = fghij * N
-    check if abcde and fghij collectively use 10 digits
-    if they do
-        print the values of the two numbers
+FIND-DIGIT-QUOTIENTS(N)
+    limit ← ⌊98765 / N⌋
+    for fghij ← 1234 to limit do
+        abcde ← fghij * N
+        if CHECK-ALL-DIGITS-USED(abcde, fghij) == TRUE then
+            PRINT(abcde, "/", fghij, "=", N)
 ```
 
 ---
@@ -165,21 +424,34 @@ template: challenge
 
 ## Challenge: Digit Quotient
 
-to check if `abcde` and `fghij` use all 10 digits
+How do we check if two numbers use all ten digits? 
 
-- set `used_digits` to (`fghij` < 10,000) - this will set the last bit of `used_digits`
-to 1 if the `f` digit is zero
-- set tmp to `abcde`
-- while tmp > 0
-    - `used_digits` |= 1 << (tmp%10)
-    - tmp /= 10
-- set tmp to `fghij`
-- while tmp > 0
-    - `used_digits` |= 1 << (tmp%10)
-    - tmp /= 10
-- if (used_digits == (1 << 10) - 1)
-    - all digits are used
+--
 
+```
+CHECK-ALL-DIGITS-USED(abcde, fghij)
+    used_digits ← 0
+
+    // If fghij < 10000, set bit 0 for the leading zero
+    if fghij < 10000 then
+        used_digits ← 1
+
+    tmp ← abcde
+    while tmp > 0 do
+        d ← tmp mod 10
+        used_digits ← used_digits | (1 << d)
+        tmp ← ⌊tmp / 10⌋
+
+    tmp ← fghij
+    while tmp > 0 do
+        d ← tmp mod 10
+        used_digits ← used_digits | (1 << d)
+        tmp ← ⌊tmp / 10⌋
+
+    if used_digits == (1 << 10) - 1 then
+        return TRUE
+    return FALSE
+```
 
 ---
 template: challenge
@@ -206,7 +478,7 @@ then x = 1, y = 2, z = 3 is a solution
 
 __Observation__
 
-the possible values of x, y and z are in $[-100, 100]$
+the possible values of x, y, and z are in $[-100, 100]$
 
 - how do we know that?
 
@@ -223,18 +495,16 @@ template: challenge
 
 __Algorithm__
 
-Give: values of A, B, C
+Given: values of A, B, C
 
 ```
-for x in -100 .. 100
-  for y in -100 .. 100
-    for z in -100 .. 100
-       if x, y and x are all different
-          AND x + y + z = A
-          AND x * y * z = B
-          AND x*x + y*y + z*z = C
-              we have a solution
-
+SOLVE-EQUATIONS-NAIVE(A, B, C)
+    for x ← -100 to 100 do
+        for y ← -100 to 100 do
+            for z ← -100 to 100 do
+                if x ≠ y and y ≠ z and x ≠ z then
+                    if (x + y + z == A) and (x * y * z == B) and (x*x + y*y + z*z == C) then
+                        PRINT("Solution:", x, y, z)
 ```
 
 __Can we eliminate some of the steps?__
@@ -246,26 +516,27 @@ template: challenge
 
 
 Can we eliminate some of the steps?
-- because of the second equation, we know that at least of of the above loops
+- because of the second equation, we know that at least one of the above loops
 has a range of no more than -22 to 22 (since if all values were x=y=z=22,
-we would have 22^3>10,000 and 21^3 < 10,000)
-- in each loop we can check if the value is not equal to already used value
+we would have $22^3 > 10,000$ and $21^3 < 10,000$)
+- in each loop we can check if the value is not equal to an already used value
 - for each loop we can check if the current variables (ignoring the contributions from the next one) are able
 to satisfy the conditions of the three equations
 
 
 ```
-for x in -22 .. 22
-  if x * x <= C
-    for y in -100 .. 100
-      if y != x AND x * x + y * y <= C
-        for z in -100 .. 100
-           if x, y and x are all different
-              AND x + y + z = A
-              AND x * y * z = B
-              AND x*x + y*y + z*z = C
-                  we have a solution
+SOLVE-EQUATIONS-OPTIMIZED(A, B, C)
+    for x ← -22 to 22 do
+        if x * x ≤ C then
+            for y ← -100 to 100 do
+                if y ≠ x and (x * x + y * y) ≤ C then
+                    for z ← -100 to 100 do
+                        if z ≠ x and z ≠ y then
+                            if (x + y + z == A) 
+                               and (x * y * z == B) 
+                               and (x*x + y*y + z*z == C) then
 
+                                PRINT("Solution:", x, y, z)
 ```
 ---
 class:challenge
@@ -273,14 +544,14 @@ class:challenge
 ## A few problems
 
 
-- Given an array of numbers, is it possible to split them values into two groups (all values have to be used),
-so that sum of one group is a multiple of 10 and sum of the other group is odd?
+- Given an array of numbers, is it possible to split these values into two groups (all values have to be used),
+so that the sum of one group is a multiple of 10 and the sum of the other group is odd?
 
 - Given an array of numbers and a target value, is it possible to pick values from the
 array that add up to the target?
-  - Added restriction 1: all occurences of 5 must be picked.
-  - Added restriction 2: if a value is picked, niether of the values adjacent to it can be picked.
-  - Added restriction 3: report all posible ways in which such a sum can be produced.
+- Added restriction 1: all occurrences of 5 must be picked.
+- Added restriction 2: if a value is picked, neither of the values adjacent to it can be picked.
+- Added restriction 3: report all possible ways in which such a sum can be produced.
 
 - Given an alphabet, generate all strings of length S (letters can repeat)
   - Added restriction 1: generate only strings that contain `en` as the last two characters
@@ -301,16 +572,17 @@ queens attack one another.
 --
 
 __Solution 1__ (most naive) <br>
-- enumarate all combinations of 8 different cells out of the
+- enumerate all combinations of 8 different cells out of the
 64 possibilities and see which of them provide a solution  <br>
-performance: $~_{64}C_8 \approx 4 \text{billion}$
+performance: $\binom{64}{8} \approx 4.4 \text{ billion}$
 
 --
 
 __Solution 2__ (still naive, but a bit faster) <br>
 - observation: each queen has to be in its own column
-- for each column, pick a single row position <br>
-performance: $8^8 \approx 17 \text{million}$
+- for each column, pick a single row position 
+<br>
+performance: $8^8 \approx 16.7 \text{ million}$
 
 --
 
@@ -337,7 +609,7 @@ __Solution 4__ (getting there)
 one of the above conditions (this gives us backtracking: prune
 the paths that do not lead to a valid solution)
 
-performance: $\text{sub} O(n!)$ where $n$ is the size of the chessboard
+performance: $\text{sub } \mathcal{O}(n!)$ where $n$ is the size of the chessboard
 (= number of queens)
 
 
@@ -348,24 +620,51 @@ _See [handout](08/queens_1.pdf) for the implementation._
 ## Queens on a Chess Board
 ## Backtracking
 
-- With 8 queens on an 8x8 chessboard
+- With 8 queens on an 8x8 chessboard,
 we have under $8! \approx 40 \text{thousand}$ operations.
 
-- If each operation takes $\approx 10^{-8}$ seconds, than this
+- If each operation takes $\approx 10^{-8}$ seconds, then this
 algorithm completes in under a second for 8 queens.
 
 --
 
-- What happens if you use a larger chessboard (i.e. larger number of queens)?
-for example $n=14$
+- What happens if you use a larger chessboard (i.e., a larger number of queens)?
+For example, $n = 14$.
+
+
+---
+
+## Flexible Spaces from Kattis 
+
+```
+FUNCTION solveFlexibleSpaces(W, L, partitions):
+    // Add the room boundaries (0 and W) to the partition list
+    ALL_POINTS = [0] + partitions + [W]
+    
+    // Use a set or boolean array to track all achievable widths
+    possible_widths = SET()
+    
+    // Check all pairs of partition boundaries (Brute Force O(L^2))
+    N = length(ALL_POINTS)
+    FOR i FROM 0 TO N - 1:
+        FOR j FROM i + 1 TO N - 1:
+            width = ALL_POINTS[j] - ALL_POINTS[i]
+            possible_widths.add(width)
+            
+    // Step 4: Sort and output all unique widths
+    sorted_widths = SORT(possible_widths)
+    PRINT sorted_widths separated by spaces
+```
+
 
 ---
 
 ## Making the _complete search_ work
 
-- filter vs. generate  <br>
+- filter vs. generate  
+<br>
 generate all possible solutions rather than starting with a set of all options
-and removing the impossible one
+and removing the impossible ones
 
 - prune infeasible search space areas as soon as possible
 
@@ -374,18 +673,18 @@ memory for time)
 
 - optimize your source code:
     - code in C++, not Java ☹
-    - use efficient i/o routines (`scanf/printf` over `cin/cout` in C++
+- use efficient I/O routines (`scanf/printf` over `cin/cout` in C++;
       `BufferedReader/BufferedWriter` over `Scanner/System.out` in Java)
-    - use cache friendly algorithms: consecutive memory accesses in an array
+- use cache-friendly algorithms: consecutive memory accesses in an array
       rather than jumping around
-    - access 2D arrays in a row major order
-    - use `int/long` or `bitset/Bitset` for manipulating boolean data, not
+- access 2D arrays in row-major order
+- use `int/long` or `bitset/BitSet` for manipulating boolean data, not
     arrays or vectors of boolean variables
     - use an array over `Vector/ArrayList`
     - declare large data structures and objects once and reuse them
-    - use iterative implementation over recursive implementations (assuming
+- use iterative implementations over recursive implementations (assuming
     same level of difficulty in coding)
-    - use c-string instead of C++ `string` class; use `StringBuffer` instead
+- use C-strings instead of C++ `string` class; use `StringBuilder` instead
       of `String` class in Java
 
 
