@@ -84,9 +84,9 @@ class: slide
 - When does it work?
     - The problem has optimal substructure: an optimal solution to the problem
       contains optimal solutions to its subproblems.
-    - The problem has the greedy-choice property: locally optimal choices
-      lead to an optimal overall solution, so there is no need to go back and
-      explore alternatives.
+    - The problem has the greedy-choice property: there is an optimal solution
+      that begins with the locally optimal choice (making locally optimal choices
+      does not guarantee a bally optimal solution for all problems).
 
 - examples
 
@@ -131,23 +131,33 @@ So, we need 5 coins: 25, 10, 10, 1, 1.
 ---
 ## Challenge: Making Change
 
-This problem possesses both characteristics that make the greedy solution
-applicable here:
+For the denominations {25, 10, 5, 1}, taking the largest possible coin first
+produces an optimal solution for this example (47 cents). 
 
-- the solutions to its subproblems are optimal, for example
-    - for 22 cents, the optimal solution would be 4 coins: {10, 10, 1, 1}
-    - for 12 cents, the optimal solution would be 3 coins: {10, 1, 1}
+For instance, after taking 25,
+the remaining 22 cents can be made with four coins: {10, 10, 1, 1}.
 
-- the solution has a greedy property: we use the largest possible
-coin first, if we used a smaller one instead, we would have to replace that
-coin with more than one coin in the alternative solution.
+However, the fact that it works for this example does not guarantee that it will work for all amounts.
 
 --
 
-_Note_<br>
+<br><br>
 
-This approach does not work for all denominations. It does work for
-American coins with denominations of {25, 10, 5, 1} cents.
+__This approach does not work for all denominations. It does work for
+American coins with denominations {25, 10, 5, 1} cents.__
+
+
+--
+
+<br><br>
+
+Consider denominations {4, 3, 1} and an amount of 6 cents.
+
+- Greedy takes 4, then 1, then 1: 3 coins.
+- An optimal solution is 3 + 3: 2 coins.
+
+The problem still has optimal substructure, but the largest-coin-first choice
+is not always part of an optimal solution. 
 
 
 ---
@@ -260,14 +270,52 @@ i-th node.
 
 
 __Observation 1__: If there is an empty computing node in the final solution,
-then moving one task from a node with two tasks to the empty node never
-increases the imbalance. Otherwise, the empty node contributes more to the
-imbalance than the alternative assignment.
+then moving one task of load `w` from any node with total load `L` to the empty node 
+reduces the imbalance. The two node loads change from (0, L) to (w, L − w). Since 0 ≤ w ≤ L, this makes the pair of loads no more spread out, so their total absolute deviation from the 
+fixed average cannot increase.
 
-__Observation 2__: If N > M, then N-M tasks must be assigned to computing
-nodes that already contain another task.
+__Observation 2__: In a solution with all M nodes occupied, if N > M, then
+exactly N-M tasks share a node with another task.
 
 ]
+
+---
+
+## Computing Center Load Balancing -- Greedy algorithm
+
+Let `A` be the task loads sorted in nondecreasing order. Add `2M-N` dummy
+tasks of load 0, then sort the resulting `2M` values. Pair the smallest with
+the largest, the second-smallest with the second-largest, and so on. Assign
+each pair to one node; a dummy task represents an unused task slot.
+
+```
+balance(M, tasks):
+    A = tasks + [0] * (2*M - len(tasks))
+    sort A
+    for i = 0 to M-1:
+        node[i] = (A[i], A[2*M - 1 - i])
+    return node
+```
+
+The zero padding also handles `N <= M`: each real task is paired with a zero,
+and any remaining nodes receive two dummy tasks.
+
+
+---
+
+## Computing Center Load Balancing -- Why the pairing works
+
+Pairing small and large loads keeps the node totals close together. For
+`a <= b <= c <= d`, the sums `a+d` and `b+c` are no farther apart than the
+sums `a+b` and `c+d`. These two pairings have the same total, and the sum of
+absolute deviations from the average cannot increase when two loads with a
+fixed total become closer. Repeatedly applying this exchange yields the
+smallest-with-largest pairing.
+
+The dummy zeros let the same exchange argument handle nodes with one or zero
+tasks. This gives an `O(N log N)` algorithm, dominated by sorting.
+
+
 
 
 ---
@@ -382,7 +430,7 @@ for each island (xi, yi) in islands:
 
   // Check whether the island is already covered by the current radar
   // (i.e., whether it lies within the last radar's coverage area).
-  if xi <= lastRadarX + sqrt(d^2 - yi^2)  
+  if abs(xi - lastRadarX) <= sqrt(d^2 - yi^2)
     continue // No need to add another radar.
     
   // Otherwise, install a new radar at the rightmost x-position that still
@@ -415,9 +463,12 @@ Can you think of a scenario in which it fails to find the minimum number of rada
   - $x_1$, $\epsilon$ 
   - $x_1+1$, $d$ 
   
-The algorithm would place the radar at coordinate $x_1 + d$ (assuming that
-$\epsilon$ is very small). This radar cannot cover the second island. However,
-if we place a radar at $x_1 + 1$, then both islands are covered.
+Even with the exact distance check in the pseudocode above, the algorithm
+places the first radar near $x_1 + d$ (assuming that $\epsilon$ is very
+small). That radar cannot cover the second island, so this left-to-right
+strategy uses two radars. A single radar at $x_1 + 1$ covers both islands.
+The issue is the greedy choice of where to place the first radar, not the
+distance check.
 
 ---
 
@@ -522,13 +573,14 @@ __Cover `[0,M]` interval__
 ``` 
 while covered < M:
 
-  bestR = -∞ and bestSegment = None.
+  bestR = covered
+  bestSegment = None
 
   // Consider all segments that begin at or before the current
   // uncovered point, and choose the one that reaches farthest right.
   while i < len(segments) and segments[i].L <= covered:
 
-    if segments[i].R > bestR, 
+    if segments[i].R > bestR:
       bestR = segments[i].R 
       bestSegment = segments[i]
       i ++
@@ -574,6 +626,20 @@ minimal_cover(M, segments):
 
 ```
 
+---
+
+## Minimal Coverage -- Why the greedy choice works
+
+At the current covered point `x`, every valid continuation must choose a
+segment whose left endpoint is at most `x`. Among those segments, choose one
+with the farthest right endpoint. Replacing the first segment of any optimal
+continuation with this choice cannot reduce the covered interval, so it
+preserves the possibility of completing an optimal cover. Repeating this
+argument proves the greedy choice is optimal.
+
+Each segment is examined at most once after sorting, so the running time is
+`O(n log n)`, dominated by sorting.
+
 
 
 ---
@@ -592,6 +658,8 @@ How?
   - Left endpoint: $L(x_i) = x_i - \sqrt{d^2 - {y_i}^2}$
   - Right endpoint: $R(x_i) = x_i + \sqrt{d^2 - {y_i}^2}$
  
+  If any island has $y_i > d$, it cannot be covered; report `-1`.
+ 
 --
 
 - Sort all the intervals __by their right endpoints__.
@@ -604,6 +672,38 @@ How?
   - If an island is not yet covered by an existing radar (i.e., if
     $\lvert x_i - x_R \rvert > \sqrt{d^2 - y_i^2}$), place a radar at the
     location corresponding to $R(x_i)$.
+
+
+---
+
+## Radar Installation -- Algorithm (Take 2)
+
+For each island, first check whether `y > d`; if so, return `-1`. Otherwise,
+compute its interval `[L, R]` of possible radar positions.
+
+```
+radar_installation(islands, d):
+    intervals = []
+    for (x, y) in islands:
+        if y > d:
+            return -1
+        reach = sqrt(d*d - y*y)
+        intervals.append((x - reach, x + reach))
+
+    sort intervals by right endpoint in ascending order
+    radar_positions = []
+    for (L, R) in intervals:
+        if radar_positions is empty or radar_positions[-1] < L:
+            radar_positions.append(R)
+
+    return length(radar_positions)
+```
+
+When an interval is not covered by the most recently chosen radar, selecting
+its right endpoint covers that interval and leaves the earliest possible
+right endpoint for the remaining intervals. This is the standard interval
+stabbing greedy algorithm. The running time is `O(n log n)`, dominated by
+sorting.
 
 
 <!--

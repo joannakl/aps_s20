@@ -461,8 +461,6 @@ Start with the whole bitmap. For each region:
 2. If they are, output that pixel value.
 3. If they are mixed, output `D` and recursively encode the parts.
 
-This solution is intentionally direct: the full scan makes the base case
-easy to understand. It may inspect the same pixel again at several levels.
 
 ---
 
@@ -493,28 +491,35 @@ order, completes the description of this region.
 
 ## Splitting without off-by-one errors
 
-When both dimensions exceed one:
+- When both dimensions exceed one:
 
-```text
-topHeight    = (height + 1) / 2
-bottomHeight = height / 2
-leftWidth    = (width + 1) / 2
-rightWidth   = width / 2
-```
+  ```text
+  topHeight    = (height + 1) / 2
+  bottomHeight = height / 2
+  leftWidth    = (width + 1) / 2
+  rightWidth   = width / 2
+  ```
 
-The four parts are:
+  The four parts are:
 
-```text
-(top, left,                         topHeight,    leftWidth)
-(top, left + leftWidth,             topHeight,    rightWidth)
-(top + topHeight, left,             bottomHeight, leftWidth)
-(top + topHeight, left + leftWidth, bottomHeight, rightWidth)
-```
+  ```text
+  (top, left,                         topHeight,    leftWidth)
+  (top, left + leftWidth,             topHeight,    rightWidth)
+  (top + topHeight, left,             bottomHeight, leftWidth)
+  (top + topHeight, left + leftWidth, bottomHeight, rightWidth)
+  ```
 
-If height is 1, split only left/right. If width is 1, split only top/bottom.
-For a one-row region, use left width $(width+1)/2$ and right width
-$width/2$. For a one-column region, use top height $(height+1)/2$ and bottom
-height $height/2$. Integer division is floor division.
+- If height is 1, split only left/right. 
+
+- For a one-row region, use left width `(width+1)/2` and right width
+`width/2`
+
+- If width is 1, split only top/bottom.
+
+- For a one-column region, use top height `(height+1)/2` and bottom
+height `height/2`. 
+
+Remember: Integer division is floor division.
 
 ---
 
@@ -542,14 +547,58 @@ The description for a 2-by-3 region is:
 DD10111
 ```
 
-Read the first `D` and split the image.
+Read the first `D`, the bitmap is not uniform, so split it into four parts
+  
+  ```
+  XX X
 
-- Top-left is `D`, then splits into `1` and `0`.
-- Top-right is `1`.
-- Bottom-left is `1`.
-- Bottom-right is `1`.
+  XX X
+  ```
 
-The rows become `101` and `111`; row-major output is `101111`.
+--
+.left-column2[
+The next `D` describes the top-left 1-by-2 part. It is not uniform, so split it into two parts with values of 1 and 0 based on the next two symbols. 
+  
+  ```
+  10 X
+
+  XX X
+  ```
+]
+--
+.right-column2[
+The next part (top-right 1-by-1) is uniform, so fill it with the next symbol `1`:
+
+  ```
+  10 1
+
+  XX X
+  ```
+]
+--
+.continue-column[
+<br>
+] 
+
+.left-column2[
+The next part (bottom-left 1-by-2) is uniform, so fill it with the next symbol `1`:
+
+  ```
+  10 1
+
+  11 X
+  ```
+]
+--
+.right-column2[
+Finally, the last part (bottom-right 1-by-1) is uniform, so fill it with the next symbol `1`:  
+
+  ```
+  10 1
+
+  11 1
+  ```
+]
 
 ---
 
